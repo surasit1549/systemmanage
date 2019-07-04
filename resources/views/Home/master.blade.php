@@ -26,19 +26,22 @@
     </style>
   </head>
   <body>
-    <header>
-      <h1>
-        Index
-      </h1>
+
+    <header class="navbar navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">KENGJA</a>
     </header>
-    <section>
-      <ul>
-        <li><a href="{{route('store.index')}}">ร้านค้า</a></li>
-        <li><a href="{{route('transform.index')}}">แปลง</a></li>
-        <li><a href="{{route('prequest.create')}}">ใบขอสั่งซื้อ PR</a></li>
-      </ul>
-    </section>
-      @yield('content')
+    <div class="row">
+      <nav class="col-md-2 border">
+        <ul class="nav flex-column">
+          <li class="nav-item"><a class="nav-link" href="{{route('store.index')}}">ร้านค้า</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{route('transform.index')}}">แปลง</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{route('prequest.create')}}">ใบขอสั่งซื้อ PR</a></li>
+        </ul>
+      </nav>
+        <div class="col-md-10">
+          @yield('content')
+        </div>
+    </div>
       </body>
   <footer>@yield('footer')</footer>
 </html>
