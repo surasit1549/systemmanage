@@ -10,14 +10,12 @@
         <div class="form-group">
           <table style="width:100%">
             <tr>
-              <td>
-                <h>ชื่อแปลง :</h>
+                <td>ชื่อแปลง :</td>
                 <td><input type="text" name="convertname" class="form-control"/></td>
-              </td>
             </tr>
             <tr>
               <div class="form-group">
-                <td><h>ขนาด :</h></td>
+                <td>ขนาด :</td>
                 <td><input type="text" name="size" class="form-control"  /></td>
               </div>
             </tr>
