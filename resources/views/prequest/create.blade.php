@@ -10,6 +10,7 @@
       <form method="post" action="{{url('prequest')}}">
         {{csrf_field()}}
         <div class="form-group">
+        
           <table style="width:100%">
             <tr>
               <td>
@@ -40,6 +41,7 @@
                 </td>
               </div>
             </tr>
+            
             <tr>
               <div class="form-group">
                 <td><h>แบบงาน :</h></td>
@@ -59,9 +61,10 @@
                 </td>
               </div>
             </tr>
+            
           </table>
           <br><br><br>
-          
+
            <!-- การเพิ่มสินค้า  -->
           <script type="text/javascript">
             $(document).ready(function(){
@@ -106,9 +109,9 @@
                 <th>ราคา</th>
                 <th>จำนวนเงิน</th>
               </tr>
-              <tbody>
-                
-              </tbody>
+              <tr>
+
+              </tr>
           </table>
         </div>
         <div class="form-group">
