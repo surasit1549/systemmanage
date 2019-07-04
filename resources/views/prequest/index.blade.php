@@ -23,7 +23,6 @@
           </tr>
           @foreach($prequest as $row)
           <tr>
-            <td>test</td>
             <td>{{$row['id']}}</td>
             <td>{{$row['numberPR']}}</td>
             <td>{{$row['date']}}</td>
