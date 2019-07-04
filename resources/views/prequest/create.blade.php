@@ -1,13 +1,6 @@
 @extends('Home.master')
 @section('title','ใบขอสั่งซื้อ')
 @section('content')
-<script>
-$(document).ready(function(){
-  $("#btn").click(function(){
-    $("ol").append("<li>เพิ่ม</li>");
-  });
-});
-</script>
 <div class="container">
   <div class="row">
     <div class="col-md-12">
@@ -51,7 +44,7 @@ $(document).ready(function(){
               <div class="form-group">
                 <td><h>แบบงาน :</h></td>
                 <td>
-                  <select class="form-control" name="formwork" />
+                  <select class="form-control" name="formwork" >
                     <option value="งานโครงสร้างอาคาร">งานโครงสร้างอาคาร</option>
                     <option value="งานโครงสร้างหลังคา/หลังคา">งานโครงสร้างหลังคา/หลังคา</option>
                     <option value="งานผนัง">งานผนัง</option>
@@ -67,7 +60,43 @@ $(document).ready(function(){
               </div>
             </tr>
           </table>
-          <table class="table table-hover" style="width : 100%">
+          <br><br><br>
+          
+           <!-- การเพิ่มสินค้า  -->
+          <script type="text/javascript">
+            $(document).ready(function(){
+              $(".add-row").click(function(){
+                var productname = $("#productname").val();
+                var productnumber = $("#productnumber").val();
+                var unit = $("#unit").val();
+                var store = $("#store").val();
+                var price = $("#price").val();
+                var sum = $("#sum").val();
+                var markup = "<tr><td><input type='checkbox' name='record'></td><td>"
+                            + productname + "</td><td>" 
+                            + productnumber + "</td><td>"
+                            + unit + "</td><td>"
+                            + store + "</td><td>"
+                            + price + "</td><td>"
+                            + sum + "</td></tr>";
+                $("table tbody").append(markup);
+              });
+            });
+          </script>
+
+          <!-- สินค้าที่ขอสั่งซื้อ -->
+          <form>
+            <br><br>
+            <input type="text" id="productname" placeholder="ชื่อสินค้า" ><br>
+            <input type="number" id="productnumber" placeholder="จำนวน"><br>
+            <input type="text" id="unit" placeholder="หน่วย"><br>
+            <input type="text" id="store" ><br>
+            <input type="number" id="price" ><br>
+            <input type="number" id="sum" ><br><br>
+            <input type="button" class="add-row" value="Add"><br><br>
+          </form>
+
+          <table class="table table-hover" >
               <tr>
                 <th>ลำดับ</th>
                 <th>รายการขอสั่งซื้อสินค้า</th>
@@ -77,22 +106,9 @@ $(document).ready(function(){
                 <th>ราคา</th>
                 <th>จำนวนเงิน</th>
               </tr>
-              <tr>
-                <ol>
-                  <td><button id="btn">เพิ่ม</button> </td>
-                </ol>
-                  <td><input type="text" name="productname" class="form-control" /> </td>
-                  <td>
-                    <input type="number" name="numberproduct" class="form-control" />
-                  </td>
-                  <td><input type="text" name="unit" class="form-control" /> </td>
-                  <td> </td>
-                  <td>
-                    <input type="number" name="price" class="form-control" />
-                  </td>
-                  <td></td>
+              <tbody>
                 
-              </tr>
+              </tbody>
           </table>
         </div>
         <div class="form-group">
