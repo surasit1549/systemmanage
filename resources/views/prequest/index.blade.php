@@ -13,6 +13,7 @@
         @endif
         <table class="table table-hover">
           <tr>
+            <th>TEST</th>
             <th>ลำดับ</th>
             <th>ชื่อเลขที่เอกสาร</th>
             <th>วันที่ขอสั่งซื้อ</th>
