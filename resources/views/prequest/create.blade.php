@@ -10,8 +10,10 @@ $(document).ready(function(){
 </script>
 <div class="container">
   <div class="row">
-    <div class="col-md-12"> <br />
-      <h3 align="center">เพิ่มข้อมูลใบสั่งซื้อ</h3> <br />
+    <div class="col-md-12">
+      <br>
+      <h3 align="center">เพิ่มข้อมูลใบสั่งซื้อ</h3> 
+      <br>
       <form method="post" action="{{url('prequest')}}">
         {{csrf_field()}}
         <div class="form-group">
@@ -38,7 +40,7 @@ $(document).ready(function(){
               <div class="form-group">
                 <td><h>แปลง :</h></td>
                 <td>
-                  <select name="prequest">
+                  <select name="prequest" class="form-control">
                     @foreach($prequest as $row)
                       <option value="{{$row['id']}}">{{$row['convertname']}}</option>
                     @endforeach
@@ -49,19 +51,18 @@ $(document).ready(function(){
               <div class="form-group">
                 <td><h>แบบงาน :</h></td>
                 <td>
-                  <input list="formwork" name="formwork" />
-                  <datalist id="formwork">
-                    <option value="งานโครงสร้างอาคาร">
-                    <option value="งานโครงสร้างหลังคา/หลังคา">
-                    <option value="งานผนัง">
-                    <option value="งานผิวพื้น">
-                    <option value="งานฝ้าเพดาน">
-                    <option value="งานรั้ว">
-                    <option value="งานไฟฟ้า">
-                    <option value="งานประปา/สุขาภิบาล">
-                    <option value="งานเบ็ดเตล็ด">
-                    <option value="งานสุขาภิบาลภายนอก">
-                  </datalist>
+                  <select class="form-control" name="formwork" />
+                    <option value="งานโครงสร้างอาคาร">งานโครงสร้างอาคาร</option>
+                    <option value="งานโครงสร้างหลังคา/หลังคา">งานโครงสร้างหลังคา/หลังคา</option>
+                    <option value="งานผนัง">งานผนัง</option>
+                    <option value="งานผิวพื้น">งานผิวพื้น</option>
+                    <option value="งานฝ้าเพดาน">งานฝ้าเพดาน</option>
+                    <option value="งานรั้ว">งานรั้ว</option>
+                    <option value="งานไฟฟ้า">งานไฟฟ้า</option>
+                    <option value="งานประปา/สุขาภิบาล">งานประปา/สุขาภิบาล</option>
+                    <option value="งานเบ็ดเตล็ด">งานเบ็ดเตล็ด</option>
+                    <option value="งานสุขาภิบาลภายนอก">งานสุขาภิบาลภายนอก</option>
+                  </select>
                 </td>
               </div>
             </tr>
