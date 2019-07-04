@@ -1,6 +1,13 @@
 @extends('Home.master')
 @section('title','ใบขอสั่งซื้อ')
 @section('content')
+<script>
+$(document).ready(function(){
+  $("#btn").click(function(){
+    $("ol").append("<li>เพิ่ม</li>");
+  });
+});
+</script>
 <div class="container">
   <div class="row">
     <div class="col-md-12"> <br />
@@ -70,7 +77,9 @@
                 <th>จำนวนเงิน</th>
               </tr>
               <tr>
-                  <td><input type="submit" name="id" class="btn btn-primary" value="เพิ่ม" > </td>
+                <ol>
+                  <td><button id="btn">เพิ่ม</button> </td>
+                </ol>
                   <td><input type="text" name="productname" class="form-control" /> </td>
                   <td>
                     <input type="number" name="numberproduct" class="form-control" />
@@ -81,6 +90,7 @@
                     <input type="number" name="price" class="form-control" />
                   </td>
                   <td></td>
+                
               </tr>
           </table>
         </div>
