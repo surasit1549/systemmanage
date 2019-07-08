@@ -47,7 +47,7 @@
                     &nbsp;&nbsp;รายละเอียดการสั่งซื้อ</a>
                     <ul class="collapse list-unstyled" id="pageSubmenu">
                         <li>
-                            <a href="{{route('prequest.create')}}">Purchase Request ( PR )</a>
+                            <a href="{{route('prequest.index')}}">Purchase Request ( PR )</a>
                         </li>
                         <li>
                             <a href="#">Purchase Order ( PO )</a>
