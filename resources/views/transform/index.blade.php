@@ -1,25 +1,44 @@
 @extends('Home.master')
 @section('title','welcome Homepage')
 @section('content')
+<script>
+  $(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+    $('.test').click(function(){
+      $(this).next('form').submit();
+    });
+  });
+</script>
 <div class="container">
   <div class="row">
-    <div class="col-md-12"> <br />
-        <h1 align="center">แปลง</h1><br><br>
-        <a href="{{route('transform.create')}}">สร้างแปลง</a><br>
+    <div class="col-md-12">
         @if(\Session::has('success'))
           <div class="alert alert-success">
             <a>{{\Session::get('success')}}</a>
           </div>
         @endif
-        <table class="table table-hover text-center">
+      <div class="card">
+        <div class="card-header" style="background-color:#435d7d;">
+          <div class="row">
+            <div class="col-md-10">
+              <h3 class="text-white">แปลง</h3>
+            </div>
+            <div class="col-md-2 text-right">
+              <a class="btn btn-success text-white text-right" href="{{route('transform.create')}}">
+              <i class="fas fa-plus"></i>
+              สร้างแปลง
+              </a>
+            </div>  
+          </div>
+        </div>
+        <div class="card-body">
+        <table class="table table-bordered">
           <thead>
             <tr>
               <th>ลำดับ</th>
               <th>ชื่อแปลง</th>
-              <th>ขนาด</th>
-              <th>แก้ไข</th>
-              <th>ลบ</th>
-              <th>ข้อมูล</th>
+              <th>ขนาด ( ตารางวา )</th>
+              <th colspan="3">จัดการ</th>
             </tr>
           </thead>
           <tbody>
@@ -28,19 +47,20 @@
               <td>{{$row['id']}}</td>
               <td>{{$row['convertname']}}</td>
               <td>{{$row['size']}}</td>
-              <td><a href="{{action('TransformController@edit',$row['id'])}}" class="btn btn-primary">Edit</a></td>
               <td>
+                &nbsp;&nbsp;<a href="{{action('TransformController@show',$row['id'])}}" data-toggle="tooltip" data-placement="top" title="View"><i style="font-size:20px;;" class="fas fa-eye text-primary"></i></a>
+                &nbsp;&nbsp;<a href="{{action('TransformController@edit',$row['id'])}}" data-toggle="tooltip" data-placement="top" title="Edit"><i style="font-size:20px;" class="fas fa-edit text-warning"></i></a>
+                &nbsp;&nbsp;
+                <a class="test" href="#" data-toggle="tooltip" data-placement="top" title="Remove"><i style="font-size:20px;" class="fas fa-trash-alt text-danger"></i></a>
                 <form method="post" class="delete_form" action="{{action('TransformController@destroy',$row['id'])}}">
-                  {{csrf_field()}}
-                <input type="hidden" name="_method" value="DELETE" />
-                <button type="submit" class="btn btn-danger">Delete</button>
-              </form>
-              </td>
-              <td><a href="{{action('TransformController@show',$row['id'])}}" class="btn btn-primary">Show</a></td>
+                    {{csrf_field()}}
+                  <input type="hidden" name="_method" value="DELETE" />
+                </form>
             </tr>
             @endforeach
           </tbody>
         </table>
+        </div>
     </div>
   </div>
 </div>

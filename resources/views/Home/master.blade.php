@@ -58,7 +58,7 @@
 
             <ul class="list-unstyled CTAs">
                 <li>
-                    <a href="#" class="btn btn-danger">ออกจากระบบ</a>
+                    <a href="#" class="btn btn-danger"><i style="font-size:15px;" class="fas fa-sign-out-alt"></i>&nbsp;&nbsp;ออกจากระบบ</a>
                 </li>
 
             </ul>
