@@ -21,7 +21,7 @@
         <div class="card-header" style="background-color:#435d7d;">
           <div class="row">
             <div class="col-md-10">
-              <h3 class="text-white">STORES</h3>
+              <h3 class="text-white"><i class="fas fa-store"></i>&nbsp;&nbsp;STORES</h3>
             </div>
             <div class="col-md-2 text-right">
               <a class="btn btn-success text-white text-right" href="{{route('store.create')}}">
