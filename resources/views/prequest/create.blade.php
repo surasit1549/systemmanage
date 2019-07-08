@@ -87,9 +87,9 @@
             </select>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
             <h>ราคา</h>&emsp;&emsp;&emsp;&emsp; <input type="number" id="price" name='price' ><br><br>
             <h>จำนวนเงิน</h>&emsp;                <input type="number" id="sum" name='sum' ><br><br>
-            <input  type="button"  class="add-row" value="เพิ่มสินค้า"><br><br>
+            <input  type="button"  class="add-row" value="เพิ่มสินค้า">&emsp;&emsp;
           </form>
-
+          <button type="button" class="delete-row"> ลบรายการสินค้า</button><br><br> 
 
 
           <table class="table table-hover" >
@@ -106,7 +106,6 @@
 
               </tr>
           </table>
-          <button type="button" class="delete-row"> ลบรายการสินค้า</button><br><br>
         </div>
         <div class="form-group">
           <input type="submit" class="btn btn-primary" value="save" />
