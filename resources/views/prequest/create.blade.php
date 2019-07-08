@@ -34,8 +34,8 @@
           </select>
 
           <h>แปลง :</h>
-            <select name="prequest" class="form-control">
-              @foreach($prequest as $row)
+            <select name="prequestconvert" class="form-control">
+              @foreach($prequestconvert as $row)
                 <option value="{{$row['id']}}">{{$row['convertname']}}</option>
               @endforeach
             </select>
@@ -49,6 +49,7 @@
                 var productnumber = $("#productnumber").val();
                 var unit = $("#unit").val();
                 var store = $("#keystore").val();
+                console.log(store);
                 var price = $("#price").val();
                 var sum = $("#sum").val();
                 var markup = "<tr><td><input type='checkbox' name='record'></td><td>"
@@ -75,17 +76,17 @@
           <!-- สินค้าที่ขอสั่งซื้อ -->
           <form>
             <br>
-            <h>ชื้อสินค้า</h>&emsp;                 <input type="text" id="productname" placeholder="ชื่อสินค้า" >&emsp;&emsp;
-            <h>จำนวนสินค้า</h>&emsp;              <input type="number" id="productnumber" placeholder="จำนวน">&emsp;
-            <h>หน่วย</h>&emsp;                   <input type="text" id="unit" placeholder="หน่วย"><br><br>
+            <h>ชื้อสินค้า</h>&emsp;                 <input type="text" id="productname" name='productname' placeholder="ชื่อสินค้า" >&emsp;&emsp;
+            <h>จำนวนสินค้า</h>&emsp;              <input type="number" id="productnumber" name='productnumber' placeholder="จำนวน">&emsp;
+            <h>หน่วย</h>&emsp;                   <input type="text" id="unit" name='unit' placeholder="หน่วย"><br><br>
             <h>ร้านค้า</h>&emsp;&emsp;             
-            <select type="text" id="keystore" >
+            <select type="text" id="keystore" name='keystore' >
               @foreach($prequeststore as $row)
-                <option value="{{$row['id']}}">{{$row['keystore']}}</option>
+                <option value="{{$row['keystore']}}">{{$row['keystore']}}</option>
               @endforeach
             </select>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-            <h>ราคา</h>&emsp;&emsp;&emsp;&emsp; <input type="number" id="price" ><br><br>
-            <h>จำนวนเงิน</h>&emsp;                <input type="number" id="sum" ><br><br>
+            <h>ราคา</h>&emsp;&emsp;&emsp;&emsp; <input type="number" id="price" name='price' ><br><br>
+            <h>จำนวนเงิน</h>&emsp;                <input type="number" id="sum" name='sum' ><br><br>
             <input  type="button"  class="add-row" value="เพิ่มสินค้า"><br><br>
           </form>
 
