@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\purchaserequest;
+use App\prequest;
 use App\transform;
 use App\prequestconvert;
 use App\store;
@@ -19,7 +19,7 @@ class PuchaserequestController extends Controller
      */
     public function index()
     {
-      $prequestdb = purchaserequest::all()->toArray();
+      $prequestdb = prequest::all()->toArray();
       return view('prequest.index',compact('prequestdb'));
     }
 
@@ -49,6 +49,7 @@ class PuchaserequestController extends Controller
      */
     public function store(Request $request)
     {
+      dd('555');
       $this->validate($request,[
                               'keyPR'   => 'required',          // หมายเลขใบPR
                               'date'        => 'required',      // วันเดือนปี PR
@@ -78,7 +79,7 @@ class PuchaserequestController extends Controller
         'sum'   => $request->get('sum'),
       ]
     );
-
+    dd('555');
     $่prequestdb -> save();
     return redirect()->route('prequest.index')->with('success','บันทึกข้อมูลเรียบร้อย');
 

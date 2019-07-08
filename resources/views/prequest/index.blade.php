@@ -21,12 +21,12 @@
             <th>ลบ</th>
             <th>พิมพ์</th>
           </tr>
-          @foreach($prequest as $row)
+          @foreach($prequestdb as $row)
           <tr>
             <td>{{$row['id']}}</td>
-            <td>{{$row['numberPR']}}</td>
+            <td>{{$row['keyPR']}}</td>
             <td>{{$row['date']}}</td>
-            <td>{{$row['convertname']}}</td>
+            <td>{{$row['convert']}}</td>
           </tr>
           @endforeach
         </table>
