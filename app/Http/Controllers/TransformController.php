@@ -36,6 +36,7 @@ class TransformController extends Controller
      */
     public function store(Request $request)
     {
+      dd('55');
         $this->validate($request,[
                                 'convertname'   => 'required',
                                 'size'          => 'required']);

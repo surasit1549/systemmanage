@@ -49,37 +49,36 @@ class PuchaserequestController extends Controller
      */
     public function store(Request $request)
     {
-      dd('555');
+      dd('55');
       $this->validate($request,[
-                              'keyPR'   => 'required',          // หมายเลขใบPR
-                              'date'        => 'required',      // วันเดือนปี PR
-                              'contractor'   => 'required',     // ชื่อผู้รับเหมา
-                              'formwork'  => 'required',        // รูปแบบงาน
-                              'prequestconvert' => 'required',        // แปลง
-                              'productname' => 'required',      // ชื่อสินค้า
-                              'productnumber' => 'required',    // จำนวนสินค้า
-                              'unit'   => 'required',           // หน่วยของสินค้า
-                              'keystore' => 'required',          // หรัสร้านค้า
-                              'price'  => 'required',           // ราคาสินค้า
-                              'sum'    => 'required'            // จำนวนเงิน
+                              'keyPR'           => 'required',      // หมายเลขใบPR
+                              'date'            => 'required',      // วันเดือนปี PR
+                              'contractor'      => 'required',      // ชื่อผู้รับเหมา
+                              'formwork'        => 'required',      // รูปแบบงาน
+                              'prequestconvert' => 'required',      // แปลง
+                              'productname'     => 'required',      // ชื่อสินค้า
+                              'productnumber'   => 'required',      // จำนวนสินค้า
+                              'unit'            => 'required',      // หน่วยของสินค้า
+                              'keystore'        => 'required',      // หรัสร้านค้า
+                              'price'           => 'required',      // ราคาสินค้า
+                              'sum'             => 'required'       // จำนวนเงิน
 
                             ]);
-      $่prequestdb = new purchaserequest(
+      $่prequestdb = new prequest(
       [
-        'keyPR'   => $request->get('keyPR'),
-        'date'          => $request->get('date'),
-        'contractor'   => $request->get('contractor'),
-        'formwork'   => $request->get('formwork'),
-        'prequestconvert'   => $request->get('transform'),
-        'productname'   => $request->get('productname'),
+        'keyPR'           => $request->get('keyPR'),
+        'date'            => $request->get('date'),
+        'contractor'      => $request->get('contractor'),
+        'formwork'        => $request->get('formwork'),
+        'prequestconvert' => $request->get('transform'),
+        'productname'     => $request->get('productname'),
         'productnumber'   => $request->get('numberproduct'),
-        'unit'   => $request->get('unit'),
-        'keystore' => $request->get('keystore'),
-        'price'   => $request->get('price'),
-        'sum'   => $request->get('sum'),
+        'unit'            => $request->get('unit'),
+        'keystore'        => $request->get('keystore'),
+        'price'           => $request->get('price'),
+        'sum'             => $request->get('sum'),
       ]
     );
-    dd('555');
     $่prequestdb -> save();
     return redirect()->route('prequest.index')->with('success','บันทึกข้อมูลเรียบร้อย');
 

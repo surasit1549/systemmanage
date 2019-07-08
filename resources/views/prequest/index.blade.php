@@ -27,6 +27,15 @@
             <td>{{$row['keyPR']}}</td>
             <td>{{$row['date']}}</td>
             <td>{{$row['convert']}}</td>
+            <td><a href="{{action('PuchaserequestController@edit',$row['id'])}}" class="btn btn-sm btn-primary">Edit</a></td>
+              <td>
+                <form method="post" class="delete_form" action="{{action('PuchaserequestController@destroy',$row['id'])}}">
+                  {{csrf_field()}}
+                <input type="hidden" name="_method" value="DELETE" />
+                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+              </form>
+              </td>
+              <td><a href="{{action('PuchaserequestController@show',$row['id'])}}" class="btn btn-primary btn-sm">Show</a></td>
           </tr>
           @endforeach
         </table>
