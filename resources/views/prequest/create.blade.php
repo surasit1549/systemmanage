@@ -93,19 +93,19 @@
 
 
           <table class="table table-hover" >
-              <tr>
-                <th>ลำดับ</th>
-                <th>รายการขอสั่งซื้อสินค้า</th>
-                <th>จำนวน</th>
-                <th>หน่วย</th>
-                <th>ร้านค้า</th>
-                <th>ราคา</th>
-                <th>จำนวนเงิน</th>
-              </tr>
-              <tr>
-
-              </tr>
+            <tr>
+              <th>ลำดับ</th>
+              <th>รายการขอสั่งซื้อสินค้า</th>
+              <th>จำนวน</th>
+              <th>หน่วย</th>
+              <th>ร้านค้า</th>
+              <th>ราคา</th>
+              <th>จำนวนเงิน</th>
+            </tr>
+            <tr>
+            </tr>
           </table>
+
         </div>
         <div class="form-group">
           <input type="submit" class="btn btn-primary" value="save" />

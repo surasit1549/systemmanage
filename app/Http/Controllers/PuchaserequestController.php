@@ -50,6 +50,7 @@ class PuchaserequestController extends Controller
     public function store(Request $request)
     {
       dd('55');
+      /*
       $this->validate($request,[
                               'keyPR'           => 'required',      // หมายเลขใบPR
                               'date'            => 'required',      // วันเดือนปี PR
@@ -81,7 +82,7 @@ class PuchaserequestController extends Controller
     );
     $่prequestdb -> save();
     return redirect()->route('prequest.index')->with('success','บันทึกข้อมูลเรียบร้อย');
-
+*/
     }
 
     /**
