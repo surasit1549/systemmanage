@@ -60,8 +60,7 @@
                   </select>
                 </td>
               </div>
-            </tr>
-            
+            </tr>           
           </table>
           <br><br><br>
 
