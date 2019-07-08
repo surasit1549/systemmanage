@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\purchaserequest;
 use App\transform;
 use App\prequest;
+use App\store;
+use App\prequeststore;
 
 class PuchaserequestController extends Controller
 {
@@ -27,10 +29,13 @@ class PuchaserequestController extends Controller
      */
     public function create()
     {
+      $prequeststore = store::all()->toArray();
       $prequest = transform::all()->toArray();
-    //  dd(gettype('$prequest'));
+    //  dd(gettype('$prequeststore'));
     //  return $prequest;
-      return view('prequest.create',compact('prequest'));
+    //  return $prequeststore;
+    //  return view('prequest.create',compact('prequest'));
+      return view('prequest.create',compact('prequeststore','prequest'));
     //  return view('prequest.create')->with('prequest');
     //  return view('prequest.create');
     }
