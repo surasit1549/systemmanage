@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\purchaserequest;
 use App\transform;
-use App\prequest;
+use App\prequestconvert;
+use App\store;
+use App\prequeststore;
+use App\prequestdb;
 
 class PuchaserequestController extends Controller
 {
@@ -16,8 +19,8 @@ class PuchaserequestController extends Controller
      */
     public function index()
     {
-      $prequest = purchaserequest::all()->toArray();
-      return view('prequest.index',compact('prequest'));
+      $prequestdb = purchaserequest::all()->toArray();
+      return view('prequest.index',compact('prequestdb'));
     }
 
     /**
@@ -27,10 +30,13 @@ class PuchaserequestController extends Controller
      */
     public function create()
     {
-      $prequest = transform::all()->toArray();
-    //  dd(gettype('$prequest'));
+      $prequeststore = store::all()->toArray();
+      $prequestconvert = transform::all()->toArray();
+    //  dd(gettype('$prequeststore'));
     //  return $prequest;
-      return view('prequest.create',compact('prequest'));
+    //  return $prequeststore;
+    //  return view('prequest.create',compact('prequest'));
+      return view('prequest.create',compact('prequeststore','prequestconvert'));
     //  return view('prequest.create')->with('prequest');
     //  return view('prequest.create');
     }
@@ -44,32 +50,36 @@ class PuchaserequestController extends Controller
     public function store(Request $request)
     {
       $this->validate($request,[
-                              'keyPR'   => 'required',
-                              'date'        => 'required',
-                              'contractor'   => 'required',
-                              'formwork'  => 'required',
-                              'productname' => 'required',
-                              'numberproduct' => 'required',
-                              'unit'   => 'required',
-                              'price'  => 'required',
-                              'sum'    => 'required'
+                              'keyPR'   => 'required',          // หมายเลขใบPR
+                              'date'        => 'required',      // วันเดือนปี PR
+                              'contractor'   => 'required',     // ชื่อผู้รับเหมา
+                              'formwork'  => 'required',        // รูปแบบงาน
+                              'prequestconvert' => 'required',        // แปลง
+                              'productname' => 'required',      // ชื่อสินค้า
+                              'productnumber' => 'required',    // จำนวนสินค้า
+                              'unit'   => 'required',           // หน่วยของสินค้า
+                              'keystore' => 'required',          // หรัสร้านค้า
+                              'price'  => 'required',           // ราคาสินค้า
+                              'sum'    => 'required'            // จำนวนเงิน
 
                             ]);
-      $่prequest = new purchaserequest(
+      $่prequestdb = new purchaserequest(
       [
         'keyPR'   => $request->get('keyPR'),
         'date'          => $request->get('date'),
         'contractor'   => $request->get('contractor'),
         'formwork'   => $request->get('formwork'),
+        'prequestconvert'   => $request->get('transform'),
         'productname'   => $request->get('productname'),
-        'numberproduct'   => $request->get('numberproduct'),
+        'productnumber'   => $request->get('numberproduct'),
         'unit'   => $request->get('unit'),
+        'keystore' => $request->get('keystore'),
         'price'   => $request->get('price'),
         'sum'   => $request->get('sum'),
       ]
     );
 
-    $่prequest -> save();
+    $่prequestdb -> save();
     return redirect()->route('prequest.index')->with('success','บันทึกข้อมูลเรียบร้อย');
 
     }

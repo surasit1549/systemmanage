@@ -15,4 +15,8 @@ class Store extends Model
                           'contect',
                           'cellphone'
                         ];
+
+    public function prequeststore(){
+      return $this->belongsTo('App\prequest');
+    }
 }
