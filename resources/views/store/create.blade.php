@@ -22,6 +22,7 @@
       <div class="card-body">
         <form method="post" action="{{url('store')}}">
           {{csrf_field()}}
+              <hr>
               <h3>Company Information</h3>
               <hr>
                 <div class="form-row">
@@ -47,10 +48,10 @@
                   </div>
                 </div>
 
+                <hr>
                 <h3>Contact with</h3>
-
-                <hr style="color:red;">
-
+                <hr>
+                
                 <div class="form-row">
                   <div class="form-group col-md-6">
                       <input type="text" name="contect"  placeholder="ชื่อผู้ติดต่อ" class="form-control" autocomplete="off"/>

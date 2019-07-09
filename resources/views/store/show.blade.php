@@ -10,37 +10,74 @@
 @stop
 @section('content')
 <div class="container">
-  <div class="row">
-    <div class="col-md-12"> <br />
-      <h3 align="center">ประวัติของร้านค้า</h3> <br />
-      <form method="post" action="{{action('StoreController@show', $id)}}">
-        {{csrf_field()}}
-        <table class="table table-bordered table-striped">
-          <tr>
-            <th>ลำดับ</th>
-            <th>รหัสร้านค้า</th>
-            <th>ร้านค้า</th>
-            <th>ที่อยู่</th>
-            <th>โทรศัทท์</th>
-            <th>โทรสาร</th>
-            <th>ผู้ติดต่อ</th>
-            <th>เบอร์ผู้ติดต่อ</th>
-          </tr>
+    <div class="card">
+      <div class="card-header" style="background-color:#435d7d;">
+        <h3 class="text-white"><i class="far fa-file"></i>&nbsp;&nbsp;ข้อมูลร้านค้า</h3>
+      </div>
+      <div class="card-body">
+          <table class="table table-borderless">
+            <tr>
+              <td class="text-right">
+                <h5>รหัสร้านค้า</h5>
+              </td>
+              <td class="text-right">
+                <input type="text" class="form-control" disabled value="{{$store->keystore}}">
+              </td>
+            </tr>
+            <tr>
+              <td class="text-right">
+                <h4>ร้านค้า</h4>
+              </td>
+              <td class="text-right">
+                <input type="text" class="form-control" disabled value="{{$store->name}}">
+              </td>
+            </tr>
+            <tr>
+              <td class="text-right">
+                <h4>ที่อยู่</h4>
+              </td>
+              <td class="text-right">
+                <input type="text" class="form-control" disabled value="{{$store->address}}">
+              </td>
+            </tr>
+            <tr>
+              <td class="text-right">
+                <h4>โทรศัทท์</h4>
+              </td>
+              <td class="text-right">
+                <input type="text" class="form-control" disabled value="{{$store->phone}}">
+              </td>
+            </tr>
+            <tr>
+              <td class="text-right">
+                <h4>โทรสาร</h4>
+              </td>
+              <td class="text-right">
+                <input type="text" class="form-control" disabled value="{{$store->fax}}">
+              </td>
+            </tr>
+            <tr>
+              <td class="text-right">
+                <h4>ผู้ติดต่อ</h4>
+              </td>
+              <td class="text-right">
+                <input type="text" class="form-control" disabled value="{{$store->contect}}">
+              </td>
+            </tr>
+            <tr>
+              <td class="text-right">
+                <h4>เบอร์ผู้ติดต่อ</h4>
+              </td>
+              <td class="text-right">
+                <input type="text" class="form-control" disabled value="{{$store->cellphone}}">
+              </td>
+            </tr>
+          </table>
+
           
-          <tr>
-            <td>{{$store->id}}</td>
-            <td>{{$store->keystore}}</td>
-            <td>{{$store->name}}</td>
-            <td>{{$store->address}}</td>
-            <td>{{$store->phone}}</td>
-            <td>{{$store->fax}}</td>
-            <td>{{$store->contect}}</td>
-            <td>{{$store->cellphone}}</td>
-          </tr>
-          
-        </table>
         <a href="{{route('store.index')}}">กลับ</a>
-      </form>
+  </div>
+</div>
     </div>
   </div>
 </div>
