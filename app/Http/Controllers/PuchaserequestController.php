@@ -49,8 +49,7 @@ class PuchaserequestController extends Controller
      */
     public function store(Request $request)
     {
-      dd('55');
-      /*
+
       $this->validate($request,[
                               'keyPR'           => 'required',      // หมายเลขใบPR
                               'date'            => 'required',      // วันเดือนปี PR
@@ -71,18 +70,19 @@ class PuchaserequestController extends Controller
         'date'            => $request->get('date'),
         'contractor'      => $request->get('contractor'),
         'formwork'        => $request->get('formwork'),
-        'prequestconvert' => $request->get('transform'),
+        'prequestconvert' => $request->get('prequestconvert'),
         'productname'     => $request->get('productname'),
-        'productnumber'   => $request->get('numberproduct'),
+        'productnumber'   => $request->get('productnumber'),
         'unit'            => $request->get('unit'),
         'keystore'        => $request->get('keystore'),
         'price'           => $request->get('price'),
         'sum'             => $request->get('sum'),
       ]
     );
+
     $่prequestdb -> save();
     return redirect()->route('prequest.index')->with('success','บันทึกข้อมูลเรียบร้อย');
-*/
+
     }
 
     /**
@@ -93,7 +93,10 @@ class PuchaserequestController extends Controller
      */
     public function show($id)
     {
-        //
+      $prequeststore = store::all()->toArray();
+      $prequestconvert = transform::all()->toArray();
+      $prequestdb = prequest::find($id);
+      return view('prequest.show',compact('prequestdb','prequeststore','prequestconvert','id'));
     }
 
     /**
@@ -104,7 +107,10 @@ class PuchaserequestController extends Controller
      */
     public function edit($id)
     {
-        //
+      $prequeststore = store::all()->toArray();
+      $prequestconvert = transform::all()->toArray();
+      $prequestdb = prequest::find($id);
+      return view('prequest.edit',compact('prequestdb','prequeststore','prequestconvert','id'));
     }
 
     /**
@@ -116,7 +122,35 @@ class PuchaserequestController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      $this->validate($request,
+      [
+        'keyPR'   => 'required',
+        'date'          => 'required',
+        'contractor'   => 'required',
+        'formwork'          => 'required',
+        'prequestconvert'   => 'required',
+        'productname'          => 'required',
+        'productnumber'   => 'required',
+        'unit'          => 'required',
+        'keystore'   => 'required',
+        'price'          => 'required',
+        'sum'          => 'required',
+      ]
+      );
+      $prequestdb = Store::find($id);
+      $prequestdb->keyPR   = $request->get('keyPR');
+      $prequestdb->date          = $request->get('date');
+      $prequestdb->contractor   = $request->get('contractor');
+      $prequestdb->formwork          = $request->get('formwork');
+      $prequestdb->prequestconvert   = $request->get('prequestconvert');
+      $prequestdb->productname          = $request->get('productname');
+      $prequestdb->productnumber   = $request->get('productnumber');
+      $prequestdb->unit          = $request->get('unit');
+      $prequestdb->keystore   = $request->get('keystore');
+      $prequestdb->price          = $request->get('price');
+      $prequestdb->sum          = $request->get('sum');
+      $prequestdb->save();
+      return redirect()->route('prequest.index')->with('success','successfully updated');
     }
 
     /**
@@ -127,7 +161,9 @@ class PuchaserequestController extends Controller
      */
     public function destroy($id)
     {
-        //
+      $prequestdb = prequest::find($id);
+      $prequestdb->delete();
+      return redirect()->route('prequest.index') ->with('success','ลบข้อมูลเรียบร้อย');
     }
 
 }

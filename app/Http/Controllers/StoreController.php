@@ -109,26 +109,26 @@ class StoreController extends Controller
     public function update(Request $request, $id)
     {
       $this->validate($request,
-    [
-      'keystore'  => 'required',
-      'name'      => 'required',
-      'address'   => 'required',
-      'phone'     => 'required',
-      'fax'       => 'required',
-      'contect'   => 'required',
-      'cellphone' => 'required'
-    ]
-    );
-    $store = Store::find($id);
-    $store->keystore  = $request->get('keystore');
-    $store->name      = $request->get('name');
-    $store->address   = $request->get('address');
-    $store->phone     = $request->get('phone');
-    $store->fax       = $request->get('fax');
-    $store->contect   = $request->get('contect');
-    $store->cellphone = $request->get('cellphone');
-    $store->save();
-    return redirect()->route('store.index')->with('success','successfully updated');
+                            [
+                              'keystore'  => 'required',
+                              'name'      => 'required',
+                              'address'   => 'required',
+                              'phone'     => 'required',
+                              'fax'       => 'required',
+                              'contect'   => 'required',
+                              'cellphone' => 'required'
+                            ]
+      );
+      $store = Store::find($id);
+      $store->keystore  = $request->get('keystore');
+      $store->name      = $request->get('name');
+      $store->address   = $request->get('address');
+      $store->phone     = $request->get('phone');
+      $store->fax       = $request->get('fax');
+      $store->contect   = $request->get('contect');
+      $store->cellphone = $request->get('cellphone');
+      $store->save();
+      return redirect()->route('store.index')->with('success','successfully updated');
     }
 
     /**
@@ -140,7 +140,6 @@ class StoreController extends Controller
     public function destroy($id)
     {
         $store = Store::find($id);
-        dd($id);
         $store->delete();
         return redirect()->route('store.index') ->with('success','ลบข้อมูลเรียบร้อย');
     }

@@ -34,7 +34,7 @@
             <td>{{$row['id']}}</td>
             <td>{{$row['keyPR']}}</td>
             <td>{{$row['date']}}</td>
-            <td>{{$row['convert']}}</td>
+            <td>{{$row['prequestconvert']}}</td>
             <td><a href="{{action('PuchaserequestController@edit',$row['id'])}}" class="btn btn-sm btn-primary">Edit</a></td>
               <td>
                 <form method="post" class="delete_form" action="{{action('PuchaserequestController@destroy',$row['id'])}}">
