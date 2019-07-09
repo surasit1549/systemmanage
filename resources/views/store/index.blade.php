@@ -5,7 +5,12 @@
     #storetab {
       border-right : 5px solid rgb(41, 207, 219);
     }
-  }
+
+    #searchtext:focus {
+      outline: none !important;
+      box-shadow: none;
+    }
+
   </style>
 @stop
 @section('content')
@@ -15,6 +20,25 @@
     $('.test').click(function(){
       $(this).next('form').submit();
     });
+
+    $('#iconsearch').click(function(){
+      var check = $('#searchform');
+      if( check.hasClass('d-none') )
+        check.removeClass('d-none');
+      else
+        check.addClass('d-none');
+      $('#searchtext').focus();
+    });    
+    
+    $('#searchtext').keyup(function(){
+      $('table tbody tr').filter(function(){
+        var existnum = $(this).find('.schnum').text().toLowerCase();
+        var existname = $(this).find('.schtext').text().toLowerCase();
+        var search = $('#searchtext').val().toLowerCase();
+          $(this).toggle( (existnum.indexOf(search) > -1) || (existname.indexOf(search) > -1) );
+      });
+    });
+
   });
 </script>
 <div class="container">
@@ -31,7 +55,10 @@
             <div class="col-md-10">
               <h3 class="text-white"><i class="fas fa-store"></i>&nbsp;&nbsp;STORES</h3>
             </div>
+     
             <div class="col-md-2 text-right">
+              <a href="#" id="iconsearch"><i style="font-size:18px" class="fas fa-search text-white"></i></a>
+              &nbsp;&nbsp;
               <a class="btn btn-success text-white text-right" href="{{route('store.create')}}">
               <i class="fas fa-plus"></i>
               เพิ่มร้านค้า
@@ -40,6 +67,13 @@
           </div>
         </div>
         <div class="card-body">
+          <div class="input-group d-none" id="searchform">
+            <div class="input-group-prepend">
+              <span class="input-group-text bg-light"><i class="fas fa-search"></i></span>
+            </div>
+            <input type="text" id="searchtext" class="form-control" placeholder="กรอกรหัสร้านค้าหรือชื่อร้านค้าที่ต้องการค้นหา..">
+          </div>
+          <br>
           <table class="table table-bordered">
             <thead>
               <tr>
@@ -53,8 +87,8 @@
             @foreach($store as $row)
             <tr>
               <td>{{$row['id']}}</td>
-              <td>{{$row['keystore']}}</td>
-              <td>{{$row['name']}}</td>
+              <td class="schnum">{{$row['keystore']}}</td>
+              <td class="schtext">{{$row['name']}}</td>
               <td colspan="3">
                     <a href="{{action('StoreController@show',$row['id'])}}" data-toggle="tooltip" data-placement="top" title="View"><i style="font-size:20px;;" class="fas fa-eye text-primary"></i></a>
                     &nbsp;&nbsp;

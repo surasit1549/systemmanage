@@ -37,7 +37,7 @@
                 
               <div class="form-group">
                 <label>ที่อยู่ในปัจจุบัน</label>
-                <textarea type="text" name="address" class="form-control" cols="70" placeholder="ที่อยู่ปัจจุบัน" value="{{$store->address}}"></textarea>
+                <textarea type="text" name="address" class="form-control" cols="70" placeholder="ที่อยู่ปัจจุบัน">{{$store->address}}</textarea>
               </div>
             
               <div class="form-row">
@@ -75,6 +75,7 @@
               </div>
                 <input type="hidden" name="_method" value="PATCH"/>
           </div>
+
 
         </form>
 
