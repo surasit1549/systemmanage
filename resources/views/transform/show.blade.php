@@ -1,5 +1,13 @@
 @extends('Home.master')
 @section('title','ประวัติของแปลง')
+@section('tabbarcss')
+  <style>
+    #transformtab {
+      border-right : 5px solid rgb(41, 207, 219);
+    }
+  }
+  </style>
+@stop
 @section('content')
 <div class="container">
   <div class="row">

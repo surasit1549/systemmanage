@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
+    @yield('tabbarcss')
     <title>Collapsible sidebar using Bootstrap 4</title>
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
     <script src="{{asset('js/app.js')}}"></script>
@@ -26,18 +26,18 @@
         <!-- Sidebar  -->
         <nav id="sidebar">
             <div class="sidebar-header">
-                <h3>System</h3>
+                <h3>System Manage</h3>
             </div>
 
             <ul class="list-unstyled components">
                 <li>
-                    <a href="{{route('store.index')}}">
+                    <a href="{{route('store.index')}}" id="storetab">
                     <i class="fas fa-store-alt"></i>&nbsp;&nbsp;
                     ร้านค้า
                     </a>
                 </li>
                 <li>
-                    <a href="{{route('transform.index')}}">
+                    <a href="{{route('transform.index')}}" id="transformtab">
                     <i class="fas fa-map"></i>
                     &nbsp;&nbsp;แปลง</a>
                 </li>
@@ -47,10 +47,10 @@
                     &nbsp;&nbsp;รายละเอียดการสั่งซื้อ</a>
                     <ul class="collapse list-unstyled" id="pageSubmenu">
                         <li>
-                            <a href="{{route('prequest.index')}}">Purchase Request ( PR )</a>
+                            <a id="prtab" href="{{route('prequest.index')}}">Purchase Request ( PR )</a>
                         </li>
                         <li>
-                            <a href="#">Purchase Order ( PO )</a>
+                            <a id="potab" href="#">Purchase Order ( PO )</a>
                         </li>
                     </ul>
                 </li>

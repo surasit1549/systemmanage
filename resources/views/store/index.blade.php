@@ -1,5 +1,13 @@
 @extends('Home.master')
 @section('title','welcome Homepage')
+@section('tabbarcss')
+  <style>
+    #storetab {
+      border-right : 5px solid rgb(41, 207, 219);
+    }
+  }
+  </style>
+@stop
 @section('content')
 <script>
   $(document).ready(function(){
@@ -35,9 +43,9 @@
           <table class="table table-bordered">
             <thead>
               <tr>
-                <th style="width:10%;">#</th>
-                <th style="width:20%;">รหัสร้านค้า</th>
-                <th style="width:40%;">ร้านค้า</th>
+                <th style="width:5%;">#</th>
+                <th style="width:15%;">รหัสร้านค้า</th>
+                <th style="width:40%;">ชื่อร้านค้า</th>
                 <th colspan="3">Manage</th>
               </tr>
             </thead>

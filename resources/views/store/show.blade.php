@@ -1,5 +1,13 @@
 @extends('Home.master')
 @section('title','ประวัติของผู้ใช้ระบบ')
+@section('tabbarcss')
+  <style>
+    #storetab {
+      border-right : 5px solid rgb(41, 207, 219);
+    }
+  }
+  </style>
+@stop
 @section('content')
 <div class="container">
   <div class="row">

@@ -1,5 +1,13 @@
 @extends('Home.master')
 @section('title','welcome Homepage')
+@section('tabbarcss')
+  <style>
+    #transformtab {
+      border-right : 5px solid rgb(41, 207, 219);
+    }
+  }
+  </style>
+@stop
 @section('content')
 <script>
   $(document).ready(function(){
@@ -35,9 +43,9 @@
         <table class="table table-bordered">
           <thead>
             <tr>
-              <th>ลำดับ</th>
-              <th>ชื่อแปลง</th>
-              <th>ขนาด ( ตารางวา )</th>
+              <th style="width:5%;">ลำดับ</th>
+              <th style="width:40%;">ชื่อแปลง</th>
+              <th style="width:30%;">ขนาด ( ตารางวา )</th>
               <th colspan="3">จัดการ</th>
             </tr>
           </thead>

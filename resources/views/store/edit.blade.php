@@ -1,5 +1,13 @@
 @extends('Home.master')
 @section('title','จัดการฐานข้อมูล')
+@section('tabbarcss')
+  <style>
+    #storetab {
+      border-right : 5px solid rgb(41, 207, 219);
+    }
+  }
+  </style>
+@stop
 @section('content')
 <div class="container">
   <div class="row">
@@ -11,60 +19,62 @@
       <div class="card-body">
         <form method="post" action="{{action('StoreController@update', $id)}}">
           {{csrf_field()}}
-          <div class="form-group">
-            <table style="width:100%">
-              <tr>
-                <td>
-                  <h>รหัสร้านค้า :</h>
-                  <td><input type="text" name="keystore" value="{{$store->keystore}}"/></td>
-                </td>
-              </tr>
-              <tr>
-                <div class="form-group">
-                  <td><h>ร้านค้า :</h></td>
-                  <td><input type="text" name="name" class="form-control"  placeholder="ป้อนร้านค้า" value="{{$store->name}}"/></td>
+              <h3>Store Information</h3>          
+              <hr>
+
+              <div class="form-row">
+                <div class="form-group col-md-3">
+                  <label>รหัสร้านค้า</label>
+                  <input type="text" name="keystore" class="form-control" value="{{$store->keystore}}"/>
                 </div>
-              </tr>
-              <tr>
-                <div class="form-group">
-                  <td><h>ที่อยู่ :</h></td>
-                  <td><textarea type="text" name="address" class="form-control" cols="70" placeholder="ที่อยู่ปัจจุบัน" value="{{$store->address}}"></textarea></td>
+                
+                <div class="form-group col-md-9">
+                  <label>ชื่อร้านค้า</label>
+                  <input type="text" name="name" class="form-control"  placeholder="ป้อนร้านค้า" value="{{$store->name}}"/>
                 </div>
-              </tr>
-              <tr>
-                <div class="form-group">
-                  <td><h>โทรศัทท์ :</h></td>
-                  <td><input type="text" name="phone" value="{{$store->phone}}"/></td>
+              </div>
+                
+              <div class="form-group">
+                <label>ที่อยู่ในปัจจุบัน</label>
+                <textarea type="text" name="address" class="form-control" cols="70" placeholder="ที่อยู่ปัจจุบัน" value="{{$store->address}}"></textarea>
+              </div>
+            
+              <div class="form-row">
+
+                <div class="form-group col-md-6">
+                  <label>โทรศัทท์</label>
+                  <input type="text" name="phone" class="form-control" value="{{$store->phone}}"/>
                 </div>
-              </tr>
-              <tr>
-                <div class="form-group">
-                  <td><h>โทรสาร :</h></td>
-                  <td><input type="text" name="fax" value="{{$store->fax}}"/></td>
+                
+                <div class="form-group col-md-6">
+                  <label>โทรสาร</label>
+                  <input type="text" name="fax" class="form-control" value="{{$store->fax}}"/>
                 </div>
-              </tr>
-              <tr>
-                <div class="form-group">
-                  <td>
-                    <h>ผู้ติดต่อ :</h>
-                    <td>
-                      <input type="text" name="contect"  placeholder="ชื่อ - นามสนุก" value="{{$store->contect}}"/>
-                    </td>
-                  </td>
-                </div>
-              </tr>
-              <tr>
-                <div class="form-group">
-                  <td><h>โทรศัพท์ผู้ติดต่อ :</h></td>
-                  <td><input type="text" name="cellphone"  value="{{$store->cellphone}}"/></td>
-                </div>
-              </tr>
-            </table>
+                
+              </div>
+                
+              <h3>Contact With</h3>
+              <hr>
+
+              <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label>ผู้ติดต่อ</label>
+                    <input type="text" name="contect" class="form-control" placeholder="ชื่อ - นามสกุล" value="{{$store->contect}}"/>
+                  </div>
+                  
+                  <div class="form-group col-md-6">
+                    <label>โทรศัพท์ผู้ติดต่อ</label>
+                    <input type="text" name="cellphone" class="form-control"  value="{{$store->cellphone}}"/>
+                  </div>
+              </div>
+
+              <div class="form-group text-right mt-3">
+                <a class="btn btn-danger" href="{{route('store.index')}}" ><i style="font-size:18px;" class="fas fa-undo-alt"></i>&nbsp;&nbsp;ย้อนกลับ</a>
+                <button type="submit" class="btn btn-success ml-2" ><i class="far fa-edit"></i>&nbsp;&nbsp;Update</button>
+              </div>
+                <input type="hidden" name="_method" value="PATCH"/>
           </div>
-          <div class="form-group">
-            <input type="submit" class="btn btn-primary" value="Update" />
-          </div>
-            <input type="hidden" name="_method" value="PATCH"/>
+
         </form>
 
       </div>
