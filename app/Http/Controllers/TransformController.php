@@ -36,7 +36,7 @@ class TransformController extends Controller
      */
     public function store(Request $request)
     {
-      dd('55');
+      
         $this->validate($request,[
                                 'convertname'   => 'required',
                                 'size'          => 'required']);
@@ -62,7 +62,8 @@ class TransformController extends Controller
       //$transform = Transform::find($id);
       //return view('transform.show');
       //dd($id);
-      $transform = Transform::all()->toArray();
+      $transform = Transform::find($id);
+      //return $transform;
       return view('transform.show',compact('transform','id'));
     }
 

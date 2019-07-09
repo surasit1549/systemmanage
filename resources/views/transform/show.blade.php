@@ -21,13 +21,13 @@
             <th>ชื่อแปลง</th>
             <th>พื่นที่แปลง</th>
           </tr>
-          @foreach($transform as $row)
+        
           <tr>
-            <td>{{$row['id']}}</td>
-            <td>{{$row['convertname']}}</td>
-            <td>{{$row['size']}}</td>
+            <td>{{$transform->id}}</td>
+            <td>{{$transform->convertname}}</td>
+            <td>{{$transform->size}}</td>
           </tr>
-          @endforeach
+         
         </table>
         <a href="{{route('transform.index')}}">กลับ</a>
       </form>
