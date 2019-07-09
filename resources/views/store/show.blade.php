@@ -26,18 +26,18 @@
             <th>ผู้ติดต่อ</th>
             <th>เบอร์ผู้ติดต่อ</th>
           </tr>
-          @foreach($store as $row)
+          
           <tr>
-            <td>{{$row['id']}}</td>
-            <td>{{$row['keystore']}}</td>
-            <td>{{$row['name']}}</td>
-            <td>{{$row['address']}}</td>
-            <td>{{$row['phone']}}</td>
-            <td>{{$row['fax']}}</td>
-            <td>{{$row['contect']}}</td>
-            <td>{{$row['cellphone']}}</td>
+            <td>{{$store->id}}</td>
+            <td>{{$store->keystore}}</td>
+            <td>{{$store->name}}</td>
+            <td>{{$store->address}}</td>
+            <td>{{$store->phone}}</td>
+            <td>{{$store->fax}}</td>
+            <td>{{$store->contect}}</td>
+            <td>{{$store->cellphone}}</td>
           </tr>
-          @endforeach
+          
         </table>
         <a href="{{route('store.index')}}">กลับ</a>
       </form>

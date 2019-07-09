@@ -68,7 +68,21 @@ class StoreController extends Controller
      */
     public function show($id)
     {
-      $store = Store::all()->toArray();
+      $store = Store::find($id);
+      /*
+      var_dump($store->id);
+      var_dump($store->keystore);
+      var_dump($store->name);
+      var_dump($store->address);
+      var_dump($store->phone);
+      var_dump($store->fax);
+      var_dump($store->contect);
+      var_dump($store->cellphone);
+      */
+      //dd(gettype('$store'));
+      //dd($store);
+      //return $store;
+      //dd($id);
       return view('store.show',compact('store','id'));
     }
 
@@ -126,6 +140,7 @@ class StoreController extends Controller
     public function destroy($id)
     {
         $store = Store::find($id);
+        dd($id);
         $store->delete();
         return redirect()->route('store.index') ->with('success','ลบข้อมูลเรียบร้อย');
     }

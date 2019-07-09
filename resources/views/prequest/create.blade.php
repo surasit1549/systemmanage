@@ -74,21 +74,20 @@
           </script>
 
           <!-- สินค้าที่ขอสั่งซื้อ -->
-          <form>
-            <br>
-            <h>ชื้อสินค้า</h>&emsp;                 <input type="text" id="productname" name='productname' placeholder="ชื่อสินค้า" >&emsp;&emsp;
-            <h>จำนวนสินค้า</h>&emsp;              <input type="number" id="productnumber" name='productnumber' placeholder="จำนวน">&emsp;
-            <h>หน่วย</h>&emsp;                   <input type="text" id="unit" name='unit' placeholder="หน่วย"><br><br>
-            <h>ร้านค้า</h>&emsp;&emsp;             
-            <select type="text" id="keystore" name='keystore' >
-              @foreach($prequeststore as $row)
-                <option value="{{$row['keystore']}}">{{$row['keystore']}}</option>
-              @endforeach
-            </select>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-            <h>ราคา</h>&emsp;&emsp;&emsp;&emsp; <input type="number" id="price" name='price' ><br><br>
-            <h>จำนวนเงิน</h>&emsp;                <input type="number" id="sum" name='sum' ><br><br>
-            <input  type="button"  class="add-row" value="เพิ่มสินค้า">&emsp;&emsp;
-          </form>
+          <br>
+          <h>ชื้อสินค้า</h>&emsp;                 <input type="text" id="productname" name='productname' placeholder="ชื่อสินค้า" >&emsp;&emsp;
+          <h>จำนวนสินค้า</h>&emsp;              <input type="number" id="productnumber" name='productnumber' placeholder="จำนวน">&emsp;
+          <h>หน่วย</h>&emsp;                   <input type="text" id="unit" name='unit' placeholder="หน่วย"><br><br>
+          <h>ร้านค้า</h>&emsp;&emsp;             
+          <select type="text" id="keystore" name='keystore' >
+            @foreach($prequeststore as $row)
+              <option value="{{$row['keystore']}}">{{$row['keystore']}}</option>
+            @endforeach
+          </select>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <h>ราคา</h>&emsp;&emsp;&emsp;&emsp; <input type="number" id="price" name='price' ><br><br>
+          <h>จำนวนเงิน</h>&emsp;                <input type="number" id="sum" name='sum' ><br><br>
+          <input  type="button"  class="add-row" value="เพิ่มสินค้า">&emsp;&emsp;
+
           <button type="button" class="delete-row"> ลบรายการสินค้า</button><br><br> 
 
 
