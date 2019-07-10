@@ -20,7 +20,7 @@
             <td>{{$prequestdb->contractor}}</td>
             <td>{{$prequestdb->formwork}}</td>
           </tr>
-        
+
           <tr>
             <th>แปลง</th>
             <th>ชื่อสินค้า</th>
@@ -44,7 +44,7 @@
             <td>{{$prequestdb->price}}</td>
             <td>{{$prequestdb->sum}}</td>
           </tr>
-         
+
         </table>
         <a href="{{route('prequest.index')}}">กลับ</a>
       </form>

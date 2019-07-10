@@ -22,14 +22,14 @@
     <div class="col-md-12">
         @if(\Session::has('success'))
           <div class="alert alert-success">
-            <a>{{\Session::get('success')}}</a>
+            <a><i class="fas fa-check"></i>&nbsp;&nbsp;{{\Session::get('success')}}</a>
           </div>
         @endif
       <div class="card">
         <div class="card-header" style="background-color:#435d7d;">
           <div class="row">
             <div class="col-md-10">
-              <h3 class="text-white">แปลง</h3>
+              <h3 class="text-white"><i class="fas fa-map"></i>&nbsp;&nbsp;แปลง</h3>
             </div>
             <div class="col-md-2 text-right">
               <a class="btn btn-success text-white text-right" href="{{route('transform.create')}}">
@@ -56,7 +56,6 @@
               <td>{{$row['convertname']}}</td>
               <td>{{$row['size']}}</td>
               <td>
-                &nbsp;&nbsp;<a href="{{action('TransformController@show',$row['id'])}}" data-toggle="tooltip" data-placement="top" title="View"><i style="font-size:20px;;" class="fas fa-eye text-primary"></i></a>
                 &nbsp;&nbsp;<a href="{{action('TransformController@edit',$row['id'])}}" data-toggle="tooltip" data-placement="top" title="Edit"><i style="font-size:20px;" class="fas fa-edit text-warning"></i></a>
                 &nbsp;&nbsp;
                 <a class="test" href="#" data-toggle="tooltip" data-placement="top" title="Remove"><i style="font-size:20px;" class="fas fa-trash-alt text-danger"></i></a>
