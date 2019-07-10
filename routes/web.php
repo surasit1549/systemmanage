@@ -20,4 +20,4 @@ Route ::resource('store','StoreController');
 Route ::resource('transform','TransformController');
 //Route ::resource('fillinformation','StoreController');
 Route ::resource('prequest','PuchaserequestController');
-Route ::resource('porder','PuchaseorderController');
+Route ::resource('porder','PurchaseorderController');

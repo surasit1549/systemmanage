@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Porder;
+use App\pr;
+use App\prequest;
 
 class PurchaseorderController extends Controller
 {
@@ -14,7 +16,15 @@ class PurchaseorderController extends Controller
      */
     public function index()
     {
-        //
+        
+        //return view('porder.index');
+        $pr = prequest::all()->toArray();
+        //dd($pr);
+        //return $pr;
+        //dd(gettype('$pr'));
+        //dd('55');
+        return view('porder.index',compact('pr'));
+ 
     }
 
     /**
