@@ -22,7 +22,7 @@
     <div class="col-md-12">
         @if(\Session::has('success'))
           <div class="alert alert-success">
-            <a>{{\Session::get('success')}}</a>
+            <a><i class="fas fa-check"></i>&nbsp;&nbsp;{{\Session::get('success')}}</a>
           </div>
         @endif
       <div class="card">

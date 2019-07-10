@@ -10,7 +10,6 @@
 @stop
 @section('content')
 <div class="container">
-
   <div class="card" style="width:25rem;">
     <div class="card-header text-white" style="background-color:#435d7d">
         <h3><i class="far fa-file"></i>&nbsp;&nbsp;แก้ไขข้อมูลแปลง</h3>
@@ -26,7 +25,6 @@
           <label>ขนาด</label>
           <input type="text" name="size" class="form-control" value="{{$transform->size}}" />
         </div>
-
           <br>
           <div class="form-group text-center">
             <a class="btn btn-danger" href="{{route('transform.index')}}"><i class="fas fa-undo"></i>&nbsp;&nbsp;ย้อนกลับ</a>

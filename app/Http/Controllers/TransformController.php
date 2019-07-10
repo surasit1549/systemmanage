@@ -47,7 +47,7 @@ class TransformController extends Controller
         ]
       );
       $transform -> save();
-      return redirect()->route('transform.index')->with('success','บันทึกข้อมูลเรียบร้อย');
+      return redirect()->route('transform.index')->with('success','บันทึกข้อมูลเรียบร้อยแล้ว');
 
     }
 
@@ -93,7 +93,7 @@ class TransformController extends Controller
     $transform->convertname   = $request->get('convertname');
     $transform->size          = $request->get('size');
     $transform->save();
-    return redirect()->route('transform.index')->with('success','successfully updated');
+    return redirect()->route('transform.index')->with('success','อัพเดทข้อมูลเรียบร้อยแล้ว');
 
     }
 
@@ -107,7 +107,7 @@ class TransformController extends Controller
     {
       $transform = Transform::find($id);
       $transform->delete();
-      return redirect()->route('transform.index') ->with('success','ลบข้อมูลเรียบร้อย');
+      return redirect()->route('transform.index') ->with('success','ลบข้อมูลเรียบร้อยแล้ว');
 
     }
 }

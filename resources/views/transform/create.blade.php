@@ -10,29 +10,27 @@
 @stop
 @section('content')
 <div class="container">
-  <div class="row">
-    <div class="col-md-12"> <br />
-      <h3 align="center">เพิ่มข้อมูลแปลง</h3> <br />
+  <div class="card" style="width:25rem;">
+    <div class="card-header text-white" style="background-color:#435d7d">
+      <h3><i class="fas fa-plus-square"></i>&nbsp;&nbsp;เพิ่มข้อมูลแปลง</h3>
+    </div>
+    <div class="card-body">
       <form method="post" action="{{url('transform')}}">
         {{csrf_field()}}
         <div class="form-group">
-          <table style="width:100%">
-            <tr>
-                <td>ชื่อแปลง :</td>
-                <td><input type="text" name="convertname" class="form-control"/></td>
-            </tr>
-            <tr>
-              <div class="form-group">
-                <td>ขนาด :</td>
-                <td><input type="text" name="size" class="form-control"  /></td>
-              </div>
-            </tr>
-          </table>
+          <label for="">ชื่อแปลง</label> 
+          <input type="text" name="convertname" class="form-control"/>
         </div>
         <div class="form-group">
-          <input type="submit" class="btn btn-primary" value="save" />
+          <label for="">ขนาด</label>
+          <input type="text" name="size" class="form-control"  />
         </div>
-      </form>
+      </div>
+      <div class="form-group text-center">
+        <a class="btn btn-danger" href="{{route('transform.index')}}"><i class="fas fa-undo"></i>&nbsp;&nbsp;ย้อนกลับ</a>
+        <button type="submit" class="btn btn-success" value="Update"><i class="far fa-save"></i>&nbsp;&nbsp;บันทึก</button>
+      </div>
+    </form>
     </div>
   </div>
 </div>
