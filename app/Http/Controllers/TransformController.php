@@ -89,7 +89,7 @@ class TransformController extends Controller
       'size'          => 'required'
     ]
     );
-    $transform = Store::find($id);
+    $transform = Transform::find($id);
     $transform->convertname   = $request->get('convertname');
     $transform->size          = $request->get('size');
     $transform->save();

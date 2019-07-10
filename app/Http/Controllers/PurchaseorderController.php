@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Porder;
 
 class PurchaseorderController extends Controller
 {
@@ -13,7 +14,7 @@ class PurchaseorderController extends Controller
      */
     public function index()
     {
-      
+        //
     }
 
     /**
@@ -23,7 +24,7 @@ class PurchaseorderController extends Controller
      */
     public function create()
     {
-        //
+        return view('porder.create');
     }
 
     /**
