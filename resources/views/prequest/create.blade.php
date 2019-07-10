@@ -36,7 +36,7 @@
           <h>แปลง :</h>
             <select name="prequestconvert" class="form-control">
               @foreach($prequestconvert as $row)
-                <option value="{{$row['id']}}">{{$row['convertname']}}</option>
+                <option value="{{$row['convertname']}}">{{$row['convertname']}}</option>
               @endforeach
             </select>
           <br>
@@ -73,6 +73,7 @@
             });
           </script>
 
+          $productname = array[];
           <!-- สินค้าที่ขอสั่งซื้อ -->
           <br>
           <h>ชื้อสินค้า</h>&emsp;                 <input type="text" id="productname" name='productname' placeholder="ชื่อสินค้า" >&emsp;&emsp;
