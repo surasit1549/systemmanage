@@ -70,7 +70,7 @@
         <input type="text" id="searchtext" class="form-control" placeholder="กรอกชื่อเลขที่เอกสารที่ต้องการค้นหา..">
       </div>
       <br>
-      <table class="table table-hover table-bordered">
+      <table class="table table-bordered">
         <thead>
           <tr>
             <th style="width:5%">ลำดับ</th>
@@ -93,6 +93,8 @@
               <a href="{{action('PuchaserequestController@show',$row['id'])}}" data-toggle="tooltip" data-placement="top" title="View"><i style="font-size:20px;;" class="fas fa-eye text-primary"></i></a>
               &nbsp;&nbsp;
               <a href="{{action('PuchaserequestController@edit',$row['id'])}}" data-toggle="tooltip" data-placement="top" title="Edit"><i style="font-size:20px;" class="fas fa-edit text-warning"></i></a>
+              &nbsp;&nbsp;
+              <a href="#" data-toggle="tooltip" data-placement="top" title="Print"><i style="font-size:20px;"  class="fas fa-print"></i></a>
               &nbsp;&nbsp;
               <a class="test" href="#" data-toggle="tooltip" data-placement="top" title="Remove"><i style="font-size:20px;" class="fas fa-trash-alt text-danger"></i></a>
               <form method="post" class="delete_form" action="{{action('PuchaserequestController@destroy',$row['id'])}}">
