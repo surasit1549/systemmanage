@@ -2,12 +2,18 @@
 @section('title','ข้อมูลใบขอสั่งซื้อ PR')
 @section('content')
 <div class="container">
-  <div class="row">
-    <div class="col-md-12"> <br />
-      <h3 align="center">ข้อมูลใบขอสั่งซื้อ</h3> <br />
+  <div class="card">
+    <div class="card-header text-white" style="background:#435d7d">
+      <h3><i class="far fa-file-alt"></i>&nbsp;&nbsp;ข้อมูลใบขอสั่งซื้อ</h3>
+    </div>
+    <div class="card-body">
       <form method="post" action="{{action('PuchaserequestController@show', $id)}}">
         {{csrf_field()}}
-        <table class="table table-bordered table-striped">
+        <div class='text-right'>
+          <button class="btn btn-lg btn-primary"><i class="fas fa-print"></i>&nbsp;&nbsp;พิมพ์เอกสาร</button>
+        </div>
+        <br>
+        <table class="table table-bordered">
           <tr>
             <th>เลขที่เอกสาร</th>
             <th>วันที่ขอสั่งซื้อ</th>
@@ -44,11 +50,15 @@
             <td>{{$prequestdb->price}}</td>
             <td>{{$prequestdb->sum}}</td>
           </tr>
-
         </table>
-        <a href="{{route('prequest.index')}}">กลับ</a>
+        <br>
+        <div class="text-center">
+          <a class="btn btn-danger" href="{{route('prequest.index')}}"><i class="fas fa-undo"></i>&nbsp;&nbsp;ย้อนกลับ</a>
+        </div>
       </form>
     </div>
   </div>
+</div>
+</div>
 </div>
 @endsection
