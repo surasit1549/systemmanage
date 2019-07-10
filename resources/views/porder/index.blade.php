@@ -29,6 +29,7 @@
               {{substr($row['date'],2,-6)}} 
               {{substr($row['date'],5,-3)}}
               -
+              
             </td>
             <td>{{$row['keyPR']}}</td>
             <td>{{$row['date']}}</td>
