@@ -15,7 +15,7 @@
 
     <!-- Font Awesome JS -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
-    
+
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
 
 </head>
@@ -32,19 +32,19 @@
             <ul class="list-unstyled components">
                 <li>
                     <a href="{{route('store.index')}}" id="storetab">
-                    <i class="fas fa-store-alt"></i>&nbsp;&nbsp;
-                    ร้านค้า
+                        <i class="fas fa-store-alt"></i>&nbsp;&nbsp;
+                        ร้านค้า
                     </a>
                 </li>
                 <li>
                     <a href="{{route('transform.index')}}" id="transformtab">
-                    <i class="fas fa-map"></i>
-                    &nbsp;&nbsp;แปลง</a>
+                        <i class="fas fa-map"></i>
+                        &nbsp;&nbsp;แปลง</a>
                 </li>
                 <li>
-                
+
                     <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="far fa-file-alt"></i>
-                    &nbsp;&nbsp;รายละเอียดการสั่งซื้อ</a>
+                        &nbsp;&nbsp;รายละเอียดการสั่งซื้อ</a>
                     <ul class="collapse list-unstyled" id="pageSubmenu">
                         <li>
                             <a id="prtab" href="{{route('prequest.index')}}">Purchase Request ( PR )</a>
@@ -65,7 +65,7 @@
                 </li>
 
             </ul>
-            
+
         </nav>
 
         <!-- Page Content  -->
@@ -92,8 +92,8 @@
                 </div>
             </nav>
 
-        <div>@yield('content')</div>
-            
+            <div>@yield('content')</div>
+
         </div>
     </div>
 
@@ -106,12 +106,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
     <script type="text/javascript">
-        $(document).ready(function () {
+        $(document).ready(function() {
             $("#sidebar").mCustomScrollbar({
                 theme: "minimal"
             });
 
-            $('#sidebarCollapse').on('click', function () {
+            $('#sidebarCollapse').on('click', function() {
                 $('#sidebar, #content').toggleClass('active');
                 $('.collapse.in').toggleClass('in');
                 $('a[aria-expanded=true]').attr('aria-expanded', 'false');
