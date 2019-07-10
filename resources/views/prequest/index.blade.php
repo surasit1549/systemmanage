@@ -17,6 +17,11 @@
 <script>
   $(document).ready(function() {
 
+    $('[data-toggle="tooltip"]').tooltip();
+    $('.test').click(function() {
+      $(this).next('form').submit();
+    });
+
     $('#iconsearch').click(function() {
       var check = $('#searchform');
       if (check.hasClass('d-none'))
@@ -65,34 +70,34 @@
         <input type="text" id="searchtext" class="form-control" placeholder="กรอกชื่อเลขที่เอกสารที่ต้องการค้นหา..">
       </div>
       <br>
-      <table class="table table-hover">
+      <table class="table table-hover table-bordered">
         <thead>
           <tr>
-            <th>ลำดับ</th>
-            <th>ชื่อเลขที่เอกสาร</th>
-            <th>วันที่ขอสั่งซื้อ</th>
-            <th>แปลง</th>
-            <th>แก้ไขข้อมูล</th>
-            <th>ลบ</th>
-            <th>พิมพ์</th>
+            <th style="width:5%">ลำดับ</th>
+            <th style="width:15%">วันที่ขอสั่งซื้อ</th>
+            <th style="width:30%">ชื่อเลขที่เอกสาร</th>
+            <th style="width:20%">แปลง</th>
+            <th colspan="3">จัดการ</th>
           </tr>
         </thead>
         <tbody>
           @foreach($prequestdb as $row)
           <tr>
             <td>{{$row['id']}}</td>
+            <td class="text-center">{{$row['date']}}</td>
             <td class="schtext">{{$row['keyPR']}}</td>
-            <td>{{$row['date']}}</td>
             <td>{{$row['prequestconvert']}}</td>
-            <td><a href="{{action('PuchaserequestController@edit',$row['id'])}}" class="btn btn-sm btn-primary">Edit</a></td>
-            <td>
+            <td colspan="3">
+              <a href="{{action('PuchaserequestController@show',$row['id'])}}" data-toggle="tooltip" data-placement="top" title="View"><i style="font-size:20px;;" class="fas fa-eye text-primary"></i></a>
+              &nbsp;&nbsp;
+              <a href="{{action('PuchaserequestController@edit',$row['id'])}}" data-toggle="tooltip" data-placement="top" title="Edit"><i style="font-size:20px;" class="fas fa-edit text-warning"></i></a>
+              &nbsp;&nbsp;
+              <a class="test" href="#" data-toggle="tooltip" data-placement="top" title="Remove"><i style="font-size:20px;" class="fas fa-trash-alt text-danger"></i></a>
               <form method="post" class="delete_form" action="{{action('PuchaserequestController@destroy',$row['id'])}}">
                 {{csrf_field()}}
                 <input type="hidden" name="_method" value="DELETE" />
-                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
               </form>
             </td>
-            <td><a href="{{action('PuchaserequestController@show',$row['id'])}}" class="btn btn-primary btn-sm">Show</a></td>
           </tr>
           @endforeach
         </tbody>
