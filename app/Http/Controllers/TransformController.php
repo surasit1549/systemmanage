@@ -59,12 +59,7 @@ class TransformController extends Controller
      */
     public function show($id)
     {
-      //$transform = Transform::find($id);
-      //return view('transform.show');
-      //dd($id);
-      $transform = Transform::find($id);
-      //return $transform;
-      return view('transform.show',compact('transform','id'));
+      //
     }
 
     /**

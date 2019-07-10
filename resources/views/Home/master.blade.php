@@ -50,7 +50,10 @@
                             <a id="prtab" href="{{route('prequest.index')}}">Purchase Request ( PR )</a>
                         </li>
                         <li>
-                            <a id="potab" href="#">Purchase Order ( PO )</a>
+                            <a id="potab" href="{{route('porder.index')}}">Purchase Order ( PO )</a>
+                        </li>
+                        <li>
+                            <a id="potab" href="#">check </a>
                         </li>
                     </ul>
                 </li>

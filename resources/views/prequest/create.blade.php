@@ -73,7 +73,7 @@
             });
           </script>
 
-          $productname = array[];
+        
           <!-- สินค้าที่ขอสั่งซื้อ -->
           <br>
           <h>ชื้อสินค้า</h>&emsp;                 <input type="text" id="productname" name='productname' placeholder="ชื่อสินค้า" >&emsp;&emsp;
