@@ -5,10 +5,36 @@
   #prtab {
     border-right: 5px solid rgb(41, 207, 219);
   }
+
+  #searchtext:focus {
+    outline: none !important;
+    box-shadow: none;
+  }
   }
 </style>
 @stop
 @section('content')
+<script>
+  $(document).ready(function() {
+
+    $('#iconsearch').click(function() {
+      var check = $('#searchform');
+      if (check.hasClass('d-none'))
+        check.removeClass('d-none');
+      else
+        check.addClass('d-none');
+      $('#searchtext').focus();
+    });
+
+    $('#searchtext').keyup(function() {
+      $('table tbody tr').filter(function() {
+        var existname = $(this).find('.schtext').text().toLowerCase();
+        var search = $('#searchtext').val().toLowerCase();
+        $(this).toggle(existname.indexOf(search) > -1);
+      });
+    });
+  })
+</script>
 <div class="container">
   @if(\Session::has('success'))
   <div class="alert alert-success">
@@ -18,10 +44,12 @@
   <div class="card">
     <div class="card-header text-white" style="background:#435d7d">
       <div class="row">
-        <div class="col-md-10">
+        <div class="col-md-9">
           <h3 class="text-white"><i class="far fa-file"></i>&nbsp;&nbsp;ใบขอสั่งชื้อ (Puchase Request)</h3>
         </div>
-        <div class="col-md-2 text-right">
+        <div class="col-md-3 text-right">
+          <a href="#" id="iconsearch"><i style="font-size:18px" class="fas fa-search text-white"></i></a>
+          &nbsp;&nbsp;
           <a class="btn btn-success text-white text-right" href="{{route('prequest.create')}}">
             <i class="fas fa-plus"></i>
             สร้างใบขอสั่งชื้อ
@@ -30,6 +58,13 @@
       </div>
     </div>
     <div class="card-body">
+      <div class="input-group d-none" id="searchform">
+        <div class="input-group-prepend">
+          <span class="input-group-text bg-light"><i class="fas fa-search"></i></span>
+        </div>
+        <input type="text" id="searchtext" class="form-control" placeholder="กรอกชื่อเลขที่เอกสารที่ต้องการค้นหา..">
+      </div>
+      <br>
       <table class="table table-hover">
         <thead>
           <tr>
@@ -46,7 +81,7 @@
           @foreach($prequestdb as $row)
           <tr>
             <td>{{$row['id']}}</td>
-            <td>{{$row['keyPR']}}</td>
+            <td class="schtext">{{$row['keyPR']}}</td>
             <td>{{$row['date']}}</td>
             <td>{{$row['prequestconvert']}}</td>
             <td><a href="{{action('PuchaserequestController@edit',$row['id'])}}" class="btn btn-sm btn-primary">Edit</a></td>
