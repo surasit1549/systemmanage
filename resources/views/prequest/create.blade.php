@@ -10,8 +10,10 @@
       <form method="post" action="{{url('prequest')}}">
         {{csrf_field()}}
         <div class="form-group text-right">
-          <label>วันที่ขอสั่งชื้อ</label>
-          <p>{{ date("d-m-Y") }}</p>
+          <label>วันที่ขอสั่งชื้อ</label><br>
+          <input type="text" name="date" value="21/65/7" size="8">
+          <input type="text" name="newdate" value="21/65/7" size="8">
+          <!-- <p type="text" name="date" value=" {{ date('d-m-Y') }}">{{ date("d-m-Y") }}</p> -->
         </div>
         <div class="form-group">
           <label>เลขที่เอกสาร</label>

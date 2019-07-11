@@ -75,6 +75,7 @@
           <tr>
             <th style="width:5%">ลำดับ</th>
             <th style="width:15%">วันที่ขอสั่งซื้อ</th>
+            <th style="width:15%">วันที่แก้ไข</th>
             <th style="width:30%">ชื่อเลขที่เอกสาร</th>
             <th style="width:15%">ร้านค้า</th>
             <th style="width:15%">แปลง</th>
@@ -86,6 +87,7 @@
           <tr>
             <td class="text-center">{{$row['id']}}</td>
             <td class="text-center">{{$row['date']}}</td>
+            <td class="text-center">{{$row['newdate']}}</td>
             <td class="schtext">{{$row['keyPR']}}</td>
             <td>ร้านค้า</td>
             <td>{{$row['prequestconvert']}}</td>
