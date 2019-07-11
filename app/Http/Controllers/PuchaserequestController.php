@@ -49,7 +49,7 @@ class PuchaserequestController extends Controller
      */
     public function store(Request $request)
     {
-
+      
       $this->validate($request,[
                               'keyPR'           => 'required',      // หมายเลขใบPR
                               'date'            => 'required',      // วันเดือนปี PR
@@ -65,6 +65,7 @@ class PuchaserequestController extends Controller
                               'sum'             => 'required'       // จำนวนเงิน
 
                             ]);
+      
       $่prequestdb = new prequest(
       [
         'keyPR'           => $request->get('keyPR'),
@@ -81,7 +82,7 @@ class PuchaserequestController extends Controller
         'sum'             => $request->get('sum'),
       ]
     );
-
+    dd('22');
     $่prequestdb -> save();
     return redirect()->route('prequest.index')->with('success','บันทึกข้อมูลเรียบร้อย');
 

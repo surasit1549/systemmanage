@@ -74,7 +74,7 @@
               <button type="submit" class="btn btn-success ml-2"><i class="far fa-edit"></i>&nbsp;&nbsp;Update</button>
             </div>
             <input type="hidden" name="_method" value="PATCH" />
-        </form>
+          </form>
         </div>
       </div>
     </div>

@@ -11,9 +11,9 @@
         {{csrf_field()}}
         <div class="form-group text-right">
           <label>วันที่ขอสั่งชื้อ</label><br>
-          <input type="text" name="date" value="21/65/7" size="8">
-          <input type="text" name="newdate" value="21/65/7" size="8">
-          <!-- <p type="text" name="date" value=" {{ date('d-m-Y') }}">{{ date("d-m-Y") }}</p> -->
+          <input type="text" name="date" name="date" value="{{ date('d-m-Y') }}" size="8">
+          <!--<input type="text" name="newdate" value="21/65/7" size="8">
+          <p type="text" name="date" value=" {{ date('d-m-Y') }}">{{ date("d-m-Y") }}</p> -->
         </div>
         <div class="form-group">
           <label>เลขที่เอกสาร</label>
