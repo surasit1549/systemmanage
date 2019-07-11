@@ -53,7 +53,7 @@
                             <a id="potab" href="{{route('porder.index')}}">Purchase Order ( PO )</a>
                         </li>
                         <li>
-                            <a id="potab" href="#">check </a>
+                            <a id="potab" href="{{route('check.index')}}">check </a>
                         </li>
                     </ul>
                 </li>
