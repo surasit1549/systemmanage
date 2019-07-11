@@ -127,7 +127,6 @@ class PuchaserequestController extends Controller
       [
         'keyPR'           => 'required',
         'date'            => 'required',
-        'newdate'         => 'required',
         'contractor'      => 'required',
         'formwork'        => 'required',
         'prequestconvert' => 'required',
@@ -139,10 +138,9 @@ class PuchaserequestController extends Controller
         'sum'             => 'required',
       ]
       );
-      dd('22');
+      //dd('22');
       $prequestdb = prequest::find($id);
       $prequestdb->keyPR            = $request->get('keyPR');
-      $prequestdb->newdate          = $request->get('newdate');
       $prequestdb->date             = $request->get('date');
       $prequestdb->contractor       = $request->get('contractor');
       $prequestdb->formwork         = $request->get('formwork');
