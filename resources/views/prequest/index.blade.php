@@ -84,8 +84,8 @@
         <tbody>
           @foreach($prequestdb as $row)
           <tr>
-            <td class="text-center">{{$row['id']}}</td>
-            <td class="text-center">{{$row['date']}}</td>
+            <td>{{$row['id']}}</td>
+            <td>{{$row['date']}}</td>
             <td class="schtext">{{$row['keyPR']}}</td>
             <td>ร้านค้า</td>
             <td>{{$row['prequestconvert']}}</td>
