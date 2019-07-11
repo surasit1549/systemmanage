@@ -78,7 +78,6 @@
             <th style="width:15%">วันที่แก้ไข</th>
             <th style="width:30%">ชื่อเลขที่เอกสาร</th>
             <th style="width:15%">ร้านค้า</th>
-            <th style="width:15%">แปลง</th>
             <th colspan="3">จัดการ</th>
           </tr>
         </thead>
