@@ -7,6 +7,7 @@ use App\Porder;
 use App\pr;
 use App\prequest;
 use App\num;
+use App\check;
 
 class PurchaseorderController extends Controller
 {

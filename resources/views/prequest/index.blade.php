@@ -78,19 +78,17 @@
             <th style="width:15%">วันที่แก้ไข</th>
             <th style="width:30%">ชื่อเลขที่เอกสาร</th>
             <th style="width:15%">ร้านค้า</th>
-            <th style="width:15%">แปลง</th>
             <th colspan="3">จัดการ</th>
           </tr>
         </thead>
         <tbody>
           @foreach($prequestdb as $row)
           <tr>
-            <td class="text-center">{{$row['id']}}</td>
-            <td class="text-center">{{$row['date']}}</td>
-            <td class="text-center">{{$row['newdate']}}</td>
+            <td>{{$row['id']}}</td>
+            <td>{{$row['date']}}</td>
+            <td></td>
             <td class="schtext">{{$row['keyPR']}}</td>
             <td>ร้านค้า</td>
-            <td>{{$row['prequestconvert']}}</td>
             <td colspan="3">
               <a href="{{action('PuchaserequestController@show',$row['id'])}}" data-toggle="tooltip" data-placement="top" title="View"><i style="font-size:20px;;" class="fas fa-eye text-primary"></i></a>
               &nbsp;&nbsp;

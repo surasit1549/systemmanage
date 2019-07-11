@@ -53,7 +53,6 @@ class PuchaserequestController extends Controller
       $this->validate($request,[
                               'keyPR'           => 'required',      // หมายเลขใบPR
                               'date'            => 'required',      // วันเดือนปี PR
-                              'newdate'            => 'required',
                               'contractor'      => 'required',      // ชื่อผู้รับเหมา
                               'formwork'        => 'required',      // รูปแบบงาน
                               'prequestconvert' => 'required',      // แปลง
@@ -70,7 +69,6 @@ class PuchaserequestController extends Controller
       [
         'keyPR'           => $request->get('keyPR'),
         'date'            => $request->get('date'),
-        'newdate'         => $request->get('newdate'),
         'contractor'      => $request->get('contractor'),
         'formwork'        => $request->get('formwork'),
         'prequestconvert' => $request->get('prequestconvert'),
@@ -82,7 +80,6 @@ class PuchaserequestController extends Controller
         'sum'             => $request->get('sum'),
       ]
     );
-    dd('22');
     $่prequestdb -> save();
     return redirect()->route('prequest.index')->with('success','บันทึกข้อมูลเรียบร้อย');
 
