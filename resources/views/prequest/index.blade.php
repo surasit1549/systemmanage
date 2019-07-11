@@ -75,6 +75,7 @@
           <tr>
             <th style="width:5%">ลำดับ</th>
             <th style="width:15%">วันที่ขอสั่งซื้อ</th>
+            <th style="width:15%">วันที่แก้ไข</th>
             <th style="width:30%">ชื่อเลขที่เอกสาร</th>
             <th style="width:15%">ร้านค้า</th>
             <th style="width:15%">แปลง</th>

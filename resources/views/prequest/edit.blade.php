@@ -6,16 +6,17 @@
     <div class="card-header text-white" style="background-color:#435d7d">
       <h3><i class="far fa-edit"></i>&nbsp;&nbsp;แก้ไขข้อมูลใบขอสั่งซื้อ ( RP )</h3>
     </div>
-    <div class="card-body"">
+    <div class="card-body">
       <form method=" post" action="{{action('PuchaserequestController@update', $id)}}">
       {{csrf_field()}}
+      <div class="form-group text-right">
+        <label>วันที่ขอสั่งชื้อ</label>
+        <input type="text" name="date" class="form-control" value="{{$prequestdb->date}}" size="8" />
+        <input type="text" name="newdate" class="form-control" value="{{ date('d-m-Y') }}" size="8" />
+      </div>
       <div class="form-group">
         <label>เลขที่เอกสาร</label>
         <input type="text" name="keyPR" class="form-control" value="{{$prequestdb->keyPR}}" />
-      </div>
-      <div class="form-group">
-        <label>วันที่ขอสั่งชื้อ</label>
-        <input type="date" name="date" class="form-control" value="{{$prequestdb->date}}" />
       </div>
       <div class="form-group">
         <label>ชื้อผู้รับเหมา</label>

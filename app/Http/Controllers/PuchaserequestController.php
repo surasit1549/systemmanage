@@ -49,10 +49,11 @@ class PuchaserequestController extends Controller
      */
     public function store(Request $request)
     {
-
+      
       $this->validate($request,[
                               'keyPR'           => 'required',      // หมายเลขใบPR
                               'date'            => 'required',      // วันเดือนปี PR
+                              'newdate'            => 'required',
                               'contractor'      => 'required',      // ชื่อผู้รับเหมา
                               'formwork'        => 'required',      // รูปแบบงาน
                               'prequestconvert' => 'required',      // แปลง
@@ -64,10 +65,12 @@ class PuchaserequestController extends Controller
                               'sum'             => 'required'       // จำนวนเงิน
 
                             ]);
+      
       $่prequestdb = new prequest(
       [
         'keyPR'           => $request->get('keyPR'),
         'date'            => $request->get('date'),
+        'newdate'         => $request->get('newdate'),
         'contractor'      => $request->get('contractor'),
         'formwork'        => $request->get('formwork'),
         'prequestconvert' => $request->get('prequestconvert'),
@@ -79,7 +82,7 @@ class PuchaserequestController extends Controller
         'sum'             => $request->get('sum'),
       ]
     );
-
+    dd('22');
     $่prequestdb -> save();
     return redirect()->route('prequest.index')->with('success','บันทึกข้อมูลเรียบร้อย');
 
@@ -122,33 +125,37 @@ class PuchaserequestController extends Controller
      */
     public function update(Request $request, $id)
     {
+      dd('44');
       $this->validate($request,
       [
-        'keyPR'   => 'required',
-        'date'          => 'required',
-        'contractor'   => 'required',
-        'formwork'          => 'required',
-        'prequestconvert'   => 'required',
-        'productname'          => 'required',
+        'keyPR'           => 'required',
+        'date'            => 'required',
+        'newdate'         => 'required',
+        'contractor'      => 'required',
+        'formwork'        => 'required',
+        'prequestconvert' => 'required',
+        'productname'     => 'required',
         'productnumber'   => 'required',
-        'unit'          => 'required',
-        'keystore'   => 'required',
-        'price'          => 'required',
-        'sum'          => 'required',
+        'unit'            => 'required',
+        'keystore'        => 'required',
+        'price'           => 'required',
+        'sum'             => 'required',
       ]
       );
-      $prequestdb = Store::find($id);
-      $prequestdb->keyPR   = $request->get('keyPR');
-      $prequestdb->date          = $request->get('date');
-      $prequestdb->contractor   = $request->get('contractor');
-      $prequestdb->formwork          = $request->get('formwork');
-      $prequestdb->prequestconvert   = $request->get('prequestconvert');
-      $prequestdb->productname          = $request->get('productname');
-      $prequestdb->productnumber   = $request->get('productnumber');
-      $prequestdb->unit          = $request->get('unit');
-      $prequestdb->keystore   = $request->get('keystore');
-      $prequestdb->price          = $request->get('price');
-      $prequestdb->sum          = $request->get('sum');
+      dd('22');
+      $prequestdb = prequest::find($id);
+      $prequestdb->keyPR            = $request->get('keyPR');
+      $prequestdb->newdate          = $request->get('newdate');
+      $prequestdb->date             = $request->get('date');
+      $prequestdb->contractor       = $request->get('contractor');
+      $prequestdb->formwork         = $request->get('formwork');
+      $prequestdb->prequestconvert  = $request->get('prequestconvert');
+      $prequestdb->productname      = $request->get('productname');
+      $prequestdb->productnumber    = $request->get('productnumber');
+      $prequestdb->unit             = $request->get('unit');
+      $prequestdb->keystore         = $request->get('keystore');
+      $prequestdb->price            = $request->get('price');
+      $prequestdb->sum              = $request->get('sum');
       $prequestdb->save();
       return redirect()->route('prequest.index')->with('success','successfully updated');
     }
