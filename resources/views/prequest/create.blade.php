@@ -2,24 +2,27 @@
 @section('title','ใบขอสั่งซื้อ')
 @section('content')
 <div class="container">
-  <div class="row">
-    <div class="col-md-12">
-      <br>
-      <h3 align="center">เพิ่มข้อมูลใบสั่งซื้อ</h3>
-      <br>
+  <div class="card">
+    <div class="card-header">
+      <h3>เพิ่มข้อมูลใบสั่งซื้อ</h3>
+    </div>
+    <div class="card-body">
       <form method="post" action="{{url('prequest')}}">
         {{csrf_field()}}
+        <div class="form-group text-right">
+          <label>วันที่ขอสั่งชื้อ</label>
+          <p>{{ date("d-m-Y") }}</p>
+        </div>
         <div class="form-group">
-          <h>เลขที่เอกสาร :</h>
+          <label>เลขที่เอกสาร</label>
           <input type="text" name="keyPR" class="form-control" />
-
-          <h>วันที่ขอสั่งชื้อ :</h>
-          <input type="date" name="date" class="form-control" />
-
-          <h>ชื้อผู้รับเหมา :</h>
+        </div>
+        <div class="form-group">
+          <label>ชื้อผู้รับเหมา</label>
           <input type="text" name="contractor" class="form-control" placeholder="ชื่อ - นามสนุก" />
-
-          <h>แบบงาน :</h>
+        </div>
+        <div class="form-group">
+          <label>แบบงาน</label>
           <select class="form-control" name="formwork">
             <option value="งานโครงสร้างอาคาร">งานโครงสร้างอาคาร</option>
             <option value="งานโครงสร้างหลังคา/หลังคา">งานโครงสร้างหลังคา/หลังคา</option>
@@ -32,61 +35,27 @@
             <option value="งานเบ็ดเตล็ด">งานเบ็ดเตล็ด</option>
             <option value="งานสุขาภิบาลภายนอก">งานสุขาภิบาลภายนอก</option>
           </select>
-
-          <h>แปลง :</h>
+        </div>
+        <div class="form-group">
+          <label>แปลง</label>
           <select name="prequestconvert" class="form-control">
             @foreach($prequestconvert as $row)
             <option value="{{$row['convertname']}}">{{$row['convertname']}}</option>
             @endforeach
           </select>
-          <br>
-
-          <!-- การเพิ่มสินค้า  -->
-          <script type="text/javascript">
-            $(document).ready(function() {
-              $(".add-row").click(function() {
-                var productname = $("#productname").val();
-                var productnumber = $("#productnumber").val();
-                var unit = $("#unit").val();
-                var store = $("#keystore").val();
-                console.log(store);
-                var price = $("#price").val();
-                var sum = $("#sum").val();
-                var markup = "<tr><td><input type='checkbox' name='record'></td><td>" +
-                  productname + "</td><td>" +
-                  productnumber + "</td><td>" +
-                  unit + "</td><td>" +
-                  store + "</td><td>" +
-                  price + "</td><td>" +
-                  sum + "</td></tr>";
-                $("table tbody").append(markup);
-              });
-
-              // ไม่ต้องการสินค้า
-              $(".delete-row").click(function() {
-                $("table tbody").find('input[name="record"]').each(function() {
-                  if ($(this).is(":checked")) {
-                    $(this).parents("tr").remove();
-                  }
-                });
-              });
-            });
-          </script>
-
-
+        </div>
           <!-- สินค้าที่ขอสั่งซื้อ -->
-          <br>
-          <h>ชื้อสินค้า</h>&emsp; <input type="text" id="productname" name='productname' placeholder="ชื่อสินค้า">&emsp;&emsp;
-          <h>จำนวนสินค้า</h>&emsp; <input type="number" id="productnumber" name='productnumber' placeholder="จำนวน">&emsp;
-          <h>หน่วย</h>&emsp; <input type="text" id="unit" name='unit' placeholder="หน่วย"><br><br>
-          <h>ร้านค้า</h>&emsp;&emsp;
+          <label>ชื้อสินค้า</label>&emsp; <input type="text" id="productname" name='productname' placeholder="ชื่อสินค้า">&emsp;&emsp;
+          <label>จำนวนสินค้า</label>&emsp; <input type="number" id="productnumber" name='productnumber' placeholder="จำนวน">&emsp;
+          <label>หน่วย</label>&emsp; <input type="text" id="unit" name='unit' placeholder="หน่วย"><br><br>
+          <label>ร้านค้า</label>&emsp;&emsp;
           <select type="text" id="keystore" name='keystore'>
             @foreach($prequeststore as $row)
             <option value="{{$row['keystore']}}">{{$row['keystore']}}</option>
             @endforeach
           </select>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-          <h>ราคา</h>&emsp;&emsp;&emsp;&emsp; <input type="number" id="price" name='price'><br><br>
-          <h>จำนวนเงิน</h>&emsp; <input type="number" id="sum" name='sum'><br><br>
+          <label>ราคา</label>&emsp;&emsp;&emsp;&emsp; <input type="number" id="price" name='price'><br><br>
+          <label>จำนวนเงิน</label>&emsp; <input type="number" id="sum" name='sum'><br><br>
           <input type="button" class="add-row" value="เพิ่มสินค้า">&emsp;&emsp;
 
           <button type="button" class="delete-row"> ลบรายการสินค้า</button><br><br>
@@ -106,12 +75,43 @@
             </tr>
           </table>
 
-        </div>
-        <div class="form-group">
-          <input type="submit" class="btn btn-primary" value="save" />
-        </div>
+          <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="save" />
+          </div>
       </form>
     </div>
   </div>
 </div>
+
+<!-- การเพิ่มสินค้า  -->
+<script type="text/javascript">
+  $(document).ready(function() {
+    $(".add-row").click(function() {
+      var productname = $("#productname").val();
+      var productnumber = $("#productnumber").val();
+      var unit = $("#unit").val();
+      var store = $("#keystore").val();
+      console.log(store);
+      var price = $("#price").val();
+      var sum = $("#sum").val();
+      var markup = "<tr><td><input type='checkbox' name='record'></td><td>" +
+        productname + "</td><td>" +
+        productnumber + "</td><td>" +
+        unit + "</td><td>" +
+        store + "</td><td>" +
+        price + "</td><td>" +
+        sum + "</td></tr>";
+      $("table tbody").append(markup);
+    });
+
+    // ไม่ต้องการสินค้า
+    $(".delete-row").click(function() {
+      $("table tbody").find('input[name="record"]').each(function() {
+        if ($(this).is(":checked")) {
+          $(this).parents("tr").remove();
+        }
+      });
+    });
+  });
+</script>
 @endsection
