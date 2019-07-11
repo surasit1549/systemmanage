@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Porder;
 use App\pr;
 use App\prequest;
+use App\num;
 
 class PurchaseorderController extends Controller
 {
@@ -18,12 +19,13 @@ class PurchaseorderController extends Controller
     {
         
         //return view('porder.index');
+        $num = 0;
         $pr = prequest::all()->toArray();
         //dd($pr);
         //return $pr;
         //dd(gettype('$pr'));
         //dd('55');
-        return view('porder.index',compact('pr'));
+        return view('porder.index',compact('pr','num'));
  
     }
 
