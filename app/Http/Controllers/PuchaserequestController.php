@@ -53,7 +53,6 @@ class PuchaserequestController extends Controller
       $this->validate($request,[
                               'keyPR'           => 'required',      // หมายเลขใบPR
                               'date'            => 'required',      // วันเดือนปี PR
-                              'newdate'            => 'required',
                               'contractor'      => 'required',      // ชื่อผู้รับเหมา
                               'formwork'        => 'required',      // รูปแบบงาน
                               'prequestconvert' => 'required',      // แปลง
@@ -70,7 +69,6 @@ class PuchaserequestController extends Controller
       [
         'keyPR'           => $request->get('keyPR'),
         'date'            => $request->get('date'),
-        'newdate'         => $request->get('newdate'),
         'contractor'      => $request->get('contractor'),
         'formwork'        => $request->get('formwork'),
         'prequestconvert' => $request->get('prequestconvert'),
@@ -82,7 +80,6 @@ class PuchaserequestController extends Controller
         'sum'             => $request->get('sum'),
       ]
     );
-    dd('22');
     $่prequestdb -> save();
     return redirect()->route('prequest.index')->with('success','บันทึกข้อมูลเรียบร้อย');
 
@@ -130,7 +127,6 @@ class PuchaserequestController extends Controller
       [
         'keyPR'           => 'required',
         'date'            => 'required',
-        'newdate'         => 'required',
         'contractor'      => 'required',
         'formwork'        => 'required',
         'prequestconvert' => 'required',
@@ -142,10 +138,9 @@ class PuchaserequestController extends Controller
         'sum'             => 'required',
       ]
       );
-      dd('22');
+      //dd('22');
       $prequestdb = prequest::find($id);
       $prequestdb->keyPR            = $request->get('keyPR');
-      $prequestdb->newdate          = $request->get('newdate');
       $prequestdb->date             = $request->get('date');
       $prequestdb->contractor       = $request->get('contractor');
       $prequestdb->formwork         = $request->get('formwork');

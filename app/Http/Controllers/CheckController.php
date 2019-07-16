@@ -3,13 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Porder;
-use App\pr;
-use App\prequest;
-use App\num;
-use App\check;
 
-class PurchaseorderController extends Controller
+class CheckController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,16 +13,7 @@ class PurchaseorderController extends Controller
      */
     public function index()
     {
-        
-        //return view('porder.index');
-        $num = 0;
-        $pr = prequest::all()->toArray();
-        //dd($pr);
-        //return $pr;
-        //dd(gettype('$pr'));
-        //dd('55');
-        return view('porder.index',compact('pr','num'));
- 
+        return view('check.index');
     }
 
     /**
@@ -37,7 +23,7 @@ class PurchaseorderController extends Controller
      */
     public function create()
     {
-        return view('porder.create');
+        //
     }
 
     /**

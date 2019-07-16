@@ -17,8 +17,7 @@ class prequest extends Model
         'unit',
         'keystore',
         'price',
-        'sum',
-        'newdate'
+        'sum'
   ];
   public function transform(){
   return $this->hasOne('App\Transform','id');

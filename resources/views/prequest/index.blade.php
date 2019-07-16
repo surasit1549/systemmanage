@@ -86,9 +86,9 @@
           <tr>
             <td>{{$row['id']}}</td>
             <td>{{$row['date']}}</td>
+            <td></td>
             <td class="schtext">{{$row['keyPR']}}</td>
             <td>ร้านค้า</td>
-            <td>{{$row['prequestconvert']}}</td>
             <td colspan="3">
               <a href="{{action('PuchaserequestController@show',$row['id'])}}" data-toggle="tooltip" data-placement="top" title="View"><i style="font-size:20px;;" class="fas fa-eye text-primary"></i></a>
               &nbsp;&nbsp;

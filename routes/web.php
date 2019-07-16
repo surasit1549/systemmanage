@@ -21,3 +21,4 @@ Route ::resource('transform','TransformController');
 //Route ::resource('fillinformation','StoreController');
 Route ::resource('prequest','PuchaserequestController');
 Route ::resource('porder','PurchaseorderController');
+Route ::resource('check','CheckController');
