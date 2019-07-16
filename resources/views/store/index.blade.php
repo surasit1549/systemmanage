@@ -16,6 +16,7 @@
 <script>
   $(document).ready(function() {
     $('[data-toggle="tooltip"]').tooltip();
+    
     $('.test').click(function() {
       $(this).next('form').submit();
     });
@@ -40,6 +41,9 @@
 
   });
 </script>
+
+
+
 <div class="container">
   <div class="row">
     <div class="col-md-12"> <br />
@@ -48,31 +52,32 @@
         <a>{{\Session::get('success')}}</a>
       </div>
       @endif
+
       <div class="card">
         <div class="card-header" style="background-color:#435d7d;">
           <div class="row">
             <div class="col-md-10">
               <h3 class="text-white"><i class="fas fa-store"></i>&nbsp;&nbsp;STORES</h3>
             </div>
-
-            <div class="col-md-2 text-right">
-              <a href="#" id="iconsearch"><i style="font-size:18px" class="fas fa-search text-white"></i></a>
-              &nbsp;&nbsp;
-              <a class="btn btn-success text-white text-right" href="{{route('store.create')}}">
-                <i class="fas fa-plus"></i>
-                เพิ่มร้านค้า
-              </a>
-            </div>
           </div>
         </div>
         <div class="card-body">
-          <div class="input-group d-none" id="searchform">
+          <div class=" text-right">
+            <a href="#" id="iconsearch"><i style="font-size:20px;color:#555" class="fas fa-search"></i></a>
+            &nbsp;&nbsp;
+            <a class="btn btn-success text-white text-right" href="{{route('store.create')}}">
+              <i class="fas fa-plus"></i>
+              เพิ่มร้านค้า
+            </a>
+          </div>
+          <div class="input-group d-none mt-3" id="searchform">
             <div class="input-group-prepend">
               <span class="input-group-text bg-light"><i class="fas fa-search"></i></span>
             </div>
             <input type="text" id="searchtext" class="form-control" placeholder="กรอกรหัสร้านค้าหรือชื่อร้านค้าที่ต้องการค้นหา..">
           </div>
           <br>
+
           <table class="table table-bordered">
             <thead>
               <tr>

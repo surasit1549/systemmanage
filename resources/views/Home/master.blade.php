@@ -28,7 +28,6 @@
             <div class="sidebar-header">
                 <h3>System Manage</h3>
             </div>
-
             <ul class="list-unstyled components">
                 <li>
                     <a href="{{route('store.index')}}" id="storetab">
@@ -42,7 +41,6 @@
                         &nbsp;&nbsp;แปลง</a>
                 </li>
                 <li>
-
                     <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="far fa-file-alt"></i>
                         &nbsp;&nbsp;รายละเอียดการสั่งซื้อ</a>
                     <ul class="collapse list-unstyled" id="pageSubmenu">
@@ -70,10 +68,8 @@
 
         <!-- Page Content  -->
         <div id="content">
-
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid">
-
                     <button type="button" id="sidebarCollapse" class="btn btn-info text-white">
                         <i class="fas fa-align-left"></i>
                         <span>Toggle Sidebar</span>
@@ -81,21 +77,35 @@
                     <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <i class="fas fa-align-justify"></i>
                     </button>
-
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="nav navbar-nav ml-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#"><i style="font-size:23px;" class="fas fa-bell"></i></a>
-                            </li>
-                        </ul>
+                        <div class="dropdown ml-auto">
+                            <a data-toggle="dropdown"><i style="font-size:25px" class="far fa-envelope"></i></a>
+                            <div class="dropdown-menu dropdown-menu-right" style="width:400px;" data-offset="50,50">
+                                <div style="padding:5px 10px;">
+                                    <h4><i class="far fa-envelope-open"></i>&nbsp;&nbsp;Header</h4>
+                                </div>
+                                <div class="dropdown-divider"></div>
+                                <nav class="nav flex-column">
+                                    <a class="nav-link" href="#">AAA</a></li>
+                                    <a class="nav-link" href="#">AAA</a></li>
+                                    <a class="nav-link" href="#">AAA</a></li>
+                                </nav>
+                                <div class="dropdown-divider"></div>
+                                <div class="text-center" >
+                                    <a href="#" class="d-block">View All Message&nbsp;<i class="fas fa-chevron-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </nav>
-
-            <div>@yield('content')</div>
-
+            <div>
+                @yield('content')
+            </div>
         </div>
     </div>
+
+
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <!-- Popper.JS -->
@@ -107,6 +117,7 @@
 
     <script type="text/javascript">
         $(document).ready(function() {
+
             $("#sidebar").mCustomScrollbar({
                 theme: "minimal"
             });
@@ -116,6 +127,7 @@
                 $('.collapse.in').toggleClass('in');
                 $('a[aria-expanded=true]').attr('aria-expanded', 'false');
             });
+
         });
     </script>
 </body>

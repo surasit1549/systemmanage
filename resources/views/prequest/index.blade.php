@@ -52,18 +52,18 @@
         <div class="col-md-9">
           <h3 class="text-white"><i class="far fa-file"></i>&nbsp;&nbsp;ใบขอสั่งชื้อ (Puchase Request)</h3>
         </div>
-        <div class="col-md-3 text-right">
-          <a href="#" id="iconsearch"><i style="font-size:18px" class="fas fa-search text-white"></i></a>
-          &nbsp;&nbsp;
-          <a class="btn btn-success text-white text-right" href="{{route('prequest.create')}}">
-            <i class="fas fa-plus"></i>
-            สร้างใบขอสั่งชื้อ
-          </a>
-        </div>
       </div>
     </div>
     <div class="card-body">
-      <div class="input-group d-none" id="searchform">
+      <div class="text-right">
+        <a href="#" id="iconsearch"><i style="font-size:20px" class="fas fa-search"></i></a>
+        &nbsp;&nbsp;
+        <a class="btn btn-success text-white text-right" href="{{route('prequest.create')}}">
+          <i class="fas fa-plus"></i>
+          สร้างใบขอสั่งชื้อ
+        </a>
+      </div>
+      <div class="input-group d-none mt-3" id="searchform">
         <div class="input-group-prepend">
           <span class="input-group-text bg-light"><i class="fas fa-search"></i></span>
         </div>
@@ -94,7 +94,7 @@
               &nbsp;&nbsp;
               <a href="{{action('PuchaserequestController@edit',$row['id'])}}" data-toggle="tooltip" data-placement="top" title="Edit"><i style="font-size:20px;" class="fas fa-edit text-warning"></i></a>
               &nbsp;&nbsp;
-              <a href="#" data-toggle="tooltip" data-placement="top" title="Print"><i style="font-size:20px;"  class="fas fa-print"></i></a>
+              <a href="#" data-toggle="tooltip" data-placement="top" title="Print"><i style="font-size:20px;" class="fas fa-print"></i></a>
               &nbsp;&nbsp;
               <a class="test" href="#" data-toggle="tooltip" data-placement="top" title="Remove"><i style="font-size:20px;" class="fas fa-trash-alt text-danger"></i></a>
               <form method="post" class="delete_form" action="{{action('PuchaserequestController@destroy',$row['id'])}}">
