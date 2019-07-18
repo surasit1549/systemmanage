@@ -26,8 +26,10 @@
           <tr>
             <td>{{$row['id']}}</td>
             <td>
+              <p>
               {{substr($row['date'],8)}} 
-              {{substr($row['date'],3,-5)}}
+              {{substr($row['date'],3,-5)}}-
+              </p>
               
             </td>
             <td>{{$row['keyPR']}}</td>
@@ -40,4 +42,25 @@
     </div>
   </div>
 </div>
+<script type="text/javascript">
+  var a="0", b="0", c="0", result, num;
+  result = a + b + c;
+  result = parseInt(result);
+  result = result + 100;
+  num = result;
+  if (num < 10){
+    esult = result.toString();
+    result = a + b + result;
+  }else if(num < 100){
+    esult = result.toString();
+    result = a + result;
+  }else{
+    esult = result.toString();
+    result = result;
+  }
+  
+  $(document).ready(function(){
+    $('p').append(result);
+  });
+</script>
 @stop
