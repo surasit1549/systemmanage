@@ -26,4 +26,7 @@ class prequest extends Model
   public function store(){
   return $this->hasOne('App\Store','id');
   }
+  public function porder(){
+    return $this->belongsTo('App\porder');
+}
 }

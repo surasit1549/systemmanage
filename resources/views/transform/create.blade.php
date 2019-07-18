@@ -10,32 +10,27 @@
 @stop
 @section('content')
 <div class="container">
-  <div class="card">
-    <div style="background-color:#435d7d" class="card-header text-white">
-      <h3>เพิ่มข้อมูลแปลง</h3>
+  <div class="card" style="width:25rem;">
+    <div class="card-header text-white" style="background-color:#435d7d">
+      <h3><i class="fas fa-plus-square"></i>&nbsp;&nbsp;เพิ่มข้อมูลแปลง</h3>
     </div>
     <div class="card-body">
-        <form method="post" action="{{url('transform')}}">
-          {{csrf_field()}}
-          <div class="form-group">
-            <table style="width:100%">
-              <tr>
-                  <td>ชื่อแปลง</td>
-                  <td><input type="text" name="convertname" class="form-control"/></td>
-              </tr>
-              <tr>
-                <div class="form-group">
-                  <td>ขนาด</td>
-                  <td><input type="text" name="size" class="form-control"  /></td>
-                </div>
-              </tr>
-            </table>
-          </div>
-          <div class="form-group">
-            <button class="btn btn-danger"><i class="fas fa-undo"></i>&nbsp;&nbsp;ย้อนกลับ</button>
-            <button type="submit" class="btn btn-success"><i class="far fa-save"></i>&nbsp;&nbsp;บันทึก</button>
-          </div>
-        </form>
+      <form method="post" action="{{url('transform')}}">
+        {{csrf_field()}}
+        <div class="form-group">
+          <label for="">ชื่อแปลง</label> 
+          <input type="text" name="convertname" class="form-control"/>
+        </div>
+        <div class="form-group">
+          <label for="">ขนาด</label>
+          <input type="text" name="size" class="form-control"  />
+        </div>
+      </div>
+      <div class="form-group text-center">
+        <a class="btn btn-danger" href="{{route('transform.index')}}"><i class="fas fa-undo"></i>&nbsp;&nbsp;ย้อนกลับ</a>
+        <button type="submit" class="btn btn-success" value="Update"><i class="far fa-save"></i>&nbsp;&nbsp;บันทึก</button>
+      </div>
+    </form>
     </div>
   </div>
 </div>

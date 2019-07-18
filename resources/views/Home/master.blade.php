@@ -15,7 +15,7 @@
 
     <!-- Font Awesome JS -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
-    
+
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
 
 </head>
@@ -28,49 +28,43 @@
             <div class="sidebar-header">
                 <h3>System Manage</h3>
             </div>
-
             <ul class="list-unstyled components">
                 <li>
                     <a href="{{route('store.index')}}" id="storetab">
-                    <i class="fas fa-store-alt"></i>&nbsp;&nbsp;
-                    ร้านค้า
+                        <i class="fas fa-store-alt"></i>&nbsp;&nbsp;
+                        ร้านค้า
                     </a>
                 </li>
                 <li>
                     <a href="{{route('transform.index')}}" id="transformtab">
-                    <i class="fas fa-map"></i>
-                    &nbsp;&nbsp;แปลง</a>
+                        <i class="fas fa-map"></i>
+                        &nbsp;&nbsp;แปลง</a>
                 </li>
                 <li>
-                
                     <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="far fa-file-alt"></i>
-                    &nbsp;&nbsp;รายละเอียดการสั่งซื้อ</a>
+                        &nbsp;&nbsp;รายละเอียดการสั่งซื้อ</a>
                     <ul class="collapse list-unstyled" id="pageSubmenu">
                         <li>
-                            <a id="prtab" href="{{route('prequest.index')}}">Purchase Request ( PR )</a>
+                            <a id="prtab" href="{{route('prequest.index')}}">ใบขอสั่งซื้อสินค้า ( PR )</a>
                         </li>
                         <li>
-                            <a id="potab" href="#">Purchase Order ( PO )</a>
+                            <a id="potab" href="{{route('porder.index')}}">ใบสั่งซื้อสินค้า ( PO )</a>
+                        </li>
+                        <li>
+                            <a id="checktab" href="{{route('check.index')}}">รายการตรวจสอบสินค้า </a>
                         </li>
                     </ul>
                 </li>
-            </ul>
-
-            <ul class="list-unstyled CTAs">
                 <li>
-                    <a href="#" class="btn btn-danger"><i style="font-size:15px;" class="fas fa-sign-out-alt"></i>&nbsp;&nbsp;ออกจากระบบ</a>
+                    <a href="{{route('usermanage.index')}}" id="usertab"><i class="far fa-user"></i>&nbsp;&nbsp;จัดการผู้ใช้งาน</a>
                 </li>
-
             </ul>
-            
         </nav>
 
         <!-- Page Content  -->
         <div id="content">
-
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid">
-
                     <button type="button" id="sidebarCollapse" class="btn btn-info text-white">
                         <i class="fas fa-align-left"></i>
                         <span>Toggle Sidebar</span>
@@ -78,21 +72,15 @@
                     <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <i class="fas fa-align-justify"></i>
                     </button>
-
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="nav navbar-nav ml-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#"><i style="font-size:23px;" class="fas fa-bell"></i></a>
-                            </li>
-                        </ul>
-                    </div>
+                    <button class="close" data-toggle="popover"><i style="font-size:30px;" class="fa fa-user-circle"></i></button>
                 </div>
             </nav>
-
-        <div>@yield('content')</div>
-            
+            <div>
+                @yield('content')
+            </div>
         </div>
     </div>
+
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <!-- Popper.JS -->
@@ -103,16 +91,34 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
     <script type="text/javascript">
-        $(document).ready(function () {
+        $(document).ready(function() {
+
+            var textcontent = '<ul class="nav flex-column">' +
+                '<li class="nav-item"><a class="nav-link" href="#"><i style="font-size:15px" class="fas fa-key"></i>&nbsp;&nbsp;เปลี่ยนรหัสผ่าน</a></li>' +
+                '<li class="nav-item"><a class="nav-link" href="#"><i style="font-size:15px" class="far fa-id-badge"></i>&nbsp;&nbsp;แก้ไขข้อมูลส่วนตัว</a></li>' +
+                '<li class="nav-item"><a class="nav-link" href="#"><i style="font-size:15px" class="fas fa-sign-out-alt"></i>&nbsp;&nbsp;ออกจากระบบ</a></li>' +
+                '</ul>';
+
+            $('[data-toggle="popover"]').popover({
+                trigger: 'focus',
+                placement: 'bottom',
+                content: textcontent,
+                html: true,
+                title: 'สวัสดี ! ณัฐดนัย',
+                template: '<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div><div class="popover-footer text-right"><a href="#">ข้อกำหนดรายละเอียดการใช้งาน</a></div></div>'
+            });
+
+
             $("#sidebar").mCustomScrollbar({
                 theme: "minimal"
             });
 
-            $('#sidebarCollapse').on('click', function () {
+            $('#sidebarCollapse').on('click', function() {
                 $('#sidebar, #content').toggleClass('active');
                 $('.collapse.in').toggleClass('in');
                 $('a[aria-expanded=true]').attr('aria-expanded', 'false');
             });
+
         });
     </script>
 </body>

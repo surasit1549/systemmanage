@@ -2,53 +2,86 @@
 @section('title','ข้อมูลใบขอสั่งซื้อ PR')
 @section('content')
 <div class="container">
-  <div class="row">
-    <div class="col-md-12"> <br />
-      <h3 align="center">ข้อมูลใบขอสั่งซื้อ</h3> <br />
+  <div class="card">
+    <div class="card-header text-white" style="background:#435d7d">
+      <h3><i class="far fa-file-alt"></i>&nbsp;&nbsp;ข้อมูลใบขอสั่งซื้อ</h3>
+    </div>
+    <div class="card-body">
       <form method="post" action="{{action('PuchaserequestController@show', $id)}}">
         {{csrf_field()}}
-        <table class="table table-bordered table-striped">
-          <tr>
-            <th>เลขที่เอกสาร</th>
-            <th>วันที่ขอสั่งซื้อ</th>
-            <th>ชื่อผู้รับเหมา</th>
-            <th>แบบงาน</th>
-          </tr>
-          <tr>
-            <td>{{$prequestdb->keyPR}}</td>
-            <td>{{$prequestdb->date}}</td>
-            <td>{{$prequestdb->contractor}}</td>
-            <td>{{$prequestdb->formwork}}</td>
-          </tr>
-        
-          <tr>
-            <th>แปลง</th>
-            <th>ชื่อสินค้า</th>
-            <th>จำนวนสินค้า</th>
-            <th>หน่วย</th>
-          </tr>
-          <tr>
-            <td>{{$prequestdb->prequestconvert}}</td>
-            <td>{{$prequestdb->productname}}</td>
-            <td>{{$prequestdb->productnumber}}</td>
-            <td>{{$prequestdb->unit}}</td>
-          </tr>
+        <div class='text-right'>
+          <button class="btn btn-lg btn-primary"><i class="fas fa-print"></i>&nbsp;&nbsp;พิมพ์เอกสาร</button>
+        </div>
 
-          <tr>
-            <th>ร้านค้า</th>
-            <th>ราคา</th>
-            <th>จำนวนเงิน</th>
-          </tr>
-          <tr>
-            <td>{{$prequestdb->keystore}}</td>
-            <td>{{$prequestdb->price}}</td>
-            <td>{{$prequestdb->sum}}</td>
-          </tr>
-         
+        <hr>
+
+        <div class="container">
+          <table class="table table-borderless">
+            <tr>
+              <th>
+                เลขที่เอกสาร
+                </td>
+              <td>
+                {{$prequestdb->keyPR}}
+              </td>
+              <th>
+                วันที่ขอสั่งซื้อ
+                </td>
+              <td>
+                {{$prequestdb->date}}
+              </td>
+            </tr>
+            <tr>
+              <th>
+                ชื่อผู้รับเหมา
+                </td>
+              <td>
+                {{$prequestdb->contractor}}
+              </td>
+              <th>
+                แบบงาน
+                </td>
+              <td>
+                {{$prequestdb->formwork}}
+              </td>
+            </tr>
+            <tr>
+              <th>แปลง</th>
+              <td>{{$prequestdb->prequestconvert}}</td>
+            </tr>
+          </table>
+        </div>
+
+        <table class="table table-hover table-bordered">
+          <thead>
+            <tr>
+              <th>ลำดับที่</th>
+              <th>ชื่อสินค้า</th>
+              <th>จำนวนสินค้า</th>
+              <th>หน่วย</th>
+              <th>ร้านค้า</th>
+              <th>ราคา (บาท)</th>
+              <th>จำนวนเงิน</th>
+            </tr>
+          </thead>
+          <tbody>
+            <td style="width:5%">1</td>
+            <td style="width:20%">{{$prequestdb->productname}}</td>
+            <td style="width:10%">{{$prequestdb->productnumber}}</td>
+            <td style="width:10%">{{$prequestdb->unit}}</td>
+            <td style="width:10%">{{$prequestdb->keystore}}</td>
+            <td style="width:10%">{{$prequestdb->price}}</td>
+            <td style="width:10%">{{$prequestdb->sum}}</td>
+          </tbody>
         </table>
-        <a href="{{route('prequest.index')}}">กลับ</a>
+  <br>
+        <div class="text-center">
+          <a class="btn btn-danger btn-lg" href="{{route('prequest.index')}}"><i class="fas fa-undo"></i>&nbsp;&nbsp;ย้อนกลับ</a>
+        </div>
       </form>
     </div>
   </div>
+</div>
+</div>
 </div>
 @endsection

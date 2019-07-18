@@ -10,34 +10,30 @@
 @stop
 @section('content')
 <div class="container">
-  <div class="row">
-    <div class="col-md-12"> <br />
-      <h3 align="center">แก้ไขข้อมูลแปลง</h3> <br />
+  <div class="card" style="width:25rem;">
+    <div class="card-header text-white" style="background-color:#435d7d">
+        <h3><i class="far fa-file"></i>&nbsp;&nbsp;แก้ไขข้อมูลแปลง</h3>
+    </div>
+    <div class="card-body">
       <form method="post" action="{{action('TransformController@update', $id)}}">
         {{csrf_field()}}
         <div class="form-group">
-          <table style="width:100%">
-            <tr>
-              <td>
-                <h>ชื่อแปลง :</h>
-                <td><input type="text" name="convertname" class="form-control" value="{{$transform->convertname}}"/></td>
-              </td>
-            </tr>
-            <tr>
-              <div class="form-group">
-                <td><h>ขนาด :</h></td>
-                <td><input type="text" name="size" class="form-control" value="{{$transform->size}}" /></td>
-              </div>
-            </tr>
-          </table>
+          <label>ชื่อแปลง</label>
+          <input type="text" name="convertname" class="form-control" value="{{$transform->convertname}}"/>
         </div>
-          </table>
-          <div class="form-group">
-            <input type="submit" class="btn btn-primary" value="Update" />
+        <div class="form-group">
+          <label>ขนาด</label>
+          <input type="text" name="size" class="form-control" value="{{$transform->size}}" />
+        </div>
+          <br>
+          <div class="form-group text-center">
+            <a class="btn btn-danger" href="{{route('transform.index')}}"><i class="fas fa-undo"></i>&nbsp;&nbsp;ย้อนกลับ</a>
+            &nbsp;
+            <button type="submit" class="btn btn-success" value="Update"><i class="far fa-save"></i>&nbsp;&nbsp;บันทึก</button>
           </div>
-            <input type="hidden" name="_method" value="PATCH"/>
+          <input type="hidden" name="_method" value="PATCH"/>
       </form>
+      </div>
     </div>
-  </div>
 </div>
 @endsection

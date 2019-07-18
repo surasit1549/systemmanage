@@ -16,7 +16,7 @@ class CreatePrequestsTable extends Migration
         Schema::create('prequests', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('keyPR');
-            $table->date('date');
+            $table->string('date');
             $table->string('contractor');
             $table->string('formwork');
             $table->string('prequestconvert');
