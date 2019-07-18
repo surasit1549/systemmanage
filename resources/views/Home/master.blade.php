@@ -51,19 +51,14 @@
                             <a id="potab" href="{{route('porder.index')}}">Purchase Order ( PO )</a>
                         </li>
                         <li>
-                            <a id="potab" href="{{route('check.index')}}">check </a>
+                            <a id="checktab" href="{{route('check.index')}}">check </a>
                         </li>
                     </ul>
                 </li>
-            </ul>
-
-            <ul class="list-unstyled CTAs">
                 <li>
-                    <a href="#" class="btn btn-danger"><i style="font-size:15px;" class="fas fa-sign-out-alt"></i>&nbsp;&nbsp;ออกจากระบบ</a>
+                    <a href="{{route('usermanage.index')}}" id="usertab"><i class="far fa-user"></i>&nbsp;&nbsp;จัดการผู้ใช้งาน</a>
                 </li>
-
             </ul>
-
         </nav>
 
         <!-- Page Content  -->
@@ -77,26 +72,7 @@
                     <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <i class="fas fa-align-justify"></i>
                     </button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <div class="dropdown ml-auto">
-                            <a data-toggle="dropdown"><i style="font-size:25px" class="far fa-envelope"></i></a>
-                            <div class="dropdown-menu dropdown-menu-right" style="width:400px;" data-offset="50,50">
-                                <div style="padding:5px 10px;">
-                                    <h4><i class="far fa-envelope-open"></i>&nbsp;&nbsp;Header</h4>
-                                </div>
-                                <div class="dropdown-divider"></div>
-                                <nav class="nav flex-column">
-                                    <a class="nav-link" href="#">AAA</a></li>
-                                    <a class="nav-link" href="#">AAA</a></li>
-                                    <a class="nav-link" href="#">AAA</a></li>
-                                </nav>
-                                <div class="dropdown-divider"></div>
-                                <div class="text-center" >
-                                    <a href="#" class="d-block">View All Message&nbsp;<i class="fas fa-chevron-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <button class="close" data-toggle="popover"><i style="font-size:30px;" class="fa fa-user-circle"></i></button>
                 </div>
             </nav>
             <div>
@@ -104,7 +80,6 @@
             </div>
         </div>
     </div>
-
 
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->
@@ -117,6 +92,22 @@
 
     <script type="text/javascript">
         $(document).ready(function() {
+
+            var textcontent = '<ul class="nav flex-column">' +
+                '<li class="nav-item"><a class="nav-link" href="#"><i style="font-size:15px" class="fas fa-key"></i>&nbsp;&nbsp;เปลี่ยนรหัสผ่าน</a></li>' +
+                '<li class="nav-item"><a class="nav-link" href="#"><i style="font-size:15px" class="far fa-id-badge"></i>&nbsp;&nbsp;แก้ไขข้อมูลส่วนตัว</a></li>' +
+                '<li class="nav-item"><a class="nav-link" href="#"><i style="font-size:15px" class="fas fa-sign-out-alt"></i>&nbsp;&nbsp;ออกจากระบบ</a></li>' +
+                '</ul>';
+
+            $('[data-toggle="popover"]').popover({
+                trigger: 'focus',
+                placement: 'bottom',
+                content: textcontent,
+                html: true,
+                title: 'สวัสดี ! ณัฐดนัย',
+                template: '<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div><div class="popover-footer text-right"><a href="#">ข้อกำหนดรายละเอียดการใช้งาน</a></div></div>'
+            });
+
 
             $("#sidebar").mCustomScrollbar({
                 theme: "minimal"

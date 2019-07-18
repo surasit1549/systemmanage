@@ -103,6 +103,7 @@
                     {{csrf_field()}}
                     <input type="hidden" name="_method" value="DELETE" />
                   </form>
+                </td>
               </tr>
         </div>
         @endforeach
