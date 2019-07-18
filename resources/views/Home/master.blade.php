@@ -45,13 +45,13 @@
                         &nbsp;&nbsp;รายละเอียดการสั่งซื้อ</a>
                     <ul class="collapse list-unstyled" id="pageSubmenu">
                         <li>
-                            <a id="prtab" href="{{route('prequest.index')}}">Purchase Request ( PR )</a>
+                            <a id="prtab" href="{{route('prequest.index')}}">ใบขอสั่งซื้อสินค้า ( PR )</a>
                         </li>
                         <li>
-                            <a id="potab" href="{{route('porder.index')}}">Purchase Order ( PO )</a>
+                            <a id="potab" href="{{route('porder.index')}}">ใบสั่งซื้อสินค้า ( PO )</a>
                         </li>
                         <li>
-                            <a id="checktab" href="{{route('check.index')}}">check </a>
+                            <a id="checktab" href="{{route('check.index')}}">รายการตรวจสอบสินค้า </a>
                         </li>
                     </ul>
                 </li>
