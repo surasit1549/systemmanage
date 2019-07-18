@@ -122,7 +122,7 @@ class PuchaserequestController extends Controller
      */
     public function update(Request $request, $id)
     {
-      dd('44');
+      //dd('44');
       $this->validate($request,
       [
         'keyPR'           => 'required',
