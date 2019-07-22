@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
   <div class="card">
-    <div class="card-header text-white" style="background-color:#435d7d">
+    <div class="card-header text-white">
       <h3><i class="far fa-edit"></i>&nbsp;&nbsp;แก้ไขข้อมูลใบขอสั่งซื้อ ( RP )</h3>
     </div>
     <div class="card-body">

@@ -11,7 +11,7 @@
 @section('content')
 <div class="container">
   <div class="card" style="width:25rem;">
-    <div class="card-header text-white" style="background-color:#435d7d">
+    <div class="card-header text-white">
       <h3><i class="fas fa-plus-square"></i>&nbsp;&nbsp;เพิ่มข้อมูลแปลง</h3>
     </div>
     <div class="card-body">

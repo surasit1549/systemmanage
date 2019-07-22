@@ -14,7 +14,7 @@
 @stop
 @section('content')
 <div class="card">
-    <div class="card-header" style="background-color:#435d7d;">
+    <div class="card-header">
         <h3 class="text-white"><i class="fas fa-users"></i>&nbsp;&nbsp;จัดการข้อมูลผู้ใช้งาน</h3>
     </div>
     <div class="card-body">
@@ -39,7 +39,7 @@
                     <td>{{$users['username']}}</td>
                     <td>
                         {{$users['priority']}}
-                        
+
                     </td>
                     <td>
                         <a href="{{action('UsermanageController@show',$users['id'])}}" data-toggle="tooltip" data-placement="top" title="View"><i style="font-size:20px;;" class="fas fa-eye text-primary"></i></a>
@@ -54,6 +54,8 @@
                     </td>
                     @endforeach
                 </tbody>
+
+
             </table>
         </div>
     </div>

@@ -1,4 +1,5 @@
 <?php
+use phpDocumentor\Reflection\DocBlock\Tags\Uses;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,3 +24,8 @@ Route ::resource('prequest','PuchaserequestController');
 Route ::resource('porder','PurchaseorderController');
 Route ::resource('check','CheckController');
 Route ::resource('usermanage','UsermanageController');
+
+
+// Sent by Ajax
+
+Route::post('prequest/index', 'PuchaserequestController@store');

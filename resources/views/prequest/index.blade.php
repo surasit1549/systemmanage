@@ -47,7 +47,7 @@
   </div>
   @endif
   <div class="card">
-    <div class="card-header text-white" style="background:#435d7d">
+    <div class="card-header text-white">
       <div class="row">
         <div class="col-md-9">
           <h3 class="text-white"><i class="far fa-file"></i>&nbsp;&nbsp;ใบขอสั่งชื้อ (Puchase Request)</h3>
@@ -70,7 +70,7 @@
         <input type="text" id="searchtext" class="form-control" placeholder="กรอกชื่อเลขที่เอกสารที่ต้องการค้นหา..">
       </div>
       <br>
-      <table class="table table-bordered">
+      <table class="table table-bordered table-striped">
         <thead>
           <tr>
             <th style="width:5%">ลำดับ</th>

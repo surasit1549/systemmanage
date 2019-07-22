@@ -9,7 +9,7 @@
 @stop
 @section('content')
 <div class="card">
-    <div class="card-header" style="background-color:#435d7d;">
+    <div class="card-header">
         <h3 class="text-white"><i class="far fa-file-alt"></i>&nbsp;&nbsp;ข้อมูลผู้ใช้งาน</h3>
     </div>
     <div class="card-body">

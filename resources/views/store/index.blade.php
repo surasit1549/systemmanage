@@ -16,7 +16,7 @@
 <script>
   $(document).ready(function() {
     $('[data-toggle="tooltip"]').tooltip();
-    
+
     $('.test').click(function() {
       $(this).next('form').submit();
     });
@@ -54,7 +54,7 @@
       @endif
 
       <div class="card">
-        <div class="card-header" style="background-color:#435d7d;">
+        <div class="card-header">
           <div class="row">
             <div class="col-md-10">
               <h3 class="text-white"><i class="fas fa-store"></i>&nbsp;&nbsp;STORES</h3>
@@ -78,7 +78,7 @@
           </div>
           <br>
 
-          <table class="table table-bordered">
+          <table class="table table-bordered table-striped">
             <thead>
               <tr>
                 <th style="width:5%;">#</th>

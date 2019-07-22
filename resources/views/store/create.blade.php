@@ -16,7 +16,7 @@
   <div class="row">
     <div class="col-md-12">
       <div class="card">
-        <div class="card-header text-white" style="background-color:#435d7d">
+        <div class="card-header text-white">
           <h3><i class="fas fa-cart-plus"></i>&nbsp;&nbsp;เพิ่มข้อมูลร้านค้า</h3>
         </div>
         <div class="card-body">

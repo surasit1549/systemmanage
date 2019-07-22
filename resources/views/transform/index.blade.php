@@ -26,7 +26,7 @@
           </div>
         @endif
       <div class="card">
-        <div class="card-header" style="background-color:#435d7d;">
+        <div class="card-header">
           <div class="row">
             <div class="col-md-10">
               <h3 class="text-white"><i class="fas fa-map"></i>&nbsp;&nbsp;แปลง</h3>
@@ -40,7 +40,7 @@
           </div>
         </div>
         <div class="card-body">
-        <table class="table table-bordered">
+        <table class="table  table-bordered">
           <thead>
             <tr>
               <th style="width:5%;">ลำดับ</th>

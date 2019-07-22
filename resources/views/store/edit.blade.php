@@ -13,7 +13,7 @@
   <div class="row">
     <div class="col-md-12">
       <div class="card">
-        <div style="background-color:#435d7d" class="card-header text-white">
+        <div class="card-header text-white">
           <h3><i class="fas fa-user-edit"></i>&nbsp;&nbsp;แก้ไขข้อมูลร้านค้า</h3>
         </div>
         <div class="card-body">
