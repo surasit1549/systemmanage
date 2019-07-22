@@ -1,13 +1,12 @@
 @extends('Home.master')
 @section('title','ใบขอสั่งซื้อ')
 @section('content')
-<div class="container">
+<div class="">
   <div class="card">
     <div class="card-header text-white">
       <h3><i class="far fa-plus-square"></i>&nbsp;&nbsp;เพิ่มข้อมูลใบสั่งซื้อ</h3>
     </div>
     <div class="card-body">
-
       <form method="post" action="{{url('prequest')}}">
         {{csrf_field()}}
         <div class="form-group text-right">
@@ -17,12 +16,12 @@
             <p type="text" name="date" value=" {{ date('d-m-Y') }}">{{ date("d-m-Y") }}</p> -->
         </div>
         <div class="form-row">
-          <div class="form-group col-md-3">
+          <div class="form-group col-md-4">
             <label>เลขที่เอกสาร</label>
             <input type="text" name="keyPR" class="form-control" placeholder="กรอกเลขที่เอกสาร.." />
           </div>
-          <div class="form-group col-md-9">
-            <label>ชื่อเต็ม</label>
+          <div class="form-group col-md-8">
+            <label>ชื่อผู้รับเหมา</label>
             <input type="text" name="contractor" class="form-control" placeholder="กรอกชื่อผู้รับเหมา.." />
           </div>
         </div>

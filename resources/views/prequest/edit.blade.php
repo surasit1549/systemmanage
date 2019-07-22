@@ -7,7 +7,7 @@
       <h3><i class="far fa-edit"></i>&nbsp;&nbsp;แก้ไขข้อมูลใบขอสั่งซื้อ ( RP )</h3>
     </div>
     <div class="card-body">
-      <form method=" post" action="{{action('PuchaserequestController@update', $id)}}">
+    <form method="post" action="{{action('PuchaserequestController@update', $id)}}">
         {{csrf_field()}}
         <div class="form-group text-right">
           <label>วันที่ขอสั่งชื้อ</label>
