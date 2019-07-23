@@ -68,7 +68,7 @@
             @if($prequestdb->keyPR === $row['keyPR'])
               @if($prequestdb->formwork === $row['formwork'])
                 <tbody>
-                  <td style="width:5%">1</td>
+                  <td style="width:5%">{{$number++}}</td>
                   <td style="width:20%">{{$row['productname']}}</td>
                   <td style="width:10%">{{$row['productnumber']}}</td>
                   <td style="width:10%">{{$row['unit']}}</td>

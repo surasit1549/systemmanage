@@ -82,7 +82,7 @@
         <tbody>
           @foreach($prequestdb as $row)
           <tr>
-            <td>{{$row['id']}}</td>
+            <td>{{$number++}}</td>
             <td>{{$row['date']}}</td>
             <td class="schtext">{{$row['keyPR']}}</td>
             <td colspan="3">

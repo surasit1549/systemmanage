@@ -12,6 +12,7 @@ use App\prequestdb;
 use App\product;
 use App\productdb;
 use App\prequestproduct;
+use App\number;
 
 class PuchaserequestController extends Controller
 {
@@ -22,8 +23,9 @@ class PuchaserequestController extends Controller
    */
   public function index()
   {
+    $number=1;
     $prequestdb = prequest::all()->toArray();
-    return view('prequest.index', compact('prequestdb'));
+    return view('prequest.index', compact('prequestdb', 'number'));
   }
 
   /**
@@ -53,7 +55,6 @@ class PuchaserequestController extends Controller
   public function store(Request $request)
   {
     
-
     $lengtharray = sizeof($request->input('name'));
     /*     $this->validate($request, [
       'keyPR'           => 'required',      // หมายเลขใบPR
@@ -96,6 +97,7 @@ class PuchaserequestController extends Controller
    */
   public function show($id)
   {
+    $number=1;
     $prequeststore = store::all()->toArray();
     $prequestconvert = transform::all()->toArray();
     $prequestdb = prequest::find($id);
@@ -103,7 +105,7 @@ class PuchaserequestController extends Controller
     //dd($productdb->keyPR);
     $prequestproduct = product::all()->toArray();
     //dd($prequestproduct);
-    return view('prequest.show', compact('prequestdb', 'prequeststore', 'prequestconvert', 'prequestproduct', 'id'));
+    return view('prequest.show', compact('prequestdb', 'prequeststore', 'prequestconvert', 'prequestproduct', 'id', 'number'));
   }
 
   /**
