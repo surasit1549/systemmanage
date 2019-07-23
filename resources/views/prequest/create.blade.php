@@ -59,6 +59,7 @@
         <label>หน่วย</label>&emsp; <input type="text" id="unit" name='unit' placeholder="หน่วย"><br><br>
         <label>ร้านค้า</label>&emsp;&emsp;
         <select type="text" id="keystore" name='keystore'>
+          <option value="#">กรุณากรอกรหัสร้านค้า..</option>
           @foreach($prequeststore as $row)
           <option value="{{$row['keystore']}}">{{$row['keystore']}}</option>
           @endforeach
