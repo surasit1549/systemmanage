@@ -64,15 +64,21 @@
               <th>จำนวนเงิน</th>
             </tr>
           </thead>
-          <tbody>
-            <td style="width:5%">1</td>
-            <td style="width:20%">{{$prequestdb->productname}}</td>
-            <td style="width:10%">{{$prequestdb->productnumber}}</td>
-            <td style="width:10%">{{$prequestdb->unit}}</td>
-            <td style="width:10%">{{$prequestdb->keystore}}</td>
-            <td style="width:10%">{{$prequestdb->price}}</td>
-            <td style="width:10%">{{$prequestdb->sum}}</td>
-          </tbody>
+          @foreach($prequestproduct as $row)
+            @if($prequestdb->keyPR === $row['keyPR'])
+              @if($prequestdb->formwork === $row['formwork'])
+                <tbody>
+                  <td style="width:5%">1</td>
+                  <td style="width:20%">{{$row['productname']}}</td>
+                  <td style="width:10%">{{$row['productnumber']}}</td>
+                  <td style="width:10%">{{$row['unit']}}</td>
+                  <td style="width:10%">{{$row['keystore']}}</td>
+                  <td style="width:10%">{{$row['price']}}</td>
+                  <td style="width:10%">{{$row['sum']}}</td>
+                </tbody>
+              @endif
+            @endif
+          @endforeach
         </table>
   <br>
         <div class="text-center">

@@ -9,6 +9,9 @@ use App\prequestconvert;
 use App\store;
 use App\prequeststore;
 use App\prequestdb;
+use App\product;
+use App\productdb;
+use App\prequestproduct;
 
 class PuchaserequestController extends Controller
 {
@@ -59,15 +62,10 @@ class PuchaserequestController extends Controller
       'formwork'        => 'required',      // รูปแบบงาน
       'prequestconvert' => 'required',      // แปลง
     ]); */
-
-
     for ($i = 0; $i < $lengtharray; $i++) {
-      $่prequestdb = new prequest([
+      $productdb = new Product([
         'keyPR'           => $request->input('keyPR'),
-        'date'            => $request->input('date'),
-        'contractor'      => $request->input('contractor'),
         'formwork'        => $request->input('formwork'),
-        'prequestconvert' => $request->input('prequestconvert'),
         'productname'     => $request->input('name')[$i],
         'productnumber'   => $request->input('num')[$i],
         'unit'            => $request->input('units')[$i],
@@ -75,9 +73,17 @@ class PuchaserequestController extends Controller
         'price'           => $request->input('price')[$i],
         'sum'             => $request->input('sum')[$i],
       ]);
-
-      $่prequestdb->save();
+      $productdb->save();
     }
+
+    $prequestdb = new prequest([
+      'keyPR'           => $request->input('keyPR'),
+      'date'            => $request->input('date'),
+      'contractor'      => $request->input('contractor'),
+      'formwork'        => $request->input('formwork'),
+      'prequestconvert' => $request->input('prequestconvert'),
+    ]);
+    $prequestdb->save();
 
     return response()->json(["message" => 'Success'], 200);
   }
@@ -93,7 +99,11 @@ class PuchaserequestController extends Controller
     $prequeststore = store::all()->toArray();
     $prequestconvert = transform::all()->toArray();
     $prequestdb = prequest::find($id);
-    return view('prequest.show', compact('prequestdb', 'prequeststore', 'prequestconvert', 'id'));
+    $productdb = product::find($id);
+    //dd($productdb->keyPR);
+    $prequestproduct = product::all()->toArray();
+    //dd($prequestproduct);
+    return view('prequest.show', compact('prequestdb', 'prequeststore', 'prequestconvert', 'prequestproduct', 'id'));
   }
 
   /**
@@ -119,7 +129,7 @@ class PuchaserequestController extends Controller
    */
   public function update(Request $request, $id)
   {
-    dd('44');
+    //dd('44');
     $this->validate(
       $request,
       [

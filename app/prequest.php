@@ -11,22 +11,21 @@ class prequest extends Model
         'date',
         'contractor',
         'formwork',
-        'prequestconvert',
-        'productname',
-        'productnumber',
-        'unit',
-        'keystore',
-        'price',
-        'sum'
+        'prequestconvert'
   ];
   public function transform(){
-  return $this->hasOne('App\Transform','id');
+    return $this->hasOne('App\Transform','id');
   }
   
   public function store(){
-  return $this->hasOne('App\Store','id');
+    return $this->hasOne('App\Store','id');
   }
+
+  public function product(){
+    return $this->hasOne('App\Product','id');
+  }
+
   public function porder(){
     return $this->belongsTo('App\porder');
-}
+  }
 }
