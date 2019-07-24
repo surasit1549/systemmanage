@@ -76,17 +76,15 @@
             <th style="width:5%">ลำดับ</th>
             <th style="width:15%">วันที่ขอสั่งซื้อ</th>
             <th style="width:30%">ชื่อเลขที่เอกสาร</th>
-            <th style="width:15%">ร้านค้า</th>
             <th colspan="3">จัดการ</th>
           </tr>
         </thead>
         <tbody>
           @foreach($prequestdb as $row)
           <tr>
-            <td>{{$row['id']}}</td>
+            <td>{{$number++}}</td>
             <td>{{$row['date']}}</td>
             <td class="schtext">{{$row['keyPR']}}</td>
-            <td>{{$row['keystore']}}</td>
             <td colspan="3">
               <a href="{{action('PuchaserequestController@show',$row['id'])}}" data-toggle="tooltip" data-placement="top" title="View"><i style="font-size:20px;;" class="fas fa-eye text-primary"></i></a>
               &nbsp;&nbsp;
