@@ -14,4 +14,8 @@ class Transform extends Model
     public function prequest(){
       return $this->belongsTo('App\prequest');
     }
+
+    public function porder(){
+      return $this->belongsTo('App\porder');
+    }
 }

@@ -70,7 +70,7 @@ class TransformController extends Controller
      */
     public function edit($id)
     {
-      dd('22');
+      //dd('22');
       $transform = Transform::find($id);
       return view('transform.edit',compact('transform','id'));
     }
@@ -84,7 +84,7 @@ class TransformController extends Controller
      */
     public function update(Request $request, $id)
     {
-      dd('55');
+      //dd('55');
       $this->validate($request,
     [
       'convertname'   => 'required',

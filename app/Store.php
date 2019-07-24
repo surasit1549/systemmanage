@@ -19,4 +19,8 @@ class Store extends Model
     public function prequeststore(){
       return $this->belongsTo('App\prequest');
     }
+
+    public function porder(){
+      return $this->belongsTo('App\porder');
+    }
 }

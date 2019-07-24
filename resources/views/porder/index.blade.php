@@ -25,12 +25,26 @@
       </tr>
       @foreach($pr as $row)
       <tr>
-        <td>{{$row['id']}}</td>
+        <td>{{$number++}}</td>
         <td>
-          <p>
-            {{substr($row['date'],8)}}
-            {{substr($row['date'],3,-5)}}-
-          </p>
+          @foreach($porderproduct as $row)
+            @if($porderproduct->keystore === $porderproduct->keystore)
+              @if($num1 < 10)
+                {{substr($row['date'],8)}}
+                {{substr($row['date'],3,-5)}}-
+                {{$z1 + $z2 + strval($num1++)}}
+              @elseif($number < 100)
+                {{substr($row['date'],8)}}
+                {{substr($row['date'],3,-5)}}-
+                {{$z1 + strval($num1++)}}
+              @else
+                {{substr($row['date'],8)}}
+                {{substr($row['date'],3,-5)}}-
+                {{ strval($num1++)}}
+              @endif
+            @endif
+          @endforeach
+            
         </td>
         <td>{{$row['keyPR']}}</td>
         <td>{{$row['date']}}</td>
@@ -50,7 +64,7 @@
     result, num;
   result = a + b + c;
   result = parseInt(result);
-  result = result + 100;
+  result = result + 1;
   num = result;
   if (num < 10) {
     esult = result.toString();
