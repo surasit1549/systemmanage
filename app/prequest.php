@@ -28,4 +28,5 @@ class prequest extends Model
   public function porder(){
     return $this->belongsTo('App\porder');
   }
+
 }

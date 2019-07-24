@@ -13,6 +13,8 @@ use App\product;
 use App\productdb;
 use App\prequestproduct;
 use App\number;
+use App\porderdb;
+use App\porder;
 
 class PuchaserequestController extends Controller
 {
@@ -74,7 +76,12 @@ class PuchaserequestController extends Controller
         'price'           => $request->input('price')[$i],
         'sum'             => $request->input('sum')[$i],
       ]);
+
+      $porderdb = new porder([
+        'keystore'        => $request->input('store')[$i],
+      ]);
       $productdb->save();
+      $porderdb->save();
     }
 
     $prequestdb = new prequest([
@@ -85,7 +92,6 @@ class PuchaserequestController extends Controller
       'prequestconvert' => $request->input('prequestconvert'),
     ]);
     $prequestdb->save();
-
     return response()->json(["message" => 'Success'], 200);
   }
 
@@ -118,8 +124,13 @@ class PuchaserequestController extends Controller
   {
     $prequeststore = store::all()->toArray();
     $prequestconvert = transform::all()->toArray();
+    $number=1;
     $prequestdb = prequest::find($id);
-    return view('prequest.edit', compact('prequestdb', 'prequeststore', 'prequestconvert', 'id'));
+    $productdb = product::find($id);
+    //dd($productdb->keyPR);
+    $prequestproduct = product::all()->toArray();
+    //dd($prequestproduct);
+    return view('prequest.edit', compact('prequestdb', 'prequeststore', 'prequestconvert', 'prequestproduct', 'id', 'number'));
   }
 
   /**
@@ -131,38 +142,7 @@ class PuchaserequestController extends Controller
    */
   public function update(Request $request, $id)
   {
-    //dd('44');
-    $this->validate(
-      $request,
-      [
-        'keyPR'           => 'required',
-        'date'            => 'required',
-        'contractor'      => 'required',
-        'formwork'        => 'required',
-        'prequestconvert' => 'required',
-        'productname'     => 'required',
-        'productnumber'   => 'required',
-        'unit'            => 'required',
-        'keystore'        => 'required',
-        'price'           => 'required',
-        'sum'             => 'required',
-      ]
-    );
-    //dd('22');
-    $prequestdb = prequest::find($id);
-    $prequestdb->keyPR            = $request->get('keyPR');
-    $prequestdb->date             = $request->get('date');
-    $prequestdb->contractor       = $request->get('contractor');
-    $prequestdb->formwork         = $request->get('formwork');
-    $prequestdb->prequestconvert  = $request->get('prequestconvert');
-    $prequestdb->productname      = $request->get('productname');
-    $prequestdb->productnumber    = $request->get('productnumber');
-    $prequestdb->unit             = $request->get('unit');
-    $prequestdb->keystore         = $request->get('keystore');
-    $prequestdb->price            = $request->get('price');
-    $prequestdb->sum              = $request->get('sum');
-    $prequestdb->save();
-    return redirect()->route('prequest.index')->with('success', 'successfully updated');
+    //
   }
 
   /**
@@ -173,6 +153,7 @@ class PuchaserequestController extends Controller
    */
   public function destroy($id)
   {
+    
     $prequestdb = prequest::find($id);
     $prequestdb->delete();
     return redirect()->route('prequest.index')->with('success', 'ลบข้อมูลเรียบร้อย');

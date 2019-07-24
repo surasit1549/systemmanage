@@ -29,3 +29,5 @@ Route ::resource('usermanage','UsermanageController');
 // Sent by Ajax
 
 Route::post('prequest/index', 'PuchaserequestController@store');
+
+//Route::post('prequest/index', 'PuchaserequestController@update');
