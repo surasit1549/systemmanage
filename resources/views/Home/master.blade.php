@@ -6,11 +6,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+
+
     @yield('tabbarcss')
-    <title>Collapsible sidebar using Bootstrap 4</title>
-    <!-- DataTable -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
-    <script src="https:////cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <title>HOME</title>
+
     <!-- Bootstrap -->
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
     <script src="{{asset('js/app.js')}}"></script>

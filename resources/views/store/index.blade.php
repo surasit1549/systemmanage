@@ -15,6 +15,7 @@
 @section('content')
 <script>
   $(document).ready(function() {
+
     $('[data-toggle="tooltip"]').tooltip();
 
     $('.test').click(function() {
@@ -54,36 +55,16 @@
     <h3 class="text-white"><i class="fas fa-store"></i>&nbsp;&nbsp;STORES</h3>
   </div>
   <div class="card-body">
-    <div class="form-row">
-      <div class="form-group form-row col-md-4">
-        <label for="showentries" class="col-form-label col-md-2">แสดง</label>
-        <div class="text-center col-md-3">
-          <select name="showentries" class="custom-select" id="">
-            <option value="10" selected>10</option>
-            <option value="20">25</option>
-            <option value="50">50</option>
-            <option value="100">100</option>
-          </select>
-        </div>
-        <label class="col-form-label col-md-2 text-center">แถว</label>
-      </div>
-      <div class="form-group col-md-8 text-right">
-        <div class="input-group" id="searchform">
-          <div class="input-group-prepend">
-            <span class="input-group-text bg-light"><i class="fas fa-search"></i></span>
-          </div>
-          <input type="text" id="searchtext" class="form-control col-md-6" placeholder="กรอกรหัสร้านค้าหรือชื่อร้านค้าที่ต้องการค้นหา..">
-        </div>
-      </div>
-    </div>
-
-    <table class="table table-bordered table-striped">
+    <table class="table table-bordered table-striped" id="example">
       <thead>
         <tr>
           <th style="width:5%;">#</th>
           <th style="width:15%;">รหัสร้านค้า</th>
           <th style="width:40%;">ชื่อร้านค้า</th>
-          <th colspan="3">Manage</th>
+          <th>Manage</th>
+          <th>Manage</th>
+          <th>Manage</th>
+          <th>Manage</th>
         </tr>
       </thead>
       <tbody>
@@ -92,7 +73,7 @@
           <td>{{$row->id}}</td>
           <td class="schnum">{{$row->keystore}}</td>
           <td class="schtext">{{$row->name}}</td>
-          <td colspan="3">
+          <td>
             <a href="{{action('StoreController@show',$row->id)}}" data-toggle="tooltip" data-placement="top" title="View"><i style="font-size:20px;;" class="fas fa-eye text-primary"></i></a>
             &nbsp;&nbsp;
             <a href="{{action('StoreController@edit',$row->id)}}" data-toggle="tooltip" data-placement="top" title="Edit"><i style="font-size:20px;" class="fas fa-edit text-warning"></i></a>
@@ -103,14 +84,21 @@
               <input type="hidden" name="_method" value="DELETE" />
             </form>
           </td>
+          <td>AA</td>
+          <td>BB</td>
+          <td>CC</td>
         </tr>
   </div>
   @endforeach
   </tbody>
   </table>
-  {{ $store->links() }}
+</div>
 </div>
 
-</div>
+<script>
+  $(document).ready(function() {
+    $('#example').DataTable();
+  });
+</script>
 
 @stop
