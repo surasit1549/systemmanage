@@ -8,14 +8,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     @yield('tabbarcss')
     <title>Collapsible sidebar using Bootstrap 4</title>
+    <!-- DataTable -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <script src="https:////cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <!-- Bootstrap -->
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
     <script src="{{asset('js/app.js')}}"></script>
+    <!-- Fontawesome -->
     <script src="https://kit.fontawesome.com/55a3f2f61c.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
 
     <!-- Font Awesome JS -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
-
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
 
 </head>
@@ -105,7 +109,7 @@
                 content: textcontent,
                 html: true,
                 title: 'สวัสดี ! ณัฐดนัย',
-                template: '<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div><div class="popover-footer text-right"><a href="#">ข้อกำหนดรายละเอียดการใช้งาน</a></div></div>'
+                template: '<div class="popover" role="tooltip" style="font-size:14px"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div><div class="popover-footer text-right"><a href="#">ข้อกำหนดรายละเอียดการใช้งาน</a></div></div>'
             });
 
 
