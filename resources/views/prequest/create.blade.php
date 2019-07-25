@@ -54,39 +54,39 @@
           </div>
         </div>
         <!-- สินค้าที่ขอสั่งซื้อ -->
-        <label>ชื้อสินค้า</label>&emsp; <input type="text" id="productname" name='productname' placeholder="ชื่อสินค้า">&emsp;&emsp;
-        <label>จำนวนสินค้า</label>&emsp; <input type="number" id="productnumber" name='productnumber' placeholder="จำนวน">&emsp;
-        <label>หน่วย</label>&emsp; <input type="text" id="unit" name='unit' placeholder="หน่วย"><br><br>
-        <label>ร้านค้า</label>&emsp;&emsp;
-        <select type="text" id="keystore" name='keystore'>
-          <option value="#">กรุณากรอกรหัสร้านค้า..</option>
-          @foreach($prequeststore as $row)
-          <option value="{{$row['keystore']}}">{{$row['keystore']}}</option>
-          @endforeach
-        </select>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-        <label>ราคา</label>&emsp;&emsp;&emsp;&emsp; <input type="number" id="price" name='price'><br><br>
-        <label>จำนวนเงิน</label>&emsp; <input type="number" id="sum" name='sum'><br><br>
-        <input type="button" class="add-row" value="เพิ่มสินค้า">&emsp;&emsp;
-        <button type="button" class="delete-row"> ลบรายการสินค้า</button><br><br>
+        <br>
 
         <table class="table table-hover">
           <thead>
             <tr>
               <th>ลำดับ</th>
-              <th>รายการขอสั่งซื้อสินค้า</th>
+              <th>รายการสินค้า</th>
               <th>จำนวน</th>
               <th>หน่วย</th>
               <th>ร้านค้า</th>
               <th>ราคา</th>
-              <th>จำนวนเงิน</th>
+              <th>รวม</th>
             </tr>
           </thead>
           <tbody>
+            <tr>
+              <td class="text-center"><label class="col-form-label">1</label></td>
+              <td><input type="text" class="form-control" name="" id="productname"></td>
+              <td><input type="number" min="1" class="form-control" name="" id="productnumber"></td>
+              <td><input type="text" class="form-control" name="" id="unit"></td>
+              <td><input type="text" class="form-control" name="" id="keystore"></td>
+              <td><input type="number" min="1" class="form-control" name="" id="price"></td>
+              <td class="text-center"><label class="sum col-form-label">0</label></td>
+            </tr>
           </tbody>
         </table>
-
+        <div id="clickthis" class="text-left">
+          <button id="addrow" class="close" style="text-left"><i style="font-size:25px" class="fas fa-plus-square"></i></button>
+        </div>
+        <hr>
         <div class="form-group">
-          <input id="subbutton" type="submit" class="btn btn-primary" value="save" />
+          <a class="btn btn-danger" href="{{route('prequest.index')}}"><i class="fas fa-undo-alt"></i>&nbsp;&nbsp;ย้อนกลับ</a>
+          <input type="submit" class="btn btn-success" id="subbutton" value='บันทึก'>
         </div>
       </form>
     </div>
@@ -96,6 +96,28 @@
 <!-- การเพิ่มสินค้า  -->
 <script type="text/javascript">
   $(document).ready(function() {
+
+    var index = 1;
+
+    $('#point').click(function(e) {
+      e.preventDefault();
+      $('#subbutton').click();
+    });
+
+    $('tbody').on('click',function(){
+      alert(1);
+    });
+
+    $('#addrow').click(function(e) {
+      e.preventDefault();
+      $('tbody').append('<tr><td class="text-center"><label class="col-form-label">'+(++index)+'</label></td><td>' +
+        '<input type="text" class="form-control"></td>' +
+        '<td><input type="number" min="1" class="form-control"></td>' +
+        '<td><input type="text" class="form-control"></td>' +
+        '<td><input type="text" class="form-control"></td>' +
+        '<td><input type="number" class="form-control"></td>' +
+        '<td class="text-center"><label class="sum col-form-label">0</label></td></tr>');
+    });
 
     $(".add-row").click(function() {
       var productname = $("#productname").val();
@@ -132,12 +154,12 @@
       var price = [];
       var sum = [];
       $('table tbody tr').each(function(index, value) {
-        name.push($('td.name', this).text());
-        num.push($('td.num', this).text());
-        units.push($('td.units', this).text());
-        store.push($('td.store', this).text());
-        price.push($('td.price', this).text());
-        sum.push($('td.sum', this).text());
+        name.push($('td.name', this).val());
+        num.push($('td.num', this).val());
+        units.push($('td.units', this).val());
+        store.push($('td.store', this).val());
+        price.push($('td.price', this).val());
+        sum.push($('td.sum', this).val());
       });
 
       $.ajax({
