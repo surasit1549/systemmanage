@@ -51,13 +51,14 @@
     <h3 class="text-white"><i class="fas fa-map"></i>&nbsp;&nbsp;แปลง</h3>
   </div>
   <div class="card-body">
+
     <table class="table table-bordered table-striped" id="example">
       <thead>
         <tr>
           <th style="width:5%;">ลำดับ</th>
           <th style="width:40%;">ชื่อแปลง</th>
           <th style="width:30%;">ขนาด ( ตารางวา )</th>
-          <th colspan="3">จัดการ</th>
+          <th>จัดการ</th>
         </tr>
       </thead>
       <tbody>

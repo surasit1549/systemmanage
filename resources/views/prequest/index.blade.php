@@ -12,8 +12,8 @@
   $(document).ready(function() {
 
     $('[data-toggle="tooltip"]').tooltip();
-    $('#examples').DataTable();
 
+    $('#prtable').DataTable();
     $('.test').click(function() {
       $(this).next('form').submit();
     });
@@ -44,6 +44,8 @@
 @endif
 
 
+
+
 <div class="form-row col-md-12">
   <div class="form-group">
     <a class="btn btn-sm btn-success text-white" href="{{route('prequest.create')}}">
@@ -68,13 +70,15 @@
     </div>
   </div>
   <div class="card-body">
-    <table class="table table-bordered table-striped" id="examples">
+
+
+    <table class="table table-bordered table-striped" id="prtable">
       <thead>
         <tr>
           <th style="width:5%">ลำดับ</th>
-          <th style="width:15%">วันที่ขอสั่งซื้อ</th>
+          <th style="width:15%">วันที่ขอซื้อ</th>
           <th style="width:30%">ชื่อเลขที่เอกสาร</th>
-          <th colspan="3">จัดการ</th>
+          <th cols="3">จัดการ</th>
         </tr>
       </thead>
       <tbody>
