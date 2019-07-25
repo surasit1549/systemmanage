@@ -16,11 +16,13 @@
 @section('content')
 <script>
   $(document).ready(function() {
+    $('#examples').DataTable();
 
     $('[data-toggle="tooltip"]').tooltip();
     $('.test').click(function() {
       $(this).next('form').submit();
     });
+
 
     $('#iconsearch').click(function() {
       var check = $('#searchform');
@@ -70,7 +72,7 @@
         <input type="text" id="searchtext" class="form-control" placeholder="กรอกชื่อเลขที่เอกสารที่ต้องการค้นหา..">
       </div>
       <br>
-      <table class="table table-bordered table-striped">
+      <table class="table table-bordered table-striped" id="examples">
         <thead>
           <tr>
             <th style="width:5%">ลำดับ</th>

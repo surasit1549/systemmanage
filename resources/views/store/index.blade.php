@@ -61,10 +61,7 @@
           <th style="width:5%;">#</th>
           <th style="width:15%;">รหัสร้านค้า</th>
           <th style="width:40%;">ชื่อร้านค้า</th>
-          <th>Manage</th>
-          <th>Manage</th>
-          <th>Manage</th>
-          <th>Manage</th>
+          <th cols="3">Manage</th>
         </tr>
       </thead>
       <tbody>
@@ -84,9 +81,6 @@
               <input type="hidden" name="_method" value="DELETE" />
             </form>
           </td>
-          <td>AA</td>
-          <td>BB</td>
-          <td>CC</td>
         </tr>
   </div>
   @endforeach

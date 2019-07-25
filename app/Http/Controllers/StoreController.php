@@ -39,8 +39,8 @@ class StoreController extends Controller
 /*    $store = Store::all()->toArray();
       return view('store.index',compact('store'));
  */
-      $store = Store::paginate(20);
-      return view('store.index',[ 'store' => $store ]);
+      $store = Store::all();
+      return view('store.index',compact('store'));
 
 }
 

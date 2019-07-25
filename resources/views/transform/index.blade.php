@@ -16,6 +16,7 @@
 <script>
   $(document).ready(function() {
     $('[data-toggle="tooltip"]').tooltip();
+
     $('.test').click(function() {
       $(this).next('form').submit();
     });
@@ -37,35 +38,7 @@
     <h3 class="text-white"><i class="fas fa-map"></i>&nbsp;&nbsp;แปลง</h3>
   </div>
   <div class="card-body">
-    <div class="form-row">
-      <div class="form-group col-md-10">
-        <div class="input-group" id="searchform">
-          <div class="input-group-prepend">
-            <span class="input-group-text bg-light"><i class="fas fa-search"></i></span>
-          </div>
-          <input type="text" id="searchtext" class="form-control" placeholder="กรอกรหัสร้านค้าหรือชื่อร้านค้าที่ต้องการค้นหา..">
-        </div>
-      </div>
-
-      <nav aria-label="Page navigation" class="col-md-2">
-        <ul class="pagination justify-content-end">
-          <li class="page-item disabled">
-            <a class="page-link" href="#" aria-label="Previous">
-              <span aria-hidden="true">&laquo;</span>
-            </a>
-          </li>
-          <li class="page-item active"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item">
-            <a class="page-link" href="#" aria-label="Next">
-              <span aria-hidden="true">&raquo;</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </div>
-    <table class="table  table-bordered table-striped">
+    <table class="table table-bordered table-striped" id="example">
       <thead>
         <tr>
           <th style="width:5%;">ลำดับ</th>
@@ -92,22 +65,13 @@
         @endforeach
       </tbody>
     </table>
-    <nav aria-label="Page navigation">
-      <ul class="pagination justify-content-center">
-        <li class="page-item disabled">
-          <a class="page-link" href="#" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
-          </a>
-        </li>
-        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-          <a class="page-link" href="#" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
   </div>
+
+  <script>
+    $(document).ready(function() {
+      $('#example').DataTable();
+    });
+  </script>
+
+
   @stop
