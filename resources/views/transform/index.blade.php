@@ -13,6 +13,7 @@
 </style>
 @stop
 @section('content')
+
 <script>
   $(document).ready(function() {
     $('[data-toggle="tooltip"]').tooltip();
@@ -22,17 +23,29 @@
     });
   });
 </script>
+
 @if(\Session::has('success'))
 <div class="alert alert-success">
   <a><i class="fas fa-check"></i>&nbsp;&nbsp;{{\Session::get('success')}}</a>
 </div>
 @endif
-<div class="form-group">
-  <a class="btn btn-sm btn-success text-white" href="{{route('transform.create')}}">
-    <i class="fas fa-plus"></i>
-    สร้างแปลง
-  </a>
+
+<div class="form-row col-md-12">
+  <div class="form-group">
+    <a class="btn btn-sm btn-success text-white" href="{{route('transform.create')}}">
+      <i class="fas fa-plus"></i>
+      สร้างแปลง
+    </a>
+  </div>
+  <div class="form-group ml-2">
+    <a class="btn btn-sm btn-primary text-white" href="#">
+      <i class="fas fa-info-circle"></i>
+      รายละเอียดการใช้งาน
+    </a>
+  </div>
 </div>
+
+
 <div class="card">
   <div class="card-header">
     <h3 class="text-white"><i class="fas fa-map"></i>&nbsp;&nbsp;แปลง</h3>
