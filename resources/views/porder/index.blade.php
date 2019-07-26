@@ -21,36 +21,30 @@
         <th>ชื่อเลขที่เอกสาร PR</th>
         <th>วันที่ใบสั่งซื้อ</th>
         <th>แปลง</th>
+        <th>สินค้า</th>
         <th>พิมพ์</th>
       </tr>
       @foreach($pr as $row)
-      <tr>
-        <td>{{$number++}}</td>
-        <td>
-          @foreach($porderproduct as $row)
-            @if($porderproduct->keystore === $porderproduct->keystore)
-              @if($num1 < 10)
-                {{substr($row['date'],8)}}
-                {{substr($row['date'],3,-5)}}-
-                {{$z1 + $z2 + strval($num1++)}}
-              @elseif($number < 100)
-                {{substr($row['date'],8)}}
-                {{substr($row['date'],3,-5)}}-
-                {{$z1 + strval($num1++)}}
-              @else
-                {{substr($row['date'],8)}}
-                {{substr($row['date'],3,-5)}}-
-                {{ strval($num1++)}}
-              @endif
+        @foreach($porderproduct as $rows)
+        
+            @if($row['keyPR'] === $rows['keyPR'] )
+
+                  <tr>
+                    <td>{{$number++}}</td>
+                    <td>
+                      {{substr($row['date'],8)}}
+                      {{substr($row['date'],3,-5)}}-
+                      {{ strval($num1++)}}
+                    </td>
+                    <td>{{$row['keyPR']}}</td>
+                    <td>{{$row['date']}}</td>
+                    <td>{{$row['prequestconvert']}}</td>
+                    <td>{{$rows['productname']}}</td>
+                    <td><a href="{{action('PurchaseorderController@show',$row['id'])}}" class="btn btn-primary btn-sm">พิมพ์</a></td>
+                  </tr>
             @endif
-          @endforeach
-            
-        </td>
-        <td>{{$row['keyPR']}}</td>
-        <td>{{$row['date']}}</td>
-        <td>{{$row['prequestconvert']}}</td>
-        <td><a href="{{action('PuchaserequestController@show',$row['id'])}}" class="btn btn-primary btn-sm">พิมพ์</a></td>
-      </tr>
+         
+        @endforeach
       @endforeach
     </table>
   </div>

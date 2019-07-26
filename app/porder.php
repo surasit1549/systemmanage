@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class porder extends Model
 {
+    
     protected $fillable=[
+                'keyPR',
                 'keystore'
                 
     ];
@@ -26,4 +28,6 @@ class porder extends Model
     public function store(){
         return $this->hasOne('App\Store','id');
     }
+
+
 }

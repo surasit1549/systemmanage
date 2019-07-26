@@ -78,19 +78,22 @@ class PuchaserequestController extends Controller
       ]);
 
       $porderdb = new porder([
+        'keyPR'           => $request->input('keyPR'),
         'keystore'        => $request->input('store')[$i],
       ]);
+
       $productdb->save();
       $porderdb->save();
     }
-
     $prequestdb = new prequest([
       'keyPR'           => $request->input('keyPR'),
       'date'            => $request->input('date'),
       'contractor'      => $request->input('contractor'),
       'formwork'        => $request->input('formwork'),
       'prequestconvert' => $request->input('prequestconvert'),
+
     ]);
+
     $prequestdb->save();
     return response()->json(["message" => 'Success'], 200);
   }

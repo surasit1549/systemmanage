@@ -15,6 +15,7 @@ class CreatePordersTable extends Migration
     {
         Schema::create('porders', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('keyPR');
             $table->string('keystore');
             $table->timestamps();
         });

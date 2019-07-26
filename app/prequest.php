@@ -11,7 +11,8 @@ class prequest extends Model
         'date',
         'contractor',
         'formwork',
-        'prequestconvert'
+        'prequestconvert',
+
   ];
   public function transform(){
     return $this->hasOne('App\Transform','id');

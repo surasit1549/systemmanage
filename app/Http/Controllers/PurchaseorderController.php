@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Porder;
+use App\porderdb;
+use App\porder;
+use App\po;
 use App\pr;
 use App\prequest;
 use App\porderstore;
@@ -16,8 +18,6 @@ use App\num1;
 use App\num2;
 use App\number;
 use App\checkkeystore;
-use App\z1;
-use App\z2;
 
 class PurchaseorderController extends Controller
 {
@@ -32,20 +32,12 @@ class PurchaseorderController extends Controller
         $porderproduct = product::all()->toArray();
         $porderstore = store::all()->toArray();
         $porderconvert = transform::all()->toArray();
-        //return view('porder.index');
-        //dd(gettype('$z1'));
-        $num1 = 0;
+        $porderdb = porder::all()->toArray();
+        $num1 = 1;
         $num2;
-        $z1 = '0';
-        //dd(gettype($number));
-        $z2 = '0';
         $pr = prequest::all()->toArray();
         //dd($porderproduct);
-        //dd($pr);
-        //return $pr;
-        //dd(gettype('$pr'));
-        //dd('55');
-        return view('porder.index',compact('pr', 'porderstore', 'pordertransform', 'num1', 'z1', 'z2', 'num2', 'number', 'porderproduct'));
+        return view('porder.index',compact('pr', 'po', 'porderdb', 'porderstore', 'pordertransform', 'num1', 'z1', 'z2', 'num2', 'number', 'porderproduct'));
  
     }
 
