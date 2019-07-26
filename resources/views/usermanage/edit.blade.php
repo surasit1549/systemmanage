@@ -44,7 +44,7 @@
                 {!! Form::select('priority',array('user' => 'user','admin' => 'admin'),null,['class' => 'form-control']) !!}
 
             </div>
-            <div class="form-group text-right mt-3">
+            <div class="form-group mt-3">
                 <a class="btn btn-danger" href="{{route('usermanage.index')}}"><i class="fas fa-undo"></i>&nbsp;&nbsp;ย้อนกลับ</a>
                 <button type="submit" class="btn btn-success" value="Update"><i class="far fa-save"></i>&nbsp;&nbsp;บันทึกข้อมูล</button>
             </div>
