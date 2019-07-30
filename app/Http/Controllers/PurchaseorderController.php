@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\porderdb;
 use App\porder;
-use App\po;
 use App\pr;
 use App\prequest;
 use App\porderstore;
@@ -26,15 +25,26 @@ class PurchaseorderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {  
+        function pos($porderdb,$porderproduct)
+        {
+        foreach($porderdb as $row){
+            $po[] = $row['keystore'];
+        }
+        return $po;
+        }
         $number = 1;
         $porderproduct = product::all()->toArray();
         $porderstore = store::all()->toArray();
         $porderconvert = transform::all()->toArray();
         $porderdb = porder::all()->toArray();
-        $num1 = 1;
-        $num2;
+    
+        pos($porderdb,$porderproduct);  
+        $num2 = pos($porderdb,$porderproduct);
+        dd($num2);      
+        //$num2;
         $pr = prequest::all()->toArray();
         //dd($porderproduct);
         return view('porder.index',compact('pr', 'po', 'porderdb', 'porderstore', 'pordertransform', 'num1', 'z1', 'z2', 'num2', 'number', 'porderproduct'));

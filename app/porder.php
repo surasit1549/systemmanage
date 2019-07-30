@@ -8,9 +8,10 @@ class porder extends Model
 {
     
     protected $fillable=[
-                'keyPR',
-                'keystore'
-                
+        'keyPR',
+        'date',
+        'keystore'
+        
     ];
 
     public function prequest(){
@@ -24,10 +25,9 @@ class porder extends Model
     public function transform(){
         return $this->hasOne('App\Transform','id');
     }
-      
+
     public function store(){
         return $this->hasOne('App\Store','id');
     }
-
 
 }

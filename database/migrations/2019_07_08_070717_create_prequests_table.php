@@ -20,7 +20,6 @@ class CreatePrequestsTable extends Migration
             $table->string('contractor');
             $table->string('formwork');
             $table->string('prequestconvert');
-            $table->string('keystore');
             $table->timestamps();
         });
     }

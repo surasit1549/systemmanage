@@ -69,6 +69,7 @@ class PuchaserequestController extends Controller
       $productdb = new Product([
         'keyPR'           => $request->input('keyPR'),
         'formwork'        => $request->input('formwork'),
+        'date'            => $request->input('date'),
         'productname'     => $request->input('name')[$i],
         'productnumber'   => $request->input('num')[$i],
         'unit'            => $request->input('units')[$i],
@@ -79,6 +80,7 @@ class PuchaserequestController extends Controller
 
       $porderdb = new porder([
         'keyPR'           => $request->input('keyPR'),
+        'date'            => $request->input('date'),
         'keystore'        => $request->input('store')[$i],
       ]);
 
