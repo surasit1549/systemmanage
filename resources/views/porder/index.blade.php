@@ -15,28 +15,38 @@
   </div>
   <div class="card-body">
     <table class="table table-hover">
-      <tr>
-        <th>ลำดับ</th>
-        <th>ชื่อเลขที่เอกสาร PO</th>
-        <th>ชื่อเลขที่เอกสาร PR</th>
-        <th>วันที่ใบสั่งซื้อ</th>
-        <th>แปลง</th>
-        <th>พิมพ์</th>
-      </tr>
-      @foreach($pr as $row)
+      <thead>
         <tr>
-          @for($i=0; $i<$l; $i++)
+          <th>ลำดับ</th>
+          <th>ชื่อเลขที่เอกสาร PO</th>
+          <th>ชื่อเลขที่เอกสาร PR</th>
+          <th>วันที่ใบสั่งซื้อ</th>
+          <th>แปลง</th>
+          <th>พิมพ์</th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach($pr as $row)
+        <tr>
+          @for($i=0; $i<$l; $i++) 
             <td>{{$number++}}</td>
             <td>{{$p1[$i]}}</td>
             <td>{{$p2[$i]}}</td>
             <td>{{$date[$i]}}</td>
             <td>{{$p3[$i]}}</td>
             <td><a href="{{action('PurchaseorderController@show',$row['id'])}}" class="btn btn-primary btn-sm">พิมพ์</a></td>
-            </tr>
-          @endfor
-      @endforeach
+          </tr>
+            @endfor
+        @endforeach
+      </tbody>
     </table>
   </div>
 </div>
+
+<script>
+  $(document).ready(function() {
+    $('table').DataTable();
+  });
+</script>
 
 @stop
