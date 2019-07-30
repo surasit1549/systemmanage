@@ -63,6 +63,7 @@ class PurchaseorderController extends Controller
         }
         $l = sizeof($po);
         $pr = prequest::all()->toArray();
+        //dd($l);
         //dd($porderproduct);
         return view('porder.index',compact(
                                             'pr', 
@@ -105,7 +106,18 @@ class PurchaseorderController extends Controller
      */
     public function show($id)
     {
-        //
+        $number;
+        $prequeststore = store::find($id);
+        $prequestconvert = transform::all()->toArray();
+        $prequestdb = prequest::find($id);
+        $productdb = product::find($id);
+        $porderdb = porder::find($id);
+        //dd($productdb->keyPR);
+        $prequestproduct = product::all()->toArray();
+        //dd($prequestproduct);
+        dd($l);
+        return view('porder.show', compact('prequestdb', 'prequeststore', 'prequestconvert', 'prequestproduct', 'id', 'number'));
+
     }
 
     /**

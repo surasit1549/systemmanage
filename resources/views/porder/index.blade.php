@@ -23,7 +23,7 @@
         <th>แปลง</th>
         <th>พิมพ์</th>
       </tr>
-      @foreach($pr as $row)
+      
         <tr>
           @for($i=0; $i<$l; $i++)
             <td>{{$number++}}</td>
@@ -31,10 +31,10 @@
             <td>{{$p2[$i]}}</td>
             <td>{{$date[$i]}}</td>
             <td>{{$p3[$i]}}</td>
-            <td><a href="{{action('PurchaseorderController@show',$row['id'])}}" class="btn btn-primary btn-sm">พิมพ์</a></td>
+            <td><a href="{{action('PurchaseorderController@show',$l)}}" class="btn btn-primary btn-sm">พิมพ์</a></td>
             </tr>
           @endfor
-      @endforeach
+      
     </table>
   </div>
 </div>
