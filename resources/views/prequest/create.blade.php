@@ -236,13 +236,18 @@
         success: function(data) {
           console.log(data.message);
           swal.fire({
-            showCancelButton : true,
-            cancelButtonText : 'สร้าง PR ใหม่',
-            confirmButtonText : 'ไปยังหน้า PO',
-            focusConfirm : true,
-            type : 'success',
-            title : 'บันทึกข้อมูลเรียบร้อยแล้ว',
-            text : 'สามารถตรวจสอบข้อมูลได้ที่ตาราง PR'
+            showCancelButton: true,
+            cancelButtonText: 'สร้าง PR ใหม่',
+            confirmButtonText: 'ไปยังหน้า PO',
+            focusConfirm: true,
+            type: 'success',
+            title: 'บันทึกข้อมูลเรียบร้อยแล้ว',
+            text: 'สามารถตรวจสอบข้อมูลได้ที่ตาราง PR'
+          }).then((result) => {
+            if (result.value)
+              window.location.replace('./');
+            else
+              location.reload();
           })
         }
       });
