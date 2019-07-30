@@ -25,6 +25,7 @@
     },
     "dependencies": {
         "datatables.net": "^1.10.19",
-        "datatables.net-bs4": "^1.10.19"
+        "datatables.net-bs4": "^1.10.19",
+        "sweetalert2": "^8.14.0"
     }
 }

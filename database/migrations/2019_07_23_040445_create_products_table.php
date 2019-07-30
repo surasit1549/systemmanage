@@ -17,7 +17,6 @@ class CreateProductsTable extends Migration
             $table->bigIncrements('id');
             $table->string('keyPR');
             $table->string('formwork');
-            $table->string('date');
             $table->string('productname');
             $table->integer('productnumber');
             $table->string('unit');
