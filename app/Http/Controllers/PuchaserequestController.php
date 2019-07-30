@@ -82,6 +82,9 @@ class PuchaserequestController extends Controller
         'keyPR'           => $request->input('keyPR'),
         'date'            => $request->input('date'),
         'keystore'        => $request->input('store')[$i],
+        'contractor'      => $request->input('contractor'),
+        'formwork'        => $request->input('formwork'),
+        'prequestconvert' => $request->input('prequestconvert'),
       ]);
 
       $productdb->save();
@@ -97,7 +100,7 @@ class PuchaserequestController extends Controller
     ]);
 
     $prequestdb->save();
-    return response()->json(["message" => 'Success'], 200);
+    return response()->json(['message' => 'success'],200);
   }
 
   /**

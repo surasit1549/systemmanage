@@ -10,7 +10,11 @@ class porder extends Model
     protected $fillable=[
         'keyPR',
         'date',
+        'contractor',
+        'formwork',
+        'prequestconvert',
         'keystore'
+        
         
     ];
 

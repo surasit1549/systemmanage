@@ -27,28 +27,27 @@ class PurchaseorderController extends Controller
      */
 
     public function index()
-    {  
-        function pos($porderdb,$porderproduct)
+    {
+        function pos($porderdb, $porderproduct)
         {
-        foreach($porderdb as $row){
-            $po[] = $row['keystore'];
-        }
-        return $po;
+            foreach ($porderdb as $row) {
+                $po[] = $row['keystore'];
+            }
+            return $po;
         }
         $number = 1;
         $porderproduct = product::all()->toArray();
         $porderstore = store::all()->toArray();
         $porderconvert = transform::all()->toArray();
         $porderdb = porder::all()->toArray();
-    
-        pos($porderdb,$porderproduct);  
-        $num2 = pos($porderdb,$porderproduct);
-        dd($num2);      
+
+        pos($porderdb, $porderproduct);
+        $num2 = pos($porderdb, $porderproduct);
+        dd($num2);
         //$num2;
         $pr = prequest::all()->toArray();
         //dd($porderproduct);
-        return view('porder.index',compact('pr', 'po', 'porderdb', 'porderstore', 'pordertransform', 'num1', 'z1', 'z2', 'num2', 'number', 'porderproduct'));
- 
+        return view('porder.index', compact('pr', 'po', 'porderdb', 'porderstore', 'pordertransform', 'num1', 'z1', 'z2', 'num2', 'number', 'porderproduct'));
     }
 
     /**
