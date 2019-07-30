@@ -77,6 +77,7 @@ class PuchaserequestController extends Controller
         'price'           => $request->input('price')[$i],
         'sum'             => $request->input('sum')[$i],
       ]);
+      $productdb->save();
 
       $porderdb = new porder([
         'keyPR'           => $request->input('keyPR'),
@@ -86,8 +87,6 @@ class PuchaserequestController extends Controller
         'formwork'        => $request->input('formwork'),
         'prequestconvert' => $request->input('prequestconvert'),
       ]);
-
-      $productdb->save();
       $porderdb->save();
     }
     $prequestdb = new prequest([
