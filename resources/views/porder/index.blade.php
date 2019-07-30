@@ -21,58 +21,22 @@
         <th>ชื่อเลขที่เอกสาร PR</th>
         <th>วันที่ใบสั่งซื้อ</th>
         <th>แปลง</th>
-        <th>สินค้า</th>
         <th>พิมพ์</th>
       </tr>
       @foreach($pr as $row)
-        @foreach($porderproduct as $rows)
-        
-            @if($row['keyPR'] === $rows['keyPR'] )
-
-                  <tr>
-                    <td>{{$number++}}</td>
-                    <td>
-                      {{substr($row['date'],8)}}
-                      {{substr($row['date'],3,-5)}}-
-                      {{ strval($num1++)}}
-                    </td>
-                    <td>{{$row['keyPR']}}</td>
-                    <td>{{$row['date']}}</td>
-                    <td>{{$row['prequestconvert']}}</td>
-                    <td>{{$rows['productname']}}</td>
-                    <td><a href="{{action('PurchaseorderController@show',$row['id'])}}" class="btn btn-primary btn-sm">พิมพ์</a></td>
-                  </tr>
-            @endif
-         
-        @endforeach
+        <tr>
+          @for($i=0; $i<$l; $i++)
+            <td>{{$number++}}</td>
+            <td>{{$p1[$i]}}</td>
+            <td>{{$p2[$i]}}</td>
+            <td>{{$date[$i]}}</td>
+            <td>{{$p3[$i]}}</td>
+            <td><a href="{{action('PurchaseorderController@show',$row['id'])}}" class="btn btn-primary btn-sm">พิมพ์</a></td>
+            </tr>
+          @endfor
       @endforeach
     </table>
   </div>
 </div>
 
-
-<script type="text/javascript">
-  var a = "0",
-    b = "0",
-    c = "0",
-    result, num;
-  result = a + b + c;
-  result = parseInt(result);
-  result = result + 1;
-  num = result;
-  if (num < 10) {
-    esult = result.toString();
-    result = a + b + result;
-  } else if (num < 100) {
-    esult = result.toString();
-    result = a + result;
-  } else {
-    esult = result.toString();
-    result = result;
-  }
-
-  $(document).ready(function() {
-    $('p').append(result);
-  });
-</script>
 @stop
