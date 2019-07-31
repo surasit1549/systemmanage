@@ -15,9 +15,7 @@
   </div>
   <div class="card-body">
     <table class="table table-hover">
-<<<<<<< HEAD
       <thead>
-=======
       <tr>
         <th>ลำดับ</th>
         <th>ชื่อเลขที่เอกสาร PO</th>
@@ -27,7 +25,6 @@
         <th>พิมพ์</th>
       </tr>
       
->>>>>>> feb65244f669ad301b126cbb95e59529addc368d
         <tr>
           <th>ลำดับ</th>
           <th>ชื่อเลขที่เอกสาร PO</th>
@@ -46,18 +43,15 @@
             <td>{{$p2[$i]}}</td>
             <td>{{$date[$i]}}</td>
             <td>{{$p3[$i]}}</td>
-<<<<<<< HEAD
             <td><a href="{{action('PurchaseorderController@show',$row['id'])}}" class="btn btn-primary btn-sm">พิมพ์</a></td>
           </tr>
             @endfor
         @endforeach
       </tbody>
-=======
             <td><a href="{{action('PurchaseorderController@show',$l)}}" class="btn btn-primary btn-sm">พิมพ์</a></td>
             </tr>
           @endfor
       
->>>>>>> feb65244f669ad301b126cbb95e59529addc368d
     </table>
   </div>
 </div>
