@@ -35,9 +35,9 @@ class PurchaseorderController extends Controller
         $porderdb = porder::all()->toArray();
         foreach($porderdb as $row){
             $porder1[] = $row['keystore'];
-            $porder2[] = $row[ 'date'];
-            $porder3[] = $row[ 'formwork'];
-            $porder4[]= $row['id'];
+            $porder2[] = $row['date'];
+            $porder3[] = $row['formwork'];
+            $porder4[] = $row['id'];
             $porder5[] = $row['keyPR'];
         }
         foreach($porderproduct as $row){
@@ -122,10 +122,29 @@ class PurchaseorderController extends Controller
         $prequestdb = prequest::find($id);
         $productdb = product::find($id);
         $porderdb = porder::find($id);
+        $porder = porder::all()->toArray();
         $prequestproduct = product::all()->toArray();
         //dd($prequestproduct);
         $num = $id;
-        
+
+        foreach($prequeststore as $row){
+            $store1[] = $row['id'];
+            $store2[] = $row['keystore'];
+            $store3[] = $row['name'];
+            $store4[] = $row['address'];
+            $store5[] = $row['phone'];
+            $store6[] = $row['fax'];
+            $store7[] = $row['contect'];
+            $store8[] = $row['cellphone'];
+        }
+
+        foreach($porderdb as $row){
+            $porder1[] = $row['id'];
+            $porder2[] = $row['keystore'];
+        }
+
+        $number = sizeof($porder1);
+        dd($number);
         dd($num);
         return view('porder.show', compact(
                                             'prequestdb', 
