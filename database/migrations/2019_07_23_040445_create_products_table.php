@@ -20,7 +20,6 @@ class CreateProductsTable extends Migration
             $table->string('productname');
             $table->integer('productnumber');
             $table->string('unit');
-            $table->string('date');
             $table->string('keystore');
             $table->integer('price');
             $table->integer('sum');

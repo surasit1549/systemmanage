@@ -14,7 +14,7 @@
     <h3 class="text-white">ใบสังซื้อ (Puchase Order)</h3>
   </div>
   <div class="card-body">
-    <table class="table table-hover">
+    <table class="table table-hover table-bordered">
       <thead>
         <tr>
           <th>ลำดับ</th>
@@ -27,22 +27,21 @@
       </thead>
       <tbody>
         <tr>
-          @for($i=0; $i<$l; $i++) 
-            <td>{{$number++}}</td>
+          @for($i=0; $i<$l; $i++) <td>{{$number++}}</td>
             <td>{{$date[$i]}}</td>
             <td>{{$temp1[$i]}}</td>
             <td>{{$temp3[$i]}}</td>
             <td>{{$temp4[$i]}}</td>
-            <td><a href="{{action('PurchaseorderController@show',$temp5[$i])}}" class="btn btn-primary btn-sm">พิมพ์</a></td>
-            </tr>
-          @endfor
-      
+            <td><a href="{{action('PurchaseorderController@show',$temp5[$i])}}" data-toggle="tooltip" data-placement="top" title="Print"><i style="font-size:20px" class="fas fa-print"></i></a></td>
+        </tr>
+        @endfor
     </table>
   </div>
 </div>
 
 <script>
   $(document).ready(function() {
+    $('[data-toggle=tooltip]').tooltip();
     $('table').DataTable();
   });
 </script>

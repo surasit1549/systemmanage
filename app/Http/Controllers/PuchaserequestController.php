@@ -69,7 +69,6 @@ class PuchaserequestController extends Controller
       $productdb = new Product([
         'keyPR'           => $request->input('keyPR'),
         'formwork'        => $request->input('formwork'),
-        'date'            => $request->input('date'),
         'productname'     => $request->input('name')[$i],
         'productnumber'   => $request->input('num')[$i],
         'unit'            => $request->input('units')[$i],
