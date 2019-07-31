@@ -34,45 +34,55 @@ class PurchaseorderController extends Controller
         $porderconvert = transform::all()->toArray();
         $porderdb = porder::all()->toArray();
         foreach($porderdb as $row){
-            $porders[] = $row['keystore'];
-            $porderss[] = $row[ 'date'];
-            $pordersss[] = $row[ 'formwork'];
+            $porder1[] = $row['keystore'];
+            $porder2[] = $row[ 'date'];
+            $porder3[] = $row[ 'formwork'];
+            $porder4[]= $row['id'];
+            $porder5[] = $row['keyPR'];
         }
         foreach($porderproduct as $row){
             $product[] = $row['keystore'];
         }
         //$po[] = [$porder , $product];
-        $length = sizeof($porders);
+        $length = sizeof($porderdb);
         for($i=0; $i<$length-1; $i++){
-            $temp1 = $porders[$i];
-            $temp2 = $porderss[$i];
-            $temp3 = $pordersss[$i]; 
-            $sub1 = substr($temp2,8);
-            $sub2 = substr($temp2,3,-5);
-            $sub3 = $num++;
-            $date[] = "$sub1$sub2-$sub3";
-            $p1[] = $temp1;
-            $p2[] = $temp2;
-            $p3[] = $temp3;
-            $po[] = [$date, $temp1, $temp2, $temp3];
             for ($j=$i+1; $j<$length; $j++){
-                if($product[$j] != $temp1){
-                    $temp1 = $j; 
+                if($porder1[$j] != $porder1[$i]){
+                /*    $porders[$i];
+                    $porderss[$i];
+                    $pordersss[$i]; 
+                    $temp1[] = $porders[$j];    */
+                    $temp2 = $porder2[$j];
+                    $sub1 = substr($temp2,8);
+                    $sub2 = substr($temp2,3,-5);
+                    $sub3 = $num++;
+                    $date[] = "$sub1$sub2-$sub3";
+                    //$temp1 = $j; 
+                    
                 }
             }
+            $temp1[] = $porder1[$i];
+            $temp3[] = $porder3[$i];
+            $temp4[] = $porder2[$i];
+            $temp5[] = $porder4[$i];
+            $temp6[] = $porder5[$i];
+            $po[] = [$date, $porder1[$i], $porder2[$i], $porder3[$i]];
         }
         $l = sizeof($po);
+        $s = sizeof($date);
         $pr = prequest::all()->toArray();
-        //dd($l);
+        //dd($temp5);
+
         //dd($porderproduct);
         return view('porder.index',compact(
                                             'pr', 
-                                            'p1', 
-                                            'p2', 
-                                            'p3',
+                                            'temp1', 
+                                            'temp3', 
+                                            'temp4',
+                                            'temp5',
                                             'date', 
                                             'number', 
-                                            'l'
+                                            'l'                                         
         ));
  
     }
@@ -112,11 +122,17 @@ class PurchaseorderController extends Controller
         $prequestdb = prequest::find($id);
         $productdb = product::find($id);
         $porderdb = porder::find($id);
-        //dd($productdb->keyPR);
         $prequestproduct = product::all()->toArray();
         //dd($prequestproduct);
-        dd($l);
-        return view('porder.show', compact('prequestdb', 'prequeststore', 'prequestconvert', 'prequestproduct', 'id', 'number'));
+        dd($id);
+        return view('porder.show', compact(
+                                            'prequestdb', 
+                                            'prequeststore', 
+                                            'prequestconvert', 
+                                            'prequestproduct', 
+                                            'id', 
+                                            'number'
+        ));
 
     }
 

@@ -12,6 +12,7 @@ class Product extends Model
         'productname',
         'productnumber',
         'unit',
+        'date',
         'keystore',
         'price',
         'sum'
