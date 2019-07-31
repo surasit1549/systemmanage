@@ -117,14 +117,16 @@ class PurchaseorderController extends Controller
     public function show($id)
     {
         $number;
-        $prequeststore = store::find($id);
+        $prequeststore = store::all()->toArray();;
         $prequestconvert = transform::all()->toArray();
         $prequestdb = prequest::find($id);
         $productdb = product::find($id);
         $porderdb = porder::find($id);
         $prequestproduct = product::all()->toArray();
         //dd($prequestproduct);
-        dd($id);
+        $num = $id;
+        
+        dd($num);
         return view('porder.show', compact(
                                             'prequestdb', 
                                             'prequeststore', 
