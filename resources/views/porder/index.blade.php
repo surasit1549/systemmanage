@@ -16,15 +16,6 @@
   <div class="card-body">
     <table class="table table-hover">
       <thead>
-      <tr>
-        <th>ลำดับ</th>
-        <th>ชื่อเลขที่เอกสาร PO</th>
-        <th>ชื่อเลขที่เอกสาร PR</th>
-        <th>วันที่ใบสั่งซื้อ</th>
-        <th>แปลง</th>
-        <th>พิมพ์</th>
-      </tr>
-      
         <tr>
           <th>ลำดับ</th>
           <th>ชื่อเลขที่เอกสาร PO</th>
@@ -35,20 +26,14 @@
         </tr>
       </thead>
       <tbody>
-        @foreach($pr as $row)
         <tr>
           @for($i=0; $i<$l; $i++) 
             <td>{{$number++}}</td>
-            <td>{{$p1[$i]}}</td>
-            <td>{{$p2[$i]}}</td>
             <td>{{$date[$i]}}</td>
-            <td>{{$p3[$i]}}</td>
-            <td><a href="{{action('PurchaseorderController@show',$row['id'])}}" class="btn btn-primary btn-sm">พิมพ์</a></td>
-          </tr>
-            @endfor
-        @endforeach
-      </tbody>
-            <td><a href="{{action('PurchaseorderController@show',$l)}}" class="btn btn-primary btn-sm">พิมพ์</a></td>
+            <td>{{$temp1[$i]}}</td>
+            <td>{{$temp3[$i]}}</td>
+            <td>{{$temp4[$i]}}</td>
+            <td><a href="{{action('PurchaseorderController@show',$temp5[$i])}}" class="btn btn-primary btn-sm">พิมพ์</a></td>
             </tr>
           @endfor
       
