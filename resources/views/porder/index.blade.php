@@ -27,7 +27,8 @@
       </thead>
       <tbody>
         <tr>
-          @for($i=0; $i<$l; $i++) <td>{{$number++}}</td>
+          @for($i=0; $i<$l; $i++) 
+            <td>{{$number++}}</td>
             <td>{{$date[$i]}}</td>
             <td>{{$temp1[$i]}}</td>
             <td>{{$temp3[$i]}}</td>
