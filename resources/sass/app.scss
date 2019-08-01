@@ -75,11 +75,10 @@ a:focus {
 
 #sidebar .sidebar-header {
   padding: 20px;
-  background: #6d7fcc;
 }
 
 #sidebar ul.components {
-  padding: 20px 0;
+  padding: 10px 0;
   border-bottom: 1px solid #47748b;
 }
 
@@ -214,6 +213,15 @@ a.article:hover {
     display: none;
   }
 }
+
+// User Account
+
+#useraccount {
+  display: block;
+  padding: 15px;
+  background-color: #31125A;;
+}
+
 
 
 // header CARD

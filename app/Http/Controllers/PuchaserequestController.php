@@ -39,11 +39,12 @@ class PuchaserequestController extends Controller
   {
     $prequeststore = store::all()->toArray();
     $prequestconvert = transform::all()->toArray();
+    $stores = store::all()->toArray();
     //  dd(gettype('$prequeststore'));
     //  return $prequest;
     //  return $prequeststore;
     //  return view('prequest.create',compact('prequest'));
-    return view('prequest.create', compact('prequeststore', 'prequestconvert'));
+    return view('prequest.create', compact('prequeststore', 'prequestconvert','stores'));
     //  return view('prequest.create')->with('prequest');
     //  return view('prequest.create');
   }

@@ -68,10 +68,15 @@ class PurchaseorderController extends Controller
             $temp6[] = $porder5[$i];
             $po[] = [$date, $porder1[$i], $porder2[$i], $porder3[$i]];
         }
+        dd($length);
         $l = sizeof($po);
         $s = sizeof($date);
         $pr = prequest::all()->toArray();
+<<<<<<< HEAD
         //dd(gettype($temp5));
+=======
+        dd($l);
+>>>>>>> 64d37d64b093d0e53d08185a0aca76cd292a0982
 
         //dd($porderproduct);
         return view('porder.index',compact(

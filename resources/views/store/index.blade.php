@@ -55,7 +55,7 @@
     <h3 class="text-white"><i class="fas fa-store"></i>&nbsp;&nbsp;STORES</h3>
   </div>
   <div class="card-body">
-    <table class="table table-bordered table-striped" id="example">
+    <table class="table table-bordered" id="example">
       <thead>
         <tr>
           <th style="width:5%;">#</th>
