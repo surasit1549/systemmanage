@@ -71,8 +71,12 @@
       <!-- สินค้าที่ขอสั่งซื้อ -->
       <br>
 
-      <table class="table table-hover">
+      <table class="table table-hover table-bordered border-dark table-border-dark">
         <thead>
+          <tr>
+            <th colspan="4" class="text-center">รายการสินค้า</th>
+            <th colspan="4" class="text-center">จัดซื้อสินค้า</th>
+          </tr>
           <tr class="text-center">
             <th style="width:5%;">ลำดับ</th>
             <th style="width:20%;">รายการสินค้า</th>
@@ -94,7 +98,7 @@
               <select name="" class="keystore custom-select" id="" required>
                 <option value="">เลือกร้านค้า</option>
                 @foreach( $stores as $store )
-                <option value="{{$store['name']}}">{{ $store['name'] }}</option>
+                <option value="{{$store['keystore']}}">{{ $store['keystore'] }}</option>
                 @endforeach
               </select>
             </td>

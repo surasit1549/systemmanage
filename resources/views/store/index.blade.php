@@ -10,6 +10,7 @@
     outline: none !important;
     box-shadow: none;
   }
+
 </style>
 @stop
 @section('content')
@@ -58,10 +59,10 @@
     <table class="table table-bordered" id="example">
       <thead>
         <tr>
-          <th style="width:5%;">#</th>
+          <th style="width:5%;">ลำดับ</th>
           <th style="width:15%;">รหัสร้านค้า</th>
           <th style="width:40%;">ชื่อร้านค้า</th>
-          <th cols="3">Manage</th>
+          <th id="trythis" cols="3">Manage</th>
         </tr>
       </thead>
       <tbody>
@@ -92,6 +93,7 @@
 <script>
   $(document).ready(function() {
     $('#example').DataTable();
+    alert(1);
   });
 </script>
 

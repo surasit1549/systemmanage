@@ -73,6 +73,7 @@
     <table class="table table-bordered" id="prtable">
       <thead>
         <tr>
+          <th style="width:5%"><input type="checkbox" name="" id=""></th>
           <th style="width:5%">ลำดับ</th>
           <th style="width:15%">วันที่ขอซื้อ</th>
           <th style="width:30%">ชื่อเลขที่เอกสาร</th>
@@ -82,6 +83,9 @@
       <tbody>
         @foreach($prequestdb as $row)
         <tr>
+          <td style="width:5%">
+              <input type="checkbox" class="custom-control-input" id="customCheck1">
+          </td>
           <td>{{$number++}}</td>
           <td>{{$row['date']}}</td>
           <td class="schtext">{{$row['keyPR']}}</td>
