@@ -70,9 +70,7 @@
     </div>
   </div>
   <div class="card-body">
-
-
-    <table class="table table-bordered table-striped" id="prtable">
+    <table class="table table-bordered" id="prtable">
       <thead>
         <tr>
           <th style="width:5%">ลำดับ</th>
