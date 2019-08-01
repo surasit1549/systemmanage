@@ -18,36 +18,52 @@
         <div class="container">
           <table class="table table-borderless">
             <tr>
-              <th>
-                เลขที่เอกสาร
-                </td>
+              <th> ผู้ขาย :</th>
               <td>
-                {{$prequestdb->keyPR}}
+                {{$store[0][1]}}
               </td>
-              <th>
-                วันที่ขอสั่งซื้อ
-                </td>
+              <th> วันที่เอกสาร :</th>
               <td>
-                {{$prequestdb->date}}
+                {{$po}}
               </td>
             </tr>
             <tr>
-              <th>
-                ชื่อผู้รับเหมา
-                </td>
+              <th> ที่อยู่ :</td>
               <td>
-                {{$prequestdb->contractor}}
+                {{$store[0][2]}}
               </td>
-              <th>
-                แบบงาน
-                </td>
+              <th>  ผู้ติดต่อ : </th>
               <td>
-                {{$prequestdb->formwork}}
+                {{$store[0][5]}}  {{$store[0][6]}}
               </td>
             </tr>
             <tr>
-              <th>แปลง</th>
-              <td>{{$prequestdb->prequestconvert}}</td>
+              <th> โทรศัพท์ :</th>
+              <td>
+                {{$store[0][3]}}
+              </td>
+              <th> วันที่กำหนดส่ง : </th>
+              <td>
+
+              </td>
+            </tr>
+            <tr>
+              <th> โทรสาร : </th>
+              <td>
+                {{$store[0][4]}}
+              </td>
+              <th> จำนวนเครดิต : </th>
+              <td>
+
+              </td>
+            </tr>
+            <tr>
+              <th> </th>
+              <td> </td>
+              <th> เงื่อนไขการชำระ :  </th>
+              <td>
+
+              </td>
             </tr>
           </table>
         </div>
@@ -59,30 +75,27 @@
               <th>ชื่อสินค้า</th>
               <th>จำนวนสินค้า</th>
               <th>หน่วย</th>
-              <th>ร้านค้า</th>
               <th>ราคา (บาท)</th>
               <th>จำนวนเงิน</th>
             </tr>
           </thead>
-          @foreach($prequestproduct as $row)
-            @if($prequestdb->keyPR === $row['keyPR'])
-              @if($prequestdb->formwork === $row['formwork'])
-                <tbody>
-                  <td style="width:5%">{{$number++}}</td>
-                  <td style="width:20%">{{$row['productname']}}</td>
-                  <td style="width:10%">{{$row['productnumber']}}</td>
-                  <td style="width:10%">{{$row['unit']}}</td>
-                  <td style="width:10%">{{$row['keystore']}}</td>
-                  <td style="width:10%">{{$row['price']}}</td>
-                  <td style="width:10%">{{$row['sum']}}</td>
-                </tbody>
-              @endif
-            @endif
-          @endforeach
+          <tbody>
+            @for($i=0; $i<$number3; $i++)
+            <tr>
+                <td style="width:5%">{{$number++}}</td>
+                <td style="width:20%">{{$products[$i]}}</td>
+                <td style="width:10%">{{$products[$i]}}</td>
+                <td style="width:10%">{{$products[$i]}}</td>
+                <td style="width:10%">{{$products[$i]}}</td>
+                <td style="width:10%">{{$products[$i]}}</td>
+            </tr><br>
+            @endfor
+          </tbody>
+
         </table>
-  <br>
+        <br>
         <div class="text-center">
-          <a class="btn btn-danger btn-lg" href="{{route('prequest.index')}}"><i class="fas fa-undo"></i>&nbsp;&nbsp;ย้อนกลับ</a>
+          <a class="btn btn-danger btn-lg" href="{{route('porder.index')}}"><i class="fas fa-undo"></i>&nbsp;&nbsp;ย้อนกลับ</a>
         </div>
       </form>
     </div>
