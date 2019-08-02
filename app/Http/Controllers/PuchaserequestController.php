@@ -44,7 +44,7 @@ class PuchaserequestController extends Controller
     //  return $prequest;
     //  return $prequeststore;
     //  return view('prequest.create',compact('prequest'));
-    return view('prequest.create', compact('prequeststore', 'prequestconvert','stores'));
+    return view('prequest.create', compact('prequeststore', 'prequestconvert' ,'stores'));
     //  return view('prequest.create')->with('prequest');
     //  return view('prequest.create');
   }

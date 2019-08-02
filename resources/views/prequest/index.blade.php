@@ -11,31 +11,37 @@
 <script>
   $(document).ready(function() {
 
-    $('[data-toggle="tooltip"]').tooltip();
+        $('[data-toggle="tooltip"]').tooltip();
 
-    $('#prtable').DataTable();
-    $('.test').click(function() {
-      $(this).next('form').submit();
-    });
+        $('#prtable').DataTable({
+            buttons: [
+                'copy',
+                'excel',
+                'pdf']
+        });
+
+          $('.test').click(function() {
+            $(this).next('form').submit();
+          });
 
 
-    $('#iconsearch').click(function() {
-      var check = $('#searchform');
-      if (check.hasClass('d-none'))
-        check.removeClass('d-none');
-      else
-        check.addClass('d-none');
-      $('#searchtext').focus();
-    });
+          $('#iconsearch').click(function() {
+            var check = $('#searchform');
+            if (check.hasClass('d-none'))
+              check.removeClass('d-none');
+            else
+              check.addClass('d-none');
+            $('#searchtext').focus();
+          });
 
-    $('#searchtext').keyup(function() {
-      $('table tbody tr').filter(function() {
-        var existname = $(this).find('.schtext').text().toLowerCase();
-        var search = $('#searchtext').val().toLowerCase();
-        $(this).toggle(existname.indexOf(search) > -1);
-      });
-    });
-  })
+          $('#searchtext').keyup(function() {
+            $('table tbody tr').filter(function() {
+              var existname = $(this).find('.schtext').text().toLowerCase();
+              var search = $('#searchtext').val().toLowerCase();
+              $(this).toggle(existname.indexOf(search) > -1);
+            });
+          });
+        })
 </script>
 @if(\Session::has('success'))
 <div class="alert alert-success">
@@ -73,7 +79,6 @@
     <table class="table table-bordered" id="prtable">
       <thead>
         <tr>
-          <th style="width:5%"><input type="checkbox" name="" id=""></th>
           <th style="width:5%">ลำดับ</th>
           <th style="width:15%">วันที่ขอซื้อ</th>
           <th style="width:30%">ชื่อเลขที่เอกสาร</th>
@@ -83,9 +88,6 @@
       <tbody>
         @foreach($prequestdb as $row)
         <tr>
-          <td style="width:5%">
-              <input type="checkbox" class="custom-control-input" id="customCheck1">
-          </td>
           <td>{{$number++}}</td>
           <td>{{$row['date']}}</td>
           <td class="schtext">{{$row['keyPR']}}</td>
