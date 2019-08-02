@@ -10,7 +10,6 @@
     outline: none !important;
     box-shadow: none;
   }
-
 </style>
 @stop
 @section('content')
@@ -90,11 +89,6 @@
 </div>
 </div>
 
-<script>
-  $(document).ready(function() {
-    $('#example').DataTable();
-    alert(1);
-  });
-</script>
+
 
 @stop

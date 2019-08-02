@@ -13,6 +13,11 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
     <script src="{{asset('js/app.js')}}"></script>
+    <!-- Auto Complete -->
+    <link rel="stylesheet" href="{{asset('css/styles.css')}}">
+    <script src="{{asset('js/jquery.mockjax.js')}}"></script>
+    <script src="{{asset('js/jquery.autocomplete.js')}}"></script>
+
     <!-- Fontawesome -->
     <script src="https://kit.fontawesome.com/55a3f2f61c.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">

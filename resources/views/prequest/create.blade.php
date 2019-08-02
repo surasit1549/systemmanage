@@ -74,7 +74,7 @@
       <table class="table table-hover table-bordered border-dark table-border-dark">
         <thead>
           <tr>
-            <th colspan="4" class="text-center">รายการสินค้า</th>
+            <th colspan="4" class="text-center">จัดการสินค้า</th>
             <th colspan="4" class="text-center">จัดซื้อสินค้า</th>
           </tr>
           <tr class="text-center">
@@ -95,12 +95,7 @@
             <td><input type="number" min="1" class="form-control productnumber" name="" required></td>
             <td><input type="text" class="form-control unit" name="" required></td>
             <td>
-              <select name="" class="keystore custom-select" id="" required>
-                <option value="">เลือกร้านค้า</option>
-                @foreach( $stores as $store )
-                <option value="{{$store['keystore']}}">{{ $store['keystore'] }}</option>
-                @endforeach
-              </select>
+              <input type="text" class="form-control namestore">
             </td>
             <td><input type="number" min="1" class="form-control price" name="" required></td>
             <td class="text-center result"><label class="sum col-form-label">0</label></td>
@@ -121,15 +116,86 @@
   <div class="form-group text-center">
     <a class="btn btn-danger" href="{{route('prequest.index')}}"><i style="font-size:18px" class="fas fa-undo-alt"></i>&nbsp;&nbsp;ย้อนกลับ</a>
     <button type="submit" class="btn btn-success" id="subbutton"><i style="font-size:18px" class="far fa-save"></i>&nbsp;&nbsp;บันทึก</button>
-
   </div>
   </form>
 </div>
 
+<ul id="getstore" class="d-none">
+  @foreach( $stores as $store )
+  <li>{{ $store['keystore'] }}</li>
+  @endforeach
+</ul>
+
 <!-- การเพิ่มสินค้า  -->
 <script type="text/javascript">
   $(document).ready(function() {
-    var index = 2;
+
+
+    $('input.unit').autocomplete({
+      lookup: [{
+          value: 'เส้น',
+          data: 'เส้น'
+        },
+        {
+          value: 'ชิ้น',
+          data: 'ชิ้น'
+        },
+        {
+          value: 'แผ่น',
+          data: 'แผ่น'
+        },
+        {
+          value: 'ลัง',
+          data: 'แมม'
+        },
+        {
+          value: 'กล่อง',
+          data: 'แนน'
+        },
+        {
+          value: 'หีบ',
+          data: 'แสส'
+        },
+        {
+          value: 'ตัว',
+          data: 'แสส'
+        },
+        {
+          value: 'ชุด',
+          data: 'แสส'
+        },
+        {
+          value: 'กระป๋อง',
+          data: 'แสส'
+        },
+        {
+          value: 'ปิ๊บ',
+          data: 'แสส'
+        },
+        {
+          value: 'อัน',
+          data: 'แสส'
+        }
+      ],
+      autoSelectFirst: true
+    });
+
+    var index = 2,
+      arr = [];
+
+    $('#getstore li').each(function(index) {
+      arr.push({
+        value: $(this).text(),
+        data: $(this).text()
+      });
+    });
+
+
+    $('.namestore').autocomplete({
+      lookup: arr,
+      autoSelectFirst: true
+    });
+
 
     function sumallprice() {
       var sum = 0;
@@ -164,17 +230,76 @@
       sumallprice();
     });
 
+
+
     $('#addrow').click(function(e) {
       e.preventDefault();
       $('tbody').append('<tr><td class="text-center"><label class="col-form-label">' + (index++) + '</label></td><td>' +
         '<input type="text" class="form-control productname" required></td>' +
         '<td><input type="number" min="1" class="form-control productnumber" required></td>' +
         '<td><input type="text" class="form-control unit" required></td>' +
-        '<td><input type="text" class="form-control keystore" required></td>' +
+        '<td><input type="text" class="form-control namestore" required></td>' +
         '<td><input type="number"class="form-control price" required></td>' +
         '<td class="text-center"><label class="sum col-form-label">0</label></td>' +
         '<td class="text-center"><button class="btn btn-outline-danger"><i style="font-size:18px" class="far fa-trash-alt"></i></button></td></tr>');
+      $('tbody tr:last .productname').focus();
+
+      $('input.unit').autocomplete({
+        lookup: [{
+            value: 'เส้น',
+            data: 'เส้น'
+          },
+          {
+            value: 'ชิ้น',
+            data: 'ชิ้น'
+          },
+          {
+            value: 'แผ่น',
+            data: 'แผ่น'
+          },
+          {
+            value: 'ลัง',
+            data: 'แมม'
+          },
+          {
+            value: 'กล่อง',
+            data: 'แนน'
+          },
+          {
+            value: 'หีบ',
+            data: 'แสส'
+          },
+          {
+            value: 'ตัว',
+            data: 'แสส'
+          },
+          {
+            value: 'ชุด',
+            data: 'แสส'
+          },
+          {
+            value: 'กระป๋อง',
+            data: 'แสส'
+          },
+          {
+            value: 'ปิ๊บ',
+            data: 'แสส'
+          },
+          {
+            value: 'อัน',
+            data: 'แสส'
+          }
+        ],
+        autoSelectFirst: true
+      });
+
+      $('.namestore').autocomplete({
+        lookup: arr,
+        autoSelectFirst: true
+      });
+
     });
+
 
 
     function SortIndex() {
