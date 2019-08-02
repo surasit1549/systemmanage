@@ -45,40 +45,50 @@ class PurchaseorderController extends Controller
         }
         //$po[] = [$porder , $product];
         $length = sizeof($porderdb);
+        $key = 0;
+
+        
         for($i=0; $i<$length-1; $i++){
-            for ($j=$i+1; $j<$length; $j++){
-                if($porder1[$j] != $porder1[$i]){
-                /*    $porders[$i];
-                    $porderss[$i];
-                    $pordersss[$i]; 
-                    $temp1[] = $porders[$j];    */
-                    $temp2 = $porder2[$j];
-                    $sub1 = substr($temp2,8);
-                    $sub2 = substr($temp2,3,-5);
-                    $sub3 = $num++;
-                    $date[] = "$sub1$sub2-$sub3";
-                    //$temp1 = $j; 
-                    
+            if($i > $key){
+                for ($j=$i+1; $j<$length; $j++){
+                        if($porder5[$j] === $porder5[$i] ){
+                            
+                                $a[] = $porder5[$j];
+                                $b[] = $porder5[$i];
+                                $k[] = $i;
+                                $data[] = $porder5[$j];
+                                break;
+                        }  
+                        break;
+                }
+                $key = $j;
+                
+            }
+
+            //break;
+        }
+        $number1 = sizeof($data);
+        $number2 = $number1;
+        
+        for($b=0; $b<$number2; $b++){
+            for ($c=$b+1; $c<$length; $c++){
+                if($porder5[$c] === $data[$b]){
+                    $data2[] = $porder5[$c];
                 }
             }
-            $temp1[] = $porder1[$i];
-            $temp3[] = $porder3[$i];
-            $temp4[] = $porder2[$i];
-            $temp5[] = $porder4[$i];
-            $temp6[] = $porder5[$i];
-            $po[] = [$date, $porder1[$i], $porder2[$i], $porder3[$i]];
-        }
-        dd($length);
+            $data1[] = $data[$b];
+            //break;
+        }   
+        $data3 = [$data1,$data2];
+        $datanum = sizeof($data2);
+        
+
+        dd($data3);
         $l = sizeof($po);
         $s = sizeof($date);
         $pr = prequest::all()->toArray();
-<<<<<<< HEAD
         //dd(gettype($temp5));
-=======
-        dd($l);
->>>>>>> 64d37d64b093d0e53d08185a0aca76cd292a0982
-
-        //dd($porderproduct);
+        //dd($bot);
         return view('porder.index',compact(
                                             'pr', 
                                             'temp1', 
@@ -205,7 +215,7 @@ class PurchaseorderController extends Controller
            
         }
         $c = sizeof($products[8]);
-        dd($product9[1]);
+        dd($product9);
         //dd($po);
         //dd($store);
         //dd(gettype($num));
