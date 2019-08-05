@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\porderdb;
 use App\porder;
-use App\pr;
+use App\prporder;
 use App\prequest;
 use App\porderstore;
 use App\store;
@@ -29,75 +29,31 @@ class PurchaseorderController extends Controller
         
         $num = 1;
         $number = 1;
+        $n;
         $porderproduct = product::all()->toArray();
         $porderstore = store::all()->toArray();
-        $porderconvert = transform::all()->toArray();
+        $porderconvert = transform::select('convertname')->distinct()->get();
         $porderdb = porder::all()->toArray();
-        foreach($porderdb as $row){
-            $porder1[] = $row['keystore'];
-            $porder2[] = $row['date'];
-            $porder3[] = $row['formwork'];
-            $porder4[] = $row['id'];
-            $porder5[] = $row['keyPR'];
-        }
-        foreach($porderproduct as $row){
-            $product[] = $row['keystore'];
-        }
-        //$po[] = [$porder , $product];
-        $length = sizeof($porderdb);
-        $key = 0;
-
+        $prporder = porder::select('keyPR', 'keystore')
+                                                    ->distinct()
+                                                    ->addSelect('formwork')
+                                                    ->addSelect('date')
+                                                    
+                                                    ->get();
         
-        for($i=0; $i<$length-1; $i++){
-            if($i > $key){
-                for ($j=$i+1; $j<$length; $j++){
-                        if($porder5[$j] === $porder5[$i] ){
-                            
-                                $a[] = $porder5[$j];
-                                $b[] = $porder5[$i];
-                                $k[] = $i;
-                                $data[] = $porder5[$j];
-                                break;
-                        }  
-                        break;
-                }
-                $key = $j;
-                
-            }
+        $n = sizeof($prporder);
 
-            //break;
-        }
-        $number1 = sizeof($data);
-        $number2 = $number1;
-        
-        for($b=0; $b<$number2; $b++){
-            for ($c=$b+1; $c<$length; $c++){
-                if($porder5[$c] === $data[$b]){
-                    $data2[] = $porder5[$c];
-                }
-            }
-            $data1[] = $data[$b];
-            //break;
-        }   
-        $data3 = [$data1,$data2];
-        $datanum = sizeof($data2);
-        
+        //dd($prporder);
 
-        dd($data3);
-        $l = sizeof($po);
-        $s = sizeof($date);
         $pr = prequest::all()->toArray();
         //dd(gettype($temp5));
         //dd($bot);
         return view('porder.index',compact(
-                                            'pr', 
-                                            'temp1', 
-                                            'temp3', 
-                                            'temp4',
-                                            'temp5',
+                                            'prporder',
                                             'date', 
-                                            'number', 
-                                            'l'                                         
+                                            'number',
+                                            'n',
+                                            'num'                                        
         ));
  
     }

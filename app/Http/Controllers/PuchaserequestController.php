@@ -137,7 +137,13 @@ class PuchaserequestController extends Controller
     //dd($productdb->keyPR);
     $prequestproduct = product::all()->toArray();
     //dd($prequestproduct);
-    return view('prequest.edit', compact('prequestdb', 'prequeststore', 'prequestconvert', 'prequestproduct', 'id', 'number'));
+    return view('prequest.edit', compact(
+                                          'prequestdb', 
+                                          'prequeststore', 
+                                          'prequestconvert', 
+                                          'prequestproduct', 
+                                          'id', 
+                                          'number'));
   }
 
   /**
