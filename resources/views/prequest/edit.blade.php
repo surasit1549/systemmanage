@@ -1,105 +1,201 @@
 @extends('Home.master')
-@section('title','แก้ไขใบขอสั่งซื้อ')
+@section('title','ใบขอสั่งซื้อ')
 @section('content')
-<div class="">
-  <div class="card">
-    <div class="card-header text-white">
-      <h3><i class="far fa-plus-square"></i>&nbsp;&nbsp;แก้ไขข้อมูลใบขอสั่งซื้อ</h3>
-    </div>
-    <div class="card-body">
-      <form method="post" action="{{url(action('PuchaserequestController@update',$id))}}">
-        {{csrf_field()}}
-        <div class="form-group text-right">
-          <label>วันที่ขอสั่งชื้อ</label><br>
-          <input type="text" name="date" value="{{$prequestdb->date}}" class="border-0" size="8">
-          <!--<input type="text" name="newdate" value="21/65/7" size="8">
-            <p type="text" name="date" value=" {{ date('d-m-Y') }}">{{ date("d-m-Y") }}</p> -->
-        </div>
-        <div class="form-row">
-          <div class="form-group col-md-4">
-            <label>เลขที่เอกสาร</label>
-            <input type="text" name="keyPR" class="form-control" placeholder="กรอกเลขที่เอกสาร.." value="{{$prequestdb->keyPR}}" />
-          </div>
-          <div class="form-group col-md-8">
-            <label>ชื่อผู้รับเหมา</label>
-            <input type="text" name="contractor" class="form-control" placeholder="กรอกชื่อผู้รับเหมา.." value="{{$prequestdb->contractor}}" />
-          </div>
-        </div>
 
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label>แบบงาน</label>
-            <select class="form-control" name="formwork" value="{{$prequestdb->formwork}}">
-              <option value="#">{{$prequestdb->formwork}}</option>
-              <option value="งานโครงสร้างอาคาร">งานโครงสร้างอาคาร</option>
-              <option value="งานโครงสร้างหลังคา/หลังคา">งานโครงสร้างหลังคา/หลังคา</option>
-              <option value="งานผนัง">งานผนัง</option>
-              <option value="งานผิวพื้น">งานผิวพื้น</option>
-              <option value="งานฝ้าเพดาน">งานฝ้าเพดาน</option>
-              <option value="งานรั้ว">งานรั้ว</option>
-              <option value="งานไฟฟ้า">งานไฟฟ้า</option>
-              <option value="งานประปา/สุขาภิบาล">งานประปา/สุขาภิบาล</option>
-              <option value="งานเบ็ดเตล็ด">งานเบ็ดเตล็ด</option>
-              <option value="งานสุขาภิบาลภายนอก">งานสุขาภิบาลภายนอก</option>
-            </select>
-          </div>
-          <div class="form-group col-md-6">
-            <label>แปลง</label>
-            <select name="prequestconvert" class="form-control">
-              <option value="#">{{$prequestdb->prequestconvert}}</option>
-              @foreach($prequestconvert as $row)
-              <option value="{{$row['convertname']}}">{{$row['convertname']}}</option>
-              @endforeach
-            </select>
-          </div>
-        </div>
-
-        <div class="mt-3">
-          <table class="table table-hover table-bordered">
-            <thead>
-              <tr>
-                <th>ลำดับ</th>
-                <th>รายการขอสั่งซื้อสินค้า</th>
-                <th>จำนวน</th>
-                <th>หน่วย</th>
-                <th>ร้านค้า</th>
-                <th>ราคา</th>
-                <th>จำนวนเงิน</th>
-              </tr>
-            </thead>
-            @foreach($prequestproduct as $row)
-            @if($prequestdb->keyPR === $row['keyPR'])
-            @if($prequestdb->formwork === $row['formwork'])
-            <tbody>
-              <td style="width:5%">{{$number++}}</td>
-              <td style="width:20%">{{$row['productname']}}</td>
-              <td style="width:10%">{{$row['productnumber']}}</td>
-              <td style="width:10%">{{$row['unit']}}</td>
-              <td style="width:10%">{{$row['keystore']}}</td>
-              <td style="width:10%">{{$row['price']}}</td>
-              <td style="width:10%">{{$row['sum']}}</td>
-            </tbody>
-            @endif
-            @endif
-            @endforeach
-          </table>
-        </div>
-
-        <div class="form-group">
-          <a class="btn btn-danger" href="{{route('prequest.index')}}"><i class="fas fa-undo"></i>&nbsp;&nbsp;ย้อนกลับ</a>
-          &nbsp;
-          <input id="subbutton" type="submit" class="btn btn-primary" value="อัพเดทข้อมูล" />
-        </div>
-        <input type="hidden" name="_method" value="PATCH" />
-      </form>
-    </div>
+<div class="card">
+  <div class="card-header text-white">
+    <h3><i class="far fa-plus-square"></i>&nbsp;&nbsp;แก้ไขใบขอสั่งซื้อ PR</h3>
   </div>
+  <div class="card-body">
+    <form method="post" class="needs-validation" novalidate action="{{url('prequest')}}">
+      {{csrf_field()}}
+      <div class="row">
+        <div class="form-group col-md-6">
+          <a class="btn btn-info text-white" onclick="location.reload();">Refresh</a>
+        </div>
+        <div class="form-group col-md-6 text-right">
+          <label>วันที่ขอสั่งชื้อ</label><br>
+          <input type="text" name="date" value="{{ date('d-m-Y') }}" class="border-0" size="8">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-4">
+          <label>เลขที่เอกสาร</label>
+          <input type="text" name="keyPR" class="form-control" value="{{$prequeststore['keystore']}}" placeholder="กรอกเลขที่เอกสาร.." required>
+          <div class="invalid-feedback">
+            กรุณากรอกเลขที่เอกสาร
+          </div>
+        </div>
+        <div class="form-group col-md-8">
+          <label>ชื่อผู้รับเหมา</label>
+          <input type="text" name="contractor" class="form-control" placeholder="กรอกชื่อผู้รับเหมา.." required>
+          <div class="invalid-feedback">
+            กรุณากรอกชื่อผู้รับเหมา
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label>แบบงาน</label>
+          <select class="custom-select" name="formwork" required>
+            <option value="">กรุณาเลือกแบบงาน..</option>
+            <option value="งานโครงสร้างอาคาร">งานโครงสร้างอาคาร</option>
+            <option value="งานโครงสร้างหลังคา/หลังคา">งานโครงสร้างหลังคา/หลังคา</option>
+            <option value="งานผนัง">งานผนัง</option>
+            <option value="งานผิวพื้น">งานผิวพื้น</option>
+            <option value="งานฝ้าเพดาน">งานฝ้าเพดาน</option>
+            <option value="งานรั้ว">งานรั้ว</option>
+            <option value="งานไฟฟ้า">งานไฟฟ้า</option>
+            <option value="งานประปา/สุขาภิบาล">งานประปา/สุขาภิบาล</option>
+            <option value="งานเบ็ดเตล็ด">งานเบ็ดเตล็ด</option>
+            <option value="งานสุขาภิบาลภายนอก">งานสุขาภิบาลภายนอก</option>
+          </select>
+          <div class="invalid-feedback">
+            กรุณาเลือกรูปแบบงานที่ต้องการสั่งซื้อ
+          </div>
+        </div>
+        <div class="form-group col-md-6">
+          <label>แปลง</label>
+          <select name="prequestconvert" class="custom-select" required>
+            <option value="">กรุณากรอกแปลง..</option>
+            @foreach($prequestconvert as $row)
+            <option value="{{$row['convertname']}}">{{$row['convertname']}}</option>
+            @endforeach
+          </select>
+          <div class="invalid-feedback">
+            กรุณาเลือกแบบแปลง
+          </div>
+        </div>
+      </div>
+      <!-- สินค้าที่ขอสั่งซื้อ -->
+      <br>
+
+      <table class="table table-hover table-bordered border-dark table-border-dark">
+        <thead>
+          <tr>
+            <th colspan="4" class="text-center">จัดการสินค้า</th>
+            <th colspan="4" class="text-center">จัดซื้อสินค้า</th>
+          </tr>
+          <tr class="text-center">
+            <th style="width:5%;">ลำดับ</th>
+            <th style="width:20%;">รายการสินค้า</th>
+            <th style="width:10%;">จำนวน</th>
+            <th style="width:10%;">หน่วย</th>
+            <th style="width:20%;">ร้านค้า</th>
+            <th style="width:10%;">ราคาต่อหน่วย</th>
+            <th style="width:15%;">รวม</th>
+            <th style="width:10%;">ลบ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-center"><label class="col-form-label">1</label></td>
+            <td><input type="text" class="form-control productname" name="" required></td>
+            <td><input type="number" min="1" class="form-control productnumber" name="" required></td>
+            <td><input type="text" class="form-control unit" name="" required></td>
+            <td>
+              <input type="text" class="form-control namestore">
+            </td>
+            <td><input type="number" min="1" class="form-control price" name="" required></td>
+            <td class="text-center result"><label class="sum col-form-label">0</label></td>
+            <td class="text-center"><button class="btn btn-outline-danger"><i style="font-size:18px" class="far fa-trash-alt"></i></button></td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th colspan="2"><button class="btn btn-sm btn-primary" id="addrow"><i class="fas fa-plus"></i>&nbsp;&nbsp;เพิ่มรายการสินค้า</button></th>
+            <th class="text-right" colspan="4">รวมเป็นเงิน</th>
+            <th class="text-center"><label id="sumofprice" class="text-danger">0</label></th>
+            <th class="text-center">บาท</th>
+          </tr>
+        </tfoot>
+      </table>
+  </div>
+
+  <div class="form-group text-center">
+    <a class="btn btn-danger" href="{{route('prequest.index')}}"><i style="font-size:18px" class="fas fa-undo-alt"></i>&nbsp;&nbsp;ย้อนกลับ</a>
+    <button type="submit" class="btn btn-success" id="subbutton"><i style="font-size:18px" class="far fa-save"></i>&nbsp;&nbsp;บันทึก</button>
+  </div>
+  </form>
 </div>
+
+<ul id="getstore" class="d-none">
+  @foreach( $stores as $store )
+  <li>{{ $store['keystore'] }}</li>
+  @endforeach
+</ul>
 
 <!-- การเพิ่มสินค้า  -->
 <script type="text/javascript">
   $(document).ready(function() {
-    var index = 2;
+
+
+    $('input.unit').autocomplete({
+      lookup: [{
+          value: 'เส้น',
+          data: 'เส้น'
+        },
+        {
+          value: 'ชิ้น',
+          data: 'ชิ้น'
+        },
+        {
+          value: 'แผ่น',
+          data: 'แผ่น'
+        },
+        {
+          value: 'ลัง',
+          data: 'แมม'
+        },
+        {
+          value: 'กล่อง',
+          data: 'แนน'
+        },
+        {
+          value: 'หีบ',
+          data: 'แสส'
+        },
+        {
+          value: 'ตัว',
+          data: 'แสส'
+        },
+        {
+          value: 'ชุด',
+          data: 'แสส'
+        },
+        {
+          value: 'กระป๋อง',
+          data: 'แสส'
+        },
+        {
+          value: 'ปิ๊บ',
+          data: 'แสส'
+        },
+        {
+          value: 'อัน',
+          data: 'แสส'
+        }
+      ],
+      autoSelectFirst: true
+    });
+
+    var index = 2,
+      arr = [];
+
+    $('#getstore li').each(function(index) {
+      arr.push({
+        value: $(this).text(),
+        data: $(this).text()
+      });
+    });
+
+
+    $('.namestore').autocomplete({
+      lookup: arr,
+      autoSelectFirst: true
+    });
+
 
     function sumallprice() {
       var sum = 0;
@@ -134,17 +230,76 @@
       sumallprice();
     });
 
+
+
     $('#addrow').click(function(e) {
       e.preventDefault();
       $('tbody').append('<tr><td class="text-center"><label class="col-form-label">' + (index++) + '</label></td><td>' +
         '<input type="text" class="form-control productname" required></td>' +
         '<td><input type="number" min="1" class="form-control productnumber" required></td>' +
         '<td><input type="text" class="form-control unit" required></td>' +
-        '<td><input type="text" class="form-control keystore" required></td>' +
+        '<td><input type="text" class="form-control namestore" required></td>' +
         '<td><input type="number"class="form-control price" required></td>' +
         '<td class="text-center"><label class="sum col-form-label">0</label></td>' +
         '<td class="text-center"><button class="btn btn-outline-danger"><i style="font-size:18px" class="far fa-trash-alt"></i></button></td></tr>');
+      $('tbody tr:last .productname').focus();
+
+      $('input.unit').autocomplete({
+        lookup: [{
+            value: 'เส้น',
+            data: 'เส้น'
+          },
+          {
+            value: 'ชิ้น',
+            data: 'ชิ้น'
+          },
+          {
+            value: 'แผ่น',
+            data: 'แผ่น'
+          },
+          {
+            value: 'ลัง',
+            data: 'แมม'
+          },
+          {
+            value: 'กล่อง',
+            data: 'แนน'
+          },
+          {
+            value: 'หีบ',
+            data: 'แสส'
+          },
+          {
+            value: 'ตัว',
+            data: 'แสส'
+          },
+          {
+            value: 'ชุด',
+            data: 'แสส'
+          },
+          {
+            value: 'กระป๋อง',
+            data: 'แสส'
+          },
+          {
+            value: 'ปิ๊บ',
+            data: 'แสส'
+          },
+          {
+            value: 'อัน',
+            data: 'แสส'
+          }
+        ],
+        autoSelectFirst: true
+      });
+
+      $('.namestore').autocomplete({
+        lookup: arr,
+        autoSelectFirst: true
+      });
+
     });
+
 
 
     function SortIndex() {
