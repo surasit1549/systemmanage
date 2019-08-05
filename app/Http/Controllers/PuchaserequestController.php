@@ -118,7 +118,13 @@ class PuchaserequestController extends Controller
     //dd($productdb->keyPR);
     $prequestproduct = product::all()->toArray();
     //dd($prequestproduct);
-    return view('prequest.show', compact('prequestdb', 'prequeststore', 'prequestconvert', 'prequestproduct', 'id', 'number'));
+    return view('prequest.show', compact(
+                                          'prequestdb', 
+                                          'prequeststore', 
+                                          'prequestconvert', 
+                                          'prequestproduct', 
+                                          'id', 
+                                          'number'));
   }
 
   /**
@@ -129,21 +135,19 @@ class PuchaserequestController extends Controller
    */
   public function edit($id)
   {
-    $prequeststore = store::all()->toArray();
+    $stores = store::all()->toArray();
     $prequestconvert = transform::all()->toArray();
     $number=1;
     $prequestdb = prequest::find($id);
     $productdb = product::find($id);
-    //dd($productdb->keyPR);
     $prequestproduct = product::all()->toArray();
-    //dd($prequestproduct);
     return view('prequest.edit', compact(
-                                          'prequestdb', 
-                                          'prequeststore', 
-                                          'prequestconvert', 
-                                          'prequestproduct', 
-                                          'id', 
-                                          'number'));
+                                        'prequestdb', 
+                                        'stores', 
+                                        'prequestconvert', 
+                                        'prequestproduct', 
+                                        'id', 
+                                        'number'));
   }
 
   /**

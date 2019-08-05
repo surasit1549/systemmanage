@@ -129,8 +129,6 @@
 <!-- การเพิ่มสินค้า  -->
 <script type="text/javascript">
   $(document).ready(function() {
-
-
     $('input.unit').autocomplete({
       lookup: [{
           value: 'เส้น',
