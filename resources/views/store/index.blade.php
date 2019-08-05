@@ -17,7 +17,7 @@
   $(document).ready(function() {
 
     $('[data-toggle="tooltip"]').tooltip();
-
+    $('table').DataTable();
     $('.test').click(function() {
       $(this).next('form').submit();
     });
@@ -71,7 +71,7 @@
           <td class="schnum">{{$row->keystore}}</td>
           <td class="schtext">{{$row->name}}</td>
           <td>
-            <a href="{{action('StoreController@show',$row->id)}}" data-toggle="tooltip" data-placement="top" title="View"><i style="font-size:20px;;" class="fas fa-eye text-primary"></i></a>
+            <a data-toggle="modal" data-target="#test{{$row->id}}" data-placement="top" title="View"><i style="font-size:20px;;" class="fas fa-eye text-primary"></i></a>
             &nbsp;&nbsp;
             <a href="{{action('StoreController@edit',$row->id)}}" data-toggle="tooltip" data-placement="top" title="Edit"><i style="font-size:20px;" class="fas fa-edit text-warning"></i></a>
             &nbsp;&nbsp;
@@ -89,6 +89,67 @@
 </div>
 </div>
 
-
+@foreach( $store as $row )
+<div class="modal fade" id="test{{$row->id}}" role="dialog">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">PR {{$row->keystore}}</h4>
+        <button class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-6 col-form-label">
+            <h5 class="modal-title"><i style="font-size:20px" class="far fa-file-alt"></i>&nbsp;&nbsp;ข้อมูลร้านค้า</h5>
+          </div>
+          <div class="col-md-6 text-right">
+            <button class="btn btn-danger"><i style="font-size:18px" class="far fa-file-pdf"></i>&nbsp;&nbsp;PDF</button>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="form-group col-md-5">
+            <label for="#keystore">รหัสร้านค้า</label>
+            <input style="background-color:#F8F8FF" id="keystore" type="text" value="{{$row->keystore}}" class="form-control" disabled>
+          </div>
+          <div class="form-group col-md-7">
+            <label for="#namestore">ชื่อร้านค้า</label>
+            <input id="namestore" type="text" value="{{$row->name}}" class="form-control" disabled>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="#address">ที่อยู่</label>
+          <textarea class="form-control" name="" id="address" cols="30" rows="3" disabled>{{$row->address}}</textarea>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label for="#phone">เบอร์โทรศัพท์</label>
+            <input id="phone" type="text" class="form-control" value="{{$row->phone}}" disabled>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="#address">โทรสาร</label>
+            <input id="address" type="text" class="form-control" value="{{$row->fax}}" disabled>
+          </div>
+        </div>
+        <hr>
+        <h5 class="modal-title"><i style="font-size:20px" class="far fa-id-card"></i>&nbsp;&nbsp;ข้อมูลผู้ติดต่อ</h5>
+        <hr>
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label for="#contact">ชื่อผู้ติดต่อ</label>
+            <input id="contact" type="text" class="form-control" value="{{$row->contect}}" disabled>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="#phone">เบอร์ผู้ติดต่อ</label>
+            <input id="phone" type="text" class="form-control" value="{{$row->cellphone}}" disabled>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+@endforeach
 
 @stop

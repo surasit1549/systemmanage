@@ -13,6 +13,15 @@
 DEMO STYLE
 */
 @import "https://fonts.googleapis.com/css?family=Sarabun:300,400,500,600,700";
+
+// Modal view Information
+
+.modal input[type=text],.modal textarea {
+  background-color : #F8F8FF !important;
+}
+
+
+
 body {
   font-family: "Sarabun", sans-serif;
   background: #fafafa;
