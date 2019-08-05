@@ -7,8 +7,8 @@
     <h3><i class="far fa-plus-square"></i>&nbsp;&nbsp;แก้ไขใบขอสั่งซื้อ PR</h3>
   </div>
   <div class="card-body">
-  <form method="post" action="{{action('PuchaserequestController@update', $id)}}">
-    {{csrf_field()}}
+    <form method="post" action="{{action('PuchaserequestController@update', $id)}}">
+      {{csrf_field()}}
       <div class="row">
         <div class="form-group col-md-6">
           <a class="btn btn-info text-white" onclick="location.reload();">Refresh</a>
@@ -39,8 +39,7 @@
         <div class="form-group col-md-6">
           <label>แบบงาน</label>
           <select class="custom-select" name="formwork" required>
-          <option value="">{{$prequestdb->keyPR}}"</option>
-            <option value="">กรุณาเลือกแบบงาน..</option>
+            <option value="">{{$prequestdb->convertname}}"</option>
             <option value="งานโครงสร้างอาคาร">งานโครงสร้างอาคาร</option>
             <option value="งานโครงสร้างหลังคา/หลังคา">งานโครงสร้างหลังคา/หลังคา</option>
             <option value="งานผนัง">งานผนัง</option>
