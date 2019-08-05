@@ -7,28 +7,28 @@
     <h3><i class="far fa-plus-square"></i>&nbsp;&nbsp;แก้ไขใบขอสั่งซื้อ PR</h3>
   </div>
   <div class="card-body">
-    <form method="post" class="needs-validation" novalidate action="{{url('prequest')}}">
-      {{csrf_field()}}
+  <form method="post" action="{{action('PuchaserequestController@update', $id)}}">
+    {{csrf_field()}}
       <div class="row">
         <div class="form-group col-md-6">
           <a class="btn btn-info text-white" onclick="location.reload();">Refresh</a>
         </div>
         <div class="form-group col-md-6 text-right">
           <label>วันที่ขอสั่งชื้อ</label><br>
-          <input type="text" name="date" value="{{ date('d-m-Y') }}" class="border-0" size="8">
+          <input type="text" name="date" value="{{ date('d-m-Y') }}" class="border-0" size="8" value="{{$prequestdb->date}}">
         </div>
       </div>
       <div class="form-row">
         <div class="form-group col-md-4">
           <label>เลขที่เอกสาร</label>
-          <input type="text" name="keyPR" class="form-control" value="{{$prequeststore['keystore']}}" placeholder="กรอกเลขที่เอกสาร.." required>
+          <input type="text" name="keyPR" class="form-control" value="{{$prequestdb->keyPR}}" placeholder="กรอกเลขที่เอกสาร.." required>
           <div class="invalid-feedback">
             กรุณากรอกเลขที่เอกสาร
           </div>
         </div>
         <div class="form-group col-md-8">
           <label>ชื่อผู้รับเหมา</label>
-          <input type="text" name="contractor" class="form-control" placeholder="กรอกชื่อผู้รับเหมา.." required>
+          <input type="text" name="contractor" class="form-control" placeholder="กรอกชื่อผู้รับเหมา.." value="{{$prequestdb->contractor}}" required>
           <div class="invalid-feedback">
             กรุณากรอกชื่อผู้รับเหมา
           </div>
@@ -39,6 +39,7 @@
         <div class="form-group col-md-6">
           <label>แบบงาน</label>
           <select class="custom-select" name="formwork" required>
+          <option value="">{{$prequestdb->keyPR}}"</option>
             <option value="">กรุณาเลือกแบบงาน..</option>
             <option value="งานโครงสร้างอาคาร">งานโครงสร้างอาคาร</option>
             <option value="งานโครงสร้างหลังคา/หลังคา">งานโครงสร้างหลังคา/หลังคา</option>
@@ -58,6 +59,7 @@
         <div class="form-group col-md-6">
           <label>แปลง</label>
           <select name="prequestconvert" class="custom-select" required>
+            <option value="">{{$prequestdb->keyPR}}</option>
             <option value="">กรุณากรอกแปลง..</option>
             @foreach($prequestconvert as $row)
             <option value="{{$row['convertname']}}">{{$row['convertname']}}</option>
