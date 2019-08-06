@@ -11310,6 +11310,11 @@ a.text-dark:focus {
 DEMO STYLE
 */
 
+.modal input[type=text],
+.modal textarea {
+  background-color: #F8F8FF !important;
+}
+
 body {
   font-family: "Sarabun", sans-serif;
   background: #fafafa;
@@ -11376,11 +11381,10 @@ a:focus {
 
 #sidebar .sidebar-header {
   padding: 20px;
-  background: #6d7fcc;
 }
 
 #sidebar ul.components {
-  padding: 20px 0;
+  padding: 10px 0;
   border-bottom: 1px solid #47748b;
 }
 
@@ -11526,6 +11530,15 @@ a.article:hover {
   #sidebarCollapse span {
     display: none;
   }
+}
+
+hr.line {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 2px solid red;
+  margin: 1em 0;
+  padding: 0;
 }
 
 .card-header {

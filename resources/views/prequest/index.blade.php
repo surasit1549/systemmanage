@@ -11,31 +11,21 @@
 <script>
   $(document).ready(function() {
 
-    $('[data-toggle="tooltip"]').tooltip();
+        $('[data-toggle="tooltip"]').tooltip();
 
-    $('#prtable').DataTable();
-    $('.test').click(function() {
-      $(this).next('form').submit();
-    });
+        $('#prtable').DataTable({
+            buttons: [
+                'copy',
+                'excel',
+                'pdf']
+        });
+
+          $('.test').click(function() {
+            $(this).next('form').submit();
+          });
 
 
-    $('#iconsearch').click(function() {
-      var check = $('#searchform');
-      if (check.hasClass('d-none'))
-        check.removeClass('d-none');
-      else
-        check.addClass('d-none');
-      $('#searchtext').focus();
-    });
-
-    $('#searchtext').keyup(function() {
-      $('table tbody tr').filter(function() {
-        var existname = $(this).find('.schtext').text().toLowerCase();
-        var search = $('#searchtext').val().toLowerCase();
-        $(this).toggle(existname.indexOf(search) > -1);
-      });
-    });
-  })
+        })
 </script>
 @if(\Session::has('success'))
 <div class="alert alert-success">
@@ -70,15 +60,15 @@
     </div>
   </div>
   <div class="card-body">
-
-
-    <table class="table table-bordered table-striped" id="prtable">
+    <table class="table table-bordered" id="prtable">
       <thead>
         <tr>
           <th style="width:5%">ลำดับ</th>
-          <th style="width:15%">วันที่ขอซื้อ</th>
-          <th style="width:30%">ชื่อเลขที่เอกสาร</th>
-          <th cols="3">จัดการ</th>
+          <th style="width:10%">วันที่ขอซื้อ</th>
+          <th style="width:25%">ชื่อเลขที่เอกสาร</th>
+          <th style="width:20%">แบบงาน</th>
+          <th style="width:15%">แปลง</th>
+          <th style="width:20%">จัดการ</th>
         </tr>
       </thead>
       <tbody>
@@ -86,7 +76,9 @@
         <tr>
           <td>{{$number++}}</td>
           <td>{{$row['date']}}</td>
-          <td class="schtext">{{$row['keyPR']}}</td>
+          <td>{{$row['keyPR']}}</td>
+          <td>{{$row['formwork']}}</td>
+          <td>{{$row['prequestconvert']}}</td>
           <td colspan="3">
             <a href="{{action('PuchaserequestController@show',$row['id'])}}" data-toggle="tooltip" data-placement="top" title="View"><i style="font-size:20px;;" class="fas fa-eye text-primary"></i></a>
             &nbsp;&nbsp;

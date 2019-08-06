@@ -12,9 +12,6 @@ use phpDocumentor\Reflection\DocBlock\Tags\Uses;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Route ::resource('store','StoreController');
 //Route ::resource('store','FillinformationController');
@@ -31,3 +28,6 @@ Route ::resource('usermanage','UsermanageController');
 Route::post('prequest/index', 'PuchaserequestController@store');
 
 //Route::post('prequest/index', 'PuchaserequestController@update');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

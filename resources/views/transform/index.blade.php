@@ -52,7 +52,7 @@
   </div>
   <div class="card-body">
 
-    <table class="table table-bordered table-striped" id="example">
+    <table class="table table-bordered" id="example">
       <thead>
         <tr>
           <th style="width:5%;">ลำดับ</th>

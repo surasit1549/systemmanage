@@ -27,14 +27,17 @@
       </thead>
       <tbody>
         <tr>
-          @for($i=0; $i<$l; $i++) <td>{{$number++}}</td>
-            <td>{{$date[$i]}}</td>
-            <td>{{$temp1[$i]}}</td>
-            <td>{{$temp3[$i]}}</td>
-            <td>{{$temp4[$i]}}</td>
-            <td><a href="{{action('PurchaseorderController@show',$temp5[$i])}}" data-toggle="tooltip" data-placement="top" title="Print"><i style="font-size:20px" class="fas fa-print"></i></a></td>
+          @foreach($prporders as $row)
+            <td>{{$number++}}</td>
+            <td>        
+              
+            </td>
+            <td>{{$row[1]}}</td>
+            <td>{{$row[3]}}</td>
+            <td>{{$row[2]}}</td>
+            <td><a href="{{action('PurchaseorderController@show',$row[0])}}" data-toggle="tooltip" data-placement="top" title="View"><i style="font-size:20px;;" class="fas fa-eye text-primary"></i></a></td>
         </tr>
-        @endfor
+        @endforeach
     </table>
   </div>
 </div>

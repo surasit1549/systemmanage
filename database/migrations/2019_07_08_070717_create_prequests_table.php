@@ -20,6 +20,7 @@ class CreatePrequestsTable extends Migration
             $table->string('contractor');
             $table->string('formwork');
             $table->string('prequestconvert');
+            $table->unsignedMediumInteger('sumofprice');
             $table->timestamps();
         });
     }

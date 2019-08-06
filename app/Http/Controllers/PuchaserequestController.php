@@ -39,13 +39,8 @@ class PuchaserequestController extends Controller
   {
     $prequeststore = store::all()->toArray();
     $prequestconvert = transform::all()->toArray();
-    //  dd(gettype('$prequeststore'));
-    //  return $prequest;
-    //  return $prequeststore;
-    //  return view('prequest.create',compact('prequest'));
-    return view('prequest.create', compact('prequeststore', 'prequestconvert'));
-    //  return view('prequest.create')->with('prequest');
-    //  return view('prequest.create');
+    $stores = store::all()->toArray();
+    return view('prequest.create', compact('prequeststore', 'prequestconvert' ,'stores'));
   }
 
   /**
@@ -75,35 +70,37 @@ class PuchaserequestController extends Controller
         'keystore'        => $request->input('store')[$i],
         'price'           => $request->input('price')[$i],
         'sum'             => $request->input('sum')[$i],
-      ]);
-      $productdb->save();
-
-      $porderdb = new porder([
-        'keyPR'           => $request->input('keyPR'),
-        'date'            => $request->input('date'),
-        'keystore'        => $request->input('store')[$i],
-        'contractor'      => $request->input('contractor'),
-        'formwork'        => $request->input('formwork'),
-        'prequestconvert' => $request->input('prequestconvert'),
-      ]);
-      $porderdb->save();
-    }
-    $prequestdb = new prequest([
-      'keyPR'           => $request->input('keyPR'),
-      'date'            => $request->input('date'),
-      'contractor'      => $request->input('contractor'),
-      'formwork'        => $request->input('formwork'),
-      'prequestconvert' => $request->input('prequestconvert'),
-
-    ]);
-
-    $prequestdb->save();
-    return response()->json(['message' => 'success'],200);
-  }
-
-  /**
-   * Display the specified resource.
-   *
+        ]);
+        
+        $productdb->save();
+        
+        $porderdb = new porder([
+          'keyPR'           => $request->input('keyPR'),
+          'date'            => $request->input('date'),
+          'keystore'        => $request->input('store')[$i],
+          'contractor'      => $request->input('contractor'),
+          'formwork'        => $request->input('formwork'),
+          'prequestconvert' => $request->input('prequestconvert'),
+          ]);
+          $porderdb->save();
+        }
+        $prequestdb = new prequest([
+          'keyPR'           => $request->input('keyPR'),
+          'date'            => $request->input('date'),
+          'contractor'      => $request->input('contractor'),
+          'formwork'        => $request->input('formwork'),
+          'prequestconvert' => $request->input('prequestconvert'),
+          'sumofprice'      => $request->input('sumofprice')
+          
+          ]);
+          
+          $prequestdb->save();
+          return response()->json(['message' => 'success'],200);
+        }
+        
+        /**
+         * Display the specified resource.
+         *
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
@@ -117,7 +114,14 @@ class PuchaserequestController extends Controller
     //dd($productdb->keyPR);
     $prequestproduct = product::all()->toArray();
     //dd($prequestproduct);
-    return view('prequest.show', compact('prequestdb', 'prequeststore', 'prequestconvert', 'prequestproduct', 'id', 'number'));
+    
+    return view('prequest.show', compact(
+                                          'prequestdb', 
+                                          'prequeststore', 
+                                          'prequestconvert', 
+                                          'prequestproduct', 
+                                          'id', 
+                                          'number'));
   }
 
   /**
@@ -128,15 +132,51 @@ class PuchaserequestController extends Controller
    */
   public function edit($id)
   {
-    $prequeststore = store::all()->toArray();
+    $stores = store::all()->toArray();
     $prequestconvert = transform::all()->toArray();
     $number=1;
     $prequestdb = prequest::find($id);
     $productdb = product::find($id);
-    //dd($productdb->keyPR);
+    $pr_db = prequest::all()->toArray();
     $prequestproduct = product::all()->toArray();
-    //dd($prequestproduct);
-    return view('prequest.edit', compact('prequestdb', 'prequeststore', 'prequestconvert', 'prequestproduct', 'id', 'number'));
+    $num_pr = sizeof($prequestproduct);
+    $num_id = intval($id);
+    foreach($prequestproduct as $row){
+      $pr_product1[] = [
+                      $row['keyPR'],
+                      $row['formwork'],
+                      $row['productname'],
+                      $row['productnumber'],
+                      $row['unit'],
+                      $row['keystore'],
+                      $row['price'],
+                      $row['sum']
+      ];
+      $pr_product2[] = [
+                      $row['keyPR']
+      ];
+    }
+    foreach($pr_db as $row){
+      $pr[] = [
+                $row['keyPR']
+      ];
+    }
+    //dd($pr[$num_id-1]);
+    for($i=0; $i<$num_pr; $i++){
+      if($pr[$num_id-1] === $pr_product2[$i]){
+        $pr_products[] = $pr_product1[$i];
+      }
+    }
+    //dd($num_id);
+    //dd($pr_products);
+    return view('prequest.edit', compact(
+                                        'prequestdb', 
+                                        'stores', 
+                                        'prequestconvert', 
+                                        'id',
+                                        'pr_products',
+                                        'number'
+    ));
   }
 
   /**

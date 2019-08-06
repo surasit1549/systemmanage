@@ -13,6 +13,11 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
     <script src="{{asset('js/app.js')}}"></script>
+    <!-- Auto Complete -->
+    <link rel="stylesheet" href="{{asset('css/styles.css')}}">
+    <script src="{{asset('js/jquery.mockjax.js')}}"></script>
+    <script src="{{asset('js/jquery.autocomplete.js')}}"></script>
+
     <!-- Fontawesome -->
     <script src="https://kit.fontawesome.com/55a3f2f61c.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
@@ -72,10 +77,6 @@
                         <i class="fas fa-align-left"></i>
                         <span>Toggle Sidebar</span>
                     </button>
-                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <i class="fas fa-align-justify"></i>
-                    </button>
-                    <button class="close" data-toggle="popover"><i style="font-size:30px;" class="fa fa-user-circle"></i></button>
                 </div>
             </nav>
             <div>
