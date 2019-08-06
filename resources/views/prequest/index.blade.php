@@ -65,8 +65,8 @@
         <tr>
           <th style="width:5%">ลำดับ</th>
           <th style="width:10%">วันที่ขอซื้อ</th>
-          <th style="width:20%">ชื่อเลขที่เอกสาร</th>
-          <th style="width:15%">แบบงาน</th>
+          <th style="width:25%">ชื่อเลขที่เอกสาร</th>
+          <th style="width:20%">แบบงาน</th>
           <th style="width:15%">แปลง</th>
           <th style="width:20%">จัดการ</th>
         </tr>
@@ -77,8 +77,8 @@
           <td>{{$number++}}</td>
           <td>{{$row['date']}}</td>
           <td>{{$row['keyPR']}}</td>
-          <td>AA</td>
-          <td>BB</td>
+          <td>{{$row['formwork']}}</td>
+          <td>{{$row['prequestconvert']}}</td>
           <td colspan="3">
             <a href="{{action('PuchaserequestController@show',$row['id'])}}" data-toggle="tooltip" data-placement="top" title="View"><i style="font-size:20px;;" class="fas fa-eye text-primary"></i></a>
             &nbsp;&nbsp;
