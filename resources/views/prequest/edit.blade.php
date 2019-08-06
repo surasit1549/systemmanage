@@ -87,7 +87,6 @@
           </tr>
         </thead>
         <tbody>
-<<<<<<< HEAD
           @foreach($pr_products as $row)
             <tr>
               <td class="text-center"><label class="col-form-label">{{$number++}}</label></td>
@@ -103,21 +102,6 @@
             </tr>
           @endforeach
 
-=======
-          <!-- GET TABLE  -->
-          <tr>
-            <td class="text-center"><label class="col-form-label"></label></td>
-            <td><input type="text" class="form-control productname" name=""  required></td>
-            <td><input type="number" min="1" class="form-control productnumber" name="" required></td>
-            <td><input type="text" class="form-control unit" name="" required></td>
-            <td>
-              <input type="text" class="form-control namestore" required>
-            </td>
-            <td><input type="number" min="1" class="form-control price" name="" required></td>
-            <td class="text-center result"><label class="sum col-form-label">0</label></td>
-            <td class="text-center"><button class="btn btn-outline-danger"><i style="font-size:18px" class="far fa-trash-alt"></i></button></td>
-          </tr>
->>>>>>> 757dc4ba47826d225290b17abc6c1f75dfb428fa
         </tbody>
         <tfoot>
           <tr>
