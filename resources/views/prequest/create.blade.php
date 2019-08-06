@@ -95,7 +95,7 @@
             <td><input type="number" min="1" class="form-control productnumber" name="" required></td>
             <td><input type="text" class="form-control unit" name="" required></td>
             <td>
-              <input type="text" class="form-control namestore">
+              <input type="text" class="form-control keystore">
             </td>
             <td><input type="number" min="1" class="form-control price" name="" required></td>
             <td class="text-center result"><label class="sum col-form-label">0</label></td>
@@ -177,23 +177,18 @@
       ],
       autoSelectFirst: true
     });
-
     var index = 2,
       arr = [];
-
     $('#getstore li').each(function(index) {
       arr.push({
         value: $(this).text(),
         data: $(this).text()
       });
     });
-
-
     $('.namestore').autocomplete({
       lookup: arr,
       autoSelectFirst: true
     });
-
 
     function sumallprice() {
       var sum = 0;
@@ -208,7 +203,6 @@
       var p = parseFloat(pointing.parents().eq(1).find('.price').val());
       pointing.parents().eq(1).find('.sum').text((pd * p).toFixed(2));
     }
-
     $('tbody').on('keyup', 'input[type=number]', function() {
       var point = $(this).parents().eq(1);
       if (!point.find('.productnumber').val() || !point.find('.price').val())
@@ -216,7 +210,6 @@
       else {
         changeSum($(this));
       }
-
     }).on('blur', 'input[type=number]', function() {
       var point = $(this).parents().eq(1);
       if ($(this).hasClass('price') && ($(this).val().toString().indexOf('.') == -1))
@@ -227,9 +220,6 @@
         changeSum($(this));
       sumallprice();
     });
-
-
-
     $('#addrow').click(function(e) {
       e.preventDefault();
       $('tbody').append('<tr><td class="text-center"><label class="col-form-label">' + (index++) + '</label></td><td>' +
@@ -241,7 +231,6 @@
         '<td class="text-center"><label class="sum col-form-label">0</label></td>' +
         '<td class="text-center"><button class="btn btn-outline-danger"><i style="font-size:18px" class="far fa-trash-alt"></i></button></td></tr>');
       $('tbody tr:last .productname').focus();
-
       $('input.unit').autocomplete({
         lookup: [{
             value: 'เส้น',
@@ -290,15 +279,11 @@
         ],
         autoSelectFirst: true
       });
-
       $('.namestore').autocomplete({
         lookup: arr,
         autoSelectFirst: true
       });
-
     });
-
-
 
     function SortIndex() {
       index = 1;
@@ -306,7 +291,6 @@
         $('td:first', this).text(index++);
       });
     }
-
     // Remove Record on the table 
     $('tbody').on('click', '.btn-outline-danger', function(e) {
       e.preventDefault();
@@ -324,7 +308,6 @@
         var unit = $(this).parents().eq(1).find('.unit').val();
         var keystore = $(this).parents().eq(1).find('.keystore').val();
         var price = $(this).parents().eq(1).find('.price').val();
-
         if (productname || productnumber || unit || keystore || price) {
           swal.fire({
             title: 'คำเตือน',
@@ -347,9 +330,6 @@
         }
       }
     });
-
-
-
     $('#subbutton').click(function(e) {
       e.preventDefault();
       $('form').addClass('was-validated');
@@ -367,6 +347,7 @@
         price.push($('td .price', this).val());
         sum.push($('td .sum', this).val());
       });
+
 
       $.ajax({
         type: 'post',

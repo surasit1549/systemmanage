@@ -355,6 +355,7 @@
 
     $('#subbutton').click(function(e) {
       e.preventDefault();
+      e.stopPropagation();
       $('form').addClass('was-validated');
       var name = [];
       var num = [];
@@ -379,7 +380,7 @@
           name: name,
           num: num,
           units: units,
-          store: store,
+          keystore: store,
           price: price,
           sum: sum,
           keyPR: $('input[name=keyPR]').val(),
