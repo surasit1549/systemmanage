@@ -16,20 +16,6 @@ DEMO STYLE
 
 
 
-table thead>tr>th.sorting_asc,
-table thead>tr>th.sorting_desc,
-table thead>tr>th.sorting,
-table thead>tr>td.sorting_asc,
-table thead>tr>td.sorting_desc,
-table thead>tr>td.sorting {
-    padding-right: 8px;
-}
- 
-th.sorting_asc::after,
-th.sorting_desc::after {
-   content:"" !important;
-}
-
 
 // Modal view Information
 

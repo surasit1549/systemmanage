@@ -15,20 +15,20 @@
         </div>
         <div class="form-group col-md-6 text-right">
           <label>วันที่ขอสั่งชื้อ</label><br>
-          <input type="text" name="date" value="{{ date('d-m-Y') }}" class="border-0" size="8">
+          <input type="text" name="date" value="{{ date('d-m-Y') }}" class="border-0" size="8" autocomplete="off">
         </div>
       </div>
       <div class="form-row">
         <div class="form-group col-md-4">
           <label>เลขที่เอกสาร</label>
-          <input type="text" name="keyPR" class="form-control" placeholder="กรอกเลขที่เอกสาร.." required>
+          <input type="text" name="keyPR" class="form-control" placeholder="กรอกเลขที่เอกสาร.." autocomplete="off" required>
           <div class="invalid-feedback">
             กรุณากรอกเลขที่เอกสาร
           </div>
         </div>
         <div class="form-group col-md-8">
           <label>ชื่อผู้รับเหมา</label>
-          <input type="text" name="contractor" class="form-control" placeholder="กรอกชื่อผู้รับเหมา.." required>
+          <input type="text" name="contractor" class="form-control" placeholder="กรอกชื่อผู้รับเหมา.." autocomplete="off" required>
           <div class="invalid-feedback">
             กรุณากรอกชื่อผู้รับเหมา
           </div>
@@ -95,7 +95,7 @@
             <td><input type="number" min="1" class="form-control productnumber" name="" required></td>
             <td><input type="text" class="form-control unit" name="" required></td>
             <td>
-              <input type="text" class="form-control keystore">
+              <input type="text" class="form-control keystore" required>
             </td>
             <td><input type="number" min="1" class="form-control price" name="" required></td>
             <td class="text-center result"><label class="sum col-form-label">0</label></td>
