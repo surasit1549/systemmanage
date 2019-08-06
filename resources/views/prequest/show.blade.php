@@ -57,32 +57,39 @@
         </div>
 
         <table class="table table-hover table-bordered">
-          <thead>
+          <thead class="text-center">
             <tr>
               <th>ลำดับที่</th>
               <th>ชื่อสินค้า</th>
               <th>จำนวนสินค้า</th>
+              <th>ราคา</th>
               <th>หน่วย</th>
+              <th>รวม</th>
               <th>ร้านค้า</th>
-              <th>ราคา (บาท)</th>
-              <th>จำนวนเงิน</th>
             </tr>
           </thead>
           @foreach($prequestproduct as $row)
           @if($prequestdb->keyPR === $row['keyPR'])
           @if($prequestdb->formwork === $row['formwork'])
-          <tbody>
+          <tbody class="text-center">
             <td style="width:5%">{{$number++}}</td>
             <td style="width:20%">{{$row['productname']}}</td>
             <td style="width:10%">{{$row['productnumber']}}</td>
-            <td style="width:10%">{{$row['unit']}}</td>
-            <td style="width:10%">{{$row['keystore']}}</td>
             <td style="width:10%">{{$row['price']}}</td>
+            <td style="width:10%">{{$row['unit']}}</td>
             <td style="width:10%">{{$row['sum']}}</td>
+            <td style="width:10%">{{$row['keystore']}}</td>
           </tbody>
           @endif
           @endif
           @endforeach
+          <tfoot>
+            <tr>
+              <th class="text-right" colspan="5">รวมเป็นเงิน</th>
+              <th class="text-center"><label id="sumofprice" class="text-danger">{{$prequestdb['sumofprice']}}</label></th>
+              <th class="text-center">บาท</th>
+            </tr>
+          </tfoot>
         </table>
         <br>
         <div class="text-center">

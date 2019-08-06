@@ -70,35 +70,37 @@ class PuchaserequestController extends Controller
         'keystore'        => $request->input('store')[$i],
         'price'           => $request->input('price')[$i],
         'sum'             => $request->input('sum')[$i],
-      ]);
-      $productdb->save();
-
-      $porderdb = new porder([
-        'keyPR'           => $request->input('keyPR'),
-        'date'            => $request->input('date'),
-        'keystore'        => $request->input('store')[$i],
-        'contractor'      => $request->input('contractor'),
-        'formwork'        => $request->input('formwork'),
-        'prequestconvert' => $request->input('prequestconvert'),
-      ]);
-      $porderdb->save();
-    }
-    $prequestdb = new prequest([
-      'keyPR'           => $request->input('keyPR'),
-      'date'            => $request->input('date'),
-      'contractor'      => $request->input('contractor'),
-      'formwork'        => $request->input('formwork'),
-      'prequestconvert' => $request->input('prequestconvert'),
-
-    ]);
-
-    $prequestdb->save();
-    return response()->json(['message' => 'success'],200);
-  }
-
-  /**
-   * Display the specified resource.
-   *
+        ]);
+        
+        $productdb->save();
+        
+        $porderdb = new porder([
+          'keyPR'           => $request->input('keyPR'),
+          'date'            => $request->input('date'),
+          'keystore'        => $request->input('store')[$i],
+          'contractor'      => $request->input('contractor'),
+          'formwork'        => $request->input('formwork'),
+          'prequestconvert' => $request->input('prequestconvert'),
+          ]);
+          $porderdb->save();
+        }
+        $prequestdb = new prequest([
+          'keyPR'           => $request->input('keyPR'),
+          'date'            => $request->input('date'),
+          'contractor'      => $request->input('contractor'),
+          'formwork'        => $request->input('formwork'),
+          'prequestconvert' => $request->input('prequestconvert'),
+          'sumofprice'      => $request->input('sumofprice')
+          
+          ]);
+          
+          $prequestdb->save();
+          return response()->json(['message' => 'success'],200);
+        }
+        
+        /**
+         * Display the specified resource.
+         *
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
