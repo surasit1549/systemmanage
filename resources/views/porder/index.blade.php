@@ -27,15 +27,15 @@
       </thead>
       <tbody>
         <tr>
-          @foreach($prporder as $row)
+          @foreach($prporders as $row)
             <td>{{$number++}}</td>
             <td>        
-              {{substr($row['keyPR'], 6,-4)}}-{{$num++}}
+              
             </td>
-            <td>{{$row['keyPR']}}</td>
-            <td>{{$row['date']}}</td>
-            <td>{{$row['formwork']}}</td>
-            <td><a href="{{action('PurchaseorderController@show',$row['id'])}}" data-toggle="tooltip" data-placement="top" title="Print"><i style="font-size:20px" class="fas fa-print"></i></a></td>
+            <td>{{$row[1]}}</td>
+            <td>{{$row[3]}}</td>
+            <td>{{$row[2]}}</td>
+            <td><a href="{{action('PurchaseorderController@show',$row[0])}}" data-toggle="tooltip" data-placement="top" title="View"><i style="font-size:20px;;" class="fas fa-eye text-primary"></i></a></td>
         </tr>
         @endforeach
     </table>

@@ -26,10 +26,10 @@ class PurchaseorderController extends Controller
 
     public function index()
     {  
-        
         $num = 1;
+        $num1 = 0;
+        $numberkey = 1;
         $number = 1;
-        $n;
         $porderproduct = product::all()->toArray();
         $porderstore = store::all()->toArray();
         $porderconvert = transform::select('convertname')->distinct()->get();
@@ -37,22 +37,65 @@ class PurchaseorderController extends Controller
         $prporder = porder::select('keyPR', 'keystore')
                                                     ->distinct()
                                                     ->addSelect('formwork')
-                                                    ->addSelect('date')
-                                                    
+                                                    ->addSelect('date')                                 
                                                     ->get();
         
-        $n = sizeof($prporder);
+        foreach($prporder as $row){
+            $a[] = $row['keyPR'];
+        }
+        $key = substr($row['keyPR'], 6,-4);
+        $c = sizeof($a);
+        for($i=0; $i<$c; $i++){
+            if($key != $a[$i]){
+                $num1++;
+                $orders = strval($num1);
+                $keypr[] = "$key-$orders";
+            }else{
+                $num1 = 1;
+                $orders = strval($num1);
+                $keypr[] = "$key-$orders";
+            }
+        }
+        //$num = sizeof($a);
+        //dd($num);
+        //dd($num);
+        /*
+        $a = ['2015','2015','2016','2017'];
+        $b = '2015';
+        $c = sizeof($a);
+        for($i=0; $i<$c; $i++){
+            if($b != $a[$i]){
+                $d[] = 1;
+            }else{
+                $d[] = 2;
+            }
+        }
+        */
+        //dd($c);
 
-        //dd($prporder);
+
+        foreach($prporder as $row){
+            $prporders[] = [
+                            $order = $num++,  
+                            $row['keyPR'], 
+                            $row['formwork'],
+                            $row['date'],
+                            $keypr
+                            
+            ];
+        }
+        //$dfg = strval($prporders[1]);
+        //dd($asd);
 
         $pr = prequest::all()->toArray();
-        //dd(gettype($temp5));
+        //dd(gettype($asd));
         //dd($bot);
         return view('porder.index',compact(
                                             'prporder',
                                             'date', 
                                             'number',
-                                            'n',
+                                            'numberkey',
+                                            'prporders',
                                             'num'                                        
         ));
  
@@ -96,96 +139,63 @@ class PurchaseorderController extends Controller
         $product = product::all()->toArray();
         $porder = porder::all()->toArray();
         $prequestproduct = product::all()->toArray();
-        //dd($prequestproduct);
+        //$num = intval( $id );
+        //dd($pr_product);
+        $prporder = porder::select('keyPR', 'keystore')
+                                                    ->distinct()                                
+                                                    ->get();
+        $num_porder = sizeof($prporder);
+        //dd($id);
+        foreach($product as $row){
+            $product1[] = [
+                            $row['keyPR'],
+                            $row['formwork'],
+                            $row['productname'],
+                            $row['productnumber'],
+                            $row['unit'],
+                            $row['keystore'],
+                            $row['price'],
+                            $row['sum'],
+                            $row['id']
+            ];
+            $product2[] = [
+                            $row['id'],
+                            $row['keystore']
+            ];
+        }
         $num = intval( $id );
         //dd($num);
-
-        foreach($product as $row){
-            $product1[] = $row['keyPR'];
-            $product2[] = $row['formwork'];
-            $product3[] = $row['productname'];
-            $product4[] = $row['productnumber'];
-            $product5[] = $row['unit'];
-            $product6[] = $row['keystore'];
-            $product7[] = $row['price'];
-            $product8[] = $row['sum'];
-            $product9[] = $row['id'];
-        }
-
+        //dd($product2[1][1]);
         foreach($prequeststore as $row){
-            $store1[] = $row['id'];
-            $store2[] = $row['keystore'];
-            $store3[] = $row['name'];
-            $store4[] = $row['address'];
-            $store5[] = $row['phone'];
-            $store6[] = $row['fax'];
-            $store7[] = $row['contect'];
-            $store8[] = $row['cellphone'];
+            $store1[] = [
+                            $row['keystore'],
+                            $row['name'],
+                            $row['address'],
+                            $row['phone'],
+                            $row['fax'],
+                            $row['contect'],
+                            $row['cellphone']
+            ];
+            $store2[] = [
+                            $row['keystore'],
+            ];
         }
-
-        foreach($porder as $row){
-            $porder1[] = $row['id'];
-            $porder2[] = $row['keystore'];
-            $porder3[] = $row['date'];
-            $porder4[] = $row['keyPR'];
-        }
-        $number1 = sizeof($porder1);
-        $number2 = sizeof($store1);
-        $number3 = sizeof($product9);
-        //dd($num);
-        
-        for($i=0; $i<$number1; $i++){
-            if($porder1[$i] === $num){
-                for($j=0; $j<$number2; $j++){
-                    if($store2[$j] === $porder2[$i]){
-                        $store[] = [
-                                    $store2[$j], 
-                                    $store3[$j], 
-                                    $store4[$j],
-                                    $store5[$j],
-                                    $store6[$j],
-                                    $store7[$j],
-                                    $store8[$j]
-                        ];
-                        $po = $porder3[$j];
-                    }
-                    
-                }
-                for($a=0; $a<$number3; $a++){
-                    if($product9[$a] === $porder1[$num] && $product6[$a] === $porder2[$num]){
-                        $products = [
-                            $product1[$a], 
-                            $product2[$a],
-                            $product3[$a],
-                            $product4[$a],
-                            $product5[$a],
-                            $product6[$a],
-                            $product7[$a],
-                            $product8[$a],
-                            $product9[$a],
-                        ];
-                    }
-                }
+        for($i=0; $i<$num_porder; $i++){
+            if($num === $product2[$i][0]){
+                
             }
-
-           
         }
-        $c = sizeof($products[8]);
-        dd($product9);
-        //dd($po);
-        //dd($store);
+        dd($asd);
+        /*
+        //$ass = [$store2[0],$pr_product2];
+        //dd($pr_product2);
+        //for($i=0; $i<$num_store; $i++){
+                $po_store[] = $product2[$i];
+        //} */
+        dd($product2);
         //dd(gettype($num));
         return view('porder.show', compact(
-                                            'prequestdb', 
-                                            'prequeststore', 
-                                            'prequestconvert', 
-                                            'prequestproduct', 
-                                            'id', 
-                                            'number',
-                                            'store',
-                                            'po',
-                                            'products',
-                                            'number3'
+                                            'pr_product'
         ));
 
     }

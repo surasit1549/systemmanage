@@ -40,13 +40,7 @@ class PuchaserequestController extends Controller
     $prequeststore = store::all()->toArray();
     $prequestconvert = transform::all()->toArray();
     $stores = store::all()->toArray();
-    //  dd(gettype('$prequeststore'));
-    //  return $prequest;
-    //  return $prequeststore;
-    //  return view('prequest.create',compact('prequest'));
     return view('prequest.create', compact('prequeststore', 'prequestconvert' ,'stores'));
-    //  return view('prequest.create')->with('prequest');
-    //  return view('prequest.create');
   }
 
   /**
@@ -118,6 +112,7 @@ class PuchaserequestController extends Controller
     //dd($productdb->keyPR);
     $prequestproduct = product::all()->toArray();
     //dd($prequestproduct);
+    
     return view('prequest.show', compact(
                                           'prequestdb', 
                                           'prequeststore', 
@@ -140,14 +135,45 @@ class PuchaserequestController extends Controller
     $number=1;
     $prequestdb = prequest::find($id);
     $productdb = product::find($id);
+    $pr_db = prequest::all()->toArray();
     $prequestproduct = product::all()->toArray();
+    $num_pr = sizeof($prequestproduct);
+    $num_id = intval($id);
+    foreach($prequestproduct as $row){
+      $pr_product1[] = [
+                      $row['keyPR'],
+                      $row['formwork'],
+                      $row['productname'],
+                      $row['productnumber'],
+                      $row['unit'],
+                      $row['keystore'],
+                      $row['price'],
+                      $row['sum']
+      ];
+      $pr_product2[] = [
+                      $row['keyPR']
+      ];
+    }
+    foreach($pr_db as $row){
+      $pr[] = [
+                $row['keyPR']
+      ];
+    }
+    for($i=0; $i<$num_pr; $i++){
+      if($pr[$num_id] === $pr_product2[$i]){
+        $pr_products[] = $pr_product1[$i];
+      }
+    }
+    //dd($num_id);
+    //dd($pr_products);
     return view('prequest.edit', compact(
                                         'prequestdb', 
                                         'stores', 
                                         'prequestconvert', 
-                                        'prequestproduct', 
-                                        'id', 
-                                        'number'));
+                                        'id',
+                                        'pr_products',
+                                        'number'
+    ));
   }
 
   /**

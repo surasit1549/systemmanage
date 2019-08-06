@@ -7,7 +7,7 @@
       <h3><i class="far fa-file-alt"></i>&nbsp;&nbsp;ข้อมูลใบสั่งซื้อ</h3>
     </div>
     <div class="card-body">
-      <form method="post" action="{{action('PurchaseorderController@show', $id)}}">
+    <form method="post" action="{{action('PurchaseorderController@show', $id)}}">
         {{csrf_field()}}
         <div class='text-right'>
           <button class="btn btn-lg btn-primary"><i class="fas fa-print"></i>&nbsp;&nbsp;พิมพ์เอกสาร</button>
@@ -80,16 +80,14 @@
             </tr>
           </thead>
           <tbody>
-            @for($i=0; $i<$number3; $i++)
             <tr>
-                <td style="width:5%">{{$number++}}</td>
-                <td style="width:20%">{{$products[$i]}}</td>
-                <td style="width:10%">{{$products[$i]}}</td>
-                <td style="width:10%">{{$products[$i]}}</td>
-                <td style="width:10%">{{$products[$i]}}</td>
-                <td style="width:10%">{{$products[$i]}}</td>
+                <td style="width:5%"></td>
+                <td style="width:20%"></td>
+                <td style="width:10%"></td>
+                <td style="width:10%"></td>
+                <td style="width:10%"></td>
+                <td style="width:10%"></td>
             </tr><br>
-            @endfor
           </tbody>
 
         </table>

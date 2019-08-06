@@ -91,18 +91,21 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td class="text-center"><label class="col-form-label">1</label></td>
-            <td><input type="text" class="form-control productname" name="" required></td>
-            <td><input type="number" min="1" class="form-control productnumber" name="" required></td>
-            <td><input type="text" class="form-control unit" name="" required></td>
-            <td>
-              <input type="text" class="form-control namestore">
-            </td>
-            <td><input type="number" min="1" class="form-control price" name="" required></td>
-            <td class="text-center result"><label class="sum col-form-label">0</label></td>
-            <td class="text-center"><button class="btn btn-outline-danger"><i style="font-size:18px" class="far fa-trash-alt"></i></button></td>
-          </tr>
+          @foreach($pr_products as $row)
+            <tr>
+              <td class="text-center"><label class="col-form-label">{{$number++}}</label></td>
+              <td><input type="text" class="form-control productname" value="{{$row[2]}}" name="" required></td>
+              <td><input type="number" min="1" class="form-control productnumber" value="{{$row[3]}}" name="" required></td>
+              <td><input type="text" class="form-control unit" value="{{$row[4]}}" name="" required></td>
+              <td>
+                <input type="text" class="form-control namestore" value="{{$row[5]}}">
+              </td>
+              <td><input type="number" min="1" class="form-control price" value="{{$row[6]}}" name="" required></td>
+              <td class="text-center result"><label class="sum col-form-label">{{$row[7]}}</label></td>
+              <td class="text-center"><button class="btn btn-outline-danger"><i style="font-size:18px" class="far fa-trash-alt"></i></button></td>
+            </tr>
+          @endforeach
+
         </tbody>
         <tfoot>
           <tr>
