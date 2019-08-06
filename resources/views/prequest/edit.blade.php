@@ -388,6 +388,7 @@
           keystore: store,
           price: price,
           sum: sum,
+          sumofprice : $('#sumofprice').text() ,
           keyPR: $('input[name=keyPR]').val(),
           date: $('input[name=date]').val(),
           contractor: $('input[name=contractor]').val(),

@@ -294,7 +294,6 @@
     // Remove Record on the table 
     $('tbody').on('click', '.btn-outline-danger', function(e) {
       e.preventDefault();
-      console.log()
       if (index == 2)
         swal.fire({
           title: 'ไม่สามารถลบข้อมูลได้',
@@ -345,7 +344,7 @@
         units.push($('td .unit', this).val());
         store.push($('td .keystore', this).val());
         price.push($('td .price', this).val());
-        sum.push($('td .sum', this).val());
+        sum.push($('td .sum', this).text());
       });
 
 
@@ -360,6 +359,7 @@
           store: store,
           price: price,
           sum: sum,
+          sumofprice: $('#sumofprice').text(),
           keyPR: $('input[name=keyPR]').val(),
           date: $('input[name=date]').val(),
           contractor: $('input[name=contractor]').val(),
