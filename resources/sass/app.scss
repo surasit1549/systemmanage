@@ -227,15 +227,11 @@ a.article:hover {
   }
 }
 
-// User Account
-
-#useraccount {
-  display: block;
-  padding: 15px;
-  background-color: #31125A;;
-}
-
-
+hr.line { 
+  display: block; height: 1px;
+    border: 0; border-top: 2px solid red;
+    margin: 1em 0; padding: 0; 
+  }
 
 // header CARD
 

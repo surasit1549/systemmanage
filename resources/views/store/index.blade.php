@@ -108,7 +108,7 @@
             <button class="btn btn-danger"><i style="font-size:18px" class="far fa-file-pdf"></i>&nbsp;&nbsp;PDF</button>
           </div>
         </div>
-        <hr>
+        <hr class="line">
         <div class="row">
           <div class="form-group col-md-5">
             <label for="#keystore">รหัสร้านค้า</label>
@@ -133,9 +133,9 @@
             <input id="address" type="text" class="form-control" value="{{$row->fax}}" disabled>
           </div>
         </div>
-        <hr>
+        <br>
         <h5 class="modal-title"><i style="font-size:20px" class="far fa-id-card"></i>&nbsp;&nbsp;ข้อมูลผู้ติดต่อ</h5>
-        <hr>
+        <hr class="line">
         <div class="row">
           <div class="form-group col-md-6">
             <label for="#contact">ชื่อผู้ติดต่อ</label>

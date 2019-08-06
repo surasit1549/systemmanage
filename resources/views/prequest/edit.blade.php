@@ -88,10 +88,9 @@
         </thead>
         <tbody>
           <!-- GET TABLE  -->
-          @foreach( $productdb as $product )
           <tr>
-            <td class="text-center"><label class="col-form-label">{{ product['unit'] }}</label></td>
-            <td><input type="text" class="form-control productname" name="" value="{{ $product['unit'] }}" required></td>
+            <td class="text-center"><label class="col-form-label"></label></td>
+            <td><input type="text" class="form-control productname" name=""  required></td>
             <td><input type="number" min="1" class="form-control productnumber" name="" required></td>
             <td><input type="text" class="form-control unit" name="" required></td>
             <td>
@@ -101,7 +100,6 @@
             <td class="text-center result"><label class="sum col-form-label">0</label></td>
             <td class="text-center"><button class="btn btn-outline-danger"><i style="font-size:18px" class="far fa-trash-alt"></i></button></td>
           </tr>
-          @endforeach
         </tbody>
         <tfoot>
           <tr>
