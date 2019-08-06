@@ -39,7 +39,6 @@
         <div class="form-group col-md-6">
           <label>แบบงาน</label>
           <select class="custom-select" name="formwork" required>
-            <option value="">{{$prequestdb->convertname}}"</option>
             <option value="งานโครงสร้างอาคาร">งานโครงสร้างอาคาร</option>
             <option value="งานโครงสร้างหลังคา/หลังคา">งานโครงสร้างหลังคา/หลังคา</option>
             <option value="งานผนัง">งานผนัง</option>
@@ -58,8 +57,6 @@
         <div class="form-group col-md-6">
           <label>แปลง</label>
           <select name="prequestconvert" class="custom-select" required>
-            <option value="">{{$prequestdb->keyPR}}</option>
-            <option value="">กรุณากรอกแปลง..</option>
             @foreach($prequestconvert as $row)
             <option value="{{$row['convertname']}}">{{$row['convertname']}}</option>
             @endforeach
@@ -90,18 +87,21 @@
           </tr>
         </thead>
         <tbody>
+          <!-- GET TABLE  -->
+          @foreach( $productdb as $product )
           <tr>
-            <td class="text-center"><label class="col-form-label">1</label></td>
-            <td><input type="text" class="form-control productname" name="" required></td>
+            <td class="text-center"><label class="col-form-label">{{ product['unit'] }}</label></td>
+            <td><input type="text" class="form-control productname" name="" value="{{ $product['unit'] }}" required></td>
             <td><input type="number" min="1" class="form-control productnumber" name="" required></td>
             <td><input type="text" class="form-control unit" name="" required></td>
             <td>
-              <input type="text" class="form-control namestore">
+              <input type="text" class="form-control namestore" required>
             </td>
             <td><input type="number" min="1" class="form-control price" name="" required></td>
             <td class="text-center result"><label class="sum col-form-label">0</label></td>
             <td class="text-center"><button class="btn btn-outline-danger"><i style="font-size:18px" class="far fa-trash-alt"></i></button></td>
           </tr>
+          @endforeach
         </tbody>
         <tfoot>
           <tr>
@@ -121,6 +121,9 @@
   </form>
 </div>
 
+<div id="formwork_get" class="d-none">{{$prequestdb->formwork}}</div>
+<div id="prequest_get" class="d-none">{{$prequestdb->prequestconvert}}</div>
+
 <ul id="getstore" class="d-none">
   @foreach( $stores as $store )
   <li>{{ $store['keystore'] }}</li>
@@ -131,6 +134,8 @@
 <script type="text/javascript">
   $(document).ready(function() {
 
+    $('select[name=formwork] option[value=' + $('#formwork_get').text() + ']').prop('selected', true);
+    $('select[name=prequestconvert] option[value=' + $('#prequest_get').text() + ']').prop('selected', true);
 
     $('input.unit').autocomplete({
       lookup: [{
