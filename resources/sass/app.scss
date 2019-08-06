@@ -13,6 +13,18 @@
 DEMO STYLE
 */
 @import "https://fonts.googleapis.com/css?family=Sarabun:300,400,500,600,700";
+
+
+
+
+// Modal view Information
+
+.modal input[type=text],.modal textarea {
+  background-color : #F8F8FF !important;
+}
+
+
+
 body {
   font-family: "Sarabun", sans-serif;
   background: #fafafa;
@@ -215,15 +227,11 @@ a.article:hover {
   }
 }
 
-// User Account
-
-#useraccount {
-  display: block;
-  padding: 15px;
-  background-color: #31125A;;
-}
-
-
+hr.line { 
+  display: block; height: 1px;
+    border: 0; border-top: 2px solid red;
+    margin: 1em 0; padding: 0; 
+  }
 
 // header CARD
 

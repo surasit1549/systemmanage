@@ -19,10 +19,10 @@
         <div class="card-body">
           <form method="post" action="{{action('StoreController@update', $id)}}">
             {{csrf_field()}}
-            <hr>
+            <br>
             <h3>Store Information</h3>
-            <hr>
-
+            <hr class="line">
+            <br>
             <div class="form-row">
               <div class="form-group col-md-3">
                 <label>รหัสร้านค้า</label>
@@ -53,9 +53,10 @@
               </div>
 
             </div>
-            <hr>
+            <br>
             <h3>Contact With</h3>
-            <hr>
+            <hr class="line">
+            <br>
 
             <div class="form-row">
               <div class="form-group col-md-6">

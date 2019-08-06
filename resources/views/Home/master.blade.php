@@ -36,10 +36,6 @@
             <div class="sidebar-header">
                 <h3>System Manage</h3>
             </div>
-            <a href="#" id="useraccount">
-                <i style="font-size:35px" class="fas fa-user-circle"></i>
-                <label style="font-size:20px;padding-left:12px;">ณัฐดนัย จำปาศรี</label>
-            </a>
             <ul class="list-unstyled components">
                 <li>
                     <a href="{{route('store.index')}}" id="storetab">

@@ -22,9 +22,9 @@
         <div class="card-body">
           <form method="post" action="{{url('store')}}">
             {{csrf_field()}}
-            <hr>
             <h3>Company Information</h3>
-            <hr>
+            <hr class="line">  
+            <br>
             <div class="form-row">
               <div class='form-group col-md-3'>
                 <input type="text" name="keystore" class="form-control" placeholder="รหัสร้านค้า" autocomplete="off" />
@@ -47,11 +47,10 @@
                 <input type="text" name="fax" class="form-control" placeholder="เบอร์โทรสาร" autocomplete="off" />
               </div>
             </div>
-
-            <hr>
+            <br>
             <h3>Contact with</h3>
-            <hr>
-
+            <hr class="line">
+            <br>
             <div class="form-row">
               <div class="form-group col-md-6">
                 <input type="text" name="contect" placeholder="ชื่อผู้ติดต่อ" class="form-control" autocomplete="off" />

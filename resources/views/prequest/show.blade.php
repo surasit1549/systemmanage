@@ -9,10 +9,14 @@
     <div class="card-body">
       <form method="post" action="{{action('PuchaserequestController@show', $id)}}">
         {{csrf_field()}}
-        <div class='text-right'>
-          <button class="btn btn-lg btn-primary"><i class="fas fa-print"></i>&nbsp;&nbsp;พิมพ์เอกสาร</button>
+        <div class="row">
+          <div class="col-form-label col-md-6">
+            <h4 class="d-inline shadow-sm" style="padding:10px"><label class="text-danger">&nbsp;PR {{$prequestdb->keyPR}}</label></h4>
+          </div>
+          <div class='col-md-6 text-right'>
+            <button class="btn btn-lg btn-primary"><i class="fas fa-print"></i>&nbsp;&nbsp;พิมพ์เอกสาร</button>
+          </div>
         </div>
-
         <hr>
 
         <div class="container">
@@ -65,22 +69,22 @@
             </tr>
           </thead>
           @foreach($prequestproduct as $row)
-            @if($prequestdb->keyPR === $row['keyPR'])
-              @if($prequestdb->formwork === $row['formwork'])
-                <tbody>
-                  <td style="width:5%">{{$number++}}</td>
-                  <td style="width:20%">{{$row['productname']}}</td>
-                  <td style="width:10%">{{$row['productnumber']}}</td>
-                  <td style="width:10%">{{$row['unit']}}</td>
-                  <td style="width:10%">{{$row['keystore']}}</td>
-                  <td style="width:10%">{{$row['price']}}</td>
-                  <td style="width:10%">{{$row['sum']}}</td>
-                </tbody>
-              @endif
-            @endif
+          @if($prequestdb->keyPR === $row['keyPR'])
+          @if($prequestdb->formwork === $row['formwork'])
+          <tbody>
+            <td style="width:5%">{{$number++}}</td>
+            <td style="width:20%">{{$row['productname']}}</td>
+            <td style="width:10%">{{$row['productnumber']}}</td>
+            <td style="width:10%">{{$row['unit']}}</td>
+            <td style="width:10%">{{$row['keystore']}}</td>
+            <td style="width:10%">{{$row['price']}}</td>
+            <td style="width:10%">{{$row['sum']}}</td>
+          </tbody>
+          @endif
+          @endif
           @endforeach
         </table>
-  <br>
+        <br>
         <div class="text-center">
           <a class="btn btn-danger btn-lg" href="{{route('prequest.index')}}"><i class="fas fa-undo"></i>&nbsp;&nbsp;ย้อนกลับ</a>
         </div>

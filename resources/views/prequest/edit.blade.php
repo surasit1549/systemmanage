@@ -7,8 +7,8 @@
     <h3><i class="far fa-plus-square"></i>&nbsp;&nbsp;แก้ไขใบขอสั่งซื้อ PR</h3>
   </div>
   <div class="card-body">
-  <form method="post" action="{{action('PuchaserequestController@update', $id)}}">
-    {{csrf_field()}}
+    <form method="post" action="{{action('PuchaserequestController@update', $id)}}">
+      {{csrf_field()}}
       <div class="row">
         <div class="form-group col-md-6">
           <a class="btn btn-info text-white" onclick="location.reload();">Refresh</a>
@@ -39,8 +39,6 @@
         <div class="form-group col-md-6">
           <label>แบบงาน</label>
           <select class="custom-select" name="formwork" required>
-          <option value="">{{$prequestdb->keyPR}}"</option>
-            <option value="">กรุณาเลือกแบบงาน..</option>
             <option value="งานโครงสร้างอาคาร">งานโครงสร้างอาคาร</option>
             <option value="งานโครงสร้างหลังคา/หลังคา">งานโครงสร้างหลังคา/หลังคา</option>
             <option value="งานผนัง">งานผนัง</option>
@@ -59,8 +57,6 @@
         <div class="form-group col-md-6">
           <label>แปลง</label>
           <select name="prequestconvert" class="custom-select" required>
-            <option value="">{{$prequestdb->keyPR}}</option>
-            <option value="">กรุณากรอกแปลง..</option>
             @foreach($prequestconvert as $row)
             <option value="{{$row['convertname']}}">{{$row['convertname']}}</option>
             @endforeach
@@ -91,6 +87,7 @@
           </tr>
         </thead>
         <tbody>
+<<<<<<< HEAD
           @foreach($pr_products as $row)
             <tr>
               <td class="text-center"><label class="col-form-label">{{$number++}}</label></td>
@@ -106,6 +103,21 @@
             </tr>
           @endforeach
 
+=======
+          <!-- GET TABLE  -->
+          <tr>
+            <td class="text-center"><label class="col-form-label"></label></td>
+            <td><input type="text" class="form-control productname" name=""  required></td>
+            <td><input type="number" min="1" class="form-control productnumber" name="" required></td>
+            <td><input type="text" class="form-control unit" name="" required></td>
+            <td>
+              <input type="text" class="form-control namestore" required>
+            </td>
+            <td><input type="number" min="1" class="form-control price" name="" required></td>
+            <td class="text-center result"><label class="sum col-form-label">0</label></td>
+            <td class="text-center"><button class="btn btn-outline-danger"><i style="font-size:18px" class="far fa-trash-alt"></i></button></td>
+          </tr>
+>>>>>>> 757dc4ba47826d225290b17abc6c1f75dfb428fa
         </tbody>
         <tfoot>
           <tr>
@@ -125,6 +137,9 @@
   </form>
 </div>
 
+<div id="formwork_get" class="d-none">{{$prequestdb->formwork}}</div>
+<div id="prequest_get" class="d-none">{{$prequestdb->prequestconvert}}</div>
+
 <ul id="getstore" class="d-none">
   @foreach( $stores as $store )
   <li>{{ $store['keystore'] }}</li>
@@ -135,6 +150,8 @@
 <script type="text/javascript">
   $(document).ready(function() {
 
+    $('select[name=formwork] option[value=' + $('#formwork_get').text() + ']').prop('selected', true);
+    $('select[name=prequestconvert] option[value=' + $('#prequest_get').text() + ']').prop('selected', true);
 
     $('input.unit').autocomplete({
       lookup: [{
@@ -359,6 +376,7 @@
 
     $('#subbutton').click(function(e) {
       e.preventDefault();
+      e.stopPropagation();
       $('form').addClass('was-validated');
       var name = [];
       var num = [];
@@ -383,7 +401,7 @@
           name: name,
           num: num,
           units: units,
-          store: store,
+          keystore: store,
           price: price,
           sum: sum,
           keyPR: $('input[name=keyPR]').val(),

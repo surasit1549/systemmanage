@@ -11310,6 +11310,11 @@ a.text-dark:focus {
 DEMO STYLE
 */
 
+.modal input[type=text],
+.modal textarea {
+  background-color: #F8F8FF !important;
+}
+
 body {
   font-family: "Sarabun", sans-serif;
   background: #fafafa;
@@ -11527,10 +11532,13 @@ a.article:hover {
   }
 }
 
-#useraccount {
+hr.line {
   display: block;
-  padding: 15px;
-  background-color: #31125A;
+  height: 1px;
+  border: 0;
+  border-top: 2px solid red;
+  margin: 1em 0;
+  padding: 0;
 }
 
 .card-header {
