@@ -137,7 +137,6 @@ class PuchaserequestController extends Controller
     $productdb = product::find($id);
     $pr_db = prequest::all()->toArray();
     $prequestproduct = product::all()->toArray();
-<<<<<<< HEAD
     $num_pr = sizeof($prequestproduct);
     $num_id = intval($id);
     foreach($prequestproduct as $row){
@@ -160,12 +159,13 @@ class PuchaserequestController extends Controller
                 $row['keyPR']
       ];
     }
+    //dd($pr_product2);
     for($i=0; $i<$num_pr; $i++){
       if($pr[$num_id] === $pr_product2[$i]){
         $pr_products[] = $pr_product1[$i];
       }
     }
-    //dd($num_id);
+    dd($num_id);
     //dd($pr_products);
     return view('prequest.edit', compact(
                                         'prequestdb', 
@@ -175,9 +175,6 @@ class PuchaserequestController extends Controller
                                         'pr_products',
                                         'number'
     ));
-=======
-    return view('prequest.edit', compact('prequestdb', 'stores', 'prequestconvert', 'prequestproduct', 'id', 'number','productdb'));
->>>>>>> 757dc4ba47826d225290b17abc6c1f75dfb428fa
   }
 
   /**
