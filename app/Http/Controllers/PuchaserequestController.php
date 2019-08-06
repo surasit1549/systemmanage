@@ -161,12 +161,13 @@ class PuchaserequestController extends Controller
                 $row['keyPR']
       ];
     }
+    //dd($pr_product2);
     for($i=0; $i<$num_pr; $i++){
       if($pr[$num_id] === $pr_product2[$i]){
         $pr_products[] = $pr_product1[$i];
       }
     }
-    //dd($num_id);
+    dd($num_id);
     //dd($pr_products);
     return view('prequest.edit', compact(
                                         'prequestdb', 
