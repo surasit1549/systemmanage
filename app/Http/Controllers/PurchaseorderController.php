@@ -145,6 +145,7 @@ class PurchaseorderController extends Controller
                                                     ->distinct()                                
                                                     ->get();
         $num_porder = sizeof($prporder);
+        $num_store = sizeof($prequeststore);
         //dd($id);
         foreach($product as $row){
             $product1[] = [
@@ -182,10 +183,13 @@ class PurchaseorderController extends Controller
         }
         for($i=0; $i<$num_porder; $i++){
             if($num === $product2[$i][0]){
-                
+                for($j=0; $j<$num_store; $j++)
+                    if($product2[$num][1] === $store2[$j][0]){
+                        $po_store[] = $store1[$j];
+                    }
             }
         }
-        dd($asd);
+        dd($po_store);
         /*
         //$ass = [$store2[0],$pr_product2];
         //dd($pr_product2);
