@@ -175,7 +175,8 @@ class PuchaserequestController extends Controller
                                         'prequestconvert', 
                                         'id',
                                         'pr_products',
-                                        'number'
+                                        'number',
+                                        'prequestdb'
     ));
   }
 
