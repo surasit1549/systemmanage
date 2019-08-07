@@ -10,10 +10,7 @@
     <form method="post" action="{{action('PuchaserequestController@update', $id)}}">
       {{csrf_field()}}
       <div class="row">
-        <div class="form-group col-md-6">
-          <a class="btn btn-info text-white" onclick="location.reload();">Refresh</a>
-        </div>
-        <div class="form-group col-md-6 text-right">
+        <div class="form-group col-md-12 text-right">
           <label>วันที่ขอสั่งชื้อ</label><br>
           <input type="text" name="date" value="{{ date('d-m-Y') }}" class="border-0" size="8" value="{{$pr_prequest[1]}}">
         </div>
@@ -238,8 +235,9 @@
 
 
 
-    $('#addrow').click(function(e) {
-      e.preventDefault();
+    $('#addrow').click(function() {
+      event.preventDefault();
+      event.stopPropagation();
       $('tbody').append('<tr><td class="text-center"><label class="col-form-label">' + (index++) + '</label></td><td>' +
         '<input type="text" class="form-control productname" required></td>' +
         '<td><input type="number" min="1" class="form-control productnumber" required></td>' +

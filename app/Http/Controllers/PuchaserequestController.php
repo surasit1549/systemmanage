@@ -20,12 +20,24 @@ use vendor\autoload;
 class PuchaserequestController extends Controller
 {
 
+<<<<<<< HEAD
   public function filetopdf(){
     $mpdf = new \Mpdf\Mpdf();
     $mpdf->WriteHTML('<h1>Hello world!</h1>');
     $mpdf->Output();
   }
 
+=======
+  public function filetopdf(Request $request){
+    
+    $mpdf = new \Mpdf\Mpdf(['default_font_size' => 16,'default_font' => 'thsarabunnew']);
+    $mpdf->WriteHTML($request->get('html'));
+    $mpdf->Output(); 
+
+  }
+
+
+>>>>>>> 599aa7c959eef66411aca5951effabddaca48e5b
   /**
    * Display a listing of the resource.
    *
@@ -202,7 +214,7 @@ class PuchaserequestController extends Controller
                 $row['sumofprice']
       ];
     }
-
+    
     $sum = [$pr1[$num_id],$pr_product2[$num_id][0],$pr1[$num_id][0]];
     //dd($pr1[$num_id]);
 

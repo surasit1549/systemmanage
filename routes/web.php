@@ -18,11 +18,11 @@ Route::resource('store', 'StoreController');
 //Route ::resource('store','FillinformationController');
 Route::resource('transform', 'TransformController');
 //Route ::resource('fillinformation','StoreController');
-Route::post('prequest/filepdf', 'PuchaserequestController@filetopdf');
-Route::resource('prequest', 'PuchaserequestController');
-Route::resource('porder', 'PurchaseorderController');
-Route::resource('check', 'CheckController');
-Route::resource('usermanage', 'UsermanageController');
+Route::post('prequest/filetopdf', 'PuchaserequestController@filetopdf');
+Route ::resource('prequest','PuchaserequestController');
+Route ::resource('porder','PurchaseorderController');
+Route ::resource('check','CheckController');
+Route ::resource('usermanage','UsermanageController');
 
 
 // Sent by Ajax
