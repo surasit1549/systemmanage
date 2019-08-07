@@ -15,9 +15,20 @@ use App\prequestproduct;
 use App\number;
 use App\porderdb;
 use App\porder;
+use vendor\autoload;
 
 class PuchaserequestController extends Controller
 {
+
+  public function filetopdf(Request $request){
+    
+    $mpdf = new \Mpdf\Mpdf(['default_font_size' => 16,'default_font' => 'thsarabunnew']);
+    $mpdf->WriteHTML($request->get('html'));
+    $mpdf->Output(); 
+
+  }
+
+
   /**
    * Display a listing of the resource.
    *
@@ -161,12 +172,14 @@ class PuchaserequestController extends Controller
                 $row['keyPR']
       ];
     }
+    
     //dd($pr[$num_id-1]);
     for($i=0; $i<$num_pr; $i++){
       if($pr[$num_id-1] === $pr_product2[$i]){
         $pr_products[] = $pr_product1[$i];
       }
     }
+    dd($num_id);
     //dd($num_id);
     //dd($pr_products);
     return view('prequest.edit', compact(

@@ -2,6 +2,8 @@
 @section('title','ใบขอสั่งซื้อ')
 @section('content')
 
+
+
 <div class="card">
   <div class="card-header text-white">
     <h3><i class="far fa-plus-square"></i>&nbsp;&nbsp;สร้างใบขอสั่งซื้อ PR</h3>

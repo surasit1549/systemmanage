@@ -17,6 +17,7 @@ Route ::resource('store','StoreController');
 //Route ::resource('store','FillinformationController');
 Route ::resource('transform','TransformController');
 //Route ::resource('fillinformation','StoreController');
+Route::post('prequest/filetopdf', 'PuchaserequestController@filetopdf');
 Route ::resource('prequest','PuchaserequestController');
 Route ::resource('porder','PurchaseorderController');
 Route ::resource('check','CheckController');
