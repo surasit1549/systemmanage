@@ -1,4 +1,5 @@
 <?php
+
 use phpDocumentor\Reflection\DocBlock\Tags\Uses;
 
 /*
@@ -13,14 +14,15 @@ use phpDocumentor\Reflection\DocBlock\Tags\Uses;
 */
 
 
-Route ::resource('store','StoreController');
+Route::resource('store', 'StoreController');
 //Route ::resource('store','FillinformationController');
-Route ::resource('transform','TransformController');
+Route::resource('transform', 'TransformController');
 //Route ::resource('fillinformation','StoreController');
-Route ::resource('prequest','PuchaserequestController');
-Route ::resource('porder','PurchaseorderController');
-Route ::resource('check','CheckController');
-Route ::resource('usermanage','UsermanageController');
+Route::post('prequest/filepdf', 'PuchaserequestController@filetopdf');
+Route::resource('prequest', 'PuchaserequestController');
+Route::resource('porder', 'PurchaseorderController');
+Route::resource('check', 'CheckController');
+Route::resource('usermanage', 'UsermanageController');
 
 
 // Sent by Ajax

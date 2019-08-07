@@ -15,23 +15,6 @@
       <h3><i class="fas fa-plus-square"></i>&nbsp;&nbsp;เพิ่มข้อมูลแปลง</h3>
     </div>
     <div class="card-body">
-<<<<<<< HEAD
-      <form method="post" action="{{url('transform')}}" class="need-validation" novalidate>
-        {{csrf_field()}}
-        <div class="form-group">
-          <label for="">ชื่อแปลง</label>
-          <input type="text" name="convertname" class="form-control" required>
-          <div class="invalid-feedback">
-            กรอกแปลง
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="">ขนาด</label>
-          <input type="text" name="size" class="form-control" required>
-          <div class="invalid-feedback">
-            กรอกขนาดแปลง
-          </div>
-=======
       <form method="post" action="{{url('transform')}}" class="needs-validation" novalidate>
         {{csrf_field()}}
         <div class="form-group">
@@ -47,7 +30,6 @@
           <label for="" class="invalid-feedback">
             กรอกชื่อขนาดแปลง
           </label>
->>>>>>> cfa5a5140ff28a4d4cb674ac54d43ecd56aa995b
         </div>
     </div>
     <div class="form-group text-center">
@@ -59,15 +41,9 @@
 </div>
 </div>
 
-<<<<<<< HEAD
 <script>
   $(document).ready(function() {
 
-=======
-
-<script>
-  $(document).ready(function() {
->>>>>>> cfa5a5140ff28a4d4cb674ac54d43ecd56aa995b
     $('#subform').click(function() {
       if ($('form')[0].checkValidity() == false) {
         event.preventDefault();
@@ -75,15 +51,9 @@
         $('form').addClass('was-validated');
       }
     });
-<<<<<<< HEAD
 
   });
 </script>
 
 
-=======
-  });
-</script>
-
->>>>>>> cfa5a5140ff28a4d4cb674ac54d43ecd56aa995b
 @endsection

@@ -59,17 +59,23 @@
       <thead>
         <tr>
           <th style="width:5%;">ลำดับ</th>
-          <th style="width:15%;">รหัสร้านค้า</th>
-          <th style="width:40%;">ชื่อร้านค้า</th>
-          <th id="trythis" cols="3">Manage</th>
+          <th style="width:10%;">รหัสร้านค้า</th>
+          <th style="width:30%;">ชื่อร้านค้า</th>
+          <th style="width:15%;">โทรศัพท์ร้านค้า</th>
+          <th style="width:15%;">ผู้ติดต่อ</th>
+          <th style="width:15%;">โทรศัพท์ผู้ติดต่อ</th>
+          <th>Manage</th>
         </tr>
       </thead>
       <tbody>
         @foreach($store as $row)
         <tr>
           <td>{{$row->id}}</td>
-          <td class="schnum">{{$row->keystore}}</td>
-          <td class="schtext">{{$row->name}}</td>
+          <td>{{$row->keystore}}</td>
+          <td>{{$row->name}}</td>
+          <td>{{$row->phone}}</td>
+          <td>{{$row->contect}}</td>
+          <td>{{$row->cellphone}}</td>
           <td>
             <a data-toggle="modal" data-target="#test{{$row->id}}" data-placement="top" title="View"><i style="font-size:20px;;" class="fas fa-eye text-primary"></i></a>
             &nbsp;&nbsp;
@@ -113,7 +119,7 @@
         <div class="row">
           <div class="form-group col-md-5">
             <label for="#keystore">รหัสร้านค้า</label>
-            <input style="background-color:#F8F8FF" id="keystore" type="text" value="{{$row->keystore}}" class="form-control" disabled>
+            <input id="keystore" type="text" value="{{$row->keystore}}" class="form-control" disabled>
           </div>
           <div class="form-group col-md-7">
             <label for="#namestore">ชื่อร้านค้า</label>

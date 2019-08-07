@@ -15,9 +15,17 @@ use App\prequestproduct;
 use App\number;
 use App\porderdb;
 use App\porder;
+use vendor\autoload;
 
 class PuchaserequestController extends Controller
 {
+
+  public function filetopdf(){
+    $mpdf = new \Mpdf\Mpdf();
+    $mpdf->WriteHTML('<h1>Hello world!</h1>');
+    $mpdf->Output();
+  }
+
   /**
    * Display a listing of the resource.
    *
@@ -46,7 +54,6 @@ class PuchaserequestController extends Controller
     //dd($pr_prequest[2][0]);
     return view('prequest.index', compact(
                                           'prequestdb',
-                                          'prequest', 
                                           'number',
                                           'pr_prequest'
                                         ));
