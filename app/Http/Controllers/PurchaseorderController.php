@@ -92,7 +92,6 @@ class PurchaseorderController extends Controller
         //dd($bot);
         return view('porder.index',compact(
                                             'prporder',
-                                            'date', 
                                             'number',
                                             'numberkey',
                                             'prporders',
@@ -198,9 +197,7 @@ class PurchaseorderController extends Controller
         //} */
         dd($product2);
         //dd(gettype($num));
-        return view('porder.show', compact(
-                                            'pr_product'
-        ));
+        return view('porder.show', compact('pr_product'));
 
     }
 

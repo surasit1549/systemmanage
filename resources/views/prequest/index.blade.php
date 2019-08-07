@@ -10,30 +10,22 @@
 @section('content')
 <script>
   $(document).ready(function() {
+    
+    $('[data-toggle="tooltip"]').tooltip();
 
-        $('[data-toggle="tooltip"]').tooltip();
+    $('#prtable').DataTable();
 
-        $('#prtable').DataTable({
-            buttons: [
-                'copy',
-                'excel',
-                'pdf']
-        });
+    $('.test').click(function() {
+      $(this).next('form').submit();
+    });
 
-          $('.test').click(function() {
-            $(this).next('form').submit();
-          });
-
-
-        })
+  })
 </script>
 @if(\Session::has('success'))
 <div class="alert alert-success">
   <a>{{\Session::get('success')}}</a>
 </div>
 @endif
-
-
 
 
 <div class="form-row col-md-12">

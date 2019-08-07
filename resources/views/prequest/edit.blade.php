@@ -107,7 +107,7 @@
           <tr>
             <th colspan="2"><button class="btn btn-sm btn-primary" id="addrow"><i class="fas fa-plus"></i>&nbsp;&nbsp;เพิ่มรายการสินค้า</button></th>
             <th class="text-right" colspan="4">รวมเป็นเงิน</th>
-            <th class="text-center"><label id="sumofprice" class="text-danger">0</label></th>
+            <th class="text-center"><label id="sumofprice" class="text-danger">{{$prequestdb->sumofprice}}</label></th>
             <th class="text-center">บาท</th>
           </tr>
         </tfoot>
