@@ -15,20 +15,20 @@
         </div>
         <div class="form-group col-md-6 text-right">
           <label>วันที่ขอสั่งชื้อ</label><br>
-          <input type="text" name="date" value="{{ date('d-m-Y') }}" class="border-0" size="8" value="{{$prequestdb->date}}">
+          <input type="text" name="date" value="{{ date('d-m-Y') }}" class="border-0" size="8" value="{{$pr_prequest[1]}}">
         </div>
       </div>
       <div class="form-row">
         <div class="form-group col-md-4">
           <label>เลขที่เอกสาร</label>
-          <input type="text" name="keyPR" class="form-control" value="{{$prequestdb->keyPR}}" placeholder="กรอกเลขที่เอกสาร.." required>
+          <input type="text" name="keyPR" class="form-control" value="{{$pr_prequest[0]}}" placeholder="กรอกเลขที่เอกสาร.." required>
           <div class="invalid-feedback">
             กรุณากรอกเลขที่เอกสาร
           </div>
         </div>
         <div class="form-group col-md-8">
           <label>ชื่อผู้รับเหมา</label>
-          <input type="text" name="contractor" class="form-control" placeholder="กรอกชื่อผู้รับเหมา.." value="{{$prequestdb->contractor}}" required>
+          <input type="text" name="contractor" class="form-control" placeholder="กรอกชื่อผู้รับเหมา.." value="{{$pr_prequest[2]}}" required>
           <div class="invalid-feedback">
             กรุณากรอกชื่อผู้รับเหมา
           </div>
@@ -107,7 +107,7 @@
           <tr>
             <th colspan="2"><button class="btn btn-sm btn-primary" id="addrow"><i class="fas fa-plus"></i>&nbsp;&nbsp;เพิ่มรายการสินค้า</button></th>
             <th class="text-right" colspan="4">รวมเป็นเงิน</th>
-            <th class="text-center"><label id="sumofprice" class="text-danger">0</label></th>
+            <th class="text-center"><label id="sumofprice" class="text-danger">{{$prequestdb->sumofprice}}</label></th>
             <th class="text-center">บาท</th>
           </tr>
         </tfoot>

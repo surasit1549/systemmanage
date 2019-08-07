@@ -20,27 +20,27 @@
             <tr>
               <th> ผู้ขาย :</th>
               <td>
-                {{$store[0][1]}}
+                {{$po_store[0][1]}}&nbsp;&nbsp; [ {{$po_store[0][0]}} ] 
               </td>
               <th> วันที่เอกสาร :</th>
               <td>
-                {{$po}}
+                {{$po_date}}
               </td>
             </tr>
             <tr>
               <th> ที่อยู่ :</td>
               <td>
-                {{$store[0][2]}}
+                {{$po_store[0][2]}}
               </td>
               <th>  ผู้ติดต่อ : </th>
               <td>
-                {{$store[0][5]}}  {{$store[0][6]}}
+                {{$po_store[0][5]}} &nbsp;&nbsp; {{$po_store[0][6]}}
               </td>
             </tr>
             <tr>
               <th> โทรศัพท์ :</th>
               <td>
-                {{$store[0][3]}}
+                {{$po_store[0][3]}}
               </td>
               <th> วันที่กำหนดส่ง : </th>
               <td>
@@ -50,7 +50,7 @@
             <tr>
               <th> โทรสาร : </th>
               <td>
-                {{$store[0][4]}}
+                {{$po_store[0][4]}}
               </td>
               <th> จำนวนเครดิต : </th>
               <td>
@@ -80,14 +80,16 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-                <td style="width:5%"></td>
-                <td style="width:20%"></td>
-                <td style="width:10%"></td>
-                <td style="width:10%"></td>
-                <td style="width:10%"></td>
-                <td style="width:10%"></td>
-            </tr><br>
+            @foreach($po_product as $row)
+              <tr>
+                  <td style="width:5%">{{$number++}}</td>
+                  <td style="width:20%">{{$row[2]}}</td>
+                  <td style="width:10%">{{$row[3]}}</td>
+                  <td style="width:10%">{{$row[4]}}</td>
+                  <td style="width:10%">{{$row[6]}}</td>
+                  <td style="width:10%">{{$row[7]}}</td>
+              </tr><br>
+            @endforeach
           </tbody>
 
         </table>

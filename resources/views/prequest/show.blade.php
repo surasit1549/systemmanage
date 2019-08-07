@@ -14,7 +14,7 @@
             <h4 class="d-inline shadow-sm" style="padding:10px"><label class="text-danger">&nbsp;PR {{$prequestdb->keyPR}}</label></h4>
           </div>
           <div class='col-md-6 text-right'>
-            <button class="btn btn-lg btn-primary"><i class="fas fa-print"></i>&nbsp;&nbsp;พิมพ์เอกสาร</button>
+            <button class="btn btn-danger"><i style="font-size:18px" class="far fa-file-pdf"></i>&nbsp;&nbsp;PDF</button>
           </div>
         </div>
         <hr>

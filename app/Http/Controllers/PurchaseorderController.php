@@ -26,7 +26,7 @@ class PurchaseorderController extends Controller
 
     public function index()
     {  
-        $num = 1;
+        $num = 0;
         $num1 = 0;
         $numberkey = 1;
         $number = 1;
@@ -39,7 +39,6 @@ class PurchaseorderController extends Controller
                                                     ->addSelect('formwork')
                                                     ->addSelect('date')                                 
                                                     ->get();
-        
         foreach($prporder as $row){
             $a[] = $row['keyPR'];
         }
@@ -92,7 +91,6 @@ class PurchaseorderController extends Controller
         //dd($bot);
         return view('porder.index',compact(
                                             'prporder',
-                                            'date', 
                                             'number',
                                             'numberkey',
                                             'prporders',
@@ -131,6 +129,7 @@ class PurchaseorderController extends Controller
     public function show($id)
     {
         $number = 1;
+        $nums = 0;
         $prequeststore = store::all()->toArray();;
         $prequestconvert = transform::all()->toArray();
         $prequestdb = prequest::find($id);
@@ -139,14 +138,23 @@ class PurchaseorderController extends Controller
         $product = product::all()->toArray();
         $porder = porder::all()->toArray();
         $prequestproduct = product::all()->toArray();
-        //$num = intval( $id );
         //dd($pr_product);
         $prporder = porder::select('keyPR', 'keystore')
                                                     ->distinct()                                
                                                     ->get();
-        $num_porder = sizeof($prporder);
+        //dd($prporder);
+        $num_product = sizeof($product);
         $num_store = sizeof($prequeststore);
+        $num_poporder = sizeof($prporder);
         //dd($id);
+        foreach ($prporder as $row) {
+            $po_prporder[] = [  
+                                $num_po = $nums++,
+                                $row['keystore'],
+                                $row['keyPR']
+            ];
+        }
+        
         foreach($product as $row){
             $product1[] = [
                             $row['keyPR'],
@@ -160,12 +168,12 @@ class PurchaseorderController extends Controller
                             $row['id']
             ];
             $product2[] = [
-                            $row['id'],
-                            $row['keystore']
-            ];
+                            $row['keystore'],
+                            $row['keyPR']
+            ]; 
         }
         $num = intval( $id );
-        //dd($num);
+        //dd($num_poporder);
         //dd($product2[1][1]);
         foreach($prequeststore as $row){
             $store1[] = [
@@ -181,25 +189,39 @@ class PurchaseorderController extends Controller
                             $row['keystore'],
             ];
         }
-        for($i=0; $i<$num_porder; $i++){
-            if($num === $product2[$i][0]){
-                for($j=0; $j<$num_store; $j++)
-                    if($product2[$num][1] === $store2[$j][0]){
+        foreach($porder as $row){
+            $po[] = $row['date'];
+        }
+
+        $sum = [$product2[$num][0],$po_prporder[$num][1]];
+        //dd($sum);
+        
+        for($i=0; $i<$num_poporder; $i++){
+            if($num === $po_prporder[$i][0]){
+                for($j=0; $j<$num_store; $j++){
+                    if($po_prporder[$num][1] === $store2[$j][0]){
                         $po_store[] = $store1[$j];
                     }
+                }
+                for($a=0; $a<$num_product; $a++){
+                    if($product2[$a][1] === $po_prporder[$num][2]){
+                        if($product2[$a][0] === $po_prporder[$num][1] ){
+                            $po_product[] = $product1[$a];
+                            $po_date    = $po[$a];
+                        }
+                    }
+                }
             }
         }
-        dd($po_store);
-        /*
-        //$ass = [$store2[0],$pr_product2];
-        //dd($pr_product2);
-        //for($i=0; $i<$num_store; $i++){
-                $po_store[] = $product2[$i];
-        //} */
-        dd($product2);
-        //dd(gettype($num));
+        //$number_product = sizeof($po_product);
+        //dd($po_product);
         return view('porder.show', compact(
-                                            'pr_product'
+                                            'po_product',
+                                            'po_store',
+                                            'id',
+                                            'po_date',
+                                            'po',
+                                            'number'
         ));
 
     }
