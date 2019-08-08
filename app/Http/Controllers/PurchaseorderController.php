@@ -44,6 +44,7 @@ class PurchaseorderController extends Controller
         }
         $key[] = substr($row['keyPR'], 6,-4);
         $c = sizeof($a);
+        
         //dd($key);
         /*
         for($i=0; $i<$c; $i++){
@@ -74,9 +75,10 @@ class PurchaseorderController extends Controller
                 }
             }
         }
-        dd($datas);
+        $newdatas = $datas;
+        //dd($newdatas);
         for($a=0; $a<$n; $a++){
-            if($data === $datas[$a]){
+            if($datas[0] === $datas[$a]){
                 $nn++;
                 $nnn = strval($nn);
                 $newdata[] = "$nnn";
@@ -88,7 +90,8 @@ class PurchaseorderController extends Controller
                 $newdata[] = "$nnn";
             }
         }
-        dd($newdata);
+        $summ = [$data,$datas[0],$newdatas,$newdata];
+        dd($summ);
         foreach($prporder as $row){
             $prporders[] = [
                             $order = $num++,  
