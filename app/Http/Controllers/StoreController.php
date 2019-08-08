@@ -5,9 +5,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Store;
 use Illuminate\Support\Facades\DB;
+use vendor\autoload;
 
 class StoreController extends Controller
 {
+
+
+  public function filetopdf(Request $request){
+   /*  $mpdf = new \Mpdf\Mpdf(['default_font_size' => 16, 'default_font' => 'thsarabunnew']);
+    $mpdf->WriteHTML($request->get('html'));
+    $mpdf->Output(); */
+    return response()->json(['msg','success'],200);
+  }
 
   public function usersList()
   {

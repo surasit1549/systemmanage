@@ -13,7 +13,7 @@ use phpDocumentor\Reflection\DocBlock\Tags\Uses;
 |
 */
 
-
+Route::post('store/posttopdf','StoreController@filetopdf');
 Route::resource('store', 'StoreController');
 //Route ::resource('store','FillinformationController');
 Route::resource('transform', 'TransformController');
