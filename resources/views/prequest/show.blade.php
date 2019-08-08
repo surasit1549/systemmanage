@@ -14,7 +14,7 @@
             <h4 class="d-inline shadow-sm" style="padding:10px"><label class="text-danger">&nbsp;PR {{$prequestdb->keyPR}}</label></h4>
           </div>
           <div class='col-md-6 text-right'>
-            <button id="topdf" class="btn btn-danger"><i style="font-size:18px" class="far fa-file-pdf"></i>&nbsp;&nbsp;PDF</button>
+            <button class="btn btn-danger"><i style="font-size:18px" class="far fa-file-pdf"></i>&nbsp;&nbsp;PDF</button>
           </div>
         </div>
         <hr>
@@ -110,42 +110,6 @@
     </div>
   </div>
 </div>
-
-<div class="new">
-  <table>
-    <thead>
-      <tr>
-        <th>TEST</th>
-        <th>TEST</th>
-        <th>TEST</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>AAA</td>
-        <td>BBB</td>
-        <td>CCC</td>
-      </tr>
-    </tbody>
-  </table>
 </div>
-
-<script>
-  $(document).ready(function() {
-    $('#topdf').click(function() {
-      event.stopPropagation();
-      event.preventDefault();
-      var html = $('.new').html();
-      console.log(html);
-      $.ajax({
-        type: 'post',
-        url: 'filetopdf',
-        data: {
-          _token: '{{csrf_token()}}',
-          html: html
-        }
-      })
-    });
-  });
-</script>
+</div>
 @endsection
