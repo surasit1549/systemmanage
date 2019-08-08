@@ -14,7 +14,7 @@
             <h4 class="d-inline shadow-sm" style="padding:10px"><label class="text-danger">&nbsp;PR {{$prequestdb->keyPR}}</label></h4>
           </div>
           <div class='col-md-6 text-right'>
-            <button id="topdf" class="btn btn-danger"><i style="font-size:18px" class="far fa-file-pdf"></i>&nbsp;&nbsp;PDF</button>
+            <button class="btn btn-danger"><i style="font-size:18px" class="far fa-file-pdf"></i>&nbsp;&nbsp;PDF</button>
           </div>
         </div>
         <hr>
@@ -26,13 +26,13 @@
                 เลขที่เอกสาร
                 </td>
               <td>
-                {{$prequestdb->keyPR}}
+                {{$pr_prequest[0]}}
               </td>
               <th>
                 วันที่ขอสั่งซื้อ
                 </td>
               <td>
-                {{$prequestdb->date}}
+                {{$pr_prequest[1]}}
               </td>
             </tr>
             <tr>
@@ -40,18 +40,18 @@
                 ชื่อผู้รับเหมา
                 </td>
               <td>
-                {{$prequestdb->contractor}}
+                {{$pr_prequest[2]}}
               </td>
               <th>
                 แบบงาน
                 </td>
               <td>
-                {{$prequestdb->formwork}}
+                {{$pr_prequest[3]}}
               </td>
             </tr>
             <tr>
               <th>แปลง</th>
-              <td>{{$prequestdb->prequestconvert}}</td>
+              <td>{{$pr_prequest[4]}}</td>
             </tr>
           </table>
         </div>
@@ -68,21 +68,32 @@
               <th>ร้านค้า</th>
             </tr>
           </thead>
-          @foreach($prequestproduct as $row)
-          @if($prequestdb->keyPR === $row['keyPR'])
-          @if($prequestdb->formwork === $row['formwork'])
-          <tbody class="text-center">
-            <td style="width:5%">{{$number++}}</td>
-            <td style="width:20%">{{$row['productname']}}</td>
-            <td style="width:10%">{{$row['productnumber']}}</td>
-            <td style="width:10%">{{$row['price']}}</td>
-            <td style="width:10%">{{$row['unit']}}</td>
-            <td style="width:10%">{{$row['sum']}}</td>
-            <td style="width:10%">{{$row['keystore']}}</td>
+          <tbody>
+            @if(empty($productdb))
+            @foreach($productdb as $row)
+            <tr>
+              <td>{{$number++}}</td>
+              <td>{{$row['productname']}}</td>
+              <td>{{$row['productnumber']}}</td>
+              <td>{{$row['price']}}</td>
+              <td>{{$row['unit']}}</td>
+              <td>{{$row['sum']}}</td>
+              <td>{{$row['keystore']}}</td>
+            @endforeach
+          @else
+            @foreach($pr_products as $row)
+              <tr>
+                <td>{{$number++}}</td>
+                <td>{{$row[2]}}</td>
+                <td>{{$row[3]}}</td>
+                <td>{{$row[6]}}</td>
+                <td>{{$row[4]}}</td>
+                <td>{{$row[7]}}</td>
+                <td>{{$row[5]}}</td>
+              </tr>
+              @endforeach
+            @endif
           </tbody>
-          @endif
-          @endif
-          @endforeach
           <tfoot>
             <tr>
               <th class="text-right" colspan="5">รวมเป็นเงิน</th>
@@ -99,42 +110,6 @@
     </div>
   </div>
 </div>
-
-<div class="new">
-  <table>
-    <thead>
-      <tr>
-        <th>TEST</th>
-        <th>TEST</th>
-        <th>TEST</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>AAA</td>
-        <td>BBB</td>
-        <td>CCC</td>
-      </tr>
-    </tbody>
-  </table>
 </div>
-
-<script>
-  $(document).ready(function() {
-    $('#topdf').click(function() {
-      event.stopPropagation();
-      event.preventDefault();
-      var html = $('.new').html();
-      console.log(html);
-      $.ajax({
-        type: 'post',
-        url: 'filetopdf',
-        data: {
-          _token: '{{csrf_token()}}',
-          html: html
-        }
-      })
-    });
-  });
-</script>
+</div>
 @endsection

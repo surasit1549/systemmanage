@@ -42,8 +42,10 @@ class PurchaseorderController extends Controller
         foreach($prporder as $row){
             $a[] = $row['keyPR'];
         }
-        $key = substr($row['keyPR'], 6,-4);
+        $key[] = substr($row['keyPR'], 6,-4);
         $c = sizeof($a);
+        //dd($key);
+        /*
         for($i=0; $i<$c; $i++){
             if($key != $a[$i]){
                 $num1++;
@@ -55,24 +57,33 @@ class PurchaseorderController extends Controller
                 $keypr[] = "$key-$orders";
             }
         }
-        //$num = sizeof($a);
-        //dd($num);
-        //dd($num);
-        /*
-        $a = ['2015','2015','2016','2017'];
-        $b = '2015';
-        $c = sizeof($a);
-        for($i=0; $i<$c; $i++){
-            if($b != $a[$i]){
-                $d[] = 1;
-            }else{
-                $d[] = 2;
+        */
+
+        $nn = 0;
+        $data = '22';
+        $datas = ['22','22','23','23','24','23','23'];
+        $n = sizeof($datas);
+        for($i=0; $i<$n-1; $i++){
+            $min = $i;
+            for($j=$i; $j<$n; $j++){
+                
             }
         }
-        */
-        //dd($c);
-
-
+        //dd($n);
+        for($a=0; $a<$n; $a++){
+            if($data === $datas[$a]){
+                $nn++;
+                $nnn = strval($nn);
+                $newdata[] = "$nnn";
+            }else {
+                $nnn = 1;
+                $nnn = strval($nnn);
+                $data = $datas[$a];
+                $nn = $nnn;
+                $newdata[] = "$nnn";
+            }
+        }
+        dd($newdata);
         foreach($prporder as $row){
             $prporders[] = [
                             $order = $num++,  
