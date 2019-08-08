@@ -40,57 +40,43 @@ class PurchaseorderController extends Controller
                                                     ->addSelect('date')                                 
                                                     ->get();
         foreach($prporder as $row){
-            $a[] = $row['keyPR'];
+            $pr_key[] = $row['keyPR'];
         }
         $key[] = substr($row['keyPR'], 6,-4);
-        $c = sizeof($a);
+        $num_key = sizeof($pr_key);
         
-        //dd($key);
-        /*
-        for($i=0; $i<$c; $i++){
-            if($key != $a[$i]){
-                $num1++;
-                $orders = strval($num1);
-                $keypr[] = "$key-$orders";
-            }else{
-                $num1 = 1;
-                $orders = strval($num1);
-                $keypr[] = "$key-$orders";
-            }
-        }
-        */
-
         $nn = 0;
-        $data = '22';
+        $dataa = '22';
         $datas = ['22','22','23','23','24','23','23'];
         $n = sizeof($datas);
-        for($i=0; $i<$n-1; $i++){
+        for($i=0; $i<$num_key-1; $i++){
             $min = $i;
-            for($j=$i; $j<$n; $j++){
-                if($datas[$j] < $datas[$min]){
+            for($j=$i; $j<$num_key; $j++){
+                if($pr_key[$j] < $pr_key[$min]){
                     $min = $j;
-                    $temp = $datas[$i];
-                    $datas[$i] = $datas[$min];
-                    $datas[$min] = $temp;
+                    $temp = $pr_key[$i];
+                    $pr_key[$i] = $pr_key[$min];
+                    $pr_key[$min] = $temp;
                 }
             }
         }
         $newdatas = $datas;
+        //$newdatas[0] = '12';
+        //dd($newdatas);
         //dd($newdatas);
         for($a=0; $a<$n; $a++){
-            if($datas[0] === $datas[$a]){
+            if($newdatas[0] === $newdatas[$a]){
                 $nn++;
                 $nnn = strval($nn);
                 $newdata[] = "$nnn";
             }else {
-                $nnn = 1;
-                $nnn = strval($nnn);
-                $data = $datas[$a];
-                $nn = $nnn;
-                $newdata[] = "$nnn";
+                $nn = 1;
+                $newdatas[0] = $newdatas[$a];
+                $n3 = strval($nn);
+                $newdata[] = "$n3";
             }
         }
-        $summ = [$data,$datas[0],$newdatas,$newdata];
+        $summ = [$dataa,$newdatas[0],$newdatas,$newdata];
         dd($summ);
         foreach($prporder as $row){
             $prporders[] = [

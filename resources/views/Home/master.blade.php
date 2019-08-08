@@ -49,6 +49,11 @@
                         &nbsp;&nbsp;แปลง</a>
                 </li>
                 <li>
+                    <a href="{{route('pr_create.index')}}" id="transformtab">
+                        <i class="fas fa-map"></i>
+                        &nbsp;&nbsp;ผู้รับเหมา</a>
+                </li>
+                <li>
                     <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="far fa-file-alt"></i>
                         &nbsp;&nbsp;รายละเอียดการสั่งซื้อ</a>
                     <ul class="collapse list-unstyled" id="pageSubmenu">

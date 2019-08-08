@@ -60,7 +60,7 @@ class PuchaserequestController extends Controller
                                           'prequestdb',
                                           'number',
                                           'pr_prequest'
-                                        ));
+    ));
   }
 
   /**
