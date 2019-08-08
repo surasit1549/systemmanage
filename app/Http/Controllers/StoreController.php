@@ -11,11 +11,11 @@ class StoreController extends Controller
 {
 
 
-  public function filetopdf(Request $request){
-   /*  $mpdf = new \Mpdf\Mpdf(['default_font_size' => 16, 'default_font' => 'thsarabunnew']);
+  public function filetopdf(Request $request)
+  {
+    $mpdf = new \Mpdf\Mpdf(['default_font_size' => 16, 'default_font' => 'thsarabunnew']);
     $mpdf->WriteHTML($request->get('html'));
-    $mpdf->Output(); */
-    return response()->json(['msg','success'],200);
+    $mpdf->Output();
   }
 
   public function usersList()
@@ -54,7 +54,7 @@ class StoreController extends Controller
    */
   public function create()
   {
-    
+
     return view('store.create');
   }
 
@@ -97,9 +97,7 @@ class StoreController extends Controller
    * @return \Illuminate\Http\Response
    */
   public function show($id)
-  {
-    
-  }
+  { }
 
   /**
    * Show the form for editing the specified resource.

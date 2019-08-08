@@ -38,10 +38,14 @@ class PuchaserequestController extends Controller
   {
     $number = 1;
     $num = 1;
+
     $prequestdb = prequest::all()->toArray();
     if(empty($prequestdb)){
       $prequest = $prequestdb;
+      $pr_prequest = '';
+      //dd('ee');
     }else{
+      //dd('33');
       foreach($prequestdb as $row){
         $pr_prequest[] = [
                           $num_id = $num++,
@@ -144,6 +148,7 @@ class PuchaserequestController extends Controller
   public function show($id)
   {
     $number=1;
+    //$stores = store::all()->toArray();
     $prequeststore = store::all()->toArray();
     $prequestconvert = transform::all()->toArray();
     $prequestdb = prequest::find($id);
@@ -192,7 +197,7 @@ class PuchaserequestController extends Controller
         $pr_products[] = $pr_product1[$i];
       }
     }
-    
+    //dd($stores);
     return view('prequest.show', compact(
                                           'prequestdb', 
                                           'productdb',

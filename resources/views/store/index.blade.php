@@ -16,25 +16,49 @@
 <script>
   $(document).ready(function() {
     $('[data-toggle="tooltip"]').tooltip();
-    $('table').DataTable();
+    $('#main').DataTable();
     $('.test').click(function() {
       $(this).next('form').submit();
     });
 
     $('.savetopdf').click(function() {
+      var html = $('#sumall').html();
       $.ajax({
         url: 'store/posttopdf',
         type: 'post',
         data: {
-          html: '123'
-        } , success : function(data) {
-          console.log(data);
+          "_token": '{{csrf_token()}}',
+          html: html
         }
       });
     });
   });
 </script>
 
+<div id="sumall">
+  <!--mpdf
+  <div class="thisone">
+    <table>
+      <tr>
+        <th>รหัสร้านค้า</th>
+        <th>..</th>
+        <th>ชื่อร้านค้า</th>
+        <th>...</th>
+      </tr>
+      <tr>
+        <th>เบอร์โทรศัพท์</th>
+        <th>...</th>
+        <th>โทรสาร</th>
+        <th>...</th>
+      </tr>
+      <tr>
+        <th>ที่อยู่</th>
+        <th>...</th>
+      </tr>
+    </table>
+  </div>
+  mpdf-->
+</div>
 
 
 @if(\Session::has('success'))
@@ -66,7 +90,7 @@
     <h3 class="text-white"><i class="fas fa-store"></i>&nbsp;&nbsp;STORES</h3>
   </div>
   <div class="card-body">
-    <table class="table table-bordered" id="example">
+    <table class="table table-bordered" id="main">
       <thead>
         <tr>
           <th style="width:5%;">ลำดับ</th>
