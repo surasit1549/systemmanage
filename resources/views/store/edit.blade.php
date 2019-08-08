@@ -78,8 +78,8 @@
             </div>
 
             <div class="form-group text-right mt-3">
-              <a class="btn btn-danger" href="{{route('store.index')}}"><i style="font-size:18px;" class="fas fa-undo-alt"></i>&nbsp;&nbsp;ย้อนกลับ</a>
-              <button id="subform" type="submit" class="btn btn-success ml-2"><i class="far fa-edit"></i>&nbsp;&nbsp;Update</button>
+              <button id="subform" type="submit" class="btn btn-success ml-2"><i class="far fa-edit"></i>&nbsp;&nbsp;บันทึกข้อมูล</button>
+              <a class="ml-2 btn btn-danger" href="{{route('store.index')}}"><i style="font-size:18px;" class="fas fa-undo-alt"></i>&nbsp;&nbsp;ย้อนกลับ</a>
             </div>
             <input type="hidden" name="_method" value="PATCH" />
           </form>

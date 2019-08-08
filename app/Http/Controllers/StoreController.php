@@ -78,7 +78,7 @@ class StoreController extends Controller
       ]
     );
     $store->save();
-    return redirect()->route('store.index')->with('success', 'บันทึกข้อมูลเรียบร้อย');
+    return redirect()->route('store.index')->with('success', 'บันทึกข้อมูลเรียบร้อยแล้ว');
   }
 
   /**
@@ -135,7 +135,7 @@ class StoreController extends Controller
     $store->contect   = $request->get('contect');
     $store->cellphone = $request->get('cellphone');
     $store->save();
-    return redirect()->route('store.index')->with('success', 'successfully updated');
+    return redirect()->route('store.index')->with('success', 'อัพเดทข้อมูลเรียบร้อยแล้ว');
   }
 
   /**
