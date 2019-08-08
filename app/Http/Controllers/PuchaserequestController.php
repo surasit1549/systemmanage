@@ -15,9 +15,29 @@ use App\prequestproduct;
 use App\number;
 use App\porderdb;
 use App\porder;
+use vendor\autoload;
 
 class PuchaserequestController extends Controller
 {
+
+<<<<<<< HEAD
+  public function filetopdf(){
+    $mpdf = new \Mpdf\Mpdf();
+    $mpdf->WriteHTML('<h1>Hello world!</h1>');
+    $mpdf->Output();
+  }
+
+=======
+  public function filetopdf(Request $request){
+    
+    $mpdf = new \Mpdf\Mpdf(['default_font_size' => 16,'default_font' => 'thsarabunnew']);
+    $mpdf->WriteHTML($request->get('html'));
+    $mpdf->Output(); 
+
+  }
+
+
+>>>>>>> 599aa7c959eef66411aca5951effabddaca48e5b
   /**
    * Display a listing of the resource.
    *
@@ -46,7 +66,6 @@ class PuchaserequestController extends Controller
     //dd($pr_prequest[2][0]);
     return view('prequest.index', compact(
                                           'prequestdb',
-                                          'prequest', 
                                           'number',
                                           'pr_prequest'
                                         ));
@@ -240,6 +259,12 @@ class PuchaserequestController extends Controller
                 $row['sumofprice']
       ];
     }
+<<<<<<< HEAD
+=======
+    
+    $sum = [$pr1[$num_id],$pr_product2[$num_id][0],$pr1[$num_id][0]];
+    //dd($pr1[$num_id]);
+>>>>>>> 430b0b939009b66e03246c9537f0f14a1f66f94d
 
     for($j=0; $j<$num_pr; $j++){
       if($pr1[$num_id][0] === $pr1[$j][0]){

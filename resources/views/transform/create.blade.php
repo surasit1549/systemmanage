@@ -41,9 +41,9 @@
 </div>
 </div>
 
-
 <script>
   $(document).ready(function() {
+
     $('#subform').click(function() {
       if ($('form')[0].checkValidity() == false) {
         event.preventDefault();
@@ -51,7 +51,9 @@
         $('form').addClass('was-validated');
       }
     });
+
   });
 </script>
+
 
 @endsection
