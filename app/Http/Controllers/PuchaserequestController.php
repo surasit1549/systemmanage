@@ -37,7 +37,7 @@ class PuchaserequestController extends Controller
   public function index()
   {
     $number = 1;
-    $num = 0;
+    $num = 1;
     $prequestdb = prequest::all()->toArray();
     if(empty($prequestdb)){
       $prequest = $prequestdb;
@@ -153,7 +153,7 @@ class PuchaserequestController extends Controller
     $num_pr = sizeof($pr_db);
     $num_product = sizeof($prequestproduct);
     $num_id = intval($id);
-
+    //dd($num_id-1);
     foreach($prequestproduct as $row){
       $pr_product1[] = [
                      $row['keyPR'],
@@ -169,7 +169,7 @@ class PuchaserequestController extends Controller
                       $row['keyPR']
       ];
     }
-
+    //dd($pr_product1);
     foreach($pr_db as $row){
       $pr1[] = [
                 $row['keyPR'],
@@ -182,16 +182,16 @@ class PuchaserequestController extends Controller
     }
 
     for($j=0; $j<$num_pr; $j++){
-      if($pr1[$num_id][0] === $pr1[$j][0]){
+      if($pr1[$num_id-1][0] === $pr1[$j][0]){
         $pr_prequest = $pr1[$j];
       }
     }
     for($i=0; $i<$num_product; $i++){
-      if($pr1[$num_id][0] === $pr_product2[$i][0]){
+      if($pr1[$num_id-1][0] === $pr_product2[$i][0]){
         $pr_products[] = $pr_product1[$i];
       }
     }
-
+    
     return view('prequest.show', compact(
                                           'prequestdb', 
                                           'productdb',
@@ -252,12 +252,12 @@ class PuchaserequestController extends Controller
     }
 
     for($j=0; $j<$num_pr; $j++){
-      if($pr1[$num_id][0] === $pr1[$j][0]){
+      if($pr1[$num_id-1][0] === $pr1[$j][0]){
         $pr_prequest = $pr1[$j];
       }
     }
     for($i=0; $i<$num_product; $i++){
-      if($pr1[$num_id][0] === $pr_product2[$i][0]){
+      if($pr1[$num_id-1][0] === $pr_product2[$i][0]){
         $pr_products[] = $pr_product1[$i];
       }
     }

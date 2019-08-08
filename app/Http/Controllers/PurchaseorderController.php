@@ -66,10 +66,15 @@ class PurchaseorderController extends Controller
         for($i=0; $i<$n-1; $i++){
             $min = $i;
             for($j=$i; $j<$n; $j++){
-                
+                if($datas[$j] < $datas[$min]){
+                    $min = $j;
+                    $temp = $datas[$i];
+                    $datas[$i] = $datas[$min];
+                    $datas[$min] = $temp;
+                }
             }
         }
-        //dd($n);
+        dd($datas);
         for($a=0; $a<$n; $a++){
             if($data === $datas[$a]){
                 $nn++;
