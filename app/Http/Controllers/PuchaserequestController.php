@@ -137,17 +137,61 @@ class PuchaserequestController extends Controller
     $prequestconvert = transform::all()->toArray();
     $prequestdb = prequest::find($id);
     $productdb = product::find($id);
-    //dd($productdb->keyPR);
+    $pr_db = prequest::all()->toArray();
     $prequestproduct = product::all()->toArray();
-    //dd($prequestproduct);
-    
+
+    $num_pr = sizeof($pr_db);
+    $num_product = sizeof($prequestproduct);
+    $num_id = intval($id);
+
+    foreach($prequestproduct as $row){
+      $pr_product1[] = [
+                     $row['keyPR'],
+                     $row['formwork'],
+                     $row['productname'],
+                     $row['productnumber'],
+                     $row['unit'],
+                     $row['keystore'],
+                     $row['price'],
+                     $row['sum']
+      ];
+      $pr_product2[] = [
+                      $row['keyPR']
+      ];
+    }
+
+    foreach($pr_db as $row){
+      $pr1[] = [
+                $row['keyPR'],
+                $row['date'],
+                $row['contractor'],
+                $row['formwork'],
+                $row['prequestconvert'],
+                $row['sumofprice']
+      ];
+    }
+
+    for($j=0; $j<$num_pr; $j++){
+      if($pr1[$num_id][0] === $pr1[$j][0]){
+        $pr_prequest = $pr1[$j];
+      }
+    }
+    for($i=0; $i<$num_product; $i++){
+      if($pr1[$num_id][0] === $pr_product2[$i][0]){
+        $pr_products[] = $pr_product1[$i];
+      }
+    }
+
     return view('prequest.show', compact(
                                           'prequestdb', 
-                                          'prequeststore', 
+                                          'productdb',
+                                          'stores',
                                           'prequestconvert', 
-                                          'prequestproduct', 
-                                          'id', 
-                                          'number'));
+                                          'id',
+                                          'pr_products',
+                                          'number',
+                                          'pr_prequest'
+    ));
   }
 
   /**
@@ -169,7 +213,8 @@ class PuchaserequestController extends Controller
     $num_pr = sizeof($pr_db);
     $num_product = sizeof($prequestproduct);
     $num_id = intval($id);
-    //dd($num_id);
+    
+
     foreach($prequestproduct as $row){
       $pr_product1[] = [
                       $row['keyPR'],
@@ -183,7 +228,7 @@ class PuchaserequestController extends Controller
       ];
       $pr_product2[] = [
                       $row['keyPR']
-];
+      ];
     }
     foreach($pr_db as $row){
       $pr1[] = [
@@ -196,9 +241,6 @@ class PuchaserequestController extends Controller
       ];
     }
 
-    $sum = [$pr1[$num_id],$pr_product2[$num_id][0],$pr1[$num_id][0]];
-    //dd($pr1[$num_id]);
-
     for($j=0; $j<$num_pr; $j++){
       if($pr1[$num_id][0] === $pr1[$j][0]){
         $pr_prequest = $pr1[$j];
@@ -209,9 +251,7 @@ class PuchaserequestController extends Controller
         $pr_products[] = $pr_product1[$i];
       }
     }
-    $sums = [$pr_products,$pr_prequest];
-    //dd($sums);
-    //dd($pr_products);
+    
     return view('prequest.edit', compact(
                                         'prequestdb', 
                                         'stores',
