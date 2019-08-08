@@ -104,7 +104,7 @@
           <tr>
             <th colspan="2"><button class="btn btn-sm btn-primary" id="addrow"><i class="fas fa-plus"></i>&nbsp;&nbsp;เพิ่มรายการสินค้า</button></th>
             <th class="text-right" colspan="4">รวมเป็นเงิน</th>
-            <th class="text-center"><label id="sumofprice" class="text-danger">{{$prequestdb->sumofprice}}</label></th>
+            <th class="text-center"><label id="sumofprice" class="text-danger">{{$prequestdb['sumofprice']}}</label></th>
             <th class="text-center">บาท</th>
           </tr>
         </tfoot>
@@ -118,8 +118,8 @@
   </form>
 </div>
 
-<div id="formwork_get" class="d-none">{{$prequestdb->formwork}}</div>
-<div id="prequest_get" class="d-none">{{$prequestdb->prequestconvert}}</div>
+<div id="formwork_get" class="d-none">{{$prequestdb['formwork']}}</div>
+<div id="prequest_get" class="d-none">{{$prequestdb['prequestconvert']}}</div>
 
 <ul id="getstore" class="d-none">
   @foreach( $stores as $store )

@@ -20,6 +20,18 @@
     $('.test').click(function() {
       $(this).next('form').submit();
     });
+
+    $('.savetopdf').click(function() {
+      $.ajax({
+        url: 'store/posttopdf',
+        type: 'post',
+        data: {
+          html: '123'
+        } , success : function(data) {
+          console.log(data);
+        }
+      });
+    });
   });
 </script>
 
@@ -111,7 +123,7 @@
             <h5 class="modal-title"><i style="font-size:20px" class="far fa-file-alt"></i>&nbsp;&nbsp;ข้อมูลร้านค้า</h5>
           </div>
           <div class="col-md-6 text-right">
-            <button class="btn btn-danger"><i style="font-size:18px" class="far fa-file-pdf"></i>&nbsp;&nbsp;PDF</button>
+            <button class="btn btn-danger savetopdf"><i style="font-size:18px" class="far fa-file-pdf"></i>&nbsp;&nbsp;PDF</button>
           </div>
         </div>
         <hr class="line">
