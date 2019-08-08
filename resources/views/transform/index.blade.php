@@ -62,9 +62,9 @@
         </tr>
       </thead>
       <tbody>
-        @foreach($transform as $row)
+        @foreach($transform as $index=>$row)
         <tr>
-          <td>{{$row['id']}}</td>
+          <td>{{ $index + 1 }}</td>
           <td>{{$row['convertname']}}</td>
           <td>{{$row['size']}}</td>
           <td>

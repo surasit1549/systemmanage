@@ -42,12 +42,12 @@
             <div class="form-row">
               <div class="form-group col-md-6">
                 <input type="text" name="phone" class="form-control" placeholder="เบอร์โทรศัพท์" autocomplete="off" pattern="[0-9]{10}" required>
-                <label class="invalid-feedback">กรอกเบอร์โทรศัพท์ให้ถูกต้องไม่ต้องมี (-) ตัวอย่าง 0234567895</label>
+                <label class="invalid-feedback">กรอกเบอร์โทรศัพท์</label>
               </div>
 
               <div class="form-group col-md-6">
                 <input type="text" name="fax" class="form-control" placeholder="เบอร์โทรสาร" autocomplete="off" pattern="[0-9]{9}" required>
-                <label class="invalid-feedback">กรอกเบอร์โทรสารให้ถูกต้องไม่ต้องมี (-) ตัวอย่าง 053894659</label>
+                <label class="invalid-feedback">กรอกเบอร์โทรสาร/label>
               </div>
             </div>
             <br>
@@ -62,7 +62,7 @@
 
               <div class="form-group col-md-6">
                 <input type="text" name="cellphone" class="form-control" placeholder="เบอร์โทรผู้ติดต่อ" autocomplete="off" pattern="[0-9]{10}" required>
-                <label class="invalid-feedback">กรอกเบอร์โทรศัพท์ผู้ติดต่อให้ถูกต้องไม่ต้องมี (-) ตัวอย่าง 0234567895</label>
+                <label class="invalid-feedback">กรอกเบอร์โทรศัพท์ผู้ติดต่อ</label>
               </div>
             </div>
             <br>
@@ -86,6 +86,7 @@
         $('form').addClass('was-validated');
       }
     });
+
   });
 </script>
 
