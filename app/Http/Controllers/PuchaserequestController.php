@@ -154,7 +154,7 @@ class PuchaserequestController extends Controller
     $num_pr = sizeof($pr_db);
     $num_product = sizeof($prequestproduct);
     $num_id = intval($id);
-    //dd($num_id-1);
+    //dd($num_id);
     foreach($prequestproduct as $row){
       $pr_product1[] = [
                      $row['keyPR'],
@@ -192,16 +192,14 @@ class PuchaserequestController extends Controller
         $pr_products[] = $pr_product1[$i];
       }
     }
-    
+    //dd($pr_products);
+    //dd($pr_prequest[5]);
     return view('prequest.show', compact(
-                                          'prequestdb', 
-                                          'productdb',
-                                          'stores',
-                                          'prequestconvert', 
+                                          'number',
                                           'id',
                                           'pr_products',
-                                          'number',
                                           'pr_prequest'
+
     ));
   }
 

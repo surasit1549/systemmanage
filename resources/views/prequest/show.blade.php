@@ -11,7 +11,7 @@
         {{csrf_field()}}
         <div class="row">
           <div class="col-form-label col-md-6">
-            <h4 class="d-inline shadow-sm" style="padding:10px"><label class="text-danger">&nbsp;PR {{$prequestdb->keyPR}}</label></h4>
+            <h4 class="d-inline shadow-sm" style="padding:10px"><label class="text-danger">&nbsp;PR {{$pr_prequest[0]}}</label></h4>
           </div>
           <div class='col-md-6 text-right'>
             <button class="btn btn-danger"><i style="font-size:18px" class="far fa-file-pdf"></i>&nbsp;&nbsp;PDF</button>
@@ -51,7 +51,9 @@
             </tr>
             <tr>
               <th>แปลง</th>
-              <td>{{$pr_prequest[4]}}</td>
+              <td>
+                {{$pr_prequest[4]}}
+              </td>
             </tr>
           </table>
         </div>
@@ -69,19 +71,7 @@
             </tr>
           </thead>
           <tbody>
-            @if(empty($productdb))
-            @foreach($productdb as $row)
-            <tr>
-              <td>{{$number++}}</td>
-              <td>{{$row['productname']}}</td>
-              <td>{{$row['productnumber']}}</td>
-              <td>{{$row['price']}}</td>
-              <td>{{$row['unit']}}</td>
-              <td>{{$row['sum']}}</td>
-              <td>{{$row['keystore']}}</td>
-            @endforeach
-          @else
-            @foreach($pr_products as $row)
+          @foreach($pr_products as $row)
               <tr>
                 <td>{{$number++}}</td>
                 <td>{{$row[2]}}</td>
@@ -92,12 +82,11 @@
                 <td>{{$row[5]}}</td>
               </tr>
               @endforeach
-            @endif
           </tbody>
           <tfoot>
             <tr>
               <th class="text-right" colspan="5">รวมเป็นเงิน</th>
-              <th class="text-center"><label id="sumofprice" class="text-danger">{{$prequestdb['sumofprice']}}</label></th>
+              <th class="text-center"><label id="sumofprice" class="text-danger">{{$pr_prequest[5]}}</label></th>
               <th class="text-center">บาท</th>
             </tr>
           </tfoot>
