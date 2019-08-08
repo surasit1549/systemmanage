@@ -49,7 +49,8 @@ class PuchaserequestController extends Controller
                           $row['date'],
                           $row['contractor'],
                           $row['formwork'],
-                          $row['prequestconvert']
+                          $row['prequestconvert'],
+                          $row['sumofprice']
         ];
       }  
     }

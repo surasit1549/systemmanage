@@ -15,7 +15,6 @@
 @section('content')
 <script>
   $(document).ready(function() {
-
     $('[data-toggle="tooltip"]').tooltip();
     $('table').DataTable();
     $('.test').click(function() {
@@ -64,18 +63,18 @@
           <th style="width:15%;">โทรศัพท์ร้านค้า</th>
           <th style="width:15%;">ผู้ติดต่อ</th>
           <th style="width:15%;">โทรศัพท์ผู้ติดต่อ</th>
-          <th>Manage</th>
+          <th style="width:10%;">Manage</th>
         </tr>
       </thead>
       <tbody>
-        @foreach($store as $row)
+        @foreach($store as $index=>$row)
         <tr>
-          <td>{{$row->id}}</td>
+          <td>{{ $index+1 }}</td>
           <td>{{$row->keystore}}</td>
           <td>{{$row->name}}</td>
-          <td>{{$row->phone}}</td>
+          <td>{{ substr($row->phone,0,3).'-'.substr($row->phone,3) }}</td>
           <td>{{$row->contect}}</td>
-          <td>{{$row->cellphone}}</td>
+          <td>{{ substr($row->cellphone,0,3).'-'.substr($row->cellphone,3) }}</td>
           <td>
             <a data-toggle="modal" data-target="#test{{$row->id}}" data-placement="top" title="View"><i style="font-size:20px;;" class="fas fa-eye text-primary"></i></a>
             &nbsp;&nbsp;
@@ -133,11 +132,11 @@
         <div class="row">
           <div class="form-group col-md-6">
             <label for="#phone">เบอร์โทรศัพท์</label>
-            <input id="phone" type="text" class="form-control" value="{{$row->phone}}" disabled>
+            <input id="phone" type="text" class="form-control" value="{{ substr($row->phone,0,3).'-'.substr($row->phone,3) }}" disabled>
           </div>
           <div class="form-group col-md-6">
             <label for="#address">โทรสาร</label>
-            <input id="address" type="text" class="form-control" value="{{$row->fax}}" disabled>
+            <input id="address" type="text" class="form-control" value="{{ substr($row->fax,0,3).'-'.substr($row->fax,3) }}" disabled>
           </div>
         </div>
         <br>
@@ -150,7 +149,7 @@
           </div>
           <div class="form-group col-md-6">
             <label for="#phone">เบอร์ผู้ติดต่อ</label>
-            <input id="phone" type="text" class="form-control" value="{{$row->cellphone}}" disabled>
+            <input id="phone" type="text" class="form-control" value="{{ substr($row->cellphone,0,3).'-'.substr($row->cellphone,3) }}" disabled>
           </div>
         </div>
       </div>

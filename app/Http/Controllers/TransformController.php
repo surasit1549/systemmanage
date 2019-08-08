@@ -47,7 +47,7 @@ class TransformController extends Controller
         ]
       );
       $transform -> save();
-      return redirect()->route('transform.index')->with('success','บันทึกข้อมูลเรียบร้อยแล้ว');
+      return redirect()->route('transform.index')->with('success','เพิ่มข้อมูลเรียบร้อยแล้ว');
 
     }
 
