@@ -13,12 +13,10 @@ use phpDocumentor\Reflection\DocBlock\Tags\Uses;
 |
 */
 
-Route::post('store/posttopdf','StoreController@filetopdf');
 Route::resource('store', 'StoreController');
 //Route ::resource('store','FillinformationController');
 Route::resource('transform', 'TransformController');
 //Route ::resource('fillinformation','StoreController');
-Route::post('prequest/filetopdf', 'PuchaserequestController@filetopdf');
 Route ::resource('prequest','PuchaserequestController');
 Route ::resource('porder','PurchaseorderController');
 Route ::resource('check','CheckController');
@@ -29,6 +27,9 @@ Route ::resource('pr_create','pr_createController');
 // Sent by Ajax
 
 Route::post('prequest/index', 'PuchaserequestController@store');
+
+
+Route::post('pr_create/index','pr_createController@store');
 
 //Route::post('prequest/index', 'PuchaserequestController@update');
 Auth::routes();

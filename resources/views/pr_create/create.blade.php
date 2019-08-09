@@ -22,7 +22,6 @@
                     <a class="btn btn-info text-white" onclick="location.reload();">Refresh</a>
                 </div>
                 <div class="form-group col-md-6 text-right">
-                    <label>วันที่ขอสั่งชื้อ</label><br>
                     <input type="text" name="date" value="{{ date('d-m-Y') }}" class="border-0" size="8" autocomplete="off">
                 </div>
             </div>
@@ -92,14 +91,16 @@
 
     <div class="form-group text-center">
         <a class="btn btn-danger" href="{{route('prequest.index')}}"><i style="font-size:18px" class="fas fa-undo-alt"></i>&nbsp;&nbsp;ย้อนกลับ</a>
-        <button type="submit" class="btn btn-success" id="subbutton"><i style="font-size:18px" class="far fa-save"></i>&nbsp;&nbsp;บันทึก</button>
+        <button type="submit" class="btn btn-success ml-2" id="subbutton"><i style="font-size:18px" class="fas fa-share"></i>&nbsp;&nbsp;ยืนยัน</button>
     </div>
     </form>
 </div>
 
 
+
 <!-- การเพิ่มสินค้า  -->
 <script type="text/javascript">
+
     $(document).ready(function() {
         $('input.unit').autocomplete({
             lookup: [{
@@ -273,6 +274,7 @@
                     confirmButtonText: 'ตกลง'
                 })
             else {
+
                 var productname = $(this).parents().eq(1).find('.productname').val();
                 var productnumber = $(this).parents().eq(1).find('.productnumber').val();
                 var unit = $(this).parents().eq(1).find('.unit').val();
@@ -300,61 +302,61 @@
                 }
             }
         });
+
         $('#subbutton').click(function(e) {
+
             e.preventDefault();
-            $('form').addClass('was-validated');
-            var name = [];
-            var num = [];
-            var units = [];
-            var store = [];
-            var price = [];
-            var sum = [];
-            $('table tbody tr').each(function(index, value) {
-                name.push($('td .productname', this).val());
-                num.push($('td .productnumber', this).val());
-                units.push($('td .unit', this).val());
-                store.push($('td .keystore', this).val());
-                price.push($('td .price', this).val());
-                sum.push($('td .sum', this).text());
-            });
+            e.stopPropagation();
 
+            if ($('form')[0].checkValidity() == false) {
+                $('form').addClass('was-validated');
+            } else {
 
-            $.ajax({
-                type: 'post',
-                url: 'index',
-                data: {
-                    _token: '{{csrf_token()}}',
-                    name: name,
-                    num: num,
-                    units: units,
-                    store: store,
-                    price: price,
-                    sum: sum,
-                    sumofprice: $('#sumofprice').text(),
-                    keyPR: $('input[name=keyPR]').val(),
-                    date: $('input[name=date]').val(),
-                    contractor: $('input[name=contractor]').val(),
-                    formwork: $('select[name=formwork]').val(),
-                    prequestconvert: $('select[name=prequestconvert]').val()
-                },
-                success: function(data) {
-                    console.log(data.message);
-                    swal.fire({
-                        showCancelButton: true,
-                        cancelButtonText: 'สร้าง PR ใหม่',
-                        confirmButtonText: 'ไปยังหน้า PR',
-                        focusConfirm: true,
-                        type: 'success',
-                        title: 'บันทึกข้อมูลเรียบร้อยแล้ว',
-                        text: 'สามารถตรวจสอบข้อมูลได้ที่ตาราง PR'
-                    }).then((result) => {
-                        if (result.value)
-                            window.location.replace('./');
-                        else
-                            location.reload();
-                    })
-                }
-            });
+                var name = [];
+                var num = [];
+                var units = [];
+                var store = [];
+                var price = [];
+                var sum = [];
+                $('table tbody tr').each(function(index, value) {
+                    name.push($('td .productname', this).val());
+                    num.push($('td .productnumber', this).val());
+                    units.push($('td .unit', this).val());
+                });
+
+                $.ajax({
+                    type: 'post',
+                    url: 'index',
+                    data: {
+                        _token: '{{csrf_token()}}',
+                        name: name,
+                        num: num,
+                        units: units,
+                        keyPR: $('input[name=keyPR]').val(),
+                        date: $('input[name=date]').val(),
+                        contractor: $('input[name=contractor]').val(),
+                        formwork: $('select[name=formwork]').val(),
+                        prequestconvert: $('select[name=prequestconvert]').val()
+                    },
+                    success: function(data) {
+                        console.log(data.msg);
+                        swal.fire({
+                            showCancelButton: true,
+                            cancelButtonText: 'สร้าง PR ใหม่',
+                            confirmButtonText: 'ไปยังหน้า PR',
+                            focusConfirm: true,
+                            type: 'success',
+                            title: 'บันทึกข้อมูลเรียบร้อยแล้ว',
+                            text: 'สามารถตรวจสอบข้อมูลได้ที่ตาราง PR'
+                        }).then((result) => {
+                            if (result.value)
+                                window.location.replace('./');
+                            else
+                                location.reload();
+                        })
+                    }
+                });
+            }
         });
     });
 </script>

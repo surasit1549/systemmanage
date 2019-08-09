@@ -28,7 +28,7 @@ class pr_createController extends Controller
     {
         $pre = prequest::all()->toArray();
         $tran = Transform::all()->toArray();
-        return view('pr_create.create',compact('pre','tran'));
+        return view('pr_create.create', compact('pre', 'tran'));
     }
 
     /**
@@ -39,7 +39,19 @@ class pr_createController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $lengtharray = sizeof($request->input('name'));
+
+        for ($i = 0; $i < $lengtharray; $i++) {
+            $arr = new PR_create([
+                'keystore' => $request->input('keystore'),
+                'construct_name' => $request->input('construct_name'),
+                'typework' => $request->input('typework'),
+                'convert' => $request->input('convert')
+            ]);
+            
+            $arr->save();
+        }
+
     }
 
     /**
@@ -72,9 +84,7 @@ class pr_createController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        
-    }
+    { }
 
     /**
      * Remove the specified resource from storage.
