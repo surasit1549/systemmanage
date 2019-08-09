@@ -49,7 +49,7 @@
                         &nbsp;&nbsp;แปลง</a>
                 </li>
                 <li>
-                    <a href="{{route('pr_create.index')}}" id="transformtab">
+                    <a href="{{route('pr_create.index')}}" id="constructtab">
                         <i class="fas fa-map"></i>
                         &nbsp;&nbsp;ผู้รับเหมา</a>
                 </li>

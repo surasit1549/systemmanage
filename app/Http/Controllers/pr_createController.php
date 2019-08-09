@@ -57,7 +57,7 @@ class pr_createController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
@@ -106,7 +106,7 @@ class pr_createController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
     }
 
     /**

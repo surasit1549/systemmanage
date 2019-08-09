@@ -224,6 +224,7 @@
     });
     $('#addrow').click(function(e) {
       e.preventDefault();
+      e.stopPropagation();
       $('tbody').append('<tr><td class="text-center"><label class="col-form-label">' + (index++) + '</label></td><td>' +
         '<input type="text" class="form-control productname" required></td>' +
         '<td><input type="number" min="1" class="form-control productnumber" required></td>' +
@@ -296,6 +297,7 @@
     // Remove Record on the table 
     $('tbody').on('click', '.btn-outline-danger', function(e) {
       e.preventDefault();
+      e.stopPropagation();
       if (index == 2)
         swal.fire({
           title: 'ไม่สามารถลบข้อมูลได้',
