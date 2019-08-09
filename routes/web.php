@@ -23,6 +23,7 @@ Route ::resource('prequest','PuchaserequestController');
 Route ::resource('porder','PurchaseorderController');
 Route ::resource('check','CheckController');
 Route ::resource('usermanage','UsermanageController');
+Route ::resource('pr_create','pr_createController');
 
 
 // Sent by Ajax
