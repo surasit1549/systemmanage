@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\prequest;
+use App\Transform;
+use App\PR_create;
 
 class pr_createController extends Controller
 {
@@ -23,7 +26,9 @@ class pr_createController extends Controller
      */
     public function create()
     {
-        //
+        $pre = prequest::all()->toArray();
+        $tran = Transform::all()->toArray();
+        return view('pr_create.create',compact('pre','tran'));
     }
 
     /**
@@ -34,7 +39,7 @@ class pr_createController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
@@ -68,7 +73,7 @@ class pr_createController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
     }
 
     /**
