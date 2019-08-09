@@ -90,22 +90,14 @@
     </div>
 
     <div class="form-group text-center">
-<<<<<<< HEAD
-        <a class="btn btn-danger" href="{{route('prequest.index')}}"><i style="font-size:18px" class="fas fa-undo-alt"></i>&nbsp;&nbsp;ย้อนกลับ</a>
-        <button type="submit" class="btn btn-success ml-2" id="subbutton"><i style="font-size:18px" class="fas fa-share"></i>&nbsp;&nbsp;ยืนยัน</button>
-=======
         <a class="btn btn-danger" href="{{route('pr_create.index')}}"><i style="font-size:18px" class="fas fa-undo-alt"></i>&nbsp;&nbsp;ย้อนกลับ</a>
         <button type="submit" class="btn btn-success" id="subbutton"><i style="font-size:18px" class="far fa-save"></i>&nbsp;&nbsp;บันทึก</button>
->>>>>>> 171def28955133ebc42c56d17792b1294cc7f5ce
     </div>
     </form>
 </div>
 
-
-
 <!-- การเพิ่มสินค้า  -->
 <script type="text/javascript">
-
     $(document).ready(function() {
         $('input.unit').autocomplete({
             lookup: [{
@@ -334,8 +326,8 @@
                     url: 'index',
                     data: {
                         _token: '{{csrf_token()}}',
-                        name: name,
-                        num: num,
+                        productname: name,
+                        productnumber: num,
                         units: units,
                         keyPR: $('input[name=keyPR]').val(),
                         date: $('input[name=date]').val(),

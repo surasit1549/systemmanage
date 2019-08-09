@@ -27,33 +27,8 @@ class pr_createController extends Controller
      */
     public function index()
     {
-        $number = 1;
-        $num = 1;
-
-        $pr_create = PR_create::all()->toArray();
-        if(empty($pr_create)){
-          $prequest = $pr_create;
-          $pr_prequest = '';
-            //dd('ee');
-        }else{
-            //dd('33');
-          foreach($pr_create as $row){
-            $pr_prequest[] = [
-                                $num_id = $num++,
-                                $row['date'],
-                                $row['prequestconvert'],
-                                $row['formwork'],
-                                $row['productname'],
-                                $row['productnumber'],
-                                $row['unit']
-            ];
-          }  
-        }
-        return view('prequest.index', compact(
-                                          'pr_create',
-                                          'number',
-                                          'pr_prequest'
-        ));
+        
+        return view('pr_create.index');
     }
 
     /**
@@ -63,17 +38,10 @@ class pr_createController extends Controller
      */
     public function create()
     {
-<<<<<<< HEAD
-        $pre = prequest::all()->toArray();
-        $tran = Transform::all()->toArray();
-        return view('pr_create.create', compact('pre', 'tran'));
-=======
         $prequestconvert = transform::all()->toArray();
         return view('pr_create.create', compact(
-                                            'prequeststore', 
                                             'prequestconvert'
                                           ));
->>>>>>> 171def28955133ebc42c56d17792b1294cc7f5ce
     }
 
     /**
@@ -84,37 +52,22 @@ class pr_createController extends Controller
      */
     public function store(Request $request)
     {
-<<<<<<< HEAD
-        $lengtharray = sizeof($request->input('name'));
+        $lengtharray = sizeof($request->input('productname'));
 
         for ($i = 0; $i < $lengtharray; $i++) {
             $arr = new PR_create([
-                'keystore' => $request->input('keystore'),
-                'construct_name' => $request->input('construct_name'),
-                'typework' => $request->input('typework'),
-                'convert' => $request->input('convert')
+                'date' => $request->input('date'),
+                'contractor' => $request->input('contractor'),
+                'formwork' => $request->input('formwork'),
+                'prequestconvert' => $request->input('prequestconvert'),
+                'productname' => $request->input('productname')[$i],
+                'productnumber' => $request->input('productnumber')[$i],
+                'unit' => $request->input('productnumber')[$i]
             ]);
             
             $arr->save();
         }
 
-=======
-        dd('dd');
-        $lengtharray = sizeof($request->input('name'));
-        for ($i = 0; $i < $lengtharray; $i++) {
-            $pr_create = new PR_create([
-                'date'            => $request->input('date'),
-                'formwork'        => $request->input('formwork'),
-                'prequestconvert' => $request->input('prequestconvert'),
-                'productname'     => $request->input('name')[$i],
-                'productnumber'   => $request->input('num')[$i],
-                'unit'            => $request->input('unit')[$i]
-            ]);
-
-        $pr_create->save();
-        }
-          return response()->json(['message' => 'success'],200);
->>>>>>> 171def28955133ebc42c56d17792b1294cc7f5ce
     }
 
     /**

@@ -60,11 +60,13 @@
           <th style="width:25%">ชื่อเลขที่เอกสาร</th>
           <th style="width:20%">แบบงาน</th>
           <th style="width:15%">แปลง</th>
+          <th style="width:15%">ผู้รับเหมา</th>
           <th style="width:20%">จัดการ</th>
         </tr>
       </thead>
       <tbody>     
           <tr>
+            <td></td>
             <td></td>
             <td></td>
             <td></td>
