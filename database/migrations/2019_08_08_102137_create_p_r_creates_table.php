@@ -15,10 +15,13 @@ class CreatePRCreatesTable extends Migration
     {
         Schema::create('p_r_creates', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('keystore');
-            $table->string('construct_name');
-            $table->string('typework');
-            $table->string('convert');
+            $table->string('date');
+            $table->string('contractor');
+            $table->string('formwork');
+            $table->string('prequestconvert');
+            $table->string('productname');
+            $table->integer('productnumber');
+            $table->string('unit');
             $table->timestamps();
         });
     }

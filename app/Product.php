@@ -24,4 +24,8 @@ class Product extends Model
     public function porder(){
         return $this->belongsTo('App\porder');
     }
+
+    public function pr_create(){
+        return $this->belongsTo('App\PR_create');
+    }
 }
