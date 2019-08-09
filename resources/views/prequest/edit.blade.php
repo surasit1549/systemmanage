@@ -85,18 +85,18 @@
         </thead>
         <tbody>
           @foreach($pr_products as $row)
-            <tr>
-              <td class="text-center"><label class="col-form-label">{{$number++}}</label></td>
-              <td><input type="text" class="form-control productname" value="{{$row[2]}}" name="" required></td>
-              <td><input type="number" min="1" class="form-control productnumber" value="{{$row[3]}}" name="" required></td>
-              <td><input type="text" class="form-control unit" value="{{$row[4]}}" name="" required></td>
-              <td>
-                <input type="text" class="form-control namestore" value="{{$row[5]}}">
-              </td>
-              <td><input type="number" min="1" class="form-control price" value="{{$row[6]}}" name="" required></td>
-              <td class="text-center result"><label class="sum col-form-label">{{$row[7]}}</label></td>
-              <td class="text-center"><button class="btn btn-outline-danger"><i style="font-size:18px" class="far fa-trash-alt"></i></button></td>
-            </tr>
+          <tr>
+            <td class="text-center"><label class="col-form-label">{{$number++}}</label></td>
+            <td><input type="text" class="form-control productname" value="{{$row[2]}}" name="" required></td>
+            <td><input type="number" min="1" class="form-control productnumber" value="{{$row[3]}}" name="" required></td>
+            <td><input type="text" class="form-control unit" value="{{$row[4]}}" name="" required></td>
+            <td>
+              <input type="text" class="form-control namestore" value="{{$row[5]}}">
+            </td>
+            <td><input type="number" min="1" class="form-control price" value="{{$row[6]}}" name="" required></td>
+            <td class="text-center result"><label class="sum col-form-label">{{$row[7]}}</label></td>
+            <td class="text-center"><button class="btn btn-outline-danger"><i style="font-size:18px" class="far fa-trash-alt"></i></button></td>
+          </tr>
           @endforeach
 
         </tbody>
@@ -127,12 +127,18 @@
   @endforeach
 </ul>
 
+
+<select name="AA" id="">
+  <option value="1">1</option>
+  <option value="2">2</option>
+  <option value="3">3</option>
+</select>
+
 <!-- การเพิ่มสินค้า  -->
 <script type="text/javascript">
   $(document).ready(function() {
 
-    $('select[name=formwork] option[value=' + $('#formwork_get').text() + ']').prop('selected', true);
-    $('select[name=prequestconvert] option[value=' + $('#prequest_get').text() + ']').prop('selected', true);
+    $('select[name=formwork] option[value=' + $('formwork_get').text() + ']').prop('selected',true);
 
     $('input.unit').autocomplete({
       lookup: [{
@@ -304,8 +310,6 @@
 
     });
 
-
-
     function SortIndex() {
       index = 1;
       $('tbody tr').each(function() {
@@ -316,7 +320,7 @@
     // Remove Record on the table 
     $('tbody').on('click', '.btn-outline-danger', function(e) {
       e.preventDefault();
-      console.log()
+      e.stopPropagation();
       if (index == 2)
         swal.fire({
           title: 'ไม่สามารถลบข้อมูลได้',
@@ -354,8 +358,6 @@
       }
     });
 
-
-
     $('#subbutton').click(function(e) {
       e.preventDefault();
       e.stopPropagation();
@@ -386,7 +388,7 @@
           keystore: store,
           price: price,
           sum: sum,
-          sumofprice : $('#sumofprice').text() ,
+          sumofprice: $('#sumofprice').text(),
           keyPR: $('input[name=keyPR]').val(),
           date: $('input[name=date]').val(),
           contractor: $('input[name=contractor]').val(),
