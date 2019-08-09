@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class PR_create extends Model
 {
-<<<<<<< HEAD
     protected $fillable = [
         'date',
         'contractor',
@@ -26,7 +25,4 @@ class PR_create extends Model
         return $this->hasOne('App\Product', 'id');
       }
     
-=======
-    protected $fillable = ['keystore','construct_name','typework','convert'];
->>>>>>> 328e3aaf6654d08a3a58dbc65462c8cf074e22af
 }

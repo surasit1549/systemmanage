@@ -197,12 +197,7 @@ class PuchaserequestController extends Controller
         $pr_products[] = $pr_product1[$i];
       }
     }
-<<<<<<< HEAD
     //dd($stores);
-=======
-    //dd($pr_products);
-    //dd($pr_prequest[5]);
->>>>>>> 328e3aaf6654d08a3a58dbc65462c8cf074e22af
     return view('prequest.show', compact(
                                           'number',
                                           'id',
