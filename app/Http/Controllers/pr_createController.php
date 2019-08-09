@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\prequest;
 use App\transform;
-use App\prequestconvert;
 use App\store;
 use App\prequeststore;
 use App\prequestdb;
@@ -29,7 +27,33 @@ class pr_createController extends Controller
      */
     public function index()
     {
-        return view('pr_create.index');
+        $number = 1;
+        $num = 1;
+
+        $pr_create = PR_create::all()->toArray();
+        if(empty($pr_create)){
+          $prequest = $pr_create;
+          $pr_prequest = '';
+            //dd('ee');
+        }else{
+            //dd('33');
+          foreach($pr_create as $row){
+            $pr_prequest[] = [
+                                $num_id = $num++,
+                                $row['date'],
+                                $row['prequestconvert'],
+                                $row['formwork'],
+                                $row['productname'],
+                                $row['productnumber'],
+                                $row['unit']
+            ];
+          }  
+        }
+        return view('prequest.index', compact(
+                                          'pr_create',
+                                          'number',
+                                          'pr_prequest'
+        ));
     }
 
     /**
@@ -39,13 +63,10 @@ class pr_createController extends Controller
      */
     public function create()
     {
-        $prequeststore = store::all()->toArray();
         $prequestconvert = transform::all()->toArray();
-        $stores = store::all()->toArray();
         return view('pr_create.create', compact(
                                             'prequeststore', 
-                                            'prequestconvert',
-                                            'stores'
+                                            'prequestconvert'
                                           ));
     }
 
@@ -57,7 +78,21 @@ class pr_createController extends Controller
      */
     public function store(Request $request)
     {
-        
+        dd('dd');
+        $lengtharray = sizeof($request->input('name'));
+        for ($i = 0; $i < $lengtharray; $i++) {
+            $pr_create = new PR_create([
+                'date'            => $request->input('date'),
+                'formwork'        => $request->input('formwork'),
+                'prequestconvert' => $request->input('prequestconvert'),
+                'productname'     => $request->input('name')[$i],
+                'productnumber'   => $request->input('num')[$i],
+                'unit'            => $request->input('unit')[$i]
+            ]);
+
+        $pr_create->save();
+        }
+          return response()->json(['message' => 'success'],200);
     }
 
     /**
@@ -68,22 +103,7 @@ class pr_createController extends Controller
      */
     public function show($id)
     {
-        $lengtharray = sizeof($request->input('name'));
-
-        for ($i = 0; $i < $lengtharray; $i++) {
-          $pr_create = new Product([
-                'date'            => $request->input('date'),
-                'contractor'      => $request->input('contractor'),
-                'formwork'        => $request->input('formwork'),
-                'prequestconvert' => $request->input('prequestconvert'),
-                'productname'     => $request->input('name')[$i],
-                'productnumber'   => $request->input('num')[$i],
-                'unit'            => $request->input('units')[$i],
-            ]);
-        
-            $pr_create->save();
-        }
-          return response()->json(['message' => 'success'],200);
+        //
     }
 
     /**

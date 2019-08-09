@@ -94,13 +94,7 @@ class PuchaserequestController extends Controller
   {
     
     $lengtharray = sizeof($request->input('name'));
-    /*     $this->validate($request, [
-      'keyPR'           => 'required',      // หมายเลขใบPR
-      'date'            => 'required',      // วันเดือนปี PR
-      'contractor'      => 'required',      // ชื่อผู้รับเหมา
-      'formwork'        => 'required',      // รูปแบบงาน
-      'prequestconvert' => 'required',      // แปลง
-    ]); */
+
     for ($i = 0; $i < $lengtharray; $i++) {
       $productdb = new Product([
         'keyPR'           => $request->input('keyPR'),
@@ -124,7 +118,7 @@ class PuchaserequestController extends Controller
           'prequestconvert' => $request->input('prequestconvert'),
           ]);
           $porderdb->save();
-        }
+      }
         $prequestdb = new prequest([
           'keyPR'           => $request->input('keyPR'),
           'date'            => $request->input('date'),
@@ -137,7 +131,7 @@ class PuchaserequestController extends Controller
           
           $prequestdb->save();
           return response()->json(['message' => 'success'],200);
-        }
+    }
         
         /**
          * Display the specified resource.
