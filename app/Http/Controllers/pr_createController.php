@@ -77,39 +77,9 @@ class pr_createController extends Controller
     public function store(Request $request)
     {
         $num = 0;
-        $date = "01";
-        $date_one = "01";
-<<<<<<< HEAD
-=======
 
-        $pr_create = PR_create::all()->toArray();
-        if(empty($pr_create)){
-            $key = "001";
-        }else{
-            $sum_key = intval($key);
-            $sum_key++;
-        }
->>>>>>> df308ef2cff9fe3ed1d9dc27b02a41a6f1e3a627
         $lengtharray = sizeof($request->input('productname'));
 
-        $date = $request->input('date');
-        $date1 = substr($date,3,-5);
-        $date2 = substr($date,8);
-        $dates = "$date1$date2";
-
-        $date = Carbon::today()->addday(3);
-        $dates = substr($date,8,-9);
-        if($date_one == $dates){
-            $key;
-            //dd($sum);
-        }else{
-            $sum++;
-
-            //dd($sum);
-        }
-        //dd($dates);
-
-        $date_time = today();
         //dd($date_time);
 
         for ($i = 0; $i < $lengtharray; $i++) {
