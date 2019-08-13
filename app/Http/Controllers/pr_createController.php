@@ -83,7 +83,6 @@ class pr_createController extends Controller
             $asd = 0;
         }
         $date_one = "01";
-
         $lengtharray = sizeof($request->input('productname'));
 
         $date = $request->input('date');

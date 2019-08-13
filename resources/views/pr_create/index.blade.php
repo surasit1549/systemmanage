@@ -10,7 +10,7 @@
 @section('content')
 <script>
   $(document).ready(function() {
-    
+
     $('[data-toggle="tooltip"]').tooltip();
 
     $('#prtable').DataTable();
@@ -63,31 +63,37 @@
           <th style="width:20%">จัดการ</th>
         </tr>
       </thead>
-      <tbody>     
+      <tbody>
         @if(empty($pr_create))
-            @foreach($pr_create as $row)
-            <tr>
-              <td>{{$number++}}</td>
-              <td>{{$row['date']}}</td>
-              <td>{{$row['formwork']}}</td>
-              <td>{{$row['prequestconvert']}}</td>
-              <td>{{$row['contractor']}}</td>
-              <td></td>
-            </tr>
-            @endforeach
-          @else
-            @foreach($pr_product as $row)
-              <tr>
-                <td>{{$number++}}</td>
-                <td>{{$row[1]}}</td>
-                <td>{{$row[3]}}</td>
-                <td>{{$row[4]}}</td>
-                <td>{{$row[2]}}</td>
-                <td></td>
-              </tr>
-              @endforeach
-            @endif
-        </tbody>
+        @foreach($pr_create as $row)
+        <tr>
+          <td>{{$number++}}</td>
+          <td>{{$row['date']}}</td>
+          <td>{{$row['formwork']}}</td>
+          <td>{{$row['prequestconvert']}}</td>
+          <td>{{$row['contractor']}}</td>
+          <td>
+
+          </td>
+        </tr>
+        @endforeach
+        @else
+        @foreach($pr_product as $row)
+        <tr>
+          <td>{{$number++}}</td>
+          <td>{{$row[1]}}</td>
+          <td>{{$row[3]}}</td>
+          <td>{{$row[4]}}</td>
+          <td>{{$row[2]}}</td>
+          <td>
+            <a href="#" data-placement="top" data-toggle="tooltip" title="View"><i style="font-size:20px;color:blue" class="fas fa-eye"></i></a>
+            <a class="ml-3" data-placement="top" data-toggle="tooltip" title="Status" href="#"><i style="font-size:20px;color:seagreen" class="far fa-paper-plane"></i></a>
+            <a class="ml-3" data-placement="top" data-toggle="tooltip" title="PDF" href="#"><i style="font-size:20px;color:red"  class="fas fa-file-pdf"></i></a>
+          </td>
+        </tr>
+        @endforeach
+        @endif
+      </tbody>
     </table>
   </div>
 </div>

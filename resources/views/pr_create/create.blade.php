@@ -303,6 +303,60 @@
                 }
             });
 
+
+            $('#confirm').click(function() {
+
+                event.stopPropagation();
+                event.preventDefault();
+
+                var name = [];
+                var num = [];
+                var units = [];
+                var store = [];
+                var price = [];
+                var sum = [];
+
+                
+                $('table tbody tr').each(function(index, value) {
+                    name.push($('td .productname', this).val());
+                    num.push($('td .productnumber', this).val());
+                    units.push($('td .unit', this).val());
+                });
+                
+
+                $.ajax({
+                    type: 'post',
+                    url: 'index',
+                    data: {
+                        _token: '{{csrf_token()}}',
+                        productname: name,
+                        productnumber: num,
+                        units: units,
+                        date: $('input[name=date]').val(),
+                        contractor: 'คุณ เก่ง',
+                        formwork: $('select[name=formwork]').val(),
+                        prequestconvert: $('select[name=prequestconvert]').val()
+                    },
+                    success: function(data) {
+                        console.log(data.msg);
+                        swal.fire({
+                            showCancelButton: true,
+                            confirmButtonText: 'ไปยังหน้า PR',
+                            cancelButtonText: 'สร้าง PR ใหม่',
+                            focusConfirm: true,
+                            type: 'success',
+                            title: 'บันทึกข้อมูลเรียบร้อยแล้ว',
+                            text: 'สามารถตรวจสอบข้อมูลได้ที่ตาราง PR'
+                        }).then((result) => {
+                            if (result.value)
+                                window.location.replace('./');
+                            else
+                                location.reload();
+                        })
+                    }
+                });
+            });
+
             $('#subbutton').click(function(e) {
 
                 e.preventDefault();
@@ -311,54 +365,7 @@
                 if ($('form')[0].checkValidity() == false) {
                     $('form').addClass('was-validated');
                 } else {
-                    var name = [];
-                    var num = [];
-                    var units = [];
-                    var store = [];
-                    var price = [];
-                    var sum = [];
-
                     $('#signature').modal('show');
-                    $('#signature').on('hidden.bs.modal', function() {
-
-                        $('table tbody tr').each(function(index, value) {
-                            name.push($('td .productname', this).val());
-                            num.push($('td .productnumber', this).val());
-                            units.push($('td .unit', this).val());
-                        });
-
-                        $.ajax({
-                            type: 'post',
-                            url: 'index',
-                            data: {
-                                _token: '{{csrf_token()}}',
-                                productname: name,
-                                productnumber: num,
-                                units: units,
-                                date: $('input[name=date]').val(),
-                                contractor: 'คุณ เก่ง',
-                                formwork: $('select[name=formwork]').val(),
-                                prequestconvert: $('select[name=prequestconvert]').val()
-                            },
-                            success: function(data) {
-                                console.log(data.msg);
-                                swal.fire({
-                                    showCancelButton: true,
-                                    confirmButtonText: 'ไปยังหน้า PR',
-                                    cancelButtonText: 'สร้าง PR ใหม่',
-                                    focusConfirm: true,
-                                    type: 'success',
-                                    title: 'บันทึกข้อมูลเรียบร้อยแล้ว',
-                                    text: 'สามารถตรวจสอบข้อมูลได้ที่ตาราง PR'
-                                }).then((result) => {
-                                    if (result.value)
-                                        window.location.replace('./');
-                                    else
-                                        location.reload();
-                                })
-                            }
-                        });
-                    });
                 }
             });
         });
