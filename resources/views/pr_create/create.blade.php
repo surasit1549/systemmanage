@@ -9,7 +9,6 @@
 @stop
 @section('content')
 
-
 <div class="card">
     <div class="card-header text-white">
         <h3><i class="far fa-plus-square"></i>&nbsp;&nbsp;สร้างใบขอสั่งซื้อ PR</h3>
@@ -87,274 +86,281 @@
                     </tr>
                 </tfoot>
             </table>
+
+
+
+            <div class="modal fade" id="signature">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">
+                                <i style="font-size:18px" class="fas fa-signature"></i>&nbsp;&nbsp;กรอกลายเซ็น
+                            </h5>
+                            <button class="close" data-dismiss="modal"><span>&times;</span></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="wrapper text-center">
+                                <canvas id="signature-pad" class="signature-pad" width=460 height=200 style="border: 2px dashed #888"></canvas>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" id="clearsig"><i style="font-size:18px" class="fas fa-eraser"></i>&nbsp;&nbsp;ล้าง</button>
+                            <button class="btn btn-success" id="confirm"><i style="font-size:18px" class="fas fa-check"></i>&nbsp;&nbsp;ตกลง</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group text-center">
+                <a class="btn btn-danger" href="{{route('pr_create.index')}}"><i style="font-size:18px" class="fas fa-undo-alt"></i>&nbsp;&nbsp;ย้อนกลับ</a>
+                <button type="submit" class="btn btn-success ml-2" id="subbutton"><i style="font-size:18px" class="far fa-save"></i>&nbsp;&nbsp;บันทึก</button>
+            </div>
+        </form>
     </div>
 
-    <div class="form-group text-center">
-        <a class="btn btn-danger" href="{{route('pr_create.index')}}"><i style="font-size:18px" class="fas fa-undo-alt"></i>&nbsp;&nbsp;ย้อนกลับ</a>
-        <button type="submit" class="btn btn-success" id="subbutton"><i style="font-size:18px" class="far fa-save"></i>&nbsp;&nbsp;บันทึก</button>
-    </div>
-    </form>
-</div>
 
-<!-- การเพิ่มสินค้า  -->
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('input.unit').autocomplete({
-            lookup: [{
-                    value: 'เส้น',
-                    data: 'เส้น'
-                },
-                {
-                    value: 'ชิ้น',
-                    data: 'ชิ้น'
-                },
-                {
-                    value: 'แผ่น',
-                    data: 'แผ่น'
-                },
-                {
-                    value: 'ลัง',
-                    data: 'แมม'
-                },
-                {
-                    value: 'กล่อง',
-                    data: 'แนน'
-                },
-                {
-                    value: 'หีบ',
-                    data: 'แสส'
-                },
-                {
-                    value: 'ตัว',
-                    data: 'แสส'
-                },
-                {
-                    value: 'ชุด',
-                    data: 'แสส'
-                },
-                {
-                    value: 'กระป๋อง',
-                    data: 'แสส'
-                },
-                {
-                    value: 'ปิ๊บ',
-                    data: 'แสส'
-                },
-                {
-                    value: 'อัน',
-                    data: 'แสส'
-                }
-            ],
-            autoSelectFirst: true
-        });
-        var index = 2,
-            arr = [];
-        $('#getstore li').each(function(index) {
-            arr.push({
-                value: $(this).text(),
-                data: $(this).text()
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
+
+    <!-- การเพิ่มสินค้า  -->
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+
+            // Signature
+
+            var canvas = $('#signature-pad')[0];
+
+            var signaturePad = new SignaturePad(canvas, {
+                penColor: "black"
             });
-        });
-        $('.namestore').autocomplete({
-            lookup: arr,
-            autoSelectFirst: true
-        });
 
-        function sumallprice() {
-            var sum = 0;
-            $('tbody tr').each(function() {
-                sum += parseInt($(this).find('.sum').text());
+            $('#clearsig').click(function() {
+                event.stopPropagation();
+                event.preventDefault();
+                signaturePad.clear();
             });
-            $('#sumofprice').text(parseInt(sum).toFixed(2));
-        }
 
-        function changeSum(pointing) {
-            var pd = parseInt(pointing.parents().eq(1).find('.productnumber').val());
-            var p = parseFloat(pointing.parents().eq(1).find('.price').val());
-            pointing.parents().eq(1).find('.sum').text((pd * p).toFixed(2));
-        }
-        $('tbody').on('keyup', 'input[type=number]', function() {
-            var point = $(this).parents().eq(1);
-            if (!point.find('.productnumber').val() || !point.find('.price').val())
-                point.find('.sum').val(0);
-            else {
-                changeSum($(this));
-            }
-        }).on('blur', 'input[type=number]', function() {
-            var point = $(this).parents().eq(1);
-            if ($(this).hasClass('price') && ($(this).val().toString().indexOf('.') == -1))
-                $(this).val(parseInt($(this).val()).toFixed(2));
-            if (!point.find('.productnumber').val() || !point.find('.price').val())
-                point.find('.sum').val(0);
-            else
-                changeSum($(this));
-            sumallprice();
-        });
-        $('#addrow').click(function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            $('tbody').append('<tr><td class="text-center"><label class="col-form-label">' + (index++) + '</label></td><td>' +
-                '<input type="text" class="form-control productname" required></td>' +
-                '<td><input type="number" min="1" class="form-control productnumber" required></td>' +
-                '<td><input type="text" class="form-control unit" required></td>' +
-                '<td class="text-center"><button class="btn btn-outline-danger"><i style="font-size:18px" class="far fa-trash-alt"></i></button></td></tr>');
-            $('tbody tr:last .productname').focus();
+            // End Signature
+
             $('input.unit').autocomplete({
                 lookup: [{
-                        value: 'เส้น',
-                        data: 'เส้น'
-                    },
-                    {
-                        value: 'ชิ้น',
-                        data: 'ชิ้น'
-                    },
-                    {
-                        value: 'แผ่น',
-                        data: 'แผ่น'
-                    },
-                    {
-                        value: 'ลัง',
-                        data: 'แมม'
-                    },
-                    {
-                        value: 'กล่อง',
-                        data: 'แนน'
-                    },
-                    {
-                        value: 'หีบ',
-                        data: 'แสส'
-                    },
-                    {
-                        value: 'ตัว',
-                        data: 'แสส'
-                    },
-                    {
-                        value: 'ชุด',
-                        data: 'แสส'
-                    },
-                    {
-                        value: 'กระป๋อง',
-                        data: 'แสส'
-                    },
-                    {
-                        value: 'ปิ๊บ',
-                        data: 'แสส'
-                    },
-                    {
-                        value: 'อัน',
-                        data: 'แสส'
-                    }
-                ],
+                    value: 'เส้น',
+                    data: 'เส้น'
+                }],
                 autoSelectFirst: true
+            });
+
+            var index = 2,
+                arr = [];
+
+            $('#getstore li').each(function(index) {
+                arr.push({
+                    value: $(this).text(),
+                    data: $(this).text()
+                });
             });
             $('.namestore').autocomplete({
                 lookup: arr,
                 autoSelectFirst: true
             });
-        });
 
-        function SortIndex() {
-            index = 1;
-            $('tbody tr').each(function() {
-                $('td:first', this).text(index++);
-            });
-        }
-        // Remove Record on the table 
-        $('tbody').on('click', '.btn-outline-danger', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            if (index == 2)
-                swal.fire({
-                    title: 'ไม่สามารถลบข้อมูลได้',
-                    type: 'error',
-                    text: 'ต้องมีรายการอย่างน้อยหนึ่งรายการ',
-                    confirmButtonText: 'ตกลง'
-                })
-            else {
+            function sumallprice() {
+                var sum = 0;
+                $('tbody tr').each(function() {
+                    sum += parseInt($(this).find('.sum').text());
+                });
+                $('#sumofprice').text(parseInt(sum).toFixed(2));
+            }
 
-                var productname = $(this).parents().eq(1).find('.productname').val();
-                var productnumber = $(this).parents().eq(1).find('.productnumber').val();
-                var unit = $(this).parents().eq(1).find('.unit').val();
-                var keystore = $(this).parents().eq(1).find('.keystore').val();
-                var price = $(this).parents().eq(1).find('.price').val();
-                if (productname || productnumber || unit || keystore || price) {
-                    swal.fire({
-                        title: 'คำเตือน',
-                        type: 'warning',
-                        text: 'เนื่องจากยังมีข้อมูล ต้องการลบข้อมูลหรือไม่',
-                        confirmButtonText: 'ตกลง',
-                        showCancelButton: true,
-                        showCloseButton: true,
-                        cancelButtonText: 'ยกเลิก',
-                        reverseButtons: true
-                    }).then((result) => {
-                        if (result.value) {
-                            $(this).parents().eq(1).remove();
-                            SortIndex();
-                        }
-                    })
-                } else {
-                    $(this).parents().eq(1).remove();
-                    SortIndex();
+            function changeSum(pointing) {
+                var pd = parseInt(pointing.parents().eq(1).find('.productnumber').val());
+                var p = parseFloat(pointing.parents().eq(1).find('.price').val());
+                pointing.parents().eq(1).find('.sum').text((pd * p).toFixed(2));
+            }
+            $('tbody').on('keyup', 'input[type=number]', function() {
+                var point = $(this).parents().eq(1);
+                if (!point.find('.productnumber').val() || !point.find('.price').val())
+                    point.find('.sum').val(0);
+                else {
+                    changeSum($(this));
                 }
-            }
-        });
-
-        $('#subbutton').click(function(e) {
-
-            e.preventDefault();
-            e.stopPropagation();
-
-            if ($('form')[0].checkValidity() == false) {
-                $('form').addClass('was-validated');
-            } else {
-
-                var name = [];
-                var num = [];
-                var units = [];
-                var store = [];
-                var price = [];
-                var sum = [];
-                $('table tbody tr').each(function(index, value) {
-                    name.push($('td .productname', this).val());
-                    num.push($('td .productnumber', this).val());
-                    units.push($('td .unit', this).val());
+            }).on('blur', 'input[type=number]', function() {
+                var point = $(this).parents().eq(1);
+                if ($(this).hasClass('price') && ($(this).val().toString().indexOf('.') == -1))
+                    $(this).val(parseInt($(this).val()).toFixed(2));
+                if (!point.find('.productnumber').val() || !point.find('.price').val())
+                    point.find('.sum').val(0);
+                else
+                    changeSum($(this));
+                sumallprice();
+            });
+            $('#addrow').click(function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                $('tbody').append('<tr><td class="text-center"><label class="col-form-label">' + (index++) + '</label></td><td>' +
+                    '<input type="text" class="form-control productname" required></td>' +
+                    '<td><input type="number" min="1" class="form-control productnumber" required></td>' +
+                    '<td><input type="text" class="form-control unit" required></td>' +
+                    '<td class="text-center"><button class="btn btn-outline-danger"><i style="font-size:18px" class="far fa-trash-alt"></i></button></td></tr>');
+                $('tbody tr:last .productname').focus();
+                $('input.unit').autocomplete({
+                    lookup: [{
+                            value: 'เส้น',
+                            data: 'เส้น'
+                        },
+                        {
+                            value: 'ชิ้น',
+                            data: 'ชิ้น'
+                        },
+                        {
+                            value: 'แผ่น',
+                            data: 'แผ่น'
+                        },
+                        {
+                            value: 'ลัง',
+                            data: 'แมม'
+                        },
+                        {
+                            value: 'กล่อง',
+                            data: 'แนน'
+                        },
+                        {
+                            value: 'หีบ',
+                            data: 'แสส'
+                        },
+                        {
+                            value: 'ตัว',
+                            data: 'แสส'
+                        },
+                        {
+                            value: 'ชุด',
+                            data: 'แสส'
+                        },
+                        {
+                            value: 'กระป๋อง',
+                            data: 'แสส'
+                        },
+                        {
+                            value: 'ปิ๊บ',
+                            data: 'แสส'
+                        },
+                        {
+                            value: 'อัน',
+                            data: 'แสส'
+                        }
+                    ],
+                    autoSelectFirst: true
                 });
+                $('.namestore').autocomplete({
+                    lookup: arr,
+                    autoSelectFirst: true
+                });
+            });
 
-                $.ajax({
-                    type: 'post',
-                    url: 'index',
-                    data: {
-                        _token: '{{csrf_token()}}',
-                        productname: name,
-                        productnumber: num,
-                        units: units,
-                        keyPR: $('input[name=keyPR]').val(),
-                        date: $('input[name=date]').val(),
-                        contractor: $('input[name=contractor]').val(),
-                        formwork: $('select[name=formwork]').val(),
-                        prequestconvert: $('select[name=prequestconvert]').val()
-                    },
-                    success: function(data) {
-                        console.log(data.msg);
+            function SortIndex() {
+                index = 1;
+                $('tbody tr').each(function() {
+                    $('td:first', this).text(index++);
+                });
+            }
+            // Remove Record on the table 
+            $('tbody').on('click', '.btn-outline-danger', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                if (index == 2)
+                    swal.fire({
+                        title: 'ไม่สามารถลบข้อมูลได้',
+                        type: 'error',
+                        text: 'ต้องมีรายการอย่างน้อยหนึ่งรายการ',
+                        confirmButtonText: 'ตกลง'
+                    })
+                else {
+                    var productname = $(this).parents().eq(1).find('.productname').val();
+                    var productnumber = $(this).parents().eq(1).find('.productnumber').val();
+                    var unit = $(this).parents().eq(1).find('.unit').val();
+                    var keystore = $(this).parents().eq(1).find('.keystore').val();
+                    var price = $(this).parents().eq(1).find('.price').val();
+                    if (productname || productnumber || unit || keystore || price) {
                         swal.fire({
+                            title: 'คำเตือน',
+                            type: 'warning',
+                            text: 'เนื่องจากยังมีข้อมูล ต้องการลบข้อมูลหรือไม่',
+                            confirmButtonText: 'ตกลง',
                             showCancelButton: true,
-                            cancelButtonText: 'สร้าง PR ใหม่',
-                            confirmButtonText: 'ไปยังหน้า PR',
-                            focusConfirm: true,
-                            type: 'success',
-                            title: 'บันทึกข้อมูลเรียบร้อยแล้ว',
-                            text: 'สามารถตรวจสอบข้อมูลได้ที่ตาราง PR'
+                            showCloseButton: true,
+                            cancelButtonText: 'ยกเลิก',
+                            reverseButtons: true
                         }).then((result) => {
-                            if (result.value)
-                                window.location.replace('./');
-                            else
-                                location.reload();
+                            if (result.value) {
+                                $(this).parents().eq(1).remove();
+                                SortIndex();
+                            }
                         })
+                    } else {
+                        $(this).parents().eq(1).remove();
+                        SortIndex();
                     }
-                });
-            }
+                }
+            });
+
+            $('#subbutton').click(function(e) {
+
+                e.preventDefault();
+                e.stopPropagation();
+
+                if ($('form')[0].checkValidity() == false) {
+                    $('form').addClass('was-validated');
+                } else {
+                    var name = [];
+                    var num = [];
+                    var units = [];
+                    var store = [];
+                    var price = [];
+                    var sum = [];
+
+                    $('#signature').modal('show');
+                    $('#signature').on('hidden.bs.modal', function() {
+
+                        $('table tbody tr').each(function(index, value) {
+                            name.push($('td .productname', this).val());
+                            num.push($('td .productnumber', this).val());
+                            units.push($('td .unit', this).val());
+                        });
+
+                        $.ajax({
+                            type: 'post',
+                            url: 'index',
+                            data: {
+                                _token: '{{csrf_token()}}',
+                                productname: name,
+                                productnumber: num,
+                                units: units,
+                                date: $('input[name=date]').val(),
+                                contractor: 'คุณ เก่ง',
+                                formwork: $('select[name=formwork]').val(),
+                                prequestconvert: $('select[name=prequestconvert]').val()
+                            },
+                            success: function(data) {
+                                console.log(data.msg);
+                                swal.fire({
+                                    showCancelButton: true,
+                                    confirmButtonText: 'ไปยังหน้า PR',
+                                    cancelButtonText: 'สร้าง PR ใหม่',
+                                    focusConfirm: true,
+                                    type: 'success',
+                                    title: 'บันทึกข้อมูลเรียบร้อยแล้ว',
+                                    text: 'สามารถตรวจสอบข้อมูลได้ที่ตาราง PR'
+                                }).then((result) => {
+                                    if (result.value)
+                                        window.location.replace('./');
+                                    else
+                                        location.reload();
+                                })
+                            }
+                        });
+                    });
+                }
+            });
         });
-    });
-</script>
-@stop
+    </script>
+    @stop
