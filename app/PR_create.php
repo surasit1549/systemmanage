@@ -7,13 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class PR_create extends Model
 {
     protected $fillable = [
+        'key',
         'date',
         'contractor',
         'formwork',
         'prequestconvert',
-        'productname',
-        'productnumber',
-        'unit'
       ];
       public function transform()
       {

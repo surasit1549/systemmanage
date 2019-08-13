@@ -13,10 +13,13 @@ use App\prequestproduct;
 use App\number;
 use App\porderdb;
 use App\porder;
-
+use App\Create_product;
+use Carbon\Carbon;
 use App\pr_create;
 
 use vendor\autoload;
+
+$asd = 0;
 
 class pr_createController extends Controller
 {
@@ -27,8 +30,30 @@ class pr_createController extends Controller
      */
     public function index()
     {
-        
-        return view('pr_create.index');
+        $number = 1;
+        $num = 1;
+        $pr_create = PR_create::all()->toArray();
+        if(empty($pr_create)){
+            $prequest = $pr_create;
+            $pr_product = '';
+            //dd('ee');
+        }else{
+            //dd('33');
+            foreach($pr_create as $row){
+                $pr_product[] = [
+                                $num_id = $num++,
+                                $row['date'],
+                                $row['contractor'],
+                                $row['formwork'],
+                                $row['prequestconvert']
+                ];
+            }
+        }
+        return view('pr_create.index', compact(
+                                                'pr_create',
+                                                'number',
+                                                'pr_product'
+        ));
     }
 
     /**
@@ -39,9 +64,7 @@ class pr_createController extends Controller
     public function create()
     {
         $prequestconvert = transform::all()->toArray();
-        return view('pr_create.create', compact(
-                                            'prequestconvert'
-                                          ));
+        return view('pr_create.create', compact('prequestconvert' ));
     }
 
     /**
@@ -52,21 +75,56 @@ class pr_createController extends Controller
      */
     public function store(Request $request)
     {
+        $num = 0;
+        $date = "01";
+
+        $a = 0;
+        if($a != 1){
+            $asd = 0;
+        }
+        $date_one = "01";
+
         $lengtharray = sizeof($request->input('productname'));
 
+        $date = $request->input('date');
+        $date1 = substr($date,3,-5);
+        $date2 = substr($date,8);
+        $dates = "$date1$date2";
+
+        $date = Carbon::today()->addday(3);
+        $dates = substr($date,8,-9);
+        if($date_one == $dates){
+            $asd = 1;
+            //dd($asd);
+        }else{
+            $asd++;
+
+            //dd($asd);
+        }
+        //dd($dates);
+
+        $date_time = today();
+        //dd($date_time);
+
         for ($i = 0; $i < $lengtharray; $i++) {
-            $arr = new PR_create([
-                'date' => $request->input('date'),
-                'contractor' => $request->input('contractor'),
-                'formwork' => $request->input('formwork'),
-                'prequestconvert' => $request->input('prequestconvert'),
-                'productname' => $request->input('productname')[$i],
-                'productnumber' => $request->input('productnumber')[$i],
-                'unit' => $request->input('productnumber')[$i]
+            $product = new Create_product([
+                'key'               => $dates,
+                'productname'       => $request->input('productname')[$i],
+                'productnumber'     => $request->input('productnumber')[$i],
+                'unit'              => $request->input('productnumber')[$i]
             ]);
             
-            $arr->save();
+            $product->save();
         }
+        $arr = new PR_create([
+            'key'               => $date,
+            'date'              => $request->input('date'),
+            'contractor'        => 'เก่ง',
+            'formwork'          => $request->input('formwork'),
+            'prequestconvert'   => $request->input('prequestconvert'),
+        ]);
+        
+        $arr->save();
 
     }
 

@@ -57,7 +57,6 @@
         <tr>
           <th style="width:5%">ลำดับ</th>
           <th style="width:10%">วันที่ขอซื้อ</th>
-          <th style="width:25%">ชื่อเลขที่เอกสาร</th>
           <th style="width:20%">แบบงาน</th>
           <th style="width:15%">แปลง</th>
           <th style="width:15%">ผู้รับเหมา</th>
@@ -65,16 +64,29 @@
         </tr>
       </thead>
       <tbody>     
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td> 
-            </td>
-          </tr>
+        @if(empty($pr_create))
+            @foreach($pr_create as $row)
+            <tr>
+              <td>{{$number++}}</td>
+              <td>{{$row['date']}}</td>
+              <td>{{$row['formwork']}}</td>
+              <td>{{$row['prequestconvert']}}</td>
+              <td>{{$row['contractor']}}</td>
+              <td></td>
+            </tr>
+            @endforeach
+          @else
+            @foreach($pr_product as $row)
+              <tr>
+                <td>{{$number++}}</td>
+                <td>{{$row[1]}}</td>
+                <td>{{$row[3]}}</td>
+                <td>{{$row[4]}}</td>
+                <td>{{$row[2]}}</td>
+                <td></td>
+              </tr>
+              @endforeach
+            @endif
         </tbody>
     </table>
   </div>
