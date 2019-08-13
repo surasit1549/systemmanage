@@ -76,15 +76,15 @@ class pr_createController extends Controller
      */
     public function store(Request $request)
     {
+        
         $num = 0;
-
         $lengtharray = sizeof($request->input('productname'));
-
-        //dd($date_time);
-
+        $now = Carbon::now(-5);
+        //dd($now->timezone);
+        //dd($request->input('productnumber'));
         for ($i = 0; $i < $lengtharray; $i++) {
             $product = new Create_product([
-                'key'               => $sum,
+                'key'               => '001',
                 'productname'       => $request->input('productname')[$i],
                 'productnumber'     => $request->input('productnumber')[$i],
                 'unit'              => $request->input('productnumber')[$i]
@@ -93,7 +93,7 @@ class pr_createController extends Controller
             $product->save();
         }
         $arr = new PR_create([
-            'key'               => $sum,
+            'key'               => '001',
             'date'              => $request->input('date'),
             'contractor'        => 'เก่ง',
             'formwork'          => $request->input('formwork'),
@@ -101,7 +101,7 @@ class pr_createController extends Controller
         ]);
         
         $arr->save();
-
+        return redirect()->route('pr_create.index')->with('success', 'บันทึกข้อมูลเรียบร้อยแล้ว');
     }
 
     /**
