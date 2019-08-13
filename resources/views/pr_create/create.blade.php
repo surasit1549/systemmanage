@@ -5,6 +5,11 @@
     #constructtab {
         border-right: 5px solid rgb(41, 207, 219);
     }
+
+    .swal2-modal {
+        min-height: 400px;
+    }
+
 </style>
 @stop
 @section('content')
@@ -137,6 +142,11 @@
             $('#clearsig').click(function() {
                 event.stopPropagation();
                 event.preventDefault();
+                signaturePad.clear();
+            });
+            
+            
+            $('#signature').on('hide.bs.modal',function(){
                 signaturePad.clear();
             });
 
@@ -309,52 +319,66 @@
                 event.stopPropagation();
                 event.preventDefault();
 
-                var name = [];
-                var num = [];
-                var units = [];
-                var store = [];
-                var price = [];
-                var sum = [];
+                if (!signaturePad.isEmpty()) {
 
-                
-                $('table tbody tr').each(function(index, value) {
-                    name.push($('td .productname', this).val());
-                    num.push($('td .productnumber', this).val());
-                    units.push($('td .unit', this).val());
-                });
-                
+                    var name = [];
+                    var num = [];
+                    var units = [];
+                    var store = [];
+                    var price = [];
+                    var sum = [];
 
-                $.ajax({
-                    type: 'post',
-                    url: 'index',
-                    data: {
-                        _token: '{{csrf_token()}}',
-                        productname: name,
-                        productnumber: num,
-                        units: units,
-                        date: $('input[name=date]').val(),
-                        contractor: 'คุณ เก่ง',
-                        formwork: $('select[name=formwork]').val(),
-                        prequestconvert: $('select[name=prequestconvert]').val()
-                    },
-                    success: function(data) {
-                        console.log(data.msg);
-                        swal.fire({
-                            showCancelButton: true,
-                            confirmButtonText: 'ไปยังหน้า PR',
-                            cancelButtonText: 'สร้าง PR ใหม่',
-                            focusConfirm: true,
-                            type: 'success',
-                            title: 'บันทึกข้อมูลเรียบร้อยแล้ว',
-                            text: 'สามารถตรวจสอบข้อมูลได้ที่ตาราง PR'
-                        }).then((result) => {
-                            if (result.value)
-                                window.location.replace('./');
-                            else
-                                location.reload();
-                        })
-                    }
-                });
+                    $('#confirm').html('<div class="spinner-border spinner-border-sm text-light" role="status"> <span class = "sr-only" > รอสักครู่ < /span></div>&nbsp;&nbsp;รอสักครู่')
+
+                    $('table tbody tr').each(function(index, value) {
+                        name.push($('td .productname', this).val());
+                        num.push($('td .productnumber', this).val());
+                        units.push($('td .unit', this).val());
+                    });
+
+
+                    $.ajax({
+                        type: 'post',
+                        url: 'index',
+                        data: {
+                            _token: '{{csrf_token()}}',
+                            productname: name,
+                            productnumber: num,
+                            units: units,
+                            date: $('input[name=date]').val(),
+                            contractor: 'คุณ เก่ง',
+                            formwork: $('select[name=formwork]').val(),
+                            prequestconvert: $('select[name=prequestconvert]').val()
+                        },
+                        success: function(data) {
+                            console.log(data.msg);
+                            swal.fire({
+                                showCancelButton: true,
+                                confirmButtonText: 'ไปยังหน้า PR',
+                                cancelButtonText: 'สร้าง PR ใหม่',
+                                focusConfirm: true,
+                                width: 600,
+                                height: 700,
+                                heightAuto: true,
+                                type: 'success',
+                                title: 'บันทึกข้อมูลเรียบร้อยแล้ว',
+                                text: 'สามารถตรวจสอบข้อมูลได้ที่ตาราง PR'
+                            }).then((result) => {
+                                if (result.value)
+                                    window.location.replace('./');
+                                else
+                                    location.reload();
+                            })
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'กรุณากรอกลายเซ็น',
+                        text: 'กรอกลายเซ็นก่อนกดตกลง',
+                        confirmButtonText: 'เข้าใจแล้ว',
+                        type: 'warning'
+                    })
+                }
             });
 
             $('#subbutton').click(function(e) {
