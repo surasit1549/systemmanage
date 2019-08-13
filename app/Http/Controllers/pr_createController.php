@@ -76,42 +76,15 @@ class pr_createController extends Controller
      */
     public function store(Request $request)
     {
+        
         $num = 0;
-        $date = "01";
-        $date_one = "01";
-
-        $pr_create = PR_create::all()->toArray();
-        if(empty($pr_create)){
-            $key = "001";
-        }else{
-            $sum_key = intval($key);
-            $sum_key++;
-        }
         $lengtharray = sizeof($request->input('productname'));
-
-        $date = $request->input('date');
-        $date1 = substr($date,3,-5);
-        $date2 = substr($date,8);
-        $dates = "$date1$date2";
-
-        $date = Carbon::today()->addday(3);
-        $dates = substr($date,8,-9);
-        if($date_one == $dates){
-            $key;
-            //dd($sum);
-        }else{
-            $sum++;
-
-            //dd($sum);
-        }
-        //dd($dates);
-
-        $date_time = today();
-        //dd($date_time);
-
+        $now = Carbon::now(-5);
+        //dd($now->timezone);
+        //dd($request->input('productnumber'));
         for ($i = 0; $i < $lengtharray; $i++) {
             $product = new Create_product([
-                'key'               => $sum,
+                'key'               => '001',
                 'productname'       => $request->input('productname')[$i],
                 'productnumber'     => $request->input('productnumber')[$i],
                 'unit'              => $request->input('productnumber')[$i]
@@ -120,7 +93,7 @@ class pr_createController extends Controller
             $product->save();
         }
         $arr = new PR_create([
-            'key'               => $sum,
+            'key'               => '001',
             'date'              => $request->input('date'),
             'contractor'        => 'เก่ง',
             'formwork'          => $request->input('formwork'),
@@ -128,7 +101,7 @@ class pr_createController extends Controller
         ]);
         
         $arr->save();
-
+        return redirect()->route('pr_create.index')->with('success', 'บันทึกข้อมูลเรียบร้อยแล้ว');
     }
 
     /**
