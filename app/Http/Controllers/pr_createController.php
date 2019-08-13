@@ -49,6 +49,7 @@ class pr_createController extends Controller
                 ];
             }
         }
+        //dd($pr_product);
         return view('pr_create.index', compact(
                                                 'pr_create',
                                                 'number',
@@ -77,12 +78,18 @@ class pr_createController extends Controller
     {
         $num = 0;
         $date = "01";
-
-        $a = 0;
-        if($a != 1){
-            $asd = 0;
-        }
         $date_one = "01";
+<<<<<<< HEAD
+=======
+
+        $pr_create = PR_create::all()->toArray();
+        if(empty($pr_create)){
+            $key = "001";
+        }else{
+            $sum_key = intval($key);
+            $sum_key++;
+        }
+>>>>>>> df308ef2cff9fe3ed1d9dc27b02a41a6f1e3a627
         $lengtharray = sizeof($request->input('productname'));
 
         $date = $request->input('date');
@@ -93,12 +100,12 @@ class pr_createController extends Controller
         $date = Carbon::today()->addday(3);
         $dates = substr($date,8,-9);
         if($date_one == $dates){
-            $asd = 1;
-            //dd($asd);
+            $key;
+            //dd($sum);
         }else{
-            $asd++;
+            $sum++;
 
-            //dd($asd);
+            //dd($sum);
         }
         //dd($dates);
 
@@ -107,7 +114,7 @@ class pr_createController extends Controller
 
         for ($i = 0; $i < $lengtharray; $i++) {
             $product = new Create_product([
-                'key'               => $dates,
+                'key'               => $sum,
                 'productname'       => $request->input('productname')[$i],
                 'productnumber'     => $request->input('productnumber')[$i],
                 'unit'              => $request->input('productnumber')[$i]
@@ -116,7 +123,7 @@ class pr_createController extends Controller
             $product->save();
         }
         $arr = new PR_create([
-            'key'               => $date,
+            'key'               => $sum,
             'date'              => $request->input('date'),
             'contractor'        => 'เก่ง',
             'formwork'          => $request->input('formwork'),
