@@ -45,7 +45,8 @@ class pr_createController extends Controller
                                 $row['date'],
                                 $row['contractor'],
                                 $row['formwork'],
-                                $row['prequestconvert']
+                                $row['prequestconvert'],
+                                $row['key']
                 ];
                 $pr_date = $row['created_at'];
             }
