@@ -23,5 +23,9 @@ class PR_create extends Model
       {
         return $this->hasOne('App\Product', 'id');
       }
-    
+
+      public function prequest()
+      {
+        return $this->belongsTo('App\prequest');
+      }
 }

@@ -32,6 +32,7 @@ class pr_createController extends Controller
         $number = 1;
         $num = 1;
         $pr_create = PR_create::all()->toArray();
+        //dd($pr_create);
         if(empty($pr_create)){
             $prequest = $pr_create;
             $pr_product = '';
