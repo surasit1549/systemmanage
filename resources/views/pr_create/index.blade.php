@@ -78,7 +78,7 @@
         </tr>
         @endforeach
         @else
-        @foreach($pr_product as $row)
+        @foreach($pr_products as $row)
         <tr>
           <td>{{$number++}}</td>
           <td>{{$row[1]}}</td>

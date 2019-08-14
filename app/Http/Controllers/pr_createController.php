@@ -19,7 +19,6 @@ use App\pr_create;
 
 use vendor\autoload;
 
-$asd = 0;
 
 class pr_createController extends Controller
 {
@@ -47,13 +46,19 @@ class pr_createController extends Controller
                                 $row['formwork'],
                                 $row['prequestconvert']
                 ];
+                $pr_date = $row['created_at'];
             }
+            $pr_num = sizeof($pr_product);
+            for($i=$pr_num-1; $i>=0; $i--){
+                $pr_products[] = $pr_product[$i];
+            }
+            //dd($pr_products);
         }
         //dd($pr_product);
         return view('pr_create.index', compact(
                                                 'pr_create',
                                                 'number',
-                                                'pr_product'
+                                                'pr_products'
         ));
     }
 
@@ -65,7 +70,7 @@ class pr_createController extends Controller
     public function create()
     {
         $prequestconvert = transform::all()->toArray();
-        return view('pr_create.create', compact('prequestconvert' ));
+        return view('pr_create.create', compact('prequestconvert'));
     }
 
     /**
@@ -76,15 +81,46 @@ class pr_createController extends Controller
      */
     public function store(Request $request)
     {
-        
-        $num = 0;
+        $pr_create = PR_create::all('created_at')->toArray();
+        if(empty($pr_create)){
+            $key = '001';
+        }else{
+            $date_date = PR_create::select('date')->distinct()->addSelect('key')->get();
+            foreach($date_date as $date){
+                $datetime = $date['date'];
+                $key      = $date['key'];
+            }
+            //$key = '120';
+            $date_now = Carbon::now();
+            $date_check1 = new Carbon($datetime);
+            $date_check2 = new Carbon($datetime);
+            $date_1 = $date_check1->startOfMonth();
+            $date_2 = $date_check2->addMonth(1)->startOfMonth();
+            if($date_now->between($date_1,$date_2)){
+                $num = intval($key);
+                $num++;
+                if($num < 10){
+                    $key_num = strval($num);
+                    $key = "00$key_num";
+                    //dd($key);
+                }elseif($num < 100){
+                    $key_num = strval($num);
+                    $key = "0$key_num";
+                    //dd($key);
+                }else{
+                    $key_num = strval($num);
+                    $key = "$key_num";
+                    //dd($key);
+                }
+            }else{
+                $key = '001';
+            }  
+        }
+
         $lengtharray = sizeof($request->input('productname'));
-        $now = Carbon::now(-5);
-        //dd($now->timezone);
-        //dd($request->input('productnumber'));
         for ($i = 0; $i < $lengtharray; $i++) {
             $product = new Create_product([
-                'key'               => '001',
+                'key'               => $key,
                 'productname'       => $request->input('productname')[$i],
                 'productnumber'     => $request->input('productnumber')[$i],
                 'unit'              => $request->input('productnumber')[$i]
@@ -93,7 +129,7 @@ class pr_createController extends Controller
             $product->save();
         }
         $arr = new PR_create([
-            'key'               => '001',
+            'key'               => $key,
             'date'              => $request->input('date'),
             'contractor'        => 'เก่ง',
             'formwork'          => $request->input('formwork'),

@@ -61,9 +61,6 @@ class PurchaseorderController extends Controller
             }
         }
         $newdatas = $datas;
-        //$newdatas[0] = '12';
-        //dd($newdatas);
-        //dd($newdatas);
         for($a=0; $a<$n; $a++){
             if($newdatas[0] === $newdatas[$a]){
                 $nn++;
