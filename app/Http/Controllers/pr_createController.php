@@ -72,17 +72,6 @@ class pr_createController extends Controller
     public function create()
     {
         $prequestconvert = transform::all()->toArray();
-        return view('pr_create.create', compact('prequestconvert'));
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
         $pr_create = PR_create::all('created_at')->toArray();
         if(empty($pr_create)){
             $key = '001';
@@ -118,6 +107,55 @@ class pr_createController extends Controller
                 $key = '001';
             }  
         }
+        //hidden
+        return view('pr_create.create', compact('prequestconvert','key'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        /*
+        $pr_create = PR_create::all('created_at')->toArray();
+        if(empty($pr_create)){
+            $key = '001';
+        }else{
+            $date_date = PR_create::select('date')->distinct()->addSelect('key')->get();
+            foreach($date_date as $date){
+                $datetime = $date['date'];
+                $key      = $date['key'];
+            }
+            //$key = '120';
+            $date_now = Carbon::now();
+            $date_check1 = new Carbon($datetime);
+            $date_check2 = new Carbon($datetime);
+            $date_1 = $date_check1->startOfMonth();
+            $date_2 = $date_check2->addMonth(1)->startOfMonth();
+            if($date_now->between($date_1,$date_2)){
+                $num = intval($key);
+                $num++;
+                if($num < 10){
+                    $key_num = strval($num);
+                    $key = "00$key_num";
+                    //dd($key);
+                }elseif($num < 100){
+                    $key_num = strval($num);
+                    $key = "0$key_num";
+                    //dd($key);
+                }else{
+                    $key_num = strval($num);
+                    $key = "$key_num";
+                    //dd($key);
+                }
+            }else{
+                $key = '001';
+            }  
+        }
+        */
 
         $lengtharray = sizeof($request->input('productname'));
         for ($i = 0; $i < $lengtharray; $i++) {
@@ -150,7 +188,29 @@ class pr_createController extends Controller
      */
     public function show($id)
     {
-        //
+        $number = 1;
+        $pr_product = Create_product::all()->toArray();
+        $pr_create = PR_create::all()->toArray();
+        
+        foreach($pr_create as $row){
+            $pr_product[] = [
+                            $row['date'],
+                            $row['contractor'],
+                            $row['formwork'],
+                            $row['prequestconvert'],
+                            $row['key']
+            ];
+            $pr_date = $row['created_at'];
+        }
+        $pr_num = sizeof($pr_product);
+        for($i=$pr_num-1; $i>=0; $i--){
+            $pr_products[] = $pr_product[$i];
+        }
+        return view('pr_create.show', compact(
+                                                'pr_create',
+                                                'number',
+                                                'pr_products'
+        ));
     }
 
     /**

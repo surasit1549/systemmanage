@@ -28,6 +28,9 @@
                 <div class="form-group col-md-6 text-right">
                     <input type="text" name="date" value="{{ date('d-m-Y') }}" class="border-0" size="8" autocomplete="off">
                 </div>
+                <div class="form-group col-md-6 text-right">
+                    <input type="text" name="key" value="{{ $key }}" class="border-0" size="8" autocomplete="off">
+                </div>
                 
             </div>
             <div class="form-row">
