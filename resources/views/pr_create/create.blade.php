@@ -139,7 +139,6 @@
     </div>
 
     <div id="filepdf" class="d-none">
-        <br><br>
         <h2 style="text-align:center">ใบขอสั่งซื้อ ( PURCHASE ORDER )</h2>
         <br><br><br>
         <table id="exporta">

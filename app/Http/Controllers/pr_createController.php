@@ -116,6 +116,18 @@ class pr_createController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+
+    public function sentFilesTo3($request){
+        if ($request->hasFile('image_main')) {
+            $image_main_path = 'content/' . $request->file('image_main')->hashName();
+            $s3 = Storage::disk('s3');
+            $s3->put($image_main_path, file_get_contents($request->file('image_main')), 'public');
+            $input['image_main'] = $image_main_path;
+        }
+    }
+     
+     
     public function store(Request $request)
     {
     
@@ -135,12 +147,17 @@ class pr_createController extends Controller
 
         $mpdf = new \Mpdf\Mpdf([
             'mode' => 'utf-8',
-            'format' => [190, 236],
-            'orientation' => 'L'
+            'format' => [210, 297],
+            'default_font_size' => 16,
+            'default_font' => 'thsarabunnew'
         ]);
-
-        $mpdf->WriteHTML('สวัสดีครับ');
+        
+        $stylesheet = file_get_contents('style.css');
+        $mpdf->WriteHTML($request->input('filepdf'));
+        $mpdf->WriteHTML($stylesheet,1);
         $mpdf->Output('pdf/test.pdf','F');
+
+
         //dd($now->timezone);
         //dd($request->input('productnumber'));
         /*
