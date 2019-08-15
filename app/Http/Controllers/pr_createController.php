@@ -151,29 +151,22 @@ class pr_createController extends Controller
         $encoded_image = explode(",", $data_uri)[1];
         $decoded_image = base64_decode($encoded_image);
         file_put_contents("signature/test.png", $decoded_image);
-
-
+        
+        
         // PDF
-/* 
+        
+        $stylesheet = file_get_contents(__DIR__.'\style.css');
         $mpdf = new \Mpdf\Mpdf([
             'mode' => 'utf-8',
             'format' => [210, 297],
             'default_font_size' => 16,
             'default_font' => 'thsarabunnew'
         ]);
-<<<<<<< HEAD
-        
-        $stylesheet = file_get_contents('style.css');
-        $mpdf->WriteHTML($request->input('filepdf'));
         $mpdf->WriteHTML($stylesheet,1);
+        $mpdf->WriteHTML($request->input('filepdf'));
         $mpdf->Output('pdf/test.pdf','F');
 
 
-=======
-
-        $mpdf->WriteHTML('สวัสดีครับ');
-        $mpdf->Output('pdf/test.pdf','F'); */
->>>>>>> f79c6c74d758cbc74918c906ff94f52fd69e7957
         //dd($now->timezone);
         //dd($request->input('productnumber'));
 

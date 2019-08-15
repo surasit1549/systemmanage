@@ -41,10 +41,10 @@
                     <input type="text" id="datetime" name="date" value="{{ date('d-m-Y') }}" class="border-0" size="8" autocomplete="off">
                 </div>
                 <div class="form-group col-md-6 text-right">
-                    <a>{{$key}}</a>
+                    <a class="d-none" id="keyja">{{$key}}</a>
                     <input type="hidden" name="key" value="{{ $key }}" class="border-0" size="8" autocomplete="off">
                 </div>
-                
+
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
@@ -68,7 +68,7 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label>แปลง</label>
-                    <select name="prequestconvert" class="custom-select" required>
+                    <select name="prequestconvert" id="convert" class="custom-select" required>
                         <option value="">กรุณากรอกแปลง..</option>
                         @foreach($prequestconvert as $row)
                         <option value="{{$row['convertname']}}">{{$row['convertname']}}</option>
@@ -140,36 +140,46 @@
     </div>
 
     <div id="filepdf" class="d-none">
-        <h2 style="text-align:center">ใบขอสั่งซื้อ ( PURCHASE ORDER )</h2>
-        <br><br><br>
+        <div id="wrap">
+            <div id="tabletop">
+                <table>
+                    <tr>
+                        <th>เลขที่เอกสาร</th>
+                        <td id="prcode_ex"></td>
+                    </tr>
+                    <tr>
+                        <th>วันที่ขอสั่งซื้อ</th>
+                        <td id="date_ex"></td>
+                    </tr>
+                </table>
+            </div>
+            <div id="heading">
+                <h3 style="text-align:center">ใบขอสั่งซื้อ<br>PURCHASE REQUEST</h3>
+            </div>
+        </div>
+        <br>
         <table id="exporta">
-            <tbody style="font-size:18px">
+            <tbody style="font-size:18px;text-align:left">
                 <tr>
-                    <th style="text-align:center;width:25%">เลขที่ PR</th>
-                    <td id="prcode_ex" style="width:25%">...</td>
-                    <th style="width:25%">ลงวันที่</th>
-                    <td id="date_ex" style="width:25%"></td>
-                </tr>
-                <tr>
-                    <th style="text-align:center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ชื่อผู้รับเหมา</th>
+                    <th>ชื่อผู้รับเหมา</th>
                     <td id="name_ex">คุณ เก่ง</td>
                     <th>แปลง</th>
                     <td id="transform_ex"></td>
                 </tr>
                 <tr>
-                    <th style="text-align:center">แบบงาน</th>
+                    <th>แบบงาน</th>
                     <td id="work_ex"></td>
                 </tr>
             </tbody>
         </table>
-        <br><br>
+        <br>
         <table id="exportb">
             <thead>
                 <tr>
-                    <th>ลำดับ</th>
-                    <th>รายการสินค้า</th>
-                    <th>จำนวน</th>
-                    <th>หน่วย</th>
+                    <th id="no_exb">ลำดับ</th>
+                    <th id="detail_exb">รายการสินค้า</th>
+                    <th id="num_exb">จำนวน</th>
+                    <th id="unit_exb">หน่วย</th>
                 </tr>
             </thead>
             <tbody>
@@ -377,7 +387,9 @@
                     var price = [];
                     var sum = [];
                     var image = signaturePad.toDataURL();
+                    var key = $('#convert').val() + '-' + $('#keyja').text();
 
+                    $('#prcode_ex').text(key);
                     $('#confirm').html('<div class="spinner-border spinner-border-sm text-light" role="status"> <span class = "sr-only" > รอสักครู่ < /span></div>&nbsp;&nbsp;รอสักครู่')
 
                     $('table tbody tr').each(function(index, value) {
@@ -403,7 +415,7 @@
                         url: 'index',
                         data: {
                             _token: '{{csrf_token()}}',
-                            key : $('input[name=key]').val(),
+                            key: key,
                             image: image,
                             productname: name,
                             productnumber: num,
@@ -412,7 +424,7 @@
                             contractor: 'คุณ เก่ง',
                             formwork: $('select[name=formwork]').val(),
                             prequestconvert: $('select[name=prequestconvert]').val(),
-                            filepdf : $('#filepdf').html()
+                            filepdf: $('#filepdf').html()
                         },
                         success: function(data) {
                             console.log(data.msg);
@@ -456,7 +468,6 @@
                 }
             });
         });
-        
     </script>
 
-@stop
+    @stop
