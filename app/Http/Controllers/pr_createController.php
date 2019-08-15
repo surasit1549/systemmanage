@@ -184,7 +184,7 @@ class pr_createController extends Controller
         $lengtharray = sizeof($request->input('productname'));
         for ($i = 0; $i < $lengtharray; $i++) {
             $product = new Create_product([
-                'key'               => $key,
+                'key'               => $request->input('key'),
                 'productname'       => $request->input('productname')[$i],
                 'productnumber'     => $request->input('productnumber')[$i],
                 'unit'              => $request->input('productnumber')[$i]
@@ -193,7 +193,7 @@ class pr_createController extends Controller
             $product->save();
         }
         $arr = new PR_create([
-            'key'               => $key,
+            'key'               => $request->input('key'),
             'date'              => $request->input('date'),
             'contractor'        => 'เก่ง',
             'formwork'          => $request->input('formwork'),

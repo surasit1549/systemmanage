@@ -403,6 +403,7 @@
                         url: 'index',
                         data: {
                             _token: '{{csrf_token()}}',
+                            key : $('input[name=key]').val(),
                             image: image,
                             productname: name,
                             productnumber: num,
