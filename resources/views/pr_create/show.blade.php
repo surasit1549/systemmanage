@@ -11,7 +11,7 @@
         {{csrf_field()}}
         <div class="row">
           <div class="col-form-label col-md-6">
-            <h4 class="d-inline shadow-sm" style="padding:10px"><label class="text-danger">&nbsp;PR {{$pr_prequest[0]}}</label></h4>
+            <h4 class="d-inline shadow-sm" style="padding:10px"><label class="text-danger">&nbsp;PR {{$pr_products[0]}}</label></h4>
           </div>
           <div class='col-md-6 text-right'>
             <button class="btn btn-danger"><i style="font-size:18px" class="far fa-file-pdf"></i>&nbsp;&nbsp;PDF</button>
@@ -23,16 +23,16 @@
           <table class="table table-borderless">
             <tr>
               <th>
-                เลขที่เอกสาร
+                เลขที่เอกสารผู้รับเหมา
                 </td>
               <td>
-                {{$pr_prequest[0]}}
+                {{$pr_products[0]}}
               </td>
               <th>
                 วันที่ขอสั่งซื้อ
                 </td>
               <td>
-                {{$pr_prequest[1]}}
+                {{$pr_products[1]}}
               </td>
             </tr>
             <tr>
@@ -40,19 +40,19 @@
                 ชื่อผู้รับเหมา
                 </td>
               <td>
-                {{$pr_prequest[2]}}
+                {{$pr_products[2]}}
               </td>
               <th>
                 แบบงาน
                 </td>
               <td>
-                {{$pr_prequest[3]}}
+                {{$pr_products[3]}}
               </td>
             </tr>
             <tr>
               <th>แปลง</th>
               <td>
-                {{$pr_prequest[4]}}
+                {{$pr_products[4]}}
               </td>
             </tr>
           </table>
@@ -86,7 +86,7 @@
           <tfoot>
             <tr>
               <th class="text-right" colspan="5">รวมเป็นเงิน</th>
-              <th class="text-center"><label id="sumofprice" class="text-danger">{{$pr_prequest[5]}}</label></th>
+              <th class="text-center"><label id="sumofprice" class="text-danger">{{$pr_products[5]}}</label></th>
               <th class="text-center">บาท</th>
             </tr>
           </tfoot>
