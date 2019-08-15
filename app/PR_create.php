@@ -12,6 +12,7 @@ class PR_create extends Model
         'contractor',
         'formwork',
         'prequestconvert',
+        'created_at'
       ];
       public function transform()
       {
@@ -22,5 +23,9 @@ class PR_create extends Model
       {
         return $this->hasOne('App\Product', 'id');
       }
-    
+
+      public function prequest()
+      {
+        return $this->belongsTo('App\prequest');
+      }
 }

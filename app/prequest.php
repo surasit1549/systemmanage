@@ -29,9 +29,18 @@ class prequest extends Model
   {
     return $this->hasOne('App\Product', 'id');
   }
+  public function pr_create()
+  {
+    return $this->hasOne('App\PR_create', 'id');
+  }
+  public function create_product()
+  {
+    return $this->hasOne('App\Create_product', 'id');
+  }
 
   public function porder()
   {
     return $this->belongsTo('App\porder');
   }
+  
 }

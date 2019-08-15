@@ -57,6 +57,7 @@
         <tr>
           <th style="width:5%">ลำดับ</th>
           <th style="width:10%">วันที่ขอซื้อ</th>
+          <th style="width:20%">เลขที่เอกสาร</th>
           <th style="width:20%">แบบงาน</th>
           <th style="width:15%">แปลง</th>
           <th style="width:20%">จัดการ</th>
@@ -68,6 +69,7 @@
           <tr>
             <td>{{$number++}}</td>
             <td>{{$row['date']}}</td>
+            <td>{{$row['key']}}</td>
             <td>{{$row['formwork']}}</td>
             <td>{{$row['prequestconvert']}}</td>
             <td colspan="3">
@@ -86,12 +88,13 @@
           </tr>
           @endforeach
         @else
-          @foreach($pr_create as $row)
+          @foreach($PR_creates as $row)
             <tr>
               <td>{{$number++}}</td>
               <td>{{$row[1]}}</td>
+              <td>{{$row[0]}}</td>
               <td>{{$row[3]}}</td>
-              <td>{{$row[2]}}</td>
+              <td>{{$row[4]}}</td>
               <td colspan="3">
                 <a href="{{action('PuchaserequestController@show',$row[0])}}" data-toggle="tooltip" data-placement="top" title="View"><i style="font-size:20px;;" class="fas fa-eye text-primary"></i></a>
                 &nbsp;&nbsp;

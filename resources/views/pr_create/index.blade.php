@@ -57,10 +57,11 @@
         <tr>
           <th style="width:5%">ลำดับ</th>
           <th style="width:10%">วันที่ขอซื้อ</th>
+          <th style="width:10%">รหัสผู้รับเหมา</th>
           <th style="width:20%">แบบงาน</th>
           <th style="width:15%">แปลง</th>
           <th style="width:15%">ผู้รับเหมา</th>
-          <th style="width:20%">จัดการ</th>
+          <th style="width:15%">จัดการ</th>
         </tr>
       </thead>
       <tbody>
@@ -69,24 +70,28 @@
         <tr>
           <td>{{$number++}}</td>
           <td>{{$row['date']}}</td>
+          <td>{{$row['key']}}</td>
           <td>{{$row['formwork']}}</td>
           <td>{{$row['prequestconvert']}}</td>
           <td>{{$row['contractor']}}</td>
           <td>
-
+            <a href="{{action('PuchaserequestController@show',$row[0])}}" data-placement="top" data-toggle="tooltip" title="View"><i style="font-size:20px;color:blue" class="fas fa-eye"></i></a>
+            <a class="ml-3" data-placement="top" data-toggle="tooltip" title="Status" href="#"><i style="font-size:20px;color:seagreen" class="far fa-paper-plane"></i></a>
+            <a class="ml-3" data-placement="top" data-toggle="tooltip" title="PDF" href="#"><i style="font-size:20px"  class="fas fa-file-pdf text-danger"></i></a>
           </td>
         </tr>
         @endforeach
         @else
-        @foreach($pr_product as $row)
+        @foreach($pr_products as $row)
         <tr>
           <td>{{$number++}}</td>
           <td>{{$row[1]}}</td>
+          <td>{{$row[5]}}</td>
           <td>{{$row[3]}}</td>
           <td>{{$row[4]}}</td>
           <td>{{$row[2]}}</td>
           <td>
-            <a href="#" data-placement="top" data-toggle="tooltip" title="View"><i style="font-size:20px;color:blue" class="fas fa-eye"></i></a>
+            <a href="{{action('PuchaserequestController@show',$row[0])}}" data-placement="top" data-toggle="tooltip" title="View"><i style="font-size:20px;color:blue" class="fas fa-eye"></i></a>
             <a class="ml-3" data-placement="top" data-toggle="tooltip" title="Status" href="#"><i style="font-size:20px;color:seagreen" class="far fa-paper-plane"></i></a>
             <a class="ml-3" data-placement="top" data-toggle="tooltip" title="PDF" href="#"><i style="font-size:20px"  class="fas fa-file-pdf text-danger"></i></a>
           </td>

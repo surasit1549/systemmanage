@@ -12,4 +12,9 @@ class Create_product extends Model
         'productnumber',
         'unit'
     ];
+
+    public function porder()
+    {
+        return $this->belongsTo('App\porder');
+    }
 }

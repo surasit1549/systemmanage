@@ -17,6 +17,8 @@ use App\porderdb;
 use App\porder;
 use vendor\autoload;
 
+use App\pr_create;
+
 class PuchaserequestController extends Controller
 {
 
@@ -38,32 +40,34 @@ class PuchaserequestController extends Controller
   {
     $number = 1;
     $num = 1;
+    $pr_create = pr_create::all()->toArray();
 
-    $prequestdb = prequest::all()->toArray();
-    if(empty($prequestdb)){
-      $prequest = $prequestdb;
-      $pr_prequest = '';
-      //dd('ee');
+    if(empty($pr_create)){
+      $pr_create;
+      $PR_create = '';
+      //dd($PR_create);
     }else{
-      //dd('33');
-      foreach($prequestdb as $row){
-        $pr_prequest[] = [
-                          $num_id = $num++,
-                          $row['keyPR'],
+      //dd('555s');
+      foreach($pr_create as $row){
+        $PR_create[] = [
+                          $row['key'],
                           $row['date'],
                           $row['contractor'],
                           $row['formwork'],
-                          $row['prequestconvert'],
-                          $row['sumofprice']
+                          $row['prequestconvert']
         ];
       }  
+    }
+    $pr_num = sizeof($pr_create);
+    for($i=$pr_num-1; $i>=0; $i--){
+        $PR_creates[] = $PR_create[$i];
     }
     //dd($prequest);
     //dd($pr_prequest[2][0]);
     return view('prequest.index', compact(
-                                          'prequestdb',
                                           'number',
-                                          'pr_prequest'
+                                          'PR_creates',
+                                          'pr_create'
     ));
   }
 
