@@ -16,7 +16,6 @@ use App\porder;
 use App\Create_product;
 use Carbon\Carbon;
 use App\pr_create;
-
 use vendor\autoload;
 
 $asd = 0;
@@ -76,10 +75,29 @@ class pr_createController extends Controller
      */
     public function store(Request $request)
     {
-        
+    
         $num = 0;
         $lengtharray = sizeof($request->input('productname'));
         $now = Carbon::now(-5);
+
+        // Signature from user
+
+        $data_uri = $request->input('image');
+        $encoded_image = explode(",", $data_uri)[1];
+        $decoded_image = base64_decode($encoded_image);
+        file_put_contents("signature/test.png", $decoded_image);
+
+
+        // PDF
+
+        $mpdf = new \Mpdf\Mpdf([
+            'mode' => 'utf-8',
+            'format' => [190, 236],
+            'orientation' => 'L'
+        ]);
+
+        $mpdf->WriteHTML('สวัสดีครับ');
+        $mpdf->Output('pdf/test.pdf','F');
         //dd($now->timezone);
         //dd($request->input('productnumber'));
         for ($i = 0; $i < $lengtharray; $i++) {
@@ -102,6 +120,8 @@ class pr_createController extends Controller
         
         $arr->save();
         return redirect()->route('pr_create.index')->with('success', 'บันทึกข้อมูลเรียบร้อยแล้ว');
+
+ 
     }
 
     /**

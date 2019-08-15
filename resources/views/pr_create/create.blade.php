@@ -10,6 +10,18 @@
         min-height: 400px;
     }
 
+    #export {
+        font-size: 18px;
+    }
+
+    #export th {
+        text-align: center !important;
+    }
+
+    #export th,
+    #export td {
+        padding: 5px;
+    }
 </style>
 @stop
 @section('content')
@@ -26,7 +38,7 @@
                     <a class="btn btn-info text-white" onclick="location.reload();">Refresh</a>
                 </div>
                 <div class="form-group col-md-6 text-right">
-                    <input type="text" name="date" value="{{ date('d-m-Y') }}" class="border-0" size="8" autocomplete="off">
+                    <input type="text" id="datetime" name="date" value="{{ date('d-m-Y') }}" class="border-0" size="8" autocomplete="off">
                 </div>
             </div>
             <div class="form-row">
@@ -65,9 +77,8 @@
             <!-- สินค้าที่ขอสั่งซื้อ -->
             <br>
 
-            <table class="table table-hover table-bordered border-dark table-border-dark">
+            <table class="table table-hover table-bordered border-dark table-border-dark" id="detailmenu">
                 <thead>
-
                     <tr class="text-center">
                         <th style="width:5%;">ลำดับ</th>
                         <th style="width:20%;">รายการสินค้า</th>
@@ -79,9 +90,9 @@
                 <tbody>
                     <tr>
                         <td class="text-center"><label class="col-form-label">1</label></td>
-                        <td><input type="text" class="form-control productname" name="" required></td>
-                        <td><input type="number" min="1" class="form-control productnumber" name="" required></td>
-                        <td><input type="text" class="form-control unit" name="" required></td>
+                        <td><input type="text" class="form-control productname" required></td>
+                        <td><input type="number" min="1" class="form-control productnumber" required></td>
+                        <td><input type="text" class="form-control unit" required></td>
                         <td class="text-center"><button class="btn btn-outline-danger"><i style="font-size:18px" class="far fa-trash-alt"></i></button></td>
                     </tr>
                 </tbody>
@@ -123,18 +134,52 @@
         </form>
     </div>
 
+    <div id="filepdf" class="d-none">
+        <br><br>
+        <h2 style="text-align:center">ใบขอสั่งซื้อ ( PURCHASE ORDER )</h2>
+        <br><br><br>
+        <table id="exporta">
+            <tbody style="font-size:18px">
+                <tr>
+                    <th style="text-align:center;width:25%">เลขที่ PR</th>
+                    <td id="prcode_ex" style="width:25%">...</td>
+                    <th style="width:25%">ลงวันที่</th>
+                    <td id="date_ex" style="width:25%"></td>
+                </tr>
+                <tr>
+                    <th style="text-align:center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ชื่อผู้รับเหมา</th>
+                    <td id="name_ex">คุณ เก่ง</td>
+                    <th>แปลง</th>
+                    <td id="transform_ex"></td>
+                </tr>
+                <tr>
+                    <th style="text-align:center">แบบงาน</th>
+                    <td id="work_ex"></td>
+                </tr>
+            </tbody>
+        </table>
+        <br><br>
+        <table id="exportb">
+            <thead>
+                <tr>
+                    <th>ลำดับ</th>
+                    <th>รายการสินค้า</th>
+                    <th>จำนวน</th>
+                    <th>หน่วย</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
 
     <!-- การเพิ่มสินค้า  -->
     <script type="text/javascript">
         $(document).ready(function() {
-
-
             // Signature
-
             var canvas = $('#signature-pad')[0];
-
             var signaturePad = new SignaturePad(canvas, {
                 penColor: "black"
             });
@@ -144,9 +189,9 @@
                 event.preventDefault();
                 signaturePad.clear();
             });
-            
-            
-            $('#signature').on('hide.bs.modal',function(){
+
+
+            $('#signature').on('hide.bs.modal', function() {
                 signaturePad.clear();
             });
 
@@ -207,7 +252,7 @@
             $('#addrow').click(function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-                $('tbody').append('<tr><td class="text-center"><label class="col-form-label">' + (index++) + '</label></td><td>' +
+                $('#detailmenu tbody').append('<tr><td class="text-center"><label class="col-form-label">' + (index++) + '</label></td><td>' +
                     '<input type="text" class="form-control productname" required></td>' +
                     '<td><input type="number" min="1" class="form-control productnumber" required></td>' +
                     '<td><input type="text" class="form-control unit" required></td>' +
@@ -327,6 +372,7 @@
                     var store = [];
                     var price = [];
                     var sum = [];
+                    var image = signaturePad.toDataURL();
 
                     $('#confirm').html('<div class="spinner-border spinner-border-sm text-light" role="status"> <span class = "sr-only" > รอสักครู่ < /span></div>&nbsp;&nbsp;รอสักครู่')
 
@@ -337,18 +383,31 @@
                     });
 
 
+                    $('#date_ex').text($('#datetime').val());
+                    $('#work_ex').text($('select[name=formwork]').val());
+                    $('#transform_ex').text($('select[name=prequestconvert]').val());
+
+                    $('#detailmenu tbody tr').each(function(index) {
+                        productname = $(this).find('.productname').val();
+                        productnumber = $(this).find('.productnumber').val();
+                        unit = $(this).find('.unit').val();
+                        $('#exportb tbody').append('<tr><td>' + (index + 1) + '</td><td>' + productname + '</td><td>' + productnumber + '</td><td>' + unit + '</td></tr>');
+                    });
+
                     $.ajax({
                         type: 'post',
                         url: 'index',
                         data: {
                             _token: '{{csrf_token()}}',
+                            image: image,
                             productname: name,
                             productnumber: num,
                             units: units,
                             date: $('input[name=date]').val(),
                             contractor: 'คุณ เก่ง',
                             formwork: $('select[name=formwork]').val(),
-                            prequestconvert: $('select[name=prequestconvert]').val()
+                            prequestconvert: $('select[name=prequestconvert]').val(),
+                            filepdf : $('#filepdf').html()
                         },
                         success: function(data) {
                             console.log(data.msg);
@@ -358,7 +417,6 @@
                                 cancelButtonText: 'สร้าง PR ใหม่',
                                 focusConfirm: true,
                                 width: 600,
-                                height: 700,
                                 heightAuto: true,
                                 type: 'success',
                                 title: 'บันทึกข้อมูลเรียบร้อยแล้ว',
