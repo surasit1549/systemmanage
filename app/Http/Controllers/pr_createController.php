@@ -207,16 +207,10 @@ class pr_createController extends Controller
         $number = 1;
         $pr_product = Create_product::all()->toArray();
         $pr_create = PR_create::find($id);
-        
-        $pr_num = sizeof($pr_product);
-        for($i=$pr_num-1; $i>=0; $i--){
-            $pr_products[] = $pr_product[$i];
-        }
-        return view('pr_create.show', compact(
-                                                'pr_create',
-                                                'number',
-                                                'pr_products'
-        ));
+        //dd($pr_create['key']);
+        $pr_products = Create_product::where('key','=',$pr_create['key'])->get();
+        //dd($pr_products);
+        return view('pr_create.show', compact('pr_create','pr_products','number','id'));
     }
 
     /**
