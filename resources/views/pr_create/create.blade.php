@@ -41,7 +41,8 @@
                     <input type="text" id="datetime" name="date" value="{{ date('d-m-Y') }}" class="border-0" size="8" autocomplete="off">
                 </div>
                 <div class="form-group col-md-6 text-right">
-                    <input type="text" name="key" value="{{ $key }}" class="border-0" size="8" autocomplete="off">
+                    <a>{{$key}}</a>
+                    <input type="hidden" name="key" value="{{ $key }}" class="border-0" size="8" autocomplete="off">
                 </div>
                 
             </div>
@@ -455,5 +456,7 @@
                 }
             });
         });
+        
     </script>
-    @stop
+
+@stop
