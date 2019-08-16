@@ -97,7 +97,8 @@ class pr_createController extends Controller
             $str_dates = "$str_date1$str_date2";
             //dd($str_dates);
             if($date_now->between($date_1,$date_2)){
-                $keys = substr($key,5);
+                $keys = substr($key,11);
+                //dd($keys);
                 $num = intval($keys);
                 $num++;
                 if($num < 10){
@@ -156,7 +157,7 @@ class pr_createController extends Controller
         
         // PDF
         
-        $stylesheet = file_get_contents(__DIR__.'\style.css');
+/*         $stylesheet = file_get_contents(__DIR__.'\style.css');
         $mpdf = new \Mpdf\Mpdf([
             'mode' => 'utf-8',
             'format' => [210, 297],
@@ -166,7 +167,7 @@ class pr_createController extends Controller
         $mpdf->WriteHTML($stylesheet,1);
         $mpdf->WriteHTML($request->input('filepdf'));
         $mpdf->Output('pdf/test.pdf','F');
-
+ */
 
         //dd($now->timezone);
         //dd($request->input('productnumber'));

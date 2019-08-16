@@ -29,12 +29,6 @@
 
 
 <div class="form-row col-md-12">
-  <div class="form-group">
-    <a class="btn btn-sm btn-success text-white" href="{{route('prequest.create')}}">
-      <i class="fas fa-plus"></i>
-      สร้างใบขอสั่งซื้อ
-    </a>
-  </div>
   <div class="form-group ml-2">
     <a class="btn btn-sm btn-primary text-white" href="#">
       <i class="fas fa-info-circle"></i>
@@ -58,6 +52,7 @@
           <th style="width:5%">ลำดับ</th>
           <th style="width:10%">วันที่ขอซื้อ</th>
           <th style="width:20%">เลขที่เอกสาร</th>
+          <th style="width:10%">ผู้รับเหมา</th>
           <th style="width:20%">แบบงาน</th>
           <th style="width:15%">แปลง</th>
           <th style="width:20%">จัดการ</th>
@@ -70,6 +65,7 @@
             <td>{{$number++}}</td>
             <td>{{$row['date']}}</td>
             <td>{{$row['key']}}</td>
+            <td>{{$row['contractor']}}</td>
             <td>{{$row['formwork']}}</td>
             <td>{{$row['prequestconvert']}}</td>
             <td colspan="3">
@@ -91,10 +87,11 @@
           @foreach($PR_creates as $row)
             <tr>
               <td>{{$number++}}</td>
+              <td>{{$row[2]}}</td>
               <td>{{$row[1]}}</td>
-              <td>{{$row[0]}}</td>
               <td>{{$row[3]}}</td>
               <td>{{$row[4]}}</td>
+              <td>{{$row[5]}}</td>
               <td colspan="3">
                 <a href="{{action('PuchaserequestController@show',$row[0])}}" data-toggle="tooltip" data-placement="top" title="View"><i style="font-size:20px;;" class="fas fa-eye text-primary"></i></a>
                 &nbsp;&nbsp;
