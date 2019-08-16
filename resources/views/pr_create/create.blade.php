@@ -108,8 +108,6 @@
                 </tfoot>
             </table>
 
-
-
             <div class="modal fade" id="signature">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
@@ -140,38 +138,47 @@
     </div>
 
     <div id="filepdf" class="d-none">
-        <div id="wrap">
-            <div id="tabletop">
-                <table>
-                    <tr>
-                        <th>เลขที่เอกสาร</th>
-                        <td id="prcode_ex"></td>
-                    </tr>
-                    <tr>
-                        <th>วันที่ขอสั่งซื้อ</th>
-                        <td id="date_ex"></td>
-                    </tr>
-                </table>
-            </div>
-            <div id="heading">
-                <h3 style="text-align:center">ใบขอสั่งซื้อ<br>PURCHASE REQUEST</h3>
-            </div>
+        <div id="heading">
+            <h3 style="text-align:center">ใบขอสั่งซื้อ<br>PURCHASE REQUEST</h3>
         </div>
+
+        <div id="tabletop">
+            <table>
+                <tr>
+                    <th>เลขที่เอกสาร</th>
+                    <td id="prcode_ex"></td>
+                </tr>
+                <tr>
+                    <th>วันที่ขอสั่งซื้อ</th>
+                    <td id="date_ex"></td>
+                </tr>
+            </table>
+        </div>
+
         <br>
-        <table id="exporta">
-            <tbody style="font-size:18px;text-align:left">
-                <tr>
-                    <th>ชื่อผู้รับเหมา</th>
-                    <td id="name_ex">คุณ เก่ง</td>
-                    <th>แปลง</th>
-                    <td id="transform_ex"></td>
-                </tr>
-                <tr>
-                    <th>แบบงาน</th>
-                    <td id="work_ex"></td>
-                </tr>
-            </tbody>
-        </table>
+        <div id="exporta">
+            <table id="tableexa">
+                <tbody>
+                    <tr>
+                        <th>TO :</th>
+                        <td>THERA ASSET CO.,LTD</td>
+                        <th style="padding-left:30px">งวดงานที่</th>
+                        <td>18</td>
+                    </tr>
+                    <tr>
+                        <th>ชื่อผู้รับเหมา</th>
+                        <td id="name_ex">คุณ เก่ง</td>
+                        <th style="padding-left:30px">แปลง</th>
+                        <td id="transform_ex"></td>
+                    </tr>
+                    <tr>
+                        <th>แบบงาน</th>
+                        <td id="work_ex"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
         <br>
         <table id="exportb">
             <thead>
@@ -266,84 +273,93 @@
             $('#addrow').click(function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-                $('#detailmenu tbody').append('<tr><td class="text-center"><label class="col-form-label">' + (index++) + '</label></td><td>' +
-                    '<input type="text" class="form-control productname" required></td>' +
-                    '<td><input type="number" min="1" class="form-control productnumber" required></td>' +
-                    '<td><input type="text" class="form-control unit" required></td>' +
-                    '<td class="text-center"><button class="btn btn-outline-danger"><i style="font-size:18px" class="far fa-trash-alt"></i></button></td></tr>');
-                $('tbody tr:last .productname').focus();
-                $('input.unit').autocomplete({
-                    lookup: [{
-                            value: 'เส้น',
-                            data: 'เส้น'
-                        },
-                        {
-                            value: 'ชิ้น',
-                            data: 'ชิ้น'
-                        },
-                        {
-                            value: 'แผ่น',
-                            data: 'แผ่น'
-                        },
-                        {
-                            value: 'ลัง',
-                            data: 'แมม'
-                        },
-                        {
-                            value: 'กล่อง',
-                            data: 'แนน'
-                        },
-                        {
-                            value: 'หีบ',
-                            data: 'แสส'
-                        },
-                        {
-                            value: 'ตัว',
-                            data: 'แสส'
-                        },
-                        {
-                            value: 'ชุด',
-                            data: 'แสส'
-                        },
-                        {
-                            value: 'กระป๋อง',
-                            data: 'แสส'
-                        },
-                        {
-                            value: 'ปิ๊บ',
-                            data: 'แสส'
-                        },
-                        {
-                            value: 'อัน',
-                            data: 'แสส'
-                        }
-                    ],
-                    autoSelectFirst: true
-                });
-                $('.namestore').autocomplete({
-                    lookup: arr,
-                    autoSelectFirst: true
-                });
+                if (index <= 10) {
+                    $('#detailmenu tbody').append('<tr><td class="text-center"><label class="col-form-label">' + (index++) + '</label></td><td>' +
+                        '<input type="text" class="form-control productname" required></td>' +
+                        '<td><input type="number" min="1" class="form-control productnumber" required></td>' +
+                        '<td><input type="text" class="form-control unit" required></td>' +
+                        '<td class="text-center"><button class="btn btn-outline-danger"><i style="font-size:18px" class="far fa-trash-alt"></i></button></td></tr>');
+                    $('#detailmenu tbody tr:last .productname').focus();
+                    $('input.unit').autocomplete({
+                        lookup: [{
+                                value: 'เส้น',
+                                data: 'เส้น'
+                            },
+                            {
+                                value: 'ชิ้น',
+                                data: 'ชิ้น'
+                            },
+                            {
+                                value: 'แผ่น',
+                                data: 'แผ่น'
+                            },
+                            {
+                                value: 'ลัง',
+                                data: 'แมม'
+                            },
+                            {
+                                value: 'กล่อง',
+                                data: 'แนน'
+                            },
+                            {
+                                value: 'หีบ',
+                                data: 'แสส'
+                            },
+                            {
+                                value: 'ตัว',
+                                data: 'แสส'
+                            },
+                            {
+                                value: 'ชุด',
+                                data: 'แสส'
+                            },
+                            {
+                                value: 'กระป๋อง',
+                                data: 'แสส'
+                            },
+                            {
+                                value: 'ปิ๊บ',
+                                data: 'แสส'
+                            },
+                            {
+                                value: 'อัน',
+                                data: 'แสส'
+                            }
+                        ],
+                        autoSelectFirst: true
+                    });
+                    $('.namestore').autocomplete({
+                        lookup: arr,
+                        autoSelectFirst: true
+                    });
+                } else {
+                    swal.fire({
+                        title: 'ไม่สามารถเพิ่มได้อีก',
+                        text: 'สามารถเพิ่มได้สูงสุด 10 แถวเท่านั้น',
+                        type: 'error',
+                        confirmButtonText: 'ตกลง'
+                    });
+                }
             });
 
             function SortIndex() {
                 index = 1;
-                $('tbody tr').each(function() {
+                $('#detailmenu tbody tr').each(function() {
                     $('td:first', this).text(index++);
                 });
             }
             // Remove Record on the table 
-            $('tbody').on('click', '.btn-outline-danger', function(e) {
+            $('#detailmenu tbody').on('click', '.btn-outline-danger', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-                if (index == 2)
+                if (index == 2) {
                     swal.fire({
                         title: 'ไม่สามารถลบข้อมูลได้',
                         type: 'error',
                         text: 'ต้องมีรายการอย่างน้อยหนึ่งรายการ',
                         confirmButtonText: 'ตกลง'
                     })
-                else {
+                } else {
                     var productname = $(this).parents().eq(1).find('.productname').val();
                     var productnumber = $(this).parents().eq(1).find('.productnumber').val();
                     var unit = $(this).parents().eq(1).find('.unit').val();
@@ -356,7 +372,6 @@
                             text: 'เนื่องจากยังมีข้อมูล ต้องการลบข้อมูลหรือไม่',
                             confirmButtonText: 'ตกลง',
                             showCancelButton: true,
-                            showCloseButton: true,
                             cancelButtonText: 'ยกเลิก',
                             reverseButtons: true
                         }).then((result) => {
@@ -374,12 +389,11 @@
 
 
             $('#confirm').click(function() {
-
+                
                 event.stopPropagation();
                 event.preventDefault();
-
+                
                 if (!signaturePad.isEmpty()) {
-
                     var name = [];
                     var num = [];
                     var units = [];
@@ -428,6 +442,7 @@
                         },
                         success: function(data) {
                             console.log(data.msg);
+                            $('#signature').modal('hide');
                             swal.fire({
                                 showCancelButton: true,
                                 confirmButtonText: 'ไปยังหน้า PR',
@@ -457,10 +472,8 @@
             });
 
             $('#subbutton').click(function(e) {
-
                 e.preventDefault();
                 e.stopPropagation();
-
                 if ($('form')[0].checkValidity() == false) {
                     $('form').addClass('was-validated');
                 } else {

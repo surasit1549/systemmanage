@@ -1,11 +1,7 @@
 
-#wrap {
-    position: relative;
-}
-
 #heading {
-    margin-left: 40% !important;
-    position: absolute;
+    position: relative;
+    text-align: center;
     top: 0px;
 }
 
@@ -13,16 +9,28 @@
     position:absolute;
     right:0;
     top:0;
-    padding-top : 20px;
-    padding-right: 20px;
+    padding-top : 130px;
+    padding-right: 40px;
 }
 
 /* TOP DETAIL */
 
 #exporta {
+    text-align: right !important;
     width: 100%;
     padding: 15px;
+    left: 0;
+    font-size: 18px;
 }
+
+#exporta tr , #exporta th , #exporta td , #exporta table {
+    text-align: left !important;
+}
+
+#tableexa tr , #tableexa td , #tableexa th{
+    padding: 10px 5px;
+}
+
 
 /*   MENU DETAIL    */
 
