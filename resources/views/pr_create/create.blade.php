@@ -389,11 +389,11 @@
 
 
             $('#confirm').click(function() {
-                
+
                 event.stopPropagation();
                 event.preventDefault();
                 
-                if (!signaturePad.isEmpty()) {
+                if ( !signaturePad.isEmpty() ) {
                     var name = [];
                     var num = [];
                     var units = [];
@@ -411,7 +411,6 @@
                         num.push($('td .productnumber', this).val());
                         units.push($('td .unit', this).val());
                     });
-
 
                     $('#date_ex').text($('#datetime').val());
                     $('#work_ex').text($('select[name=formwork]').val());
