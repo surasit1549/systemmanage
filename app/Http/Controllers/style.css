@@ -1,0 +1,50 @@
+
+#wrap {
+    position: relative;
+}
+
+#heading {
+    margin-left: 40% !important;
+    position: absolute;
+    top: 0px;
+}
+
+#tabletop {
+    position:absolute;
+    right:0;
+    top:0;
+    padding-top : 20px;
+    padding-right: 20px;
+}
+
+/* TOP DETAIL */
+
+#exporta {
+    width: 100%;
+    padding: 15px;
+}
+
+/*   MENU DETAIL    */
+
+#exportb {
+    width: 100%;
+}
+#no_exb {
+    width : 10%;
+}
+#detail_exb {
+    width : 60%;
+}
+#num_exb {
+    width : 15%;
+}
+#unit_exb {
+    width : 15%;
+}
+
+#exportb , #exportb tr , #exportb td , #exportb th {
+    text-align: center;
+    border : 1px solid black;
+    border-collapse: collapse;
+    padding: 10px 5px;
+}

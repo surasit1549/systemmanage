@@ -127,6 +127,18 @@ class pr_createController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+
+    public function sentFilesTo3($request){
+        if ($request->hasFile('image_main')) {
+            $image_main_path = 'content/' . $request->file('image_main')->hashName();
+            $s3 = Storage::disk('s3');
+            $s3->put($image_main_path, file_get_contents($request->file('image_main')), 'public');
+            $input['image_main'] = $image_main_path;
+        }
+    }
+     
+     
     public function store(Request $request)
     {
     
@@ -140,18 +152,22 @@ class pr_createController extends Controller
         $encoded_image = explode(",", $data_uri)[1];
         $decoded_image = base64_decode($encoded_image);
         file_put_contents("signature/test.png", $decoded_image);
-
-
+        
+        
         // PDF
-/* 
+        
+        $stylesheet = file_get_contents(__DIR__.'\style.css');
         $mpdf = new \Mpdf\Mpdf([
             'mode' => 'utf-8',
-            'format' => [190, 236],
-            'orientation' => 'L'
+            'format' => [210, 297],
+            'default_font_size' => 16,
+            'default_font' => 'thsarabunnew'
         ]);
+        $mpdf->WriteHTML($stylesheet,1);
+        $mpdf->WriteHTML($request->input('filepdf'));
+        $mpdf->Output('pdf/test.pdf','F');
 
-        $mpdf->WriteHTML('สวัสดีครับ');
-        $mpdf->Output('pdf/test.pdf','F'); */
+
         //dd($now->timezone);
         //dd($request->input('productnumber'));
 
