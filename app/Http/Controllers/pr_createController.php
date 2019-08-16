@@ -96,8 +96,14 @@ class pr_createController extends Controller
             $str_date2 = substr($str_date, 2, -6);
             $str_dates = "$str_date1$str_date2";
             //dd($str_dates);
+<<<<<<< HEAD
+            if($date_now->between($date_1,$date_2)){
+                $keys = substr($key,11);
+                //dd($keys);
+=======
             if ($date_now->between($date_1, $date_2)) {
                 $keys = substr($key, 5);
+>>>>>>> 7b47d5a3b271c4d3d371a07fcf86d2be8e5680be
                 $num = intval($keys);
                 $num++;
                 if ($num < 10) {
@@ -157,8 +163,13 @@ class pr_createController extends Controller
 
 
         // PDF
+<<<<<<< HEAD
+        
+/*         $stylesheet = file_get_contents(__DIR__.'\style.css');
+=======
         $filepath = 'pdf/' . $request->input('key') . '.pdf';
         $stylesheet = file_get_contents(__DIR__ . '\style.css');
+>>>>>>> 7b47d5a3b271c4d3d371a07fcf86d2be8e5680be
         $mpdf = new \Mpdf\Mpdf([
             'mode' => 'utf-8',
             'format' => [210, 297],
@@ -167,9 +178,14 @@ class pr_createController extends Controller
         ]);
         $mpdf->WriteHTML($stylesheet, 1);
         $mpdf->WriteHTML($request->input('filepdf'));
+<<<<<<< HEAD
+        $mpdf->Output('pdf/test.pdf','F');
+ */
+=======
         $mpdf->Output($filepath, 'F');
        // sentFilesTos3($filepath);
 
+>>>>>>> 7b47d5a3b271c4d3d371a07fcf86d2be8e5680be
 
         //dd($now->timezone);
         //dd($request->input('productnumber'));

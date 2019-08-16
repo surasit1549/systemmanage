@@ -4,7 +4,7 @@
 
 <div class="card">
   <div class="card-header text-white">
-    <h3><i class="far fa-plus-square"></i>&nbsp;&nbsp;แก้ไขใบขอสั่งซื้อ PR</h3>
+    <h3><i class="far fa-plus-square"></i>&nbsp;&nbsp;ใบขอสั่งซื้อ PR</h3>
   </div>
   <div class="card-body">
     <form method="post" action="{{action('PuchaserequestController@update', $id)}}">
@@ -12,20 +12,20 @@
       <div class="row">
         <div class="form-group col-md-12 text-right">
           <label>วันที่ขอสั่งชื้อ</label><br>
-          <input type="text" name="date" value="{{ date('d-m-Y') }}" class="border-0" size="8" value="{{$pr_prequest[1]}}">
+          <input type="text" name="date" class="border-0" size="8" value="{{$pr_create['date']}}">
         </div>
       </div>
       <div class="form-row">
         <div class="form-group col-md-4">
           <label>เลขที่เอกสาร</label>
-          <input type="text" name="keyPR" class="form-control" value="{{$pr_prequest[0]}}" placeholder="กรอกเลขที่เอกสาร.." required>
+          <input type="text" name="keyPR" class="form-control" value="{{$pr_create['key']}}" placeholder="กรอกเลขที่เอกสาร.." required>
           <div class="invalid-feedback">
             กรุณากรอกเลขที่เอกสาร
           </div>
         </div>
         <div class="form-group col-md-8">
           <label>ชื่อผู้รับเหมา</label>
-          <input type="text" name="contractor" class="form-control" placeholder="กรอกชื่อผู้รับเหมา.." value="{{$pr_prequest[2]}}" required>
+          <input type="text" name="contractor" class="form-control" placeholder="กรอกชื่อผู้รับเหมา.." value="{{$pr_create['contractor']}}" required>
           <div class="invalid-feedback">
             กรุณากรอกชื่อผู้รับเหมา
           </div>
@@ -35,32 +35,11 @@
       <div class="form-row">
         <div class="form-group col-md-6">
           <label>แบบงาน</label>
-          <select class="custom-select" name="formwork" required>
-            <option value="งานโครงสร้างอาคาร">งานโครงสร้างอาคาร</option>
-            <option value="งานโครงสร้างหลังคา/หลังคา">งานโครงสร้างหลังคา/หลังคา</option>
-            <option value="งานผนัง">งานผนัง</option>
-            <option value="งานผิวพื้น">งานผิวพื้น</option>
-            <option value="งานฝ้าเพดาน">งานฝ้าเพดาน</option>
-            <option value="งานรั้ว">งานรั้ว</option>
-            <option value="งานไฟฟ้า">งานไฟฟ้า</option>
-            <option value="งานประปา/สุขาภิบาล">งานประปา/สุขาภิบาล</option>
-            <option value="งานเบ็ดเตล็ด">งานเบ็ดเตล็ด</option>
-            <option value="งานสุขาภิบาลภายนอก">งานสุขาภิบาลภายนอก</option>
-          </select>
-          <div class="invalid-feedback">
-            กรุณาเลือกรูปแบบงานที่ต้องการสั่งซื้อ
-          </div>
+          <input type="text" name="formwork" class="form-control" value="{{$pr_create['formwork']}}" required>
         </div>
         <div class="form-group col-md-6">
           <label>แปลง</label>
-          <select name="prequestconvert" class="custom-select" required>
-            @foreach($prequestconvert as $row)
-            <option value="{{$row['convertname']}}">{{$row['convertname']}}</option>
-            @endforeach
-          </select>
-          <div class="invalid-feedback">
-            กรุณาเลือกแบบแปลง
-          </div>
+          <input type="text" name="prequestconvert" class="form-control" value="{{$pr_create['prequestconvert']}}" required>
         </div>
       </div>
       <!-- สินค้าที่ขอสั่งซื้อ -->
@@ -87,14 +66,14 @@
           @foreach($pr_products as $row)
           <tr>
             <td class="text-center"><label class="col-form-label">{{$number++}}</label></td>
-            <td><input type="text" class="form-control productname" value="{{$row[2]}}" name="" required></td>
-            <td><input type="number" min="1" class="form-control productnumber" value="{{$row[3]}}" name="" required></td>
-            <td><input type="text" class="form-control unit" value="{{$row[4]}}" name="" required></td>
+            <td><input type="text" class="form-control productname" value="{{$row['productname']}}" name="" required></td>
+            <td><input type="number" min="1" class="form-control productnumber" value="{{$row['productnumber']}}" name="" required></td>
+            <td><input type="text" class="form-control unit" value="{{$row['unit']}}" name="" required></td>
             <td>
-              <input type="text" class="form-control namestore" value="{{$row[5]}}">
+              <input type="text" class="form-control namestore" >
             </td>
-            <td><input type="number" min="1" class="form-control price" value="{{$row[6]}}" name="" required></td>
-            <td class="text-center result"><label class="sum col-form-label">{{$row[7]}}</label></td>
+            <td><input type="number" min="1" class="form-control price"  name="" required></td>
+            <td class="text-center result"><label class="sum col-form-label">0</label></td>
             <td class="text-center"><button class="btn btn-outline-danger"><i style="font-size:18px" class="far fa-trash-alt"></i></button></td>
           </tr>
           @endforeach
@@ -102,7 +81,7 @@
         </tbody>
         <tfoot>
           <tr>
-            <th colspan="2"><button class="btn btn-sm btn-primary" id="addrow"><i class="fas fa-plus"></i>&nbsp;&nbsp;เพิ่มรายการสินค้า</button></th>
+            <th colspan="2"></th>
             <th class="text-right" colspan="4">รวมเป็นเงิน</th>
             <th class="text-center"><label id="sumofprice" class="text-danger">{{$prequestdb['sumofprice']}}</label></th>
             <th class="text-center">บาท</th>
@@ -118,8 +97,8 @@
   </form>
 </div>
 
-<div id="formwork_get" class="d-none">{{$prequestdb['formwork']}}</div>
-<div id="prequest_get" class="d-none">{{$prequestdb['prequestconvert']}}</div>
+<div id="formwork_get" class="d-none">{{$pr_create['formwork']}}</div>
+<div id="prequest_get" class="d-none">{{$pr_create['prequestconvert']}}</div>
 
 <ul id="getstore" class="d-none">
   @foreach( $stores as $store )

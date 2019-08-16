@@ -17,7 +17,8 @@ use App\porderdb;
 use App\porder;
 use vendor\autoload;
 
-use App\pr_create;
+use App\Create_product;
+use App\PR_create;
 
 class PuchaserequestController extends Controller
 {
@@ -50,6 +51,7 @@ class PuchaserequestController extends Controller
       //dd('555s');
       foreach($pr_create as $row){
         $PR_create[] = [
+                          $num_id = $num++,
                           $row['key'],
                           $row['date'],
                           $row['contractor'],
@@ -96,7 +98,7 @@ class PuchaserequestController extends Controller
    */
   public function store(Request $request)
   {
-    
+    return response()->json(['message' => 'success']);
     $lengtharray = sizeof($request->input('name'));
 
     for ($i = 0; $i < $lengtharray; $i++) {
@@ -135,7 +137,7 @@ class PuchaserequestController extends Controller
           
           $prequestdb->save();
           return response()->json(['message' => 'success'],200);
-    }
+  }
         
         /**
          * Display the specified resource.
@@ -213,65 +215,23 @@ class PuchaserequestController extends Controller
    */
   public function edit($id)
   {
-    $stores = store::all()->toArray();
-    $prequestconvert = transform::all()->toArray();
-    $number=1;
+    $number = 1;
+    //dd($id);
+    $pr_product = Create_product::all()->toArray();
+    $pr_create = PR_create::find($id);
     $prequestdb = prequest::find($id);
-    $productdb = product::find($id);
-    $pr_db = prequest::all()->toArray();
-    $prequestproduct = product::all()->toArray();
-
-    $num_pr = sizeof($pr_db);
-    $num_product = sizeof($prequestproduct);
-    $num_id = intval($id);
-    
-
-    foreach($prequestproduct as $row){
-      $pr_product1[] = [
-                      $row['keyPR'],
-                      $row['formwork'],
-                      $row['productname'],
-                      $row['productnumber'],
-                      $row['unit'],
-                      $row['keystore'],
-                      $row['price'],
-                      $row['sum']
-      ];
-      $pr_product2[] = [
-                      $row['keyPR']
-      ];
-    }
-    foreach($pr_db as $row){
-      $pr1[] = [
-                $row['keyPR'],
-                $row['date'],
-                $row['contractor'],
-                $row['formwork'],
-                $row['prequestconvert'],
-                $row['sumofprice']
-      ];
-    }
-
-    for($j=0; $j<$num_pr; $j++){
-      if($pr1[$num_id-1][0] === $pr1[$j][0]){
-        $pr_prequest = $pr1[$j];
-      }
-    }
-    for($i=0; $i<$num_product; $i++){
-      if($pr1[$num_id-1][0] === $pr_product2[$i][0]){
-        $pr_products[] = $pr_product1[$i];
-      }
-    }
-
-    return view('prequest.edit', compact(
-                                        'prequestdb', 
-                                        'stores',
-                                        'prequestconvert', 
-                                        'id',
-                                        'pr_products',
-                                        'number',
-                                        'pr_prequest'
-    ));
+    $prequestconvert = transform::all()->toArray(); 
+    $stores = store::all()->toArray();
+    $pr_products = Create_product::where('key','=',$pr_create['key'])->get();
+    //dd($pr_create['date']);
+    return view('prequest.create', compact(
+                                          'pr_create',
+                                          'pr_products',
+                                          'number',
+                                          'prequestconvert',
+                                          'stores',
+                                          'prequestdb',
+                                          'id'));
   }
 
   /**
