@@ -97,7 +97,8 @@ class pr_createController extends Controller
             $str_dates = "$str_date1$str_date2";
             //dd($str_dates);
             if($date_now->between($date_1,$date_2)){
-                $num = intval($key);
+                $keys = substr($key,5);
+                $num = intval($keys);
                 $num++;
                 if($num < 10){
                     $key_num = strval($num);
