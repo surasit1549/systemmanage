@@ -51,7 +51,7 @@ class PuchaserequestController extends Controller
       //dd('555s');
       foreach($pr_create as $row){
         $PR_create[] = [
-                          $num_id = $num++,
+                          $row['id'],
                           $row['key'],
                           $row['date'],
                           $row['contractor'],
@@ -80,14 +80,7 @@ class PuchaserequestController extends Controller
    */
   public function create()
   {
-    $prequeststore = store::all()->toArray();
-    $prequestconvert = transform::all()->toArray();
-    $stores = store::all()->toArray();
-    return view('prequest.create', compact(
-                                            'prequeststore', 
-                                            'prequestconvert',
-                                            'stores'
-                                          ));
+    return view('prequest.create');
   }
 
   /**
@@ -98,9 +91,8 @@ class PuchaserequestController extends Controller
    */
   public function store(Request $request)
   {
-    return response()->json(['message' => 'success']);
+    dd($request->input('name'));
     $lengtharray = sizeof($request->input('name'));
-
     for ($i = 0; $i < $lengtharray; $i++) {
       $productdb = new Product([
         'keyPR'           => $request->input('keyPR'),
@@ -112,18 +104,8 @@ class PuchaserequestController extends Controller
         'price'           => $request->input('price')[$i],
         'sum'             => $request->input('sum')[$i],
         ]);
-        
         $productdb->save();
         
-        $porderdb = new porder([
-          'keyPR'           => $request->input('keyPR'),
-          'date'            => $request->input('date'),
-          'keystore'        => $request->input('store')[$i],
-          'contractor'      => $request->input('contractor'),
-          'formwork'        => $request->input('formwork'),
-          'prequestconvert' => $request->input('prequestconvert'),
-          ]);
-          $porderdb->save();
       }
         $prequestdb = new prequest([
           'keyPR'           => $request->input('keyPR'),
@@ -216,7 +198,8 @@ class PuchaserequestController extends Controller
   public function edit($id)
   {
     $number = 1;
-    //dd($id);
+    $store = store::all()->toArray();
+    dd($store[0]["keystore"]);
     $pr_product = Create_product::all()->toArray();
     $pr_create = PR_create::find($id);
     $prequestdb = prequest::find($id);
@@ -224,7 +207,7 @@ class PuchaserequestController extends Controller
     $stores = store::all()->toArray();
     $pr_products = Create_product::where('key','=',$pr_create['key'])->get();
     //dd($pr_create['date']);
-    return view('prequest.create', compact(
+    return view('prequest.edit', compact(
                                           'pr_create',
                                           'pr_products',
                                           'number',
@@ -243,7 +226,7 @@ class PuchaserequestController extends Controller
    */
   public function update(Request $request, $id)
   {
-    //
+    dd($id);
   }
 
   /**

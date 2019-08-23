@@ -19,6 +19,8 @@ use Carbon\Carbon;
 use App\pr_create;
 use vendor\autoload;
 use Storage;
+use App\product_main;
+
 
 class pr_createController extends Controller
 {
@@ -59,9 +61,9 @@ class pr_createController extends Controller
         }
         //dd($pr_product);
         return view('pr_create.index', compact(
-            'pr_create',
-            'number',
-            'pr_products'
+                                                'pr_create',
+                                                'number',
+                                                'pr_products'
         ));
     }
 
@@ -76,6 +78,9 @@ class pr_createController extends Controller
     {
         $prequestconvert = transform::all()->toArray();
         $pr_create = PR_create::all('created_at')->toArray();
+        $product = product_main::all()->toArray();
+        $unit = product_main::select('unit')->distinct()->get();
+        //dd($product[0]["unit"]);
         if (empty($pr_create)) {
             $date_now = Carbon::now();
             $str_date = $date_now->toDateString();
@@ -123,7 +128,7 @@ class pr_createController extends Controller
             }
         }
         //hidden
-        return view('pr_create.create', compact('prequestconvert', 'key'));
+        return view('pr_create.create', compact('prequestconvert', 'key','product','unit'));
     }
 
     /**
@@ -181,7 +186,6 @@ class pr_createController extends Controller
                 'productnumber'     => $request->input('productnumber')[$i],
                 'unit'              => $request->input('productnumber')[$i]
             ]);
-
             $product->save();
         }
         $arr = new PR_create([

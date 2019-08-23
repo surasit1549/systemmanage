@@ -2,33 +2,35 @@
 @section('title','ใบขอสั่งซื้อ')
 @section('content')
 
+
+
 <div class="card">
   <div class="card-header text-white">
-    <h3><i class="far fa-plus-square"></i>&nbsp;&nbsp;ใบขอสั่งซื้อ PR</h3>
+    <h3><i class="far fa-plus-square"></i>&nbsp;&nbsp;สร้างใบขอสั่งซื้อ PR</h3>
   </div>
   <div class="card-body">
-    <form method="post" action="{{action('PuchaserequestController@update', $id)}}">
+    <form method="post" class="needs-validation" novalidate action="{{action('PuchaserequestController@update', $id)}}">
       {{csrf_field()}}
       <div class="row">
-        <div class="form-group col-md-12 text-right">
+        <div class="form-group col-md-6">
+          <a class="btn btn-info text-white" onclick="location.reload();">Refresh</a>
+        </div>
+        <div class="form-group col-md-6 text-right">
           <label>วันที่ขอสั่งชื้อ</label><br>
-          <input type="text" name="date" class="border-0" size="8" value="{{$pr_create['date']}}">
+          <input type="text" name="date" value="{{$pr_create['date']}}" class="border-0" size="8" autocomplete="off">
+          <input type="hidden" name="id" value="{{$id}}" class="border-0" size="8" autocomplete="off">
         </div>
       </div>
       <div class="form-row">
         <div class="form-group col-md-4">
           <label>เลขที่เอกสาร</label>
-          <input type="text" name="keyPR" class="form-control" value="{{$pr_create['key']}}" placeholder="กรอกเลขที่เอกสาร.." required>
-          <div class="invalid-feedback">
-            กรุณากรอกเลขที่เอกสาร
-          </div>
+          <input type="text" name="keyPR" class="form-control" value="{{$pr_create['key']}}" autocomplete="off" required>
+          
         </div>
         <div class="form-group col-md-8">
           <label>ชื่อผู้รับเหมา</label>
-          <input type="text" name="contractor" class="form-control" placeholder="กรอกชื่อผู้รับเหมา.." value="{{$pr_create['contractor']}}" required>
-          <div class="invalid-feedback">
-            กรุณากรอกชื่อผู้รับเหมา
-          </div>
+          <input type="text" name="contractor" class="form-control" value="{{$pr_create['contractor']}}" autocomplete="off" required>
+          
         </div>
       </div>
 
@@ -64,26 +66,25 @@
         </thead>
         <tbody>
           @foreach($pr_products as $row)
-          <tr>
-            <td class="text-center"><label class="col-form-label">{{$number++}}</label></td>
-            <td><input type="text" class="form-control productname" value="{{$row['productname']}}" name="" required></td>
-            <td><input type="number" min="1" class="form-control productnumber" value="{{$row['productnumber']}}" name="" required></td>
-            <td><input type="text" class="form-control unit" value="{{$row['unit']}}" name="" required></td>
-            <td>
-              <input type="text" class="form-control namestore" >
-            </td>
-            <td><input type="number" min="1" class="form-control price"  name="" required></td>
-            <td class="text-center result"><label class="sum col-form-label">0</label></td>
-            <td class="text-center"><button class="btn btn-outline-danger"><i style="font-size:18px" class="far fa-trash-alt"></i></button></td>
-          </tr>
+            <tr>
+              <td class="text-center"><label class="col-form-label">{{$number++}}</label></td>
+              <td><input type="text" class="form-control productname" value="{{$row['productname']}}" name="" required></td>
+              <td><input type="number" min="1" class="form-control productnumber" value="{{$row['productnumber']}}" name="" required></td>
+              <td><input type="text" class="form-control unit" value="{{$row['unit']}}" name="" required></td>
+              <td>
+                <input type="text" class="form-control keystore" required>
+              </td>
+              <td><input type="number" min="1" class="form-control price" name="" required></td>
+              <td class="text-center result"><label class="sum col-form-label">0</label></td>
+              <td class="text-center"><button class="btn btn-outline-danger"><i style="font-size:18px" class="far fa-trash-alt"></i></button></td>
+            </tr>
           @endforeach
-
         </tbody>
         <tfoot>
           <tr>
-            <th colspan="2"></th>
+            <th colspan="2"><button class="btn btn-sm btn-primary" id="addrow"><i class="fas fa-plus"></i>&nbsp;&nbsp;เพิ่มรายการสินค้า</button></th>
             <th class="text-right" colspan="4">รวมเป็นเงิน</th>
-            <th class="text-center"><label id="sumofprice" class="text-danger">{{$prequestdb['sumofprice']}}</label></th>
+            <th class="text-center"><label id="sumofprice" class="text-danger">0</label></th>
             <th class="text-center">บาท</th>
           </tr>
         </tfoot>
@@ -94,11 +95,9 @@
     <a class="btn btn-danger" href="{{route('prequest.index')}}"><i style="font-size:18px" class="fas fa-undo-alt"></i>&nbsp;&nbsp;ย้อนกลับ</a>
     <button type="submit" class="btn btn-success" id="subbutton"><i style="font-size:18px" class="far fa-save"></i>&nbsp;&nbsp;บันทึก</button>
   </div>
+  <input type="hidden" name="_method" value="PATCH" />
   </form>
 </div>
-
-<div id="formwork_get" class="d-none">{{$pr_create['formwork']}}</div>
-<div id="prequest_get" class="d-none">{{$pr_create['prequestconvert']}}</div>
 
 <ul id="getstore" class="d-none">
   @foreach( $stores as $store )
@@ -106,19 +105,9 @@
   @endforeach
 </ul>
 
-
-<select name="AA" id="">
-  <option value="1">1</option>
-  <option value="2">2</option>
-  <option value="3">3</option>
-</select>
-
 <!-- การเพิ่มสินค้า  -->
 <script type="text/javascript">
   $(document).ready(function() {
-
-    $('select[name=formwork] option[value=' + $('formwork_get').text() + ']').prop('selected',true);
-
     $('input.unit').autocomplete({
       lookup: [{
           value: 'เส้น',
@@ -167,23 +156,18 @@
       ],
       autoSelectFirst: true
     });
-
     var index = 2,
       arr = [];
-
     $('#getstore li').each(function(index) {
       arr.push({
         value: $(this).text(),
         data: $(this).text()
       });
     });
-
-
     $('.namestore').autocomplete({
       lookup: arr,
       autoSelectFirst: true
     });
-
 
     function sumallprice() {
       var sum = 0;
@@ -198,7 +182,6 @@
       var p = parseFloat(pointing.parents().eq(1).find('.price').val());
       pointing.parents().eq(1).find('.sum').text((pd * p).toFixed(2));
     }
-
     $('tbody').on('keyup', 'input[type=number]', function() {
       var point = $(this).parents().eq(1);
       if (!point.find('.productnumber').val() || !point.find('.price').val())
@@ -206,7 +189,6 @@
       else {
         changeSum($(this));
       }
-
     }).on('blur', 'input[type=number]', function() {
       var point = $(this).parents().eq(1);
       if ($(this).hasClass('price') && ($(this).val().toString().indexOf('.') == -1))
@@ -217,22 +199,18 @@
         changeSum($(this));
       sumallprice();
     });
-
-
-
-    $('#addrow').click(function() {
-      event.preventDefault();
-      event.stopPropagation();
+    $('#addrow').click(function(e) {
+      e.preventDefault();
+      e.stopPropagation();
       $('tbody').append('<tr><td class="text-center"><label class="col-form-label">' + (index++) + '</label></td><td>' +
         '<input type="text" class="form-control productname" required></td>' +
         '<td><input type="number" min="1" class="form-control productnumber" required></td>' +
         '<td><input type="text" class="form-control unit" required></td>' +
-        '<td><input type="text" class="form-control namestore" required></td>' +
+        '<td><input type="text" class="form-control keystore" required></td>' +
         '<td><input type="number"class="form-control price" required></td>' +
         '<td class="text-center"><label class="sum col-form-label">0</label></td>' +
         '<td class="text-center"><button class="btn btn-outline-danger"><i style="font-size:18px" class="far fa-trash-alt"></i></button></td></tr>');
       $('tbody tr:last .productname').focus();
-
       $('input.unit').autocomplete({
         lookup: [{
             value: 'เส้น',
@@ -281,12 +259,10 @@
         ],
         autoSelectFirst: true
       });
-
       $('.namestore').autocomplete({
         lookup: arr,
         autoSelectFirst: true
       });
-
     });
 
     function SortIndex() {
@@ -295,7 +271,6 @@
         $('td:first', this).text(index++);
       });
     }
-
     // Remove Record on the table 
     $('tbody').on('click', '.btn-outline-danger', function(e) {
       e.preventDefault();
@@ -313,7 +288,6 @@
         var unit = $(this).parents().eq(1).find('.unit').val();
         var keystore = $(this).parents().eq(1).find('.keystore').val();
         var price = $(this).parents().eq(1).find('.price').val();
-
         if (productname || productnumber || unit || keystore || price) {
           swal.fire({
             title: 'คำเตือน',
@@ -336,10 +310,8 @@
         }
       }
     });
-
     $('#subbutton').click(function(e) {
       e.preventDefault();
-      e.stopPropagation();
       $('form').addClass('was-validated');
       var name = [];
       var num = [];
@@ -347,14 +319,23 @@
       var store = [];
       var price = [];
       var sum = [];
+      var sumofprice = $('#sumofprice').text();
+      var keyPR = $('input[name=keyPR]').val();
+      var date = $('input[name=date]').val();
+      var contractor = $('input[name=contractor]').val();
+      var formwork = $('input[name=formwork]').val();
+      var prequestconvert = $('input[name=prequestconvert]').val();
+      var id = $('input[name=id]').val();
       $('table tbody tr').each(function(index, value) {
         name.push($('td .productname', this).val());
         num.push($('td .productnumber', this).val());
         units.push($('td .unit', this).val());
         store.push($('td .keystore', this).val());
         price.push($('td .price', this).val());
-        sum.push($('td .sum', this).val());
+        sum.push($('td .sum', this).text());
       });
+      console.log(id);
+      console.log(date);
 
       $.ajax({
         type: 'post',
@@ -364,15 +345,15 @@
           name: name,
           num: num,
           units: units,
-          keystore: store,
+          store: store,
           price: price,
           sum: sum,
-          sumofprice: $('#sumofprice').text(),
-          keyPR: $('input[name=keyPR]').val(),
-          date: $('input[name=date]').val(),
-          contractor: $('input[name=contractor]').val(),
-          formwork: $('select[name=formwork]').val(),
-          prequestconvert: $('select[name=prequestconvert]').val()
+          sumofprice: sumofprice,
+          keyPR: keyPR,
+          date: date,
+          contractor: contractor,
+          formwork: formwork,
+          prequestconvert: prequestconvert
         },
         success: function(data) {
           console.log(data.message);

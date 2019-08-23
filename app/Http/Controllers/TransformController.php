@@ -60,6 +60,7 @@ class TransformController extends Controller
   public function show($id)
   { }
 
+<<<<<<< HEAD
   /**
    * Show the form for editing the specified resource.
    *
@@ -89,6 +90,36 @@ class TransformController extends Controller
         'convertname'   => 'required',
         'size'          => 'required'
       ]
+=======
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+      //dd(action('TransformController@update', $id));
+      $transform = Transform::find($id);
+      return view('transform.edit',compact('transform','id'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+      //dd($id);
+      $this->validate($request,
+    [
+      'convertname'   => 'required',
+      'size'          => 'required'
+    ]
+>>>>>>> 85c8cd59f3d8cb1d65ad153aa6473ff765770455
     );
     $transform = Transform::find($id);
     $transform->convertname   = $request->get('convertname');
