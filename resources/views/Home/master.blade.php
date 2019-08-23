@@ -45,6 +45,18 @@
                     </a>
                 </li>
                 <li>
+                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="far fa-file-alt"></i>
+                        &nbsp;&nbsp;การจัดการสินค้า</a>
+                    <ul class="collapse list-unstyled" id="pageSubmenu">
+                        <li>
+                            <a id="prtab" href="{{route('Product.index')}}">รายการสินค้า</a>
+                        </li>
+                        <li>
+                            <a id="potab" href="{{route('Product_Price.index')}}">จัดการราคาสินค้า</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
                     <a href="{{route('transform.index')}}" id="transformtab">
                         <i class="fas fa-map"></i>
                         &nbsp;&nbsp;แปลง</a>

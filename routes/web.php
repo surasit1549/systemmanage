@@ -13,6 +13,7 @@ use phpDocumentor\Reflection\DocBlock\Tags\Uses;
 |
 */
 
+
 Route::resource('store', 'StoreController');
 //Route ::resource('store','FillinformationController');
 Route::resource('transform', 'TransformController');
@@ -22,6 +23,8 @@ Route ::resource('porder','PurchaseorderController');
 Route ::resource('check','CheckController');
 Route ::resource('usermanage','UsermanageController');
 Route ::resource('pr_create','pr_createController');
+Route ::resource('Product', 'ProductController');
+Route ::resource('Product_Price', 'ProductPriceController');
 
 
 // Sent by Ajax
@@ -30,7 +33,7 @@ Route::post('prequest/index', 'PuchaserequestController@store');
 
 
 Route::post('pr_create/index','pr_createController@store');
-
+Route::post('prequest/index','PuchaserequestController@update');
 //Route::post('prequest/index', 'PuchaserequestController@update');
 Auth::routes();
 

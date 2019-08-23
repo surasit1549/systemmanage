@@ -95,9 +95,23 @@
                 <tbody>
                     <tr>
                         <td class="text-center"><label class="col-form-label">1</label></td>
-                        <td><input type="text" class="form-control productname" required></td>
-                        <td><input type="number" min="1" class="form-control productnumber" required></td>
-                        <td><input type="text" class="form-control unit" required></td>
+                        <td>
+                            <input type="text" list="product" class="form-control productname" required>
+                            <datalist id="product">
+                                @foreach($product as $row)
+                                    <option value="{{$row['Product_name']}}">{{$row['Product_name']}}</option>
+                                @endforeach
+                            </datalist>
+                        </td>
+                        <td><input type="number" min="1"class="form-control productnumber" required></td>
+                        <td>
+                            <input type="text" list="unit" class="form-control unit" required>
+                            <datalist id="unit">
+                                @foreach($unit as $row)
+                                    <option value="{{$row['unit']}}">{{$row['unit']}}</option>
+                                @endforeach
+                            </datalist>
+                        </td>
                         <td class="text-center"><button class="btn btn-outline-danger"><i style="font-size:18px" class="far fa-trash-alt"></i></button></td>
                     </tr>
                 </tbody>
