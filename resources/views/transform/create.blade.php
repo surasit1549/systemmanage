@@ -19,7 +19,7 @@
         {{csrf_field()}}
         <div class="form-group">
           <label for="">ชื่อแปลง</label>
-          <input type="text" name="convertname" class="form-control" autocomplete="off" required>
+          <input type="text" name="convertname" class="form-control" autocomplete="off" id="convertname" required>
           <label for="" class="invalid-feedback">
             กรอกชื่อแปลง
           </label>
@@ -50,8 +50,17 @@
         event.stopPropagation();
         $('form').addClass('was-validated');
       }
+      if ($('#convertname').val().indexOf(' ') > -1) {
+        event.preventDefault();
+        event.stopPropagation();
+        Swal.fire({
+          title: 'ชื่อแปลงไม่สามารถมีช่องว่างได้',
+          text : 'กรอกชื่อแปลงให้ถูกต้อง',
+          type : 'info',
+          confirmButtonText : 'ตกลง'
+        })
+      }
     });
-
   });
 </script>
 

@@ -50,10 +50,7 @@
                 <td>{{$users['id']}}</td>
                 <td>{{$users['name']}}</td>
                 <td>{{$users['username']}}</td>
-                <td>
-                    {{$users['priority']}}
-
-                </td>
+                <td>{{$users['priority']}}</td>
                 <td>
                     <a href="{{action('UsermanageController@show',$users['id'])}}" data-toggle="tooltip" data-placement="top" title="View"><i style="font-size:20px;;" class="fas fa-eye text-primary"></i></a>
                     &nbsp;&nbsp;

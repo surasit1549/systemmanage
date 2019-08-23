@@ -141,7 +141,6 @@
         <div id="heading">
             <h3 style="text-align:center">ใบขอสั่งซื้อ<br>PURCHASE REQUEST</h3>
         </div>
-
         <div id="tabletop">
             <table>
                 <tr>
@@ -154,8 +153,6 @@
                 </tr>
             </table>
         </div>
-
-        <br>
         <div id="exporta">
             <table id="tableexa">
                 <tbody>
@@ -178,8 +175,6 @@
                 </tbody>
             </table>
         </div>
-
-        <br>
         <table id="exportb">
             <thead>
                 <tr>
@@ -192,6 +187,10 @@
             <tbody>
             </tbody>
         </table>
+        <div id="signature">
+            <img id="signatureimg" src="https://s3.ap-southeast-1.amazonaws.com/document-flow-s3/signature/test" alt="">
+            <h4>( ณัฐดนัย จำปาศรี )<br>ผู้รับเหมา<br>วันที่ {{ date('d-m-Y') }}</h4>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
@@ -202,7 +201,7 @@
             // Signature
             var canvas = $('#signature-pad')[0];
             var signaturePad = new SignaturePad(canvas, {
-                penColor: "black"
+                penColor: "blue"
             });
 
             $('#clearsig').click(function() {
@@ -210,7 +209,6 @@
                 event.preventDefault();
                 signaturePad.clear();
             });
-
 
             $('#signature').on('hide.bs.modal', function() {
                 signaturePad.clear();
@@ -392,8 +390,8 @@
 
                 event.stopPropagation();
                 event.preventDefault();
-                
-                if ( !signaturePad.isEmpty() ) {
+
+                if (!signaturePad.isEmpty()) {
                     var name = [];
                     var num = [];
                     var units = [];

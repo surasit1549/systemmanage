@@ -77,7 +77,7 @@
           <td>
             <a href="{{action('pr_createController@show',$row['id'])}}" data-placement="top" data-toggle="tooltip" title="View"><i style="font-size:20px;color:blue" class="fas fa-eye"></i></a>
             <a class="ml-3" data-placement="top" data-toggle="tooltip" title="Status" href="#"><i style="font-size:20px;color:seagreen" class="far fa-paper-plane"></i></a>
-            <a class="ml-3" data-placement="top" data-toggle="tooltip" title="PDF" href="#"><i style="font-size:20px"  class="fas fa-file-pdf text-danger"></i></a>
+            <a href="{{$row['pdf']}}" class="ml-3" data-placement="top" data-toggle="tooltip" title="PDF"><i style="font-size:20px" class="fas fa-file-pdf text-danger"></i></a>
           </td>
         </tr>
         @endforeach
@@ -93,7 +93,7 @@
           <td>
             <a href="{{action('pr_createController@show',$row[0])}}" data-placement="top" data-toggle="tooltip" title="View"><i style="font-size:20px;color:blue" class="fas fa-eye"></i></a>
             <a class="ml-3" data-placement="top" data-toggle="tooltip" title="Status" href="#"><i style="font-size:20px;color:seagreen" class="far fa-paper-plane"></i></a>
-            <a class="ml-3" data-placement="top" data-toggle="tooltip" title="PDF" href="#"><i style="font-size:20px"  class="fas fa-file-pdf text-danger"></i></a>
+            <a class="ml-3" data-placement="top" data-toggle="tooltip" title="PDF" href="{{$row[6]}}"><i style="font-size:20px" class="fas fa-file-pdf text-danger"></i></a>
           </td>
         </tr>
         @endforeach
@@ -102,4 +102,5 @@
     </table>
   </div>
 </div>
+
 @stop

@@ -18,7 +18,6 @@
         <h3 class="text-white"><i class="far fa-plus-square"></i>&nbsp;&nbsp;สร้างข้อมูลผู้ใช้งาน</h3>
     </div>
     <div class="card-body">
-        {!! Form::open() !!}
         <div class="form-group">
             {!! Form::label('text_username','Username') !!}
             {!! Form::text('username','',['class' => 'form-control']) !!}
