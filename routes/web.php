@@ -25,7 +25,7 @@ Route ::resource('usermanage','UsermanageController');
 Route ::resource('pr_create','pr_createController');
 Route ::resource('Product', 'ProductController');
 Route ::resource('Product_Price', 'ProductPriceController');
-
+Route ::resource('profile','profileController');
 
 // Sent by Ajax
 

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\user;
 
-class UsermanageController extends Controller
+class profileController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class UsermanageController extends Controller
      */
     public function index()
     {
-        $user = user::all()->toArray();
-        return view('usermanage.indexuser',compact('user'));
+        $user = user::find(1)->toArray();
+        return view('profile.index',compact('user'));
     }
 
     /**
@@ -25,7 +25,7 @@ class UsermanageController extends Controller
      */
     public function create()
     {
-        return view('usermanage.create');
+        //
     }
 
     /**
@@ -36,8 +36,7 @@ class UsermanageController extends Controller
      */
     public function store(Request $request)
     {
-        user::create($request->toArray());
-        return redirect()->route('usermanage.index')->with('msg','Success !');
+        //
     }
 
     /**
@@ -48,8 +47,7 @@ class UsermanageController extends Controller
      */
     public function show($id)
     {
-        $user = user::find($id);
-        return view('usermanage.show',compact('user'));
+        //
     }
 
     /**
@@ -60,8 +58,8 @@ class UsermanageController extends Controller
      */
     public function edit($id)
     {
-        $user = user::find($id);
-        return view('usermanage.edit',compact('user'));
+        $user = user::find($id)->toArray();
+        return view('profile.edit',compact('user'));
     }
 
     /**
@@ -73,6 +71,7 @@ class UsermanageController extends Controller
      */
     public function update(Request $request, $id)
     {
+        
     }
 
     /**

@@ -10,15 +10,31 @@
 @section('content')
 <script>
   $(document).ready(function() {
-
     $('[data-toggle="tooltip"]').tooltip();
+    $('#prtable').DataTable({
+      "oLanguage": {
+        "sSearch": 'ค้นหา',
+        "sInfo": 'จำนวนรายการสั่งซื้อ _TOTAL_ รายการ',
+        'sEmptyTable': 'ไม่มีข้อมูลการสั่งซื้อ',
+        'sInfoEmpty': 'ไม่พบรายการสั่งซื้อ',
+        'sZeroRecords': 'ไม่พบคำที่ต้องการค้นหา',
+        "oPaginate": {
+          "sPrevious": 'ก่อนหน้า',
+          "sNext": 'ถัดไป'
+        },
+        "sInfoFiltered": '( จากทั้งหมด _MAX_ รายการ )',
+        "sLengthMenu": 'แสดงข้อมูล <select class="custom-select custom-select-sm">' +
+          '<option value="10">10</option>' +
+          '<option value="30">30</option>' +
+          '<option value="50">50</option>' +
+          '<option value="-1">ทั้งหมด</option>' +
+          '</select> รายการ'
 
-    $('#prtable').DataTable();
-
+      }
+    });
     $('.test').click(function() {
       $(this).next('form').submit();
     });
-
   })
 </script>
 @if(\Session::has('success'))
