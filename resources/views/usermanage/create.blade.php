@@ -27,11 +27,11 @@
             <div class="row">
                 <div class="form-group col-md-6">
                     <label for="">ชื่อจริง</label>
-                    <input type="text" class="form-control" id="first_name" name="first_name" autocomplete="off">
+                    <input type="text" class="form-control" id="firstname" name="firstname" autocomplete="off">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="">นามสกุล</label>
-                    <input type="text" class="form-control" id="last_name" name="last_name" autocomplete="off">
+                    <input type="text" class="form-control" id="lastname" name="lastname" autocomplete="off">
                 </div>
                 <div class="form-group col-md-12">
                     <label for="">ที่อยู่ปัจจุบัน</label>
@@ -66,10 +66,10 @@
                 <label for="">ตำแหน่ง</label>
                 <select name="role" class="custom-select" id="role">
                     <option value="" selected disabled>เลือกตำแหน่ง</option>
-                    <option value="ผู้รับเหมา">ผู้รับเหมา</option>
-                    <option value="ฝ่ายจัดซื้อ">ฝ่ายจัดซื้อ</option>
-                    <option value="ผู้มีอำนาจ1">ผู้มีอำนาจคนที่ 1</option>
-                    <option value="ผู้มีอำนาจ2">ผู้มีอำนาจคนที่ 2</option>
+                    <option value="contractor">ผู้รับเหมา</option>
+                    <option value="purchasing">ฝ่ายจัดซื้อ</option>
+                    <option value="master1">ผู้มีอำนาจคนที่ 1</option>
+                    <option value="master2">ผู้มีอำนาจคนที่ 2</option>
                     <option value="admin">admin</option>
                 </select>
             </div>
@@ -78,8 +78,6 @@
             <button type="submit" id="save" name="save" class="btn btn-success mr-2"><i class="fas fa-check"></i>&nbsp;&nbsp;บันทึก</button>
             <a id="deny" class="btn btn-danger text-white"><i class="fas fa-times"></i>&nbsp;&nbsp;ย้อนกลับ</a>
         </div>
-        <input type="hidden" name="token" value="{{csrf_token()}}">
-        <input type="hidden" name="token_refresh" value="{{csrf_token()}}">
         <input type="hidden" name="signature" value="-">
     </form>
 

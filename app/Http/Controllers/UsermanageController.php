@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\user;
+use Illuminate\Support\Facades\Hash;
+use App\User;
 
 class UsermanageController extends Controller
 {
@@ -14,7 +15,7 @@ class UsermanageController extends Controller
      */
     public function index()
     {
-        $user = user::all()->toArray();
+        $user = User::all()->toArray();
         return view('usermanage.indexuser',compact('user'));
     }
 
@@ -36,7 +37,10 @@ class UsermanageController extends Controller
      */
     public function store(Request $request)
     {
-        user::create($request->toArray());
+
+        $request->merge(['password' => Hash::make($request->password)]);
+        $user = User::create($request->toArray());
+        $user->assignRole($request->role);
         return redirect()->route('usermanage.index')->with('msg','Success !');
     }
 
@@ -48,7 +52,7 @@ class UsermanageController extends Controller
      */
     public function show($id)
     {
-        $user = user::find($id);
+        $user = User::find($id);
         return view('usermanage.show',compact('user'));
     }
 
@@ -60,7 +64,7 @@ class UsermanageController extends Controller
      */
     public function edit($id)
     {
-        $user = user::find($id);
+        $user = User::find($id);
         return view('usermanage.edit',compact('user'));
     }
 
@@ -83,6 +87,7 @@ class UsermanageController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::find($id)->delete();
+        return redirect()->route('usermanage.index');
     }
 }

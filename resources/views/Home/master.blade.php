@@ -39,12 +39,14 @@
                 <h3>System Manage</h3>
             </div>
             <ul class="list-unstyled components">
+                @role('purchasing')
                 <li>
                     <a href="{{route('store.index')}}" id="storetab">
                         <i class="fas fa-store-alt"></i>&nbsp;&nbsp;
                         ร้านค้า
                     </a>
                 </li>
+                
                 <li>
                     <a href="#menu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="far fa-file-alt"></i>
                         &nbsp;&nbsp;การจัดการสินค้า</a>
@@ -57,6 +59,8 @@
                         </li>
                     </ul>
                 </li>
+                @endrole
+                @role('constructor')
                 <li>
                     <a href="{{route('transform.index')}}" id="transformtab">
                         <i class="fas fa-map"></i>
@@ -96,6 +100,12 @@
                         &nbsp;&nbsp;ข้อมูลผู้ใช้งาน
                     </a>
                 </li>
+                <li>
+                    <a href="{{route('profile.index')}}" id="user_profile">
+                        <i class="fas fa-sign-out-alt"></i>
+                        &nbsp;&nbsp;ออกจากระบบ
+                    </a>
+                </li>
             </ul>
         </nav>
 
@@ -107,6 +117,7 @@
                         <i class="fas fa-align-left"></i>
                         <span>Toggle Sidebar</span>
                     </button>
+                    <h5>{{ Auth::user()->firstname }}&nbsp;&nbsp;{{ Auth::user()->lastname }} </h5>
                 </div>
             </nav>
             <div>

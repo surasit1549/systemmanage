@@ -18,7 +18,7 @@
     <div class="card-header">
         <h3 class="text-white"><i class="far fa-plus-square"></i>&nbsp;&nbsp;สร้างข้อมูลผู้ใช้งาน</h3>
     </div>
-    <form id="edit_user_form" method="post" action="{{ action('profileController@update') }}">
+    <form id="edit_user_form" method="post" action="{{ action('profileController@update',$user['id']) }}">
         {{csrf_field()}}
         <div class="card-body">
             <h3><i class="fas fa-user"></i>&nbsp;&nbsp;รายละเอียดข้อมูลส่วนตัว</h3>
@@ -53,6 +53,7 @@
             <input type="hidden" name="token" value="{{csrf_token()}}">
             <input type="hidden" name="token_refresh" value="{{csrf_token()}}">
             <input type="hidden" name="signature" value="-">
+            <input type="hidden" name="_method" value="PATCH" />
     </form>
 
     <script>

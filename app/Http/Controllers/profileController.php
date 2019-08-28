@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\user;
+use App\User;
 
 class profileController extends Controller
 {
@@ -14,7 +14,7 @@ class profileController extends Controller
      */
     public function index()
     {
-        $user = user::find(1)->toArray();
+        $user = User::find(1)->toArray();
         return view('profile.index',compact('user'));
     }
 
@@ -58,7 +58,7 @@ class profileController extends Controller
      */
     public function edit($id)
     {
-        $user = user::find($id)->toArray();
+        $user = User::find($id)->toArray();
         return view('profile.edit',compact('user'));
     }
 
@@ -71,7 +71,8 @@ class profileController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+        User::find($id)->update($request->toArray());
+        return redirect()->route('profile.index');
     }
 
     /**
