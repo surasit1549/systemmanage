@@ -49,17 +49,17 @@
             <tbody>
                 @foreach( $user as $index=>$users )
                 <tr>
-                    <td>{{ $index + 1 }}</td>
-                    <td>{{$users['first_name']}}</td>
-                    <td>{{$users['last_name']}}</td>
+                    <td></td>
+                    <td>{{$users['firstname']}}</td>
+                    <td>{{$users['lastname']}}</td>
                     <td>{{$users['username']}}</td>
-                    <td>{{$users['role']}}</td>
+                    <td>..</td>
                     <td>
                         <a href="{{action('UsermanageController@show',$users['id'])}}" data-toggle="tooltip" data-placement="top" title="View"><i style="font-size:20px;;" class="fas fa-eye text-primary"></i></a>
                         &nbsp;&nbsp;
                         <a href="{{action('UsermanageController@edit',$users['id'])}}" data-toggle="tooltip" data-placement="top" title="Edit"><i style="font-size:20px;" class="fas fa-edit text-warning"></i></a>
                         &nbsp;&nbsp;
-                        <a class="test" href="#" data-toggle="tooltip" data-placement="top" title="Remove"><i style="font-size:20px;" class="fas fa-trash-alt text-danger"></i></a>
+                        <a class="delete_user" data-toggle="tooltip" data-placement="top" title="Remove"><i style="font-size:20px;" class="fas fa-trash-alt text-danger"></i></a>
                         <form method="post" class="delete_form" action="{{action('UsermanageController@destroy',$users['id'])}}">
                             {{csrf_field()}}
                             <input type="hidden" name="_method" value="DELETE" />
@@ -96,6 +96,31 @@
             }
         });
         $('[data-toggle="tooltip"]').tooltip();
+
+        $('.delete_user').click(function() {
+            Swal.fire({
+                title: 'ต้องการลบผู้ใช้งานหรือไม่',
+                text: 'เมื่อลบผู้ใช้งานแล้วจะไม่สามารถกู้กลับมาได้',
+                type: 'warning',
+                confirmButtonText: 'ตกลง',
+                showCancelButton: true,
+                cancelButtonText: 'ยกเลิก',
+                focusCancel: true
+            }).then((result) => {
+                if (result.value) {
+                    Swal.fire({
+                        title: 'ลบข้อมูลเรียบร้อยแล้ว',
+                        type: 'success',
+                        timer: 1500,
+                        showConfirmButton : false,
+                        onAfterClose: () => {
+                            $(this).next('form').submit();
+                        }
+                    })
+                }
+            })
+        });
+
     });
 </script>
 

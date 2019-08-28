@@ -16,6 +16,7 @@
         "laravelcollective/html": "^5.8",
         "mpdf/mpdf": "^8.0",
         "realrashid/sweet-alert": "^2.0",
+        "spatie/laravel-permission": "^2.37",
         "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {

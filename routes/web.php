@@ -30,15 +30,10 @@ Route ::resource('profile','profileController');
 // Sent by Ajax
 
 Route::post('prequest/index', 'PuchaserequestController@store');
-
-
 Route::post('pr_create/index','pr_createController@store');
-Route::post('prequest/index','PuchaserequestController@update');
 //Route::post('prequest/index', 'PuchaserequestController@update');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');

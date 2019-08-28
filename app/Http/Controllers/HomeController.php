@@ -23,6 +23,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $auth = auth()->user();
+        if( $auth->hasRole('constractor') ){
+            return view('pr_create');
+        }else if( $auth->hasRole('purchasing') ){
+            
+        }
     }
 }

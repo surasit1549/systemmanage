@@ -11,7 +11,6 @@
         box-shadow: none;
     }
 
-
     th {
         background-color: #f1f1f1;
     }
@@ -26,17 +25,17 @@
     <div class="card-body">
         <div class="container mb-3">
             <div class="mb-3">
-                <a class="btn btn-success" href="{{route('profile.edit',$user['id'])}}"><i class="fas fa-user-edit"></i>&nbsp;&nbsp;แก้ไขข้อมูล</a>
+                <a class="btn btn-success" href="{{route('profile.edit',$user['id'])}}"><i class="fas fa-user-edit"></i>&nbsp;&nbsp;แก้ไขข้อมูลส่วนตัว</a>
                 <button class="btn btn-primary text-white ml-2"><i class="fas fa-key"></i>&nbsp;&nbsp;เปลี่ยนพาสเวิร์ด</button>
             </div>
             <table class="table table-bordered">
                 <tr>
                     <th>ชื่อ</th>
-                    <td>{{ $user['first_name'] }}</td>
+                    <td>{{ $user['firstname'] }}</td>
                 </tr>
                 <tr>
                     <th>นามสกุล</th>
-                    <td>{{ $user['last_name'] }}</td>
+                    <td>{{ $user['lastname'] }}</td>
                 </tr>
                 <tr>
                     <th>Username</th>
@@ -44,7 +43,7 @@
                 </tr>
                 <tr>
                     <th>ตำแหน่ง</th>
-                    <td>{{ $user['role'] }}</td>
+                    <td>..</td>
                 </tr>
                 <tr>
                     <th>E-mail</th>
