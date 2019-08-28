@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Http\Request;
 use App\transform;
 use App\store;
@@ -17,6 +18,7 @@ use App\Create_product;
 use Carbon\Carbon;
 use App\pr_create;
 use vendor\autoload;
+use Storage;
 use App\product_main;
 
 
@@ -35,7 +37,7 @@ class pr_createController extends Controller
         //dd($pr_create);
         if (empty($pr_create)) {
             $prequest = $pr_create;
-            $pr_product = '';
+            $pr_products = '';
             //dd('ee');
         } else {
             //dd('33');
@@ -46,7 +48,8 @@ class pr_createController extends Controller
                     $row['contractor'],
                     $row['formwork'],
                     $row['prequestconvert'],
-                    $row['key']
+                    $row['key'],
+                    $row['pdf']
                 ];
                 $pr_date = $row['created_at'];
             }
@@ -63,6 +66,8 @@ class pr_createController extends Controller
                                                 'pr_products'
         ));
     }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -100,8 +105,8 @@ class pr_createController extends Controller
             $str_date2 = substr($str_date, 2, -6);
             $str_dates = "$str_date1$str_date2";
             //dd($str_dates);
-            if($date_now->between($date_1,$date_2)){
-                $keys = substr($key,11);
+            if ($date_now->between($date_1, $date_2)) {
+                $keys = substr($key, 11);
                 //dd($keys);
                 $num = intval($keys);
                 $num++;
@@ -134,18 +139,6 @@ class pr_createController extends Controller
      */
 
 
-    public function sentFilesTos3($request)
-    {
-        $img_path = 'https://s3.' . env('AWS_DEFAULT_REGION') . '.amazonaws.com/' . env('AWS_BUCKET') . '/';
-        if ($request->hasFile($request)) {
-            $image_main_path = 'content/' . $request->file($request)->hashName();
-            $s3 = Storage::disk('s3');
-            $s3->put($image_main_path, file_get_contents($request->file('image_main')), 'public');
-            $input['image_main'] = $image_main_path;
-        }
-    }
-
-
     public function store(Request $request)
     {
 
@@ -160,8 +153,7 @@ class pr_createController extends Controller
         $decoded_image = base64_decode($encoded_image);
         file_put_contents("signature/test.png", $decoded_image);
 
-
-        // PDF
+        // make PDF of pr
         $filepath = 'pdf/' . $request->input('key') . '.pdf';
         $stylesheet = file_get_contents(__DIR__ . '\style.css');
         $mpdf = new \Mpdf\Mpdf([
@@ -172,11 +164,19 @@ class pr_createController extends Controller
         ]);
         $mpdf->WriteHTML($stylesheet, 1);
         $mpdf->WriteHTML($request->input('filepdf'));
-        $mpdf->Output('pdf/test.pdf','F');
+        $mpdf->Output($filepath, 'F');
 
+        // pass pdf of pr to S3
+        $path = "C:/xampp/htdocs/project/public/";
+        $img_path = 'https://s3.' . env('AWS_DEFAULT_REGION') . '.amazonaws.com/' . env('AWS_BUCKET') . '/pr_pdf/' . $request->input('key');
+        $s3 = Storage::disk('s3');
+        $s3->put('signature/test', file_get_contents($path . 'signature/test.png'), 'public');
+        $s3->put('pr_pdf/' . $request->input('key'), file_get_contents($path . $filepath), 'public');
 
-        //dd($now->timezone);
-        //dd($request->input('productnumber'));
+        // Delete File after saving on S3
+
+        unlink($path . $filepath);
+
 
         $lengtharray = sizeof($request->input('productname'));
         for ($i = 0; $i < $lengtharray; $i++) {
@@ -194,6 +194,7 @@ class pr_createController extends Controller
             'contractor'        => 'เก่ง',
             'formwork'          => $request->input('formwork'),
             'prequestconvert'   => $request->input('prequestconvert'),
+            'pdf'               => $img_path
         ]);
 
         $arr->save();

@@ -14,7 +14,7 @@
             <h4 class="d-inline shadow-sm" style="padding:10px"><label class="text-danger">&nbsp;PR {{$pr_create['key']}}</label></h4>
           </div>
           <div class='col-md-6 text-right'>
-            <button class="btn btn-danger"><i style="font-size:18px" class="far fa-file-pdf"></i>&nbsp;&nbsp;PDF</button>
+            <a class="btn btn-danger text-white" href="{{$pr_create['pdf']}}"><i style="font-size:18px" class="far fa-file-pdf"></i>&nbsp;&nbsp;PDF</a>
           </div>
         </div>
         <hr>

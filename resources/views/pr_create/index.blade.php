@@ -10,15 +10,31 @@
 @section('content')
 <script>
   $(document).ready(function() {
-
     $('[data-toggle="tooltip"]').tooltip();
+    $('#prtable').DataTable({
+      "oLanguage": {
+        "sSearch": 'ค้นหา',
+        "sInfo": 'จำนวนรายการสั่งซื้อ _TOTAL_ รายการ',
+        'sEmptyTable': 'ไม่มีข้อมูลการสั่งซื้อ',
+        'sInfoEmpty': 'ไม่พบรายการสั่งซื้อ',
+        'sZeroRecords': 'ไม่พบคำที่ต้องการค้นหา',
+        "oPaginate": {
+          "sPrevious": 'ก่อนหน้า',
+          "sNext": 'ถัดไป'
+        },
+        "sInfoFiltered": '( จากทั้งหมด _MAX_ รายการ )',
+        "sLengthMenu": 'แสดงข้อมูล <select class="custom-select custom-select-sm">' +
+          '<option value="10">10</option>' +
+          '<option value="30">30</option>' +
+          '<option value="50">50</option>' +
+          '<option value="-1">ทั้งหมด</option>' +
+          '</select> รายการ'
 
-    $('#prtable').DataTable();
-
+      }
+    });
     $('.test').click(function() {
       $(this).next('form').submit();
     });
-
   })
 </script>
 @if(\Session::has('success'))
@@ -77,7 +93,7 @@
           <td>
             <a href="{{action('pr_createController@show',$row['id'])}}" data-placement="top" data-toggle="tooltip" title="View"><i style="font-size:20px;color:blue" class="fas fa-eye"></i></a>
             <a class="ml-3" data-placement="top" data-toggle="tooltip" title="Status" href="#"><i style="font-size:20px;color:seagreen" class="far fa-paper-plane"></i></a>
-            <a class="ml-3" data-placement="top" data-toggle="tooltip" title="PDF" href="#"><i style="font-size:20px"  class="fas fa-file-pdf text-danger"></i></a>
+            <a href="{{$row['pdf']}}" class="ml-3" data-placement="top" data-toggle="tooltip" title="PDF"><i style="font-size:20px" class="fas fa-file-pdf text-danger"></i></a>
           </td>
         </tr>
         @endforeach
@@ -93,7 +109,7 @@
           <td>
             <a href="{{action('pr_createController@show',$row[0])}}" data-placement="top" data-toggle="tooltip" title="View"><i style="font-size:20px;color:blue" class="fas fa-eye"></i></a>
             <a class="ml-3" data-placement="top" data-toggle="tooltip" title="Status" href="#"><i style="font-size:20px;color:seagreen" class="far fa-paper-plane"></i></a>
-            <a class="ml-3" data-placement="top" data-toggle="tooltip" title="PDF" href="#"><i style="font-size:20px"  class="fas fa-file-pdf text-danger"></i></a>
+            <a class="ml-3" data-placement="top" data-toggle="tooltip" title="PDF" href="{{$row[6]}}"><i style="font-size:20px" class="fas fa-file-pdf text-danger"></i></a>
           </td>
         </tr>
         @endforeach
@@ -102,4 +118,5 @@
     </table>
   </div>
 </div>
+
 @stop

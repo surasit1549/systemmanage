@@ -25,7 +25,7 @@ Route ::resource('usermanage','UsermanageController');
 Route ::resource('pr_create','pr_createController');
 Route ::resource('Product', 'ProductController');
 Route ::resource('Product_Price', 'ProductPriceController');
-
+Route ::resource('profile','profileController');
 
 // Sent by Ajax
 
@@ -35,6 +35,10 @@ Route::post('prequest/index', 'PuchaserequestController@store');
 Route::post('pr_create/index','pr_createController@store');
 Route::post('prequest/index','PuchaserequestController@update');
 //Route::post('prequest/index', 'PuchaserequestController@update');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
