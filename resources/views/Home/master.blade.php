@@ -39,12 +39,17 @@
                 <h3>System Manage</h3>
             </div>
             <ul class="list-unstyled components">
+<<<<<<< HEAD
+=======
+                @role('admin')
+>>>>>>> ea6bf19082632fc0aa93c8cc26f1f7980446d9d8
                 <li>
                     <a href="{{route('store.index')}}" id="storetab">
                         <i class="fas fa-store-alt"></i>&nbsp;&nbsp;
                         ร้านค้า
                     </a>
                 </li>
+                @endrole
                 
                 <li>
                     <a href="#menu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="far fa-file-alt"></i>
@@ -98,7 +103,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{route('profile.index')}}" id="user_profile">
+                    <a href="{{route('profile.index')}}" id="exit">
                         <i class="fas fa-sign-out-alt"></i>
                         &nbsp;&nbsp;ออกจากระบบ
                     </a>
