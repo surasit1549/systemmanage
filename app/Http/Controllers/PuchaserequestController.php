@@ -163,6 +163,7 @@ class PuchaserequestController extends Controller
    */
   public function update(Request $request, $id)
   {
+    dd(55);
     $lengtharray = sizeof($request->get('Product_name'));
     for($i=0; $i<$lengtharray; $i++){
       $pr_store = new pr_store([
