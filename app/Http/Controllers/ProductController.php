@@ -76,7 +76,6 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        dd('555');
         $this->validate($request,[
                                     'Product_ID'        => 'required',
                                     'Product_name'      => 'required',

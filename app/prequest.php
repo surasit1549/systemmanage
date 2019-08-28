@@ -9,7 +9,6 @@ class prequest extends Model
   protected $fillable = [
     'keyPR',
     'date',
-    'contractor',
     'formwork',
     'prequestconvert',
     'sumofprice'

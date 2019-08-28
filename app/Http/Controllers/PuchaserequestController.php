@@ -5,20 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\prequest;
 use App\transform;
-use App\prequestconvert;
 use App\store;
-use App\prequeststore;
-use App\prequestdb;
 use App\product;
-use App\productdb;
-use App\prequestproduct;
-use App\number;
-use App\porderdb;
-use App\porder;
 use vendor\autoload;
 
 use App\Create_product;
 use App\PR_create;
+use App\product_Price;
+use App\product_main;
+use App\pr_store;
 
 class PuchaserequestController extends Controller
 {
@@ -64,8 +59,6 @@ class PuchaserequestController extends Controller
     for($i=$pr_num-1; $i>=0; $i--){
         $PR_creates[] = $PR_create[$i];
     }
-    //dd($prequest);
-    //dd($pr_prequest[2][0]);
     return view('prequest.index', compact(
                                           'number',
                                           'PR_creates',
@@ -91,34 +84,7 @@ class PuchaserequestController extends Controller
    */
   public function store(Request $request)
   {
-    dd($request->input('name'));
-    $lengtharray = sizeof($request->input('name'));
-    for ($i = 0; $i < $lengtharray; $i++) {
-      $productdb = new Product([
-        'keyPR'           => $request->input('keyPR'),
-        'formwork'        => $request->input('formwork'),
-        'productname'     => $request->input('name')[$i],
-        'productnumber'   => $request->input('num')[$i],
-        'unit'            => $request->input('units')[$i],
-        'keystore'        => $request->input('store')[$i],
-        'price'           => $request->input('price')[$i],
-        'sum'             => $request->input('sum')[$i],
-        ]);
-        $productdb->save();
-        
-      }
-        $prequestdb = new prequest([
-          'keyPR'           => $request->input('keyPR'),
-          'date'            => $request->input('date'),
-          'contractor'      => $request->input('contractor'),
-          'formwork'        => $request->input('formwork'),
-          'prequestconvert' => $request->input('prequestconvert'),
-          'sumofprice'      => $request->input('sumofprice')
-          
-          ]);
-          
-          $prequestdb->save();
-          return response()->json(['message' => 'success'],200);
+    //
   }
         
         /**
@@ -130,61 +96,16 @@ class PuchaserequestController extends Controller
   public function show($id)
   {
     $number=1;
-    //$stores = store::all()->toArray();
-    $prequeststore = store::all()->toArray();
-    $prequestconvert = transform::all()->toArray();
-    $prequestdb = prequest::find($id);
-    $productdb = product::find($id);
-    $pr_db = prequest::all()->toArray();
-    $prequestproduct = product::all()->toArray();
-
-    $num_pr = sizeof($pr_db);
-    $num_product = sizeof($prequestproduct);
-    $num_id = intval($id);
-    //dd($num_id);
-    foreach($prequestproduct as $row){
-      $pr_product1[] = [
-                     $row['keyPR'],
-                     $row['formwork'],
-                     $row['productname'],
-                     $row['productnumber'],
-                     $row['unit'],
-                     $row['keystore'],
-                     $row['price'],
-                     $row['sum']
-      ];
-      $pr_product2[] = [
-                      $row['keyPR']
-      ];
-    }
-    //dd($pr_product1);
-    foreach($pr_db as $row){
-      $pr1[] = [
-                $row['keyPR'],
-                $row['date'],
-                $row['contractor'],
-                $row['formwork'],
-                $row['prequestconvert'],
-                $row['sumofprice']
-      ];
-    }
-
-    for($j=0; $j<$num_pr; $j++){
-      if($pr1[$num_id-1][0] === $pr1[$j][0]){
-        $pr_prequest = $pr1[$j];
-      }
-    }
-    for($i=0; $i<$num_product; $i++){
-      if($pr1[$num_id-1][0] === $pr_product2[$i][0]){
-        $pr_products[] = $pr_product1[$i];
-      }
-    }
-    //dd($stores);
+    $db = Create_product::get()->toArray();
+    //dd($db[0]['key']);
+    $pr_create = PR_create::find($id)->toArray();
+    $productdb = Create_product::where('key',$pr_create['key'])->get()->toArray();
+    //dd($productdb);
     return view('prequest.show', compact(
                                           'number',
                                           'id',
-                                          'pr_products',
-                                          'pr_prequest'
+                                          'productdb',
+                                          'pr_create'
 
     ));
   }
@@ -198,22 +119,38 @@ class PuchaserequestController extends Controller
   public function edit($id)
   {
     $number = 1;
-    $store = store::all()->toArray();
-    dd($store[0]["keystore"]);
-    $pr_product = Create_product::all()->toArray();
-    $pr_create = PR_create::find($id);
-    $prequestdb = prequest::find($id);
-    $prequestconvert = transform::all()->toArray(); 
-    $stores = store::all()->toArray();
-    $pr_products = Create_product::where('key','=',$pr_create['key'])->get();
-    //dd($pr_create['date']);
+    $sum = 0;
+    $pr_create = PR_create::find($id)->toArray();
+    //dd($pr_create['key']);
+    $productdb = Create_product::where('key',$pr_create['key'])->get('productname')->toArray();
+    $lengtharray = sizeof($productdb);
+    for($i=0; $i<$lengtharray; $i++){
+      $product_id = product_main::where('product_name',$productdb[$i])->get()->toArray();
+      $product_price = product_Price::where('Product',$product_id)->min('Price');
+                                    //  ->where('Product',$product_id[0]['Product_ID'])->min('Price');
+      $product_min_price[] = product_main::where('product_name',$productdb[$i])
+                                       ->join('product__Prices','product_mains.Product_ID','product__Prices.Product')
+                                       ->where('Price',$product_price)
+                                       ->get()->toArray();
+      $product_number = Create_product::where('key',$pr_create['key'])->get()->toArray();      
+      //dd($product_min_price[0][0]);   
+      $products_sum = [$product_price*$product_number[$i]['productnumber']];
+      $sum = [$sum[0]+$products_sum[0]];
+      $min[] = [
+                $product_min_price[$i][0]['Product_ID'],
+                $product_number[$i]['productnumber'],
+                $product_min_price[$i][0]['unit'],
+                $product_min_price[$i][0]['Store'],
+                $product_min_price[$i][0]['Price'],
+                $products_sum[0],
+                ];  
+    }
+    //dd($min);
     return view('prequest.edit', compact(
-                                          'pr_create',
-                                          'pr_products',
                                           'number',
-                                          'prequestconvert',
-                                          'stores',
-                                          'prequestdb',
+                                          'pr_create',
+                                          'min',
+                                          'sum',
                                           'id'));
   }
 
@@ -226,7 +163,28 @@ class PuchaserequestController extends Controller
    */
   public function update(Request $request, $id)
   {
-    dd($id);
+    $lengtharray = sizeof($request->get('Product_name'));
+    for($i=0; $i<$lengtharray; $i++){
+      $pr_store = new pr_store([
+                'keyPR'         =>$request->get('keyPR'),
+                'Product_name'  =>$request->get('Product_name')[$i],
+                'Product_number'=>$request->get('Product_number')[$i],
+                'unit'          =>$request->get('unit')[$i],
+                'keystore'      =>$request->get('keystore')[$i],
+                'price'         =>$request->get('price')[$i],
+                'product_sum'   =>$request->get('product_sum')[$i]
+      ]);
+      $pr_store->save();
+    }
+    $prequest = new prequest([
+                'keyPR'             =>$request->get('keyPR'),
+                'date'              =>$request->get('date'),
+                'formwork'          =>$request->get('formwork'),
+                'prequestconvert'   =>$request->get('prequestconvert'),
+                'sumofprice'        =>$request->get('sum'),
+    ]);
+    $prequest->save();
+    return redirect()->route('prequest.index')->with('success','เรียบร้อยแล้ว');
   }
 
   /**

@@ -8,9 +8,9 @@ class product_Price extends Model
 {
     protected $fillable=[
         'Cat_ID',
-        'store_name',
-        'Prodct_name',
-        'Price',
-        'unit'
+        'CatID',
+        'Store',
+        'Product',
+        'Price'
     ];
 }

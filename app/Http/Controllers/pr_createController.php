@@ -184,7 +184,7 @@ class pr_createController extends Controller
                 'key'               => $request->input('key'),
                 'productname'       => $request->input('productname')[$i],
                 'productnumber'     => $request->input('productnumber')[$i],
-                'unit'              => $request->input('productnumber')[$i]
+                'unit'              => $request->input('units')[$i]
             ]);
             $product->save();
         }

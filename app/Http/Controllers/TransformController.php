@@ -84,7 +84,7 @@ class TransformController extends Controller
      */
     public function update(Request $request, $id)
     {
-      //dd($id);
+      dd($id);
       $this->validate($request,
     [
       'convertname'   => 'required',

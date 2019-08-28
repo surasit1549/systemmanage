@@ -59,14 +59,29 @@
       <thead>
         <tr>
           <th style="width:5%;">ลำดับ</th>
-          <th style="width:40%;">รหัสสินค้า</th>
-          <th style="width:30%;">ชื่อสินค้า</th>
-          <th>จัดการ</th>
+          <th style="vidth:20%">รหัสร้านค้า</th>
+          <th style="width:40%;">สินค้า</th>
+          <th style="width:20%;">ราคา</th>
+          <th style="width:10%;">จัดการ</th>
         </tr>
       </thead>
       <tbody>
+        @foreach($product_price as $row)
           <tr>
+            <td>{{$number++}}</td>
+            <td>{{substr($row['CatID'],-10)}}</td>
+            <td>{{$row['Product_name']}}</td>
+            <td>{{$row['Price']}}</td>
+            <td>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <a class="test" href="#" data-toggle="tooltip" data-placement="top" title="Remove"><i style="font-size:20px;" class="fas fa-trash-alt text-danger"></i></a>
+              <form method="post" class="delete_form" action="{{action('ProductPriceController@destroy',$row['id'])}}">
+                {{csrf_field()}}
+                <input type="hidden" name="_method" value="DELETE" />
+              </form>
+            </td>
           </tr>
+        @endforeach
       </tbody>
     </table>
   </div>
