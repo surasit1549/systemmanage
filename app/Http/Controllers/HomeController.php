@@ -24,10 +24,17 @@ class HomeController extends Controller
     public function index()
     {
         $auth = auth()->user();
-        if( $auth->hasRole('constractor') ){
-            return view('pr_create');
+        return view('Home');
+/*         if( $auth->hasRole('constractor') ){
+            return view('pr_create.index');
         }else if( $auth->hasRole('purchasing') ){
-            
-        }
+            return view('Product_Price.index');
+        }else if( $auth->hasRole('master1') ){
+            return view('store.index');
+        }else if( $auth->hasRole('master2') ){
+            return view('store.index');
+        }else{
+            return view('store.index');
+        } */
     }
 }
