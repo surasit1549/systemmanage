@@ -39,7 +39,6 @@
                 <h3>System Manage</h3>
             </div>
             <ul class="list-unstyled components">
-                @role('purchasing')
                 <li>
                     <a href="{{route('store.index')}}" id="storetab">
                         <i class="fas fa-store-alt"></i>&nbsp;&nbsp;
@@ -59,8 +58,6 @@
                         </li>
                     </ul>
                 </li>
-                @endrole
-                @role('constructor')
                 <li>
                     <a href="{{route('transform.index')}}" id="transformtab">
                         <i class="fas fa-map"></i>
@@ -117,7 +114,7 @@
                         <i class="fas fa-align-left"></i>
                         <span>Toggle Sidebar</span>
                     </button>
-                    <h5>{{ Auth::user()->firstname }}&nbsp;&nbsp;{{ Auth::user()->lastname }} </h5>
+                    <h5>..</h5>
                 </div>
             </nav>
             <div>
