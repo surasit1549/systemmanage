@@ -46,9 +46,9 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="far fa-file-alt"></i>
+                    <a href="#menu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="far fa-file-alt"></i>
                         &nbsp;&nbsp;การจัดการสินค้า</a>
-                    <ul class="collapse list-unstyled" id="pageSubmenu">
+                    <ul class="collapse list-unstyled" id="menu">
                         <li>
                             <a id="prtab" href="{{route('Product.index')}}">รายการสินค้า</a>
                         </li>
@@ -81,6 +81,11 @@
                             <a id="checktab" href="{{route('check.index')}}">รายการตรวจสอบสินค้า </a>
                         </li>
                     </ul>
+                </li>
+                <li>
+                    <a href="{{route('Authorized_person1.index')}}" id="constructtab">
+                        <i class="fas fa-user"></i>
+                        &nbsp;&nbsp;ผู้มีอำนาจคนที่1</a>
                 </li>
                 <li>
                     <a href="{{route('usermanage.index')}}" id="usertab"><i class="far fa-user"></i>&nbsp;&nbsp;จัดการผู้ใช้งาน</a>
