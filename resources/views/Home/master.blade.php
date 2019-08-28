@@ -39,13 +39,14 @@
                 <h3>System Manage</h3>
             </div>
             <ul class="list-unstyled components">
-                @role('purchasing')
+                @role('admin')
                 <li>
                     <a href="{{route('store.index')}}" id="storetab">
                         <i class="fas fa-store-alt"></i>&nbsp;&nbsp;
                         ร้านค้า
                     </a>
                 </li>
+                @endrole
                 
                 <li>
                     <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="far fa-file-alt"></i>
@@ -59,8 +60,6 @@
                         </li>
                     </ul>
                 </li>
-                @endrole
-                @role('constructor')
                 <li>
                     <a href="{{route('transform.index')}}" id="transformtab">
                         <i class="fas fa-map"></i>
@@ -96,7 +95,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{route('profile.index')}}" id="user_profile">
+                    <a href="{{route('profile.index')}}" id="exit">
                         <i class="fas fa-sign-out-alt"></i>
                         &nbsp;&nbsp;ออกจากระบบ
                     </a>
