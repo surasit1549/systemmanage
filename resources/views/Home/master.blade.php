@@ -39,14 +39,12 @@
                 <h3>System Manage</h3>
             </div>
             <ul class="list-unstyled components">
-                @role('admin')
                 <li>
                     <a href="{{route('store.index')}}" id="storetab">
                         <i class="fas fa-store-alt"></i>&nbsp;&nbsp;
                         ร้านค้า
                     </a>
                 </li>
-                @endrole
                 
                 <li>
                     <a href="#menu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="far fa-file-alt"></i>
