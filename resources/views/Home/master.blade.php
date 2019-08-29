@@ -114,7 +114,7 @@
                         <i class="fas fa-align-left"></i>
                         <span>Toggle Sidebar</span>
                     </button>
-                    <h5>{{ Auth::user()->firstname }}&nbsp;&nbsp;{{ Auth::user()->lastname }} </h5>
+                    <h5>..</h5>
                 </div>
             </nav>
             <div>
