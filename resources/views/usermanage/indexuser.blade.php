@@ -35,7 +35,7 @@
         <h3 class="text-white"><i class="fas fa-users"></i>&nbsp;&nbsp;จัดการข้อมูลผู้ใช้งาน</h3>
     </div>
     <div class="card-body">
-        <table class="table table-bordered" id="usertable">
+        <table class="table table-bordered" id="user_table">
             <thead>
                 <tr>
                     <th style="width:5%">#</th>
@@ -49,14 +49,15 @@
             <tbody>
                 @foreach( $user as $index=>$users )
                 <tr>
-                    <td></td>
+                    <input type="hidden" class="email" value="{{$users['email']}}">
+                    <input type="hidden" class="phone" value="{{$users['phone']}}">
+                    <input type="hidden" class="address" value="{{$users['address']}}">
+                    <td style="cursor:pointer" class="details-control text-center"><i style="font-size:20px" class="fa fa-plus-square text-success" aria-hidden="true"></i></td>
                     <td>{{$users['firstname']}}</td>
                     <td>{{$users['lastname']}}</td>
                     <td>{{$users['username']}}</td>
                     <td>..</td>
                     <td>
-                        <a href="{{action('UsermanageController@show',$users['id'])}}" data-toggle="tooltip" data-placement="top" title="View"><i style="font-size:20px;;" class="fas fa-eye text-primary"></i></a>
-                        &nbsp;&nbsp;
                         <a href="{{action('UsermanageController@edit',$users['id'])}}" data-toggle="tooltip" data-placement="top" title="Edit"><i style="font-size:20px;" class="fas fa-edit text-warning"></i></a>
                         &nbsp;&nbsp;
                         <a class="delete_user" data-toggle="tooltip" data-placement="top" title="Remove"><i style="font-size:20px;" class="fas fa-trash-alt text-danger"></i></a>
@@ -74,7 +75,8 @@
 
 <script>
     $(document).ready(function() {
-        $('#usertable').DataTable({
+
+        var table = $('#user_table').DataTable({
             "oLanguage": {
                 "sSearch": 'ค้นหา',
                 "sInfo": 'ผู้ใช้งานจำนวน _TOTAL_ ไอดี',
@@ -97,6 +99,33 @@
         });
         $('[data-toggle="tooltip"]').tooltip();
 
+        function format(email, phone, address) {
+            // `d` is the original data object for the row
+            return '<table class="table table-light"><tr><th>อีเมล</th><td>' + email + '</td><th>เบอร์โทรศัพท์</th><td>' + phone + '</td></tr><tr><th>ที่อยู่</th><td>' + address + '</td></tr></table>';
+        }
+
+        $('#user_table tbody').on('click', 'td.details-control', function() {
+            var tr = $(this).closest('tr');
+            var tdi = tr.find('i.fa');
+            var row = table.row(tr);
+            if (row.child.isShown()) {
+                // This row is already open - close it
+                row.child.hide();
+                tr.removeClass('shown');
+                tdi.first().removeClass('fa-minus-square text-danger');
+                tdi.first().addClass('fa-plus-square text-success');
+            } else {
+                // Open this row
+                var email = $(this).parent().find('.email').val();
+                var phone = $(this).parent().find('.phone').val();
+                var address = $(this).parent().find('.address').val();
+                row.child(format(email, phone, address)).show();
+                tr.addClass('shown');
+                tdi.first().removeClass('fa-plus-square text-success');
+                tdi.first().addClass('fa-minus-square text-danger');
+            }
+        });
+
         $('.delete_user').click(function() {
             Swal.fire({
                 title: 'ต้องการลบผู้ใช้งานหรือไม่',
@@ -112,7 +141,7 @@
                         title: 'ลบข้อมูลเรียบร้อยแล้ว',
                         type: 'success',
                         timer: 1500,
-                        showConfirmButton : false,
+                        showConfirmButton: false,
                         onAfterClose: () => {
                             $(this).next('form').submit();
                         }
