@@ -17,10 +17,17 @@ class ProductPriceController extends Controller
     public function index()
     {
         $number = 1;
-        $product_price = product_Price::Join('product_mains','product__Prices.Product','=','product_mains.Product_ID')->get()->toArray();
-       // dd($product_price);
-    //    dd($product_price[0]['Product']);
-        return view('Product_Price.index',compact('product_price','number'));
+        $store_id = product_Price::select('Store')->distinct()->get()->toArray();
+        $lengtharray = sizeof($store_id);
+        if(empty($store_id)){
+            $store_name = $store_id;
+        }else{
+            for($i=0; $i<$lengtharray; $i++){
+                $store_name[] = Store::where('keystore',$store_id[$i]['Store'])->get()->toArray();
+            } 
+        }
+        //dd($store_name);
+        return view('Product_Price.index',compact('number','store_name'));
     }
 
     /**
@@ -84,16 +91,6 @@ class ProductPriceController extends Controller
         return($key);
     }
 
-    function Cats_id($product_id){
-        $after_catid = Product_Price::where('Product',$product_id[0])->addSelect('CatID')->get()->toArray();
-        if(empty($after_catid)){
-            $key = $product_id[0]['Product_ID'];
-        }else{
-            $key = $after_catid[0]['CatID'];
-        }
-        return $key;
-    }
-
     public function store(Request $request)
     {
         $lengtharray = sizeof($request->get('product'));
@@ -110,7 +107,6 @@ class ProductPriceController extends Controller
                 $product_price = new product_Price(
                 [
                         'Cat_ID'            => $Cat_ID,
-                        'CatID'             => $CatID,
                         'Store'             => $store_id[0]['keystore'],
                         'Product'           => $product_id[0]['Product_ID'],
                         'Price'             => $request->get('Price')[$i]
@@ -124,17 +120,11 @@ class ProductPriceController extends Controller
                 $product_id = product_main::where('Product_name',$request->get('product')[$i])->addSelect('Product_ID')->get()->toArray();
                 
                 $catid = product_Price::get()->toArray();
-                //dd($catid);
                 $ID = $this->cat_ID($id);
-                $CatID = $this->Cats_id($product_id);
-                //dd($CatID);
                 $cat = $store_id[0]['keystore'].'-'.$product_id[0]['Product_ID'].'-'.$ID;
-                //dd($product_id[0]['Product_ID']);
-                //dd($cat);
                 $product_price = new product_Price(
                 [
                         'Cat_ID'            => $cat,
-                        'CatID'             => $CatID,
                         'Store'             => $store_id[0]['keystore'],
                         'Product'           => $product_id[0]['Product_ID'],
                         'Price'             => $request->get('Price')[$i]
@@ -154,8 +144,14 @@ class ProductPriceController extends Controller
      */
     public function show($id)
     {
-        //
+        $number = 1;
+        $data = product_Price::where('Store',$id)
+                               ->join('stores','product__Prices.Store','stores.keystore')
+                               ->join('product_mains','Product__Prices.Product','product_mains.Product_ID')
+                               ->get()->toArray();
+        return view('Product_Price.show',compact('number','data','id'));
     }
+
 
     /**
      * Show the form for editing the specified resource.
