@@ -26,7 +26,8 @@ Route ::resource('pr_create','pr_createController');
 Route ::resource('Product', 'ProductController');
 Route ::resource('Product_Price', 'ProductPriceController');
 Route ::resource('profile','profileController');
-Route ::resource('Authorized_person1', 'Person1Controller');
+Route ::resource('Authorized_person1', 'masteroneController');
+Route ::resource('Authorized_person2', 'mastertwoController');
 
 // Sent by Ajax
 

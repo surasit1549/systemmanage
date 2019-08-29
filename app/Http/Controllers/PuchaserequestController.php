@@ -39,11 +39,9 @@ class PuchaserequestController extends Controller
     $pr_create = pr_create::all()->toArray();
 
     if(empty($pr_create)){
-      $pr_create;
-      $PR_create = '';
-      //dd($PR_create);
+      $pr_create = '';
+      $PR_creates = '';
     }else{
-      //dd('555s');
       foreach($pr_create as $row){
         $PR_create[] = [
                           $row['id'],
@@ -163,7 +161,6 @@ class PuchaserequestController extends Controller
    */
   public function update(Request $request, $id)
   {
-    dd(55);
     $lengtharray = sizeof($request->get('Product_name'));
     for($i=0; $i<$lengtharray; $i++){
       $pr_store = new pr_store([

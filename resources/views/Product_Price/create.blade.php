@@ -73,10 +73,6 @@
   </div>
 </div>
 <script type="text/javascript">
-
-
-
-
   $('#subform').click(function() {
       if ($('form')[0].checkValidity() == false) {
         event.preventDefault();
@@ -95,6 +91,5 @@
       $('#detailmenu tbody tr:last .productname').focus();
       
   });
-  
 </script>
 @endsection
