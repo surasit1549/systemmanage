@@ -12,7 +12,6 @@ class PR_create extends Model
         'contractor',
         'formwork',
         'prequestconvert',
-        'pdf'
       ];
       public function transform()
       {

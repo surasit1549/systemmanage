@@ -34,22 +34,18 @@ class pr_createController extends Controller
         $number = 1;
         $num = 1;
         $pr_create = PR_create::all()->toArray();
-        //dd($pr_create);
         if (empty($pr_create)) {
             $prequest = $pr_create;
             $pr_products = '';
-            //dd('ee');
         } else {
-            //dd('33');
             foreach ($pr_create as $row) {
                 $pr_product[] = [
-                    $num_id = $num++,
+                    $row['id'],
                     $row['date'],
                     $row['contractor'],
                     $row['formwork'],
                     $row['prequestconvert'],
-                    $row['key'],
-                    $row['pdf']
+                    $row['key']
                 ];
                 $pr_date = $row['created_at'];
             }
@@ -57,9 +53,7 @@ class pr_createController extends Controller
             for ($i = $pr_num - 1; $i >= 0; $i--) {
                 $pr_products[] = $pr_product[$i];
             }
-            //dd($pr_products);
         }
-        //dd($pr_product);
         return view('pr_create.index', compact(
                                                 'pr_create',
                                                 'number',
@@ -80,7 +74,6 @@ class pr_createController extends Controller
         $pr_create = PR_create::all('created_at')->toArray();
         $product = product_main::all()->toArray();
         $unit = product_main::select('unit')->distinct()->get();
-        //dd($product[0]["unit"]);
         if (empty($pr_create)) {
             $date_now = Carbon::now();
             $str_date = $date_now->toDateString();
@@ -94,7 +87,6 @@ class pr_createController extends Controller
                 $datetime = $date['date'];
                 $key      = $date['key'];
             }
-            //$key = '120';
             $date_now = Carbon::now();
             $date_check1 = new Carbon($datetime);
             $date_check2 = new Carbon($datetime);
@@ -104,7 +96,6 @@ class pr_createController extends Controller
             $str_date1 = substr($str_date, 5, -3);
             $str_date2 = substr($str_date, 2, -6);
             $str_dates = "$str_date1$str_date2";
-            //dd($str_dates);
             if ($date_now->between($date_1, $date_2)) {
                 $keys = substr($key, 11);
                 //dd($keys);
@@ -143,58 +134,24 @@ class pr_createController extends Controller
     {
 
         $num = 0;
-        $lengtharray = sizeof($request->input('productname'));
-        $now = Carbon::now(-5);
-
-        // Signature from user
-
-        $data_uri = $request->input('image');
-        $encoded_image = explode(",", $data_uri)[1];
-        $decoded_image = base64_decode($encoded_image);
-        file_put_contents("signature/test.png", $decoded_image);
-
-        // make PDF of pr
-        $filepath = 'pdf/' . $request->input('key') . '.pdf';
-        $stylesheet = file_get_contents(__DIR__ . '\style.css');
-        $mpdf = new \Mpdf\Mpdf([
-            'mode' => 'utf-8',
-            'format' => [210, 297],
-            'default_font_size' => 16,
-            'default_font' => 'thsarabunnew'
-        ]);
-        $mpdf->WriteHTML($stylesheet, 1);
-        $mpdf->WriteHTML($request->input('filepdf'));
-        $mpdf->Output($filepath, 'F');
-
-        // pass pdf of pr to S3
-        $path = "C:/xampp/htdocs/project/public/";
-        $img_path = 'https://s3.' . env('AWS_DEFAULT_REGION') . '.amazonaws.com/' . env('AWS_BUCKET') . '/pr_pdf/' . $request->input('key');
-        $s3 = Storage::disk('s3');
-        $s3->put('signature/test', file_get_contents($path . 'signature/test.png'), 'public');
-        $s3->put('pr_pdf/' . $request->input('key'), file_get_contents($path . $filepath), 'public');
-
-        // Delete File after saving on S3
-
-        unlink($path . $filepath);
-
-
+        $key = $request->input('key');
+        $ID = $request->input('prequestconvert').'-'.$key;
         $lengtharray = sizeof($request->input('productname'));
         for ($i = 0; $i < $lengtharray; $i++) {
             $product = new Create_product([
-                'key'               => $request->input('key'),
+                'key'               => $ID,
                 'productname'       => $request->input('productname')[$i],
                 'productnumber'     => $request->input('productnumber')[$i],
-                'unit'              => $request->input('units')[$i]
+                'unit'              => $request->input('unit')[$i]
             ]);
             $product->save();
         }
         $arr = new PR_create([
-            'key'               => $request->input('key'),
+            'key'               => $ID,
             'date'              => $request->input('date'),
             'contractor'        => 'เก่ง',
             'formwork'          => $request->input('formwork'),
-            'prequestconvert'   => $request->input('prequestconvert'),
-            'pdf'               => $img_path
+            'prequestconvert'   => $request->input('prequestconvert')
         ]);
 
         $arr->save();

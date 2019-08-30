@@ -97,6 +97,11 @@
                 @endif
                 @if( Auth::user()->role == 'แอดมิน' )
                 <li>
+                    <a href="{{route('Authorized_person2.index')}}" id="constructtab">
+                        <i class="fas fa-user"></i>
+                        &nbsp;&nbsp;ผู้มีอำนาจคนที่2</a>
+                </li>
+                <li>
                     <a href="{{route('usermanage.index')}}" id="usertab"><i class="far fa-user"></i>&nbsp;&nbsp;จัดการผู้ใช้งาน</a>
                 </li>
                 @endif

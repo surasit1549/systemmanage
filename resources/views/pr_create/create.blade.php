@@ -85,7 +85,6 @@
             <table class="table table-hover table-bordered border-dark table-border-dark" id="detailmenu">
                 <thead>
                     <tr class="text-center">
-                        <th style="width:5%;">ลำดับ</th>
                         <th style="width:20%;">รายการสินค้า</th>
                         <th style="width:10%;">จำนวน</th>
                         <th style="width:10%;">หน่วย</th>
@@ -94,18 +93,17 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="text-center"><label class="col-form-label">1</label></td>
                         <td>
-                            <input type="text" list="product" class="form-control productname" required>
+                            <input type="text" list="product" name="productname[]" class="form-control productname" required>
                             <datalist id="product">
                                 @foreach($product as $row)
                                     <option value="{{$row['Product_name']}}">{{$row['Product_name']}}</option>
                                 @endforeach
                             </datalist>
                         </td>
-                        <td><input type="number" min="1"class="form-control productnumber" required></td>
+                        <td><input type="number" name="productnumber[]" min="1"class="form-control productnumber" required></td>
                         <td>
-                            <input type="text" list="unit" class="form-control unit" required>
+                            <input type="text" name="unit[]" list="unit" class="form-control unit" required>
                             <datalist id="unit">
                                 @foreach($unit as $row)
                                     <option value="{{$row['unit']}}">{{$row['unit']}}</option>
@@ -205,292 +203,24 @@
             <h4>( ณัฐดนัย จำปาศรี )<br>ผู้รับเหมา<br>วันที่ {{ date('d-m-Y') }}</h4>
         </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
-
-    <!-- การเพิ่มสินค้า  -->
-    <script type="text/javascript">
-        $(document).ready(function() {
-            // Signature
-            var canvas = $('#signature-pad')[0];
-            var signaturePad = new SignaturePad(canvas, {
-                penColor: "blue"
-            });
-
-            $('#clearsig').click(function() {
-                event.stopPropagation();
-                event.preventDefault();
-                signaturePad.clear();
-            });
-
-            $('#signature').on('hide.bs.modal', function() {
-                signaturePad.clear();
-            });
-
-            // End Signature
-
-            $('input.unit').autocomplete({
-                lookup: [{
-                    value: 'เส้น',
-                    data: 'เส้น'
-                }],
-                autoSelectFirst: true
-            });
-
-            var index = 2,
-                arr = [];
-
-            $('#getstore li').each(function(index) {
-                arr.push({
-                    value: $(this).text(),
-                    data: $(this).text()
-                });
-            });
-            $('.namestore').autocomplete({
-                lookup: arr,
-                autoSelectFirst: true
-            });
-
-            function sumallprice() {
-                var sum = 0;
-                $('tbody tr').each(function() {
-                    sum += parseInt($(this).find('.sum').text());
-                });
-                $('#sumofprice').text(parseInt(sum).toFixed(2));
-            }
-
-            function changeSum(pointing) {
-                var pd = parseInt(pointing.parents().eq(1).find('.productnumber').val());
-                var p = parseFloat(pointing.parents().eq(1).find('.price').val());
-                pointing.parents().eq(1).find('.sum').text((pd * p).toFixed(2));
-            }
-            $('tbody').on('keyup', 'input[type=number]', function() {
-                var point = $(this).parents().eq(1);
-                if (!point.find('.productnumber').val() || !point.find('.price').val())
-                    point.find('.sum').val(0);
-                else {
-                    changeSum($(this));
-                }
-            }).on('blur', 'input[type=number]', function() {
-                var point = $(this).parents().eq(1);
-                if ($(this).hasClass('price') && ($(this).val().toString().indexOf('.') == -1))
-                    $(this).val(parseInt($(this).val()).toFixed(2));
-                if (!point.find('.productnumber').val() || !point.find('.price').val())
-                    point.find('.sum').val(0);
-                else
-                    changeSum($(this));
-                sumallprice();
-            });
-            $('#addrow').click(function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                if (index <= 10) {
-                    $('#detailmenu tbody').append('<tr><td class="text-center"><label class="col-form-label">' + (index++) + '</label></td><td>' +
-                        '<input type="text" class="form-control productname" required></td>' +
-                        '<td><input type="number" min="1" class="form-control productnumber" required></td>' +
-                        '<td><input type="text" class="form-control unit" required></td>' +
-                        '<td class="text-center"><button class="btn btn-outline-danger"><i style="font-size:18px" class="far fa-trash-alt"></i></button></td></tr>');
-                    $('#detailmenu tbody tr:last .productname').focus();
-                    $('input.unit').autocomplete({
-                        lookup: [{
-                                value: 'เส้น',
-                                data: 'เส้น'
-                            },
-                            {
-                                value: 'ชิ้น',
-                                data: 'ชิ้น'
-                            },
-                            {
-                                value: 'แผ่น',
-                                data: 'แผ่น'
-                            },
-                            {
-                                value: 'ลัง',
-                                data: 'แมม'
-                            },
-                            {
-                                value: 'กล่อง',
-                                data: 'แนน'
-                            },
-                            {
-                                value: 'หีบ',
-                                data: 'แสส'
-                            },
-                            {
-                                value: 'ตัว',
-                                data: 'แสส'
-                            },
-                            {
-                                value: 'ชุด',
-                                data: 'แสส'
-                            },
-                            {
-                                value: 'กระป๋อง',
-                                data: 'แสส'
-                            },
-                            {
-                                value: 'ปิ๊บ',
-                                data: 'แสส'
-                            },
-                            {
-                                value: 'อัน',
-                                data: 'แสส'
-                            }
-                        ],
-                        autoSelectFirst: true
-                    });
-                    $('.namestore').autocomplete({
-                        lookup: arr,
-                        autoSelectFirst: true
-                    });
-                } else {
-                    swal.fire({
-                        title: 'ไม่สามารถเพิ่มได้อีก',
-                        text: 'สามารถเพิ่มได้สูงสุด 10 แถวเท่านั้น',
-                        type: 'error',
-                        confirmButtonText: 'ตกลง'
-                    });
-                }
-            });
-
-            function SortIndex() {
-                index = 1;
-                $('#detailmenu tbody tr').each(function() {
-                    $('td:first', this).text(index++);
-                });
-            }
-            // Remove Record on the table 
-            $('#detailmenu tbody').on('click', '.btn-outline-danger', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                if (index == 2) {
-                    swal.fire({
-                        title: 'ไม่สามารถลบข้อมูลได้',
-                        type: 'error',
-                        text: 'ต้องมีรายการอย่างน้อยหนึ่งรายการ',
-                        confirmButtonText: 'ตกลง'
-                    })
-                } else {
-                    var productname = $(this).parents().eq(1).find('.productname').val();
-                    var productnumber = $(this).parents().eq(1).find('.productnumber').val();
-                    var unit = $(this).parents().eq(1).find('.unit').val();
-                    var keystore = $(this).parents().eq(1).find('.keystore').val();
-                    var price = $(this).parents().eq(1).find('.price').val();
-                    if (productname || productnumber || unit || keystore || price) {
-                        swal.fire({
-                            title: 'คำเตือน',
-                            type: 'warning',
-                            text: 'เนื่องจากยังมีข้อมูล ต้องการลบข้อมูลหรือไม่',
-                            confirmButtonText: 'ตกลง',
-                            showCancelButton: true,
-                            cancelButtonText: 'ยกเลิก',
-                            reverseButtons: true
-                        }).then((result) => {
-                            if (result.value) {
-                                $(this).parents().eq(1).remove();
-                                SortIndex();
-                            }
-                        })
-                    } else {
-                        $(this).parents().eq(1).remove();
-                        SortIndex();
-                    }
-                }
-            });
-
-
-            $('#confirm').click(function() {
-
-                event.stopPropagation();
-                event.preventDefault();
-
-                if (!signaturePad.isEmpty()) {
-                    var name = [];
-                    var num = [];s
-                    var units = [];
-                    var store = [];
-                    var price = [];
-                    var sum = [];
-                    var image = signaturePad.toDataURL();
-                    var key = $('#convert').val() + '-' + $('#keyja').text();
-
-                    $('#prcode_ex').text(key);
-                    $('#confirm').html('<div class="spinner-border spinner-border-sm text-light" role="status"> <span class = "sr-only" > รอสักครู่ < /span></div>&nbsp;&nbsp;รอสักครู่')
-
-                    $('table tbody tr').each(function(index, value) {
-                        name.push($('td .productname', this).val());
-                        num.push($('td .productnumber', this).val());
-                        units.push($('td .unit', this).val());
-                    });
-
-                    $('#date_ex').text($('#datetime').val());
-                    $('#work_ex').text($('select[name=formwork]').val());
-                    $('#transform_ex').text($('select[name=prequestconvert]').val());
-
-                    $('#detailmenu tbody tr').each(function(index) {
-                        productname = $(this).find('.productname').val();
-                        productnumber = $(this).find('.productnumber').val();
-                        unit = $(this).find('.unit').val();
-                        $('#exportb tbody').append('<tr><td>' + (index + 1) + '</td><td>' + productname + '</td><td>' + productnumber + '</td><td>' + unit + '</td></tr>');
-                    });
-
-                    $.ajax({
-                        type: 'post',
-                        url: 'index',
-                        data: {
-                            _token: '{{csrf_token()}}',
-                            key: key,
-                            image: image,
-                            productname: name,
-                            productnumber: num,
-                            units: units,
-                            date: $('input[name=date]').val(),
-                            contractor: 'คุณ เก่ง',
-                            formwork: $('select[name=formwork]').val(),
-                            prequestconvert: $('select[name=prequestconvert]').val(),
-                            filepdf: $('#filepdf').html()
-                        },
-                        success: function(data) {
-                            console.log(data.msg);
-                            $('#signature').modal('hide');
-                            swal.fire({
-                                showCancelButton: true,
-                                confirmButtonText: 'ไปยังหน้า PR',
-                                cancelButtonText: 'สร้าง PR ใหม่',
-                                focusConfirm: true,
-                                width: 600,
-                                heightAuto: true,
-                                type: 'success',
-                                title: 'บันทึกข้อมูลเรียบร้อยแล้ว',
-                                text: 'สามารถตรวจสอบข้อมูลได้ที่ตาราง PR'
-                            }).then((result) => {
-                                if (result.value)
-                                    window.location.replace('./');
-                                else
-                                    location.reload();
-                            })
-                        }
-                    });
-                } else {
-                    Swal.fire({
-                        title: 'กรุณากรอกลายเซ็น',
-                        text: 'กรอกลายเซ็นก่อนกดตกลง',
-                        confirmButtonText: 'เข้าใจแล้ว',
-                        type: 'warning'
-                    })
-                }
-            });
-
-            $('#subbutton').click(function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                if ($('form')[0].checkValidity() == false) {
-                    $('form').addClass('was-validated');
-                } else {
-                    $('#signature').modal('show');
-                }
-            });
-        });
-    </script>
-
-    @stop
+<script type="text/javascript">
+  $('#subform').click(function() {
+      if ($('form')[0].checkValidity() == false) {
+        event.preventDefault();
+        event.stopPropagation();
+        $('form').addClass('was-validated');
+      }
+    });
+  $('#addrow').click(function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+      $('#detailmenu tbody').append('<tr></label></td><td>' +
+          '<input type="text" list="product" name="productname[]" class="form-control productname" required>' +
+          '<td><input type="number" name="productnumber[]" min="1"class="form-control productnumber" required></td>' +
+          '<td><input type="text" name="unit[]" list="unit" class="form-control unit" required></td>' +
+          '<td class="text-center"><button class="btn btn-outline-danger"><i style="font-size:18px" class="far fa-trash-alt"></i></button></td></tr>');
+      $('#detailmenu tbody tr:last .productname').focus();
+      
+  });
+</script>
+@stop
