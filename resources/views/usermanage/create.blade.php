@@ -66,17 +66,17 @@
                 <label for="">ตำแหน่ง</label>
                 <select name="role" class="custom-select" id="role">
                     <option value="" selected disabled>เลือกตำแหน่ง</option>
-                    <option value="contractor">ผู้รับเหมา</option>
-                    <option value="purchasing">ฝ่ายจัดซื้อ</option>
-                    <option value="master1">ผู้มีอำนาจคนที่ 1</option>
-                    <option value="master2">ผู้มีอำนาจคนที่ 2</option>
-                    <option value="admin">admin</option>
+                    <option value="ผู้รับเหมา">ผู้รับเหมา</option>
+                    <option value="ฝ่ายจัดซื้อ">ฝ่ายจัดซื้อ</option>
+                    <option value="ผู้มีอำนาจ1">ผู้มีอำนาจคนที่ 1</option>
+                    <option value="ผู้มีอำนาจ2">ผู้มีอำนาจคนที่ 2</option>
+                    <option value="แอดมิน">admin</option>
                 </select>
             </div>
         </div>
         <div class="text-center mb-3">
-            <button type="submit" id="save" name="save" class="btn btn-success mr-2"><i class="fas fa-check"></i>&nbsp;&nbsp;บันทึก</button>
-            <a id="deny" class="btn btn-danger text-white"><i class="fas fa-times"></i>&nbsp;&nbsp;ย้อนกลับ</a>
+            <a href="#" id="deny" class="btn btn-danger text-white"><i class="fas fa-undo-alt"></i>&nbsp;&nbsp;ย้อนกลับ</a>
+            <button type="submit" id="save" name="save" class="btn btn-success ml-2"><i class="fas fa-check"></i>&nbsp;&nbsp;บันทึก</button>
         </div>
         <input type="hidden" name="signature" value="-">
     </form>
@@ -102,8 +102,8 @@
                     },
                     role: "required",
                     phone: {
-                        required : true,
-                        minlength : 9
+                        required: true,
+                        minlength: 9
                     },
                     address: "required",
                     email: "required"
@@ -125,15 +125,15 @@
                         equalTo: "กรอกพาสเวิร์ดให้ตรงกัน"
                     },
                     role: "กรุณาเลือกตำแหน่ง",
-                    email : {
-                        required : 'กรุณากรอกอีเมล'
+                    email: {
+                        required: 'กรุณากรอกอีเมล'
                     },
-                    phone : {
-                        required : 'กรุณากรอกเบอร์โทรศัพท์มือถือ',
-                        minlength : 'เบอร์โทรต้องมีอย่างน้อย 9 ตัว'
+                    phone: {
+                        required: 'กรุณากรอกเบอร์โทรศัพท์มือถือ',
+                        minlength: 'เบอร์โทรต้องมีอย่างน้อย 9 ตัว'
                     },
-                    address : {
-                        required : 'กรอกที่อยู่ในปัจจุบัน'
+                    address: {
+                        required: 'กรอกที่อยู่ในปัจจุบัน'
                     }
                 },
                 errorPlacement: function(error, element) {

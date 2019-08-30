@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use Auth;
 
 class profileController extends Controller
 {
@@ -12,10 +13,16 @@ class profileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
+    public function createSignature(Request $request){
+        $img = $request->input('img');
+        dd($img);
+    }
+
     public function index()
     {
-        $user = User::find(1)->toArray();
-        return view('profile.index',compact('user'));
+        return view('profile.index');
     }
 
     /**
@@ -58,8 +65,7 @@ class profileController extends Controller
      */
     public function edit($id)
     {
-        $user = User::find($id)->toArray();
-        return view('profile.edit',compact('user'));
+        return view('profile.edit');
     }
 
     /**

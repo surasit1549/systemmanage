@@ -18,7 +18,7 @@
     <div class="card-header">
         <h3 class="text-white"><i class="far fa-plus-square"></i>&nbsp;&nbsp;สร้างข้อมูลผู้ใช้งาน</h3>
     </div>
-    <form id="edit_user_form" method="post" action="{{ action('profileController@update',$user['id']) }}">
+    <form id="edit_user_form" method="post" action="{{ action('profileController@update',Auth::id()) }}">
         {{csrf_field()}}
         <div class="card-body">
             <h3><i class="fas fa-user"></i>&nbsp;&nbsp;รายละเอียดข้อมูลส่วนตัว</h3>
@@ -27,28 +27,28 @@
             <div class="row">
                 <div class="form-group col-md-6">
                     <label for="">ชื่อจริง</label>
-                    <input type="text" class="form-control" id="first_name" name="first_name" value="{{$user['first_name']}}" autocomplete="off">
+                    <input type="text" class="form-control" id="firstname" name="firstname" value="{{Auth::user()->firstname}}" autocomplete="off">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="">นามสกุล</label>
-                    <input type="text" class="form-control" id="last_name" name="last_name" value="{{$user['last_name']}}" autocomplete="off">
+                    <input type="text" class="form-control" id="lastname" name="lastname" value="{{Auth::user()->lastname}}" autocomplete="off">
                 </div>
                 <div class="form-group col-md-12">
                     <label for="">ที่อยู่ปัจจุบัน</label>
-                    <textarea class="form-control" name="address" id="address" rows="3">{{$user['address']}}</textarea>
+                    <textarea class="form-control" name="address" id="address" rows="3">{{Auth::user()->address}}</textarea>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="">เบอร์โทรติดต่อ</label>
-                    <input type="text" class="form-control" id="phone" name="phone" value="{{$user['phone']}}" autocomplete="off">
+                    <input type="text" class="form-control" id="phone" name="phone" value="{{Auth::user()->phone}}" autocomplete="off">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="">E-mail</label>
-                    <input type="email" class="form-control" id="email" name="email" value="{{$user['email']}}" autocomplete="off">
+                    <input type="email" class="form-control" id="email" name="email" value="{{Auth::user()->email}}" autocomplete="off">
                 </div>
             </div>
             <div class="text-center mt-3 mb-3">
-                <button type="submit" id="save" name="save" class="btn btn-success mr-2"><i class="fas fa-check"></i>&nbsp;&nbsp;บันทึก</button>
-                <a id="deny" class="btn btn-danger text-white"><i class="fas fa-times"></i>&nbsp;&nbsp;ย้อนกลับ</a>
+                <a href="#" id="deny" class="btn btn-danger text-white"><i class="fas fa-undo-alt"></i>&nbsp;&nbsp;ย้อนกลับ</a>
+                <button type="submit" id="save" name="save" class="btn btn-success ml-2"><i class="fas fa-check"></i>&nbsp;&nbsp;บันทึก</button>
             </div>
             <input type="hidden" name="token" value="{{csrf_token()}}">
             <input type="hidden" name="token_refresh" value="{{csrf_token()}}">
