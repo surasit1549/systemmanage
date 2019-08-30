@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use Auth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Hash;
 
 class profileController extends Controller
 {
@@ -13,24 +15,40 @@ class profileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
+    public function viewSignature(Request $request)
+    {
+        $file = Auth::user()->signature;
+        return response()->json(['msg' => $file]);
+    }
+    
+    public function changepassword(Request $request)
+    {
+        $request->merge(['password' => Hash::make($request->password)]);
+        User::find(Auth::id())->update($request->toArray());
+        return redirect()->route('profile.index')->with('msg', 'เปลี่ยนรหัสผ่านเรียนร้อยแล้ว');
+    }
 
+    public function createSignature(Request $request)
+    {
 
-    public function createSignature(Request $request){
- 
-        return response()->json(['msg' => 'Successful']);
         // GET SIGNATURE FROM USER
-        
+
         $data_uri = $request->input('image');
         $encoded_image = explode(",", $data_uri)[1];
         $decoded_image = base64_decode($encoded_image);
+        file_put_contents("signature/test.png", $decoded_image);
 
         // SENT SIGNATURE TO S3
-
+        $img_path = 'https://s3.' . env('AWS_DEFAULT_REGION') . '.amazonaws.com/' . env('AWS_BUCKET') . '/signature/' . Auth::user()->email;
+        $path = "C:/xampp/htdocs/project/public/";
         $s3 = Storage::disk('s3');
-        $s3->put('signature/test', $decoded_image , 'public');
-        
+        $s3->put('signature/' . Auth::user()->email, file_get_contents($path . 'signature/test.png'), 'public');
+        unlink($path .  'signature/test.png');
+        $arr = array("signature" => $img_path);
+        User::find(Auth::id())->update($arr);
 
-
+        return response()->json(['msg' => $img_path]);
     }
 
     public function index()
@@ -56,7 +74,7 @@ class profileController extends Controller
      */
     public function store(Request $request)
     {
-        return response()->json(['msg' => 'success']);
+       
     }
 
     /**
