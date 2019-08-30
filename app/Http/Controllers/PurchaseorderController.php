@@ -15,6 +15,7 @@ use App\proderproduct;
 use App\product;
 use App\number;
 use App\checkkeystore;
+use App\Authorized_person2;
 
 class PurchaseorderController extends Controller
 {

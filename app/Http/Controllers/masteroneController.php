@@ -122,7 +122,7 @@ class masteroneController extends Controller
         if ($date_now->between($date_1, $date_2)) {
             $master_id = Authorized_person1::get('key_person')->toArray();
             foreach($master_id as $row){
-                $key = $row['master'];
+                $key = $row['key_person'];
             }
             $keys = substr($key, 5);
             $num = intval($keys);
@@ -143,7 +143,8 @@ class masteroneController extends Controller
         } else {
             $key = "$str_dates-001";
         }
-        return($date_request);
+
+        return($key);
     }
 
     public function update(Request $request, $id)

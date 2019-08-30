@@ -6,10 +6,10 @@
 
 <div class="card">
   <div class="card-header text-white">
-    <h3><i class="far fa-plus-square"></i>&nbsp;&nbsp;ผู้มีอำนาจคนที่ 1</h3>
+    <h3><i class="far fa-plus-square"></i>&nbsp;&nbsp;ผู้มีอำนาจคนที่ 2</h3>
   </div>
   <div class="card-body">
-    <form method="post" action="{{action('masteroneController@update', $id)}}" class="needs-validation" novalidate>
+    <form method="post" action="{{action('mastertwoController@update', $id)}}" class="needs-validation" novalidate>
         {{csrf_field()}}
       <div class="row">
         <div class="form-group col-md-6">
@@ -90,7 +90,7 @@
       </div>
 
       <div class="form-group text-center">
-        <a class="btn btn-danger" href="{{route('Authorized_person1.index')}}"><i style="font-size:18px" class="fas fa-undo-alt"></i>&nbsp;&nbsp;ย้อนกลับ</a>
+        <a class="btn btn-danger" href="{{route('Authorized_person2.index')}}"><i style="font-size:18px" class="fas fa-undo-alt"></i>&nbsp;&nbsp;ย้อนกลับ</a>
         <button id="subform" type="submit" class="btn btn-success" value="Update"><i class="far fa-save"></i>&nbsp;&nbsp;บันทึก</button>
       </div>
       <input type="hidden" name="_method" value="PATCH" />

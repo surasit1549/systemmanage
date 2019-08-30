@@ -9,6 +9,7 @@ use App\Create_product;
 use App\product_main;
 use App\product_Price;
 use App\Authorized_person1;
+use App\Authorized_person2;
 use Carbon\Carbon;
 
 class mastertwoController extends Controller
@@ -21,8 +22,8 @@ class mastertwoController extends Controller
     public function index()
     {
         $data = Authorized_person1::join('prequests','authorized_person1s.keyPR','prequests.keyPR')->get()->toArray();
-
-        return view('Authorized_person1.index',compact('data'));
+        
+        return view('Authorized_person2.index',compact('data'));
     }
 
     /**
@@ -94,7 +95,7 @@ class mastertwoController extends Controller
                     ];  
         }
         //dd($min);
-        return view('Authorized_person1.edit', compact(
+        return view('Authorized_person2.edit', compact(
                                               'number',
                                               'pr_create',
                                               'min',
@@ -121,9 +122,9 @@ class mastertwoController extends Controller
         $str_date2 = substr($str_date, 2, -6);
         $str_dates = "$str_date1$str_date2";
         if ($date_now->between($date_1, $date_2)) {
-            $master_id = Authorized_person1::get('key_person')->toArray();
+            $master_id = Authorized_person2::get('key_person')->toArray();
             foreach($master_id as $row){
-                $key = $row['master'];
+                $key = $row['key_person'];
             }
             $keys = substr($key, 5);
             $num = intval($keys);
@@ -131,42 +132,101 @@ class mastertwoController extends Controller
             if ($num < 10) {
                 $key_num = strval($num);
                 $key = "$str_dates-00$key_num";
-                //dd($key);
             } elseif ($num < 100) {
                 $key_num = strval($num);
                 $key = "$str_dates-0$key_num";
-                //dd($key);
             } else {
                 $key_num = strval($num);
                 $key = "$str_dates-$key_num";
-                //dd($key);
             }
         } else {
             $key = "$str_dates-001";
         }
-        return($date_request);
+        return($key);
+    }
+
+    function po($date_request,$stores){
+        $date_now = Carbon::now();
+        $date_check1 = new Carbon($date_request);
+        $date_check2 = new Carbon($date_request);
+        $date_1 = $date_check1->startOfMonth();
+        $date_2 = $date_check2->addMonth(1)->startOfMonth();
+        $str_date = $date_now->toDateString();
+        $str_date1 = substr($str_date, 5, -3);
+        $str_date2 = substr($str_date, 2, -6);
+        $str_dates = "$str_date1$str_date2";
+        if ($date_now->between($date_1, $date_2)) {
+            $master_id = Authorized_person2::get('PO_ID')->toArray();
+            foreach($master_id as $row){
+                $key = $row['PO_ID'];
+            }
+            $keys = substr($key, 5);
+            $num = intval($keys);
+            $num++;
+            if ($num < 10) {
+                $key_num = strval($num);
+                $key = "$str_dates-00$key_num";
+            } elseif ($num < 100) {
+                $key_num = strval($num);
+                $key = "$str_dates-0$key_num";
+            } else {
+                $key_num = strval($num);
+                $key = "$str_dates-$key_num";
+            }
+        } else {
+            $key = "$str_dates-001";
+        }
+        return($key);
     }
 
     public function update(Request $request, $id)
     {
-        $data = Authorized_person1::get()->toArray();
+        $data = Authorized_person2::get()->toArray();
+        $date_request = $request->get('date');
+        $store = $request->get('keystore');
+        $lengtharray = sizeof($store);
         if(empty($data)){
-            $date_request = $request->get('date');
             $date_1 = substr($date_request,3,-5);
             $date_2 = substr($date_request,8);
             $carbon = $date_1.$date_2."-001";
-        }else{
-            $date_request = $request->get('date');
-            $carbon = $this->carbon($date_request);
-        }
-        $person1 = new Authorized_person1([
+            $keys = substr($carbon, 5);
+            $num = intval($keys);
+            $key_num = 0;
+            for($i=0; $i<$lengtharray; $i++){
+                $num = $num + $key_num;
+                if ($num < 10) {
+                    $key_num = strval($num);
+                    $PO = "$date_1$date_2-00$key_num";
+                } elseif ($num < 100) {
+                    $key_num = strval($num);
+                    $PO = "$date_1$date_2-0$key_num";
+                } else {
+                    $key_num = strval($num);
+                    $PO = "$date_1$date_2-$key_num";
+                }
+                $master2 = new Authorized_person2([
+                    'PO_ID'          =>$PO,
                     'key_person'     =>$carbon,
                     'keyPR'          =>$request->get('keyPR'),
 
-        ]);
-        $person1->save();
-        return redirect()->route('Authorized_person1.index')->with('success','เรียบร้อย');
+                ]);
+                $master2->save();
+            }
+        }else{
+            for($i=0; $i<$lengtharray; $i++){
+                $stores = $store[$i];
+                $carbon = $this->carbon($date_request);
+                $PO     = $this->po($date_request,$stores);
+                $master2 = new Authorized_person2([
+                    'PO_ID'          =>$PO,
+                    'key_person'     =>$carbon,
+                    'keyPR'          =>$request->get('keyPR'),
 
+                ]);
+                $master2->save();
+            }
+        }
+        return redirect()->route('Authorized_person2.index')->with('success','เรียบร้อย');
     }
 
     /**
