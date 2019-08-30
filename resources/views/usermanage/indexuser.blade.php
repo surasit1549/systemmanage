@@ -56,7 +56,7 @@
                     <td>{{$users['firstname']}}</td>
                     <td>{{$users['lastname']}}</td>
                     <td>{{$users['username']}}</td>
-                    <td>..</td>
+                    <td>{{$users['role']}}</td>
                     <td>
                         <a href="{{action('UsermanageController@edit',$users['id'])}}" data-toggle="tooltip" data-placement="top" title="Edit"><i style="font-size:20px;" class="fas fa-edit text-warning"></i></a>
                         &nbsp;&nbsp;

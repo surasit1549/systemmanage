@@ -141,7 +141,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="form-group text-center">
                 <a class="btn btn-danger" href="{{route('pr_create.index')}}"><i style="font-size:18px" class="fas fa-undo-alt"></i>&nbsp;&nbsp;ย้อนกลับ</a>
                 <button type="submit" class="btn btn-success ml-2" id="subbutton"><i style="font-size:18px" class="far fa-save"></i>&nbsp;&nbsp;บันทึก</button>

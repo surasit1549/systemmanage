@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\User;
-
 class UsermanageController extends Controller
 {
     /**
@@ -37,10 +36,8 @@ class UsermanageController extends Controller
      */
     public function store(Request $request)
     {
-
         $request->merge(['password' => Hash::make($request->password)]);
-        $user = User::create($request->toArray());
-        $user->assignRole($request->role);
+        User::create($request->toArray());
         return redirect()->route('usermanage.index')->with('msg','Success !');
     }
 
@@ -77,6 +74,8 @@ class UsermanageController extends Controller
      */
     public function update(Request $request, $id)
     {
+        User::find($id)->update($request->toArray());
+        return redirect()->route('usermanage.index');
     }
 
     /**

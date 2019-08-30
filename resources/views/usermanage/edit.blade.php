@@ -13,7 +13,7 @@
     <div class="card-header">
         <h3 class="text-white"><i class="far fa-file-alt"></i>&nbsp;&nbsp;แก้ไขข้อมูลผู้ใช้งาน</h3>
     </div>
-    <form id="create_user_form" method="post" action="{{ action('UsermanageController@store') }}">
+    <form id="create_user_form" method="post" action="{{ action('UsermanageController@update',$user['id']) }}">
         {{csrf_field()}}
         <div class="card-body">
             <h3><i class="fas fa-user"></i>&nbsp;&nbsp;รายละเอียดข้อมูลส่วนตัว</h3>
@@ -22,11 +22,11 @@
             <div class="row">
                 <div class="form-group col-md-6">
                     <label for="">ชื่อจริง</label>
-                    <input type="text" class="form-control" id="first_name" name="first_name" value="{{ $user['first_name'] }}" autocomplete="off">
+                    <input type="text" class="form-control" id="firstname" name="firstname" value="{{ $user['firstname'] }}" autocomplete="off">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="">นามสกุล</label>
-                    <input type="text" class="form-control" id="last_name" name="last_name" value="{{ $user['last_name'] }}" autocomplete="off">
+                    <input type="text" class="form-control" id="lastname" name="lastname" value="{{ $user['lastname'] }}" autocomplete="off">
                 </div>
                 <div class="form-group col-md-12">
                     <label for="">ที่อยู่ปัจจุบัน</label>
@@ -41,22 +41,6 @@
                     <input type="email" class="form-control" id="email" name="email" autocomplete="off" value="{{ $user['email'] }}">
                 </div>
             </div>
-            <br>
-            <h3><i class="fas fa-key"></i>&nbsp;&nbsp;ข้อมูลการยืนยันตัวตน</h3>
-            <hr class="line">
-            <br>
-            <div class="form-group">
-                <label for="">Username</label>
-                <input type="text" class="form-control" id="username" name="username" value="{{ $user['username'] }}" autocomplete="off">
-            </div>
-            <div class="form-group">
-                <label for="">Password</label>
-                <input type="password" class="form-control" id="password" value="{{ $user['password'] }}" name="password">
-            </div>
-            <div class="form-group">
-                <label for="">Password Again</label>
-                <input type="password" class="form-control" id="repassword" name="repassword">
-            </div>
             <div class="form-group">
                 <label for="">ตำแหน่ง</label>
                 <select name="role" class="custom-select" id="role">
@@ -69,11 +53,11 @@
             </div>
         </div>
         <div class="text-center mb-3">
-            <button type="submit" id="save" name="save" class="btn btn-success mr-2"><i class="fas fa-check"></i>&nbsp;&nbsp;บันทึก</button>
-            <a id="deny" class="btn btn-danger text-white"><i class="fas fa-times"></i>&nbsp;&nbsp;ยกเลิก</a>
+            <a href="#" id="deny" class="btn btn-danger text-white"><i class="fas fa-undo-alt"></i>&nbsp;&nbsp;ย้อนกลับ</a>
+            <button type="submit" id="save" name="save" class="btn btn-success ml-2"><i class="fas fa-check"></i>&nbsp;&nbsp;บันทึก</button>
         </div>
+        <input type="hidden" name="_method" value="PATCH">
         <input type="hidden" name="token" value="{{csrf_token()}}">
-        <input type="hidden" name="token_refresh" value="{{csrf_token()}}">
         <input type="hidden" name="signature" value="-">
     </form>
 
@@ -83,19 +67,6 @@
                 rules: {
                     first_name: "required",
                     last_name: "required",
-                    username: {
-                        required: true,
-                        minlength: 5
-                    },
-                    password: {
-                        required: true,
-                        minlength: 5
-                    },
-                    repassword: {
-                        required: true,
-                        minlength: 5,
-                        equalTo: "#password"
-                    },
                     role: "required",
                     phone: {
                         required: true,
@@ -107,19 +78,6 @@
                 messages: {
                     first_name: "กรุณากรอกชื่อจริง",
                     last_name: "กรุณากรอกนามสกุล",
-                    username: {
-                        required: "กรุณากรอกชื่อในการเข้าใช้งาน",
-                        minlength: 'ต้องมีอย่างน้อย 5 ตัวอักษร'
-                    },
-                    password: {
-                        required: 'กรุณากรอกพาสเวิร์ด',
-                        minlength: 'ต้องมีอย่างน้อย 5 ตัวอักษร'
-                    },
-                    repassword: {
-                        required: 'กรุณากรอกพาสเวิร์ดอีกครั้ง',
-                        minlength: 'ต้องมีอย่างน้อย 5 ตัวอักษร',
-                        equalTo: "กรอกพาสเวิร์ดให้ตรงกัน"
-                    },
                     role: "กรุณาเลือกตำแหน่ง",
                     email: {
                         required: 'กรุณากรอกอีเมล'
