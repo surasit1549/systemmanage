@@ -231,6 +231,17 @@
             },
             unhighlight: function(element, errorClass, validClass) {
                 $(element).addClass("is-valid").removeClass("is-invalid");
+            },
+            submitHandler: function(form, e) {
+                console.log(form);
+/*                 $.ajax({
+                    type: 'post',
+                    data: {
+                        _token: '{{csrf_token()}}',
+                        password: 'password'
+                    }
+                }) */
+                return true;
             }
         });
 

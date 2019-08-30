@@ -15,13 +15,21 @@ class profileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    
+
+    public function checkpassword(Request $request)
+    {
+        if (Auth::user()->password == Hash::make($request->oldpassword)) {
+            return response()->json(['msg' => true]);
+        }
+        return response()->json(['msg' => false]);
+    }
+
     public function viewSignature(Request $request)
     {
         $file = Auth::user()->signature;
         return response()->json(['msg' => $file]);
     }
-    
+
     public function changepassword(Request $request)
     {
         $request->merge(['password' => Hash::make($request->password)]);
@@ -73,9 +81,7 @@ class profileController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-       
-    }
+    { }
 
     /**
      * Display the specified resource.
