@@ -26,10 +26,11 @@ Route ::resource('pr_create','pr_createController')->middleware('123');
 Route ::resource('Product', 'ProductController')->middleware('123');
 Route ::resource('Product_Price', 'ProductPriceController')->middleware('123');
 Route ::resource('profile','profileController')->middleware('123');
-Route ::resource('Authorized_person1', 'Person1Controller')->middleware('123');
+Route ::resource('Authorized_person1', 'masteroneController')->middleware('123');
+Route ::resource('Authorized_person2', 'mastertwoController')->middleware('123');
 
 // Sent by Ajax
-
+Route::post('profile/createSignature', 'profileController@createSignature');
 Route::post('prequest/index', 'PuchaserequestController@store');
 Route::post('pr_create/index','pr_createController@store');
 //Route::post('prequest/index', 'PuchaserequestController@update');

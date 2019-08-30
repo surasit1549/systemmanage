@@ -52,10 +52,10 @@ class PuchaserequestController extends Controller
                           $row['prequestconvert']
         ];
       }  
-    }
-    $pr_num = sizeof($pr_create);
-    for($i=$pr_num-1; $i>=0; $i--){
-        $PR_creates[] = $PR_create[$i];
+      $pr_num = sizeof($pr_create);
+      for($i=$pr_num-1; $i>=0; $i--){
+          $PR_creates[] = $PR_create[$i];
+      }
     }
     return view('prequest.index', compact(
                                           'number',

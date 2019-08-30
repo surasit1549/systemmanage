@@ -113,14 +113,24 @@
             event.preventDefault();
 
             if (!signaturePad.isEmpty()) {
+                $.ajax({
+                    url: 'profile/createSignature',
+                    type: 'post',
+                    data: {
+                        _token: '{{csrf_token()}}',
+                        image: signaturePad
+                    },
+                    success: function(data) {
+                        console.log(data.msg);
+                    }
+                })
 
-                
-            }else{
+            } else {
                 Swal.fire({
-                  type : 'error',
-                  title : 'กรุณาเซ็นลายเซ็น',
-                  text : 'ไม่สามารถบันทึกได้เนื่องจากยังไม่ได้เซ็นลายเซ็น',
-                  confirmButtonText : 'ตกลง'  
+                    type: 'error',
+                    title: 'กรุณาเซ็นลายเซ็น',
+                    text: 'ไม่สามารถบันทึกได้เนื่องจากยังไม่ได้เซ็นลายเซ็น',
+                    confirmButtonText: 'ตกลง'
                 })
             }
         });
