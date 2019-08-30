@@ -16,8 +16,21 @@ class profileController extends Controller
 
 
     public function createSignature(Request $request){
-        $img = $request->input('img');
-        dd($img);
+ 
+        return response()->json(['msg' => 'Successful']);
+        // GET SIGNATURE FROM USER
+        
+        $data_uri = $request->input('image');
+        $encoded_image = explode(",", $data_uri)[1];
+        $decoded_image = base64_decode($encoded_image);
+
+        // SENT SIGNATURE TO S3
+
+        $s3 = Storage::disk('s3');
+        $s3->put('signature/test', $decoded_image , 'public');
+        
+
+
     }
 
     public function index()
@@ -43,7 +56,7 @@ class profileController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return response()->json(['msg' => 'success']);
     }
 
     /**

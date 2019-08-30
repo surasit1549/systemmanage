@@ -55,9 +55,9 @@ class pr_createController extends Controller
             }
         }
         return view('pr_create.index', compact(
-                                                'pr_create',
-                                                'number',
-                                                'pr_products'
+            'pr_create',
+            'number',
+            'pr_products'
         ));
     }
 
@@ -119,7 +119,7 @@ class pr_createController extends Controller
             }
         }
         //hidden
-        return view('pr_create.create', compact('prequestconvert', 'key','product','unit'));
+        return view('pr_create.create', compact('prequestconvert', 'key', 'product', 'unit'));
     }
 
     /**
@@ -135,8 +135,11 @@ class pr_createController extends Controller
 
         $num = 0;
         $key = $request->input('key');
-        $ID = $request->input('prequestconvert').'-'.$key;
+        $ID = $request->input('prequestconvert') . '-' . $key;
         $lengtharray = sizeof($request->input('productname'));
+
+ 
+
         for ($i = 0; $i < $lengtharray; $i++) {
             $product = new Create_product([
                 'key'               => $ID,

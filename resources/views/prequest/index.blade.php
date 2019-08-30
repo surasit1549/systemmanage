@@ -10,7 +10,7 @@
 @section('content')
 <script>
   $(document).ready(function() {
-    
+
     $('[data-toggle="tooltip"]').tooltip();
 
     $('#prtable').DataTable();
@@ -46,70 +46,51 @@
     </div>
   </div>
   <div class="card-body">
-    <table class="table table-bordered" id="prtable">
-      <thead>
-        <tr>
-          <th style="width:5%">ลำดับ</th>
-          <th style="width:10%">วันที่ขอซื้อ</th>
-          <th style="width:20%">เลขที่เอกสาร</th>
-          <th style="width:10%">ผู้รับเหมา</th>
-          <th style="width:20%">แบบงาน</th>
-          <th style="width:15%">แปลง</th>
-          <th style="width:20%">จัดการ</th>
-        </tr>
-      </thead>
-      <tbody>
-        @if(empty($pr_create))
-          @foreach($pr_create as $row)
+    <div class="table-responsive">
+      <table class="table table-bordered" id="prtable">
+        <thead>
           <tr>
-            <td>{{$number++}}</td>
-            <td>{{$row['date']}}</td>
-            <td>{{$row['key']}}</td>
-            <td>{{$row['contractor']}}</td>
-            <td>{{$row['formwork']}}</td>
-            <td>{{$row['prequestconvert']}}</td>
-            <td colspan="3">
-              <a href="{{action('PuchaserequestController@show',$row['id'])}}" data-toggle="tooltip" data-placement="top" title="View"><i style="font-size:20px;;" class="fas fa-eye text-primary"></i></a>
+            <th scope="col">ลำดับ</th>
+            <th scope="col" class="text-nowrap">วันที่ขอซื้อ</th>
+            <th scope="col" class="text-nowrap">เลขที่เอกสาร</th>
+            <th scope="col" class="text-nowrap">ผู้รับเหมา</th>
+            <th scope="col" class="text-nowrap">แบบงาน</th>
+            <th scope="col">แปลง</th>
+            <th scope="col">สถานะ</th>
+            <th scope="col">จัดการ</th>
+          </tr>
+        </thead>
+        <tbody>
+          @if(empty($pr_create))
+
+          @else
+          @foreach($PR_creates as $row)
+          <tr>
+            <td scope="row">{{$number++}}</td>
+            <td>{{$row[2]}}</td>
+            <td class="text-nowrap">{{$row[1]}}</td>
+            <td>{{$row[3]}}</td>
+            <td class="text-nowrap">{{$row[4]}}</td>
+            <td>{{$row[5]}}</td>
+            <td>สถานะ</td>
+            <td class="text-nowrap">
               &nbsp;&nbsp;
-              <a href="{{action('PuchaserequestController@edit',$row['id'])}}" data-toggle="tooltip" data-placement="top" title="Edit"><i style="font-size:20px;" class="fas fa-edit text-warning"></i></a>
+              <a href="{{action('PuchaserequestController@edit',$row[0])}}" data-toggle="tooltip" data-placement="top" title="แก้ไข"><i style="font-size:20px;" class="fas fa-edit text-warning"></i></a>
               &nbsp;&nbsp;
-              <a href="#" data-toggle="tooltip" data-placement="top" title="Print"><i style="font-size:20px;" class="fas fa-print"></i></a>
+              <a href="#" data-toggle="tooltip" data-placement="top" title="PDF"><i style="font-size:20px" class="text-danger fas fa-file-pdf"></i></a>
               &nbsp;&nbsp;
-              <a class="test" href="#" data-toggle="tooltip" data-placement="top" title="Remove"><i style="font-size:20px;" class="fas fa-trash-alt text-danger"></i></a>
-              <form method="post" class="delete_form" action="{{action('PuchaserequestController@destroy',$row['id'])}}">
+              <a class="test" href="#" data-toggle="tooltip" data-placement="top" title="ยกเลิกใบขอซื้อ"><i style="font-size:20px;" class="text-danger fas fa-times-circle"></i></a>
+              <form method="post" class="delete_form" action="{{action('PuchaserequestController@destroy',$row[0])}}">
                 {{csrf_field()}}
                 <input type="hidden" name="_method" value="DELETE" />
               </form>
             </td>
           </tr>
           @endforeach
-        @else
-          @foreach($PR_creates as $row)
-            <tr>
-              <td>{{$number++}}</td>
-              <td>{{$row[2]}}</td>
-              <td>{{$row[1]}}</td>
-              <td>{{$row[3]}}</td>
-              <td>{{$row[4]}}</td>
-              <td>{{$row[5]}}</td>
-              <td colspan="3">
-                <a href="{{action('PuchaserequestController@show',$row[0])}}" data-toggle="tooltip" data-placement="top" title="View"><i style="font-size:20px;;" class="fas fa-eye text-primary"></i></a>
-                &nbsp;&nbsp;
-                <a href="{{action('PuchaserequestController@edit',$row[0])}}" data-toggle="tooltip" data-placement="top" title="Edit"><i style="font-size:20px;" class="fas fa-edit text-warning"></i></a>
-                &nbsp;&nbsp;
-                <a href="#" data-toggle="tooltip" data-placement="top" title="Print"><i style="font-size:20px;" class="fas fa-print"></i></a>
-                &nbsp;&nbsp;
-                <a class="test" href="#" data-toggle="tooltip" data-placement="top" title="Remove"><i style="font-size:20px;" class="fas fa-trash-alt text-danger"></i></a>
-                <form method="post" class="delete_form" action="{{action('PuchaserequestController@destroy',$row[0])}}">
-                  {{csrf_field()}}
-                  <input type="hidden" name="_method" value="DELETE" />
-                </form>
-              </td>
-            </tr>
-            @endforeach
           @endif
         </tbody>
-    </table>
+      </table>
+    </div>
   </div>
 </div>
 @stop
