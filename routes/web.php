@@ -13,6 +13,7 @@ use phpDocumentor\Reflection\DocBlock\Tags\Uses;
 |
 */
 
+Route::post('profile/changpassword','profileController@changepassword');
 
 Route::resource('store', 'StoreController')->middleware('123');
 //Route ::resource('store','FillinformationController');
@@ -30,6 +31,7 @@ Route ::resource('Authorized_person1', 'masteroneController')->middleware('123')
 Route ::resource('Authorized_person2', 'mastertwoController')->middleware('123');
 
 // Sent by Ajax
+Route::post('profile/viewSignature', 'profileController@viewSignature');
 Route::post('profile/createSignature', 'profileController@createSignature');
 Route::post('prequest/index', 'PuchaserequestController@store');
 Route::post('pr_create/index','pr_createController@store');

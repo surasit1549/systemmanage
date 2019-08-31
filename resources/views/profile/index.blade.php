@@ -18,6 +18,16 @@
 @stop
 @section('content')
 
+
+@if(\Session::has('msg'))
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong><i style="font-size:20px" class="fas fa-check-circle"></i>&nbsp;&nbsp;เปลี่ยนรหัสผ่านสำเร็จ ! </strong>สามารถเข้าระบบครั้งต่อไปโดยใช้รหัสผ่านใหม่ได้ทันที
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+@endif
+
 <div class="card">
     <div class="card-header">
         <h5 class="text-white"><i style="font-size:25px" class="far fa-address-card"></i>&nbsp;&nbsp;ข้อมูลผู้ใช้งาน</h5>
@@ -26,7 +36,7 @@
         <div class="container mb-3">
             <div class="mb-3">
                 <a class="btn btn-success" href="{{route('profile.edit',Auth::id())}}"><i class="fas fa-user-edit"></i>&nbsp;&nbsp;แก้ไขข้อมูลส่วนตัว</a>
-                <button class="btn btn-primary text-white ml-2"><i class="fas fa-key"></i>&nbsp;&nbsp;เปลี่ยนพาสเวิร์ด</button>
+                <button class="btn btn-primary text-white ml-2" data-toggle="modal" data-target="#changepassword"><i class="fas fa-key"></i>&nbsp;&nbsp;เปลี่ยนพาสเวิร์ด</button>
             </div>
             <table class="table table-bordered">
                 <tr>
@@ -65,7 +75,7 @@
                     </th>
                     <td>
                         @if( Auth::user()->signature != '-' )
-                        <button class="btn btn-sm btn-info text-white">ดูลายเซ็น</button>
+                        <button class="btn btn-sm btn-info text-white" id="viewsignature" data-toggle="modal" data-target="#viewsig">ดูลายเซ็น</button>
                         @endif
                         <button data-toggle="modal" data-target="#signature" class="btn btn-sm btn-success ml-1">กำหนด</button>
                     </td>
@@ -73,6 +83,56 @@
             </table>
         </div>
     </div>
+</div>
+
+<div class="modal fade" id="viewsig">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5><i style="font-size:20px" class="fas fa-file-signature"></i>&nbsp;&nbsp;ลายเซ็น</h5>
+                <button class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body" style="background-color:#f1f1f1">
+            </div>
+            <div class="modal-footer">
+                <button data-dismiss="modal" class="btn btn-secondary">ปิด</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="changepassword">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5><i style="font-size:20px" class="fas fa-key"></i>&nbsp;&nbsp;เปลี่ยนพาสเวิร์ด</h5>
+                <button data-dismiss="modal" class="close">&times;</button>
+            </div>
+            <form id="changepassword_form" action="{{url('profile/changpassword')}}" method="post">
+                {{ csrf_field() }}
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="old-password">Password</label>
+                        <input type="password" class="form-control" name="oldpassword" id="old-password">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">New Password</label>
+                        <input type="password" class="form-control" name="password" id="password">
+                    </div>
+                    <div class="form-group">
+                        <label for="passwordagain">New Password again</label>
+                        <input type="password" class="form-control" name="passwordagain" id="passwordagain">
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success"><i class="fas fa-check"></i>&nbsp;&nbsp;ยืนยัน</button>
+                    <a href="#" data-dismiss="modal" class="btn btn-secondary ml-2"><i class="fas fa-times"></i>&nbsp;&nbsp;ยกเลิก</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
@@ -113,15 +173,18 @@
             event.preventDefault();
 
             if (!signaturePad.isEmpty()) {
+
+                $(this).html('<div class="spinner-border spinner-border-sm" role="status"></div>&nbsp;&nbsp;รอสักครู่');
+
                 $.ajax({
                     url: 'profile/createSignature',
                     type: 'post',
                     data: {
                         _token: '{{csrf_token()}}',
-                        image: signaturePad
+                        image: signaturePad.toDataURL()
                     },
                     success: function(data) {
-                        console.log(data.msg);
+                        location.reload();
                     }
                 })
 
@@ -135,6 +198,64 @@
             }
         });
 
+
+
+        $('#changepassword_form').validate({
+            rules: {
+                oldpassword: 'required',
+                password: 'required',
+                passwordagain: {
+                    'required': true,
+                    'equalTo': '#password'
+                }
+            },
+            messages: {
+                oldpassword: {
+                    'required': 'กรอกรหัสผ่านเก่า'
+                },
+                password: {
+                    'required': 'กรอกรหัสผ่านใหม่'
+                },
+                passwordagain: {
+                    'required': 'กรอกรหัสผ่านใหม่อีกครั้ง',
+                    'equalTo': 'กรอกรหัสผ่านให้ตรงกัน'
+                }
+            },
+            errorPlacement: function(error, element) {
+                // Add the `invalid-feedback` class to the error element
+                error.addClass("invalid-feedback");
+                error.insertAfter(element);
+            },
+            highlight: function(element, errorClass, validClass) {
+                $(element).addClass("is-invalid").removeClass("is-valid");
+            },
+            unhighlight: function(element, errorClass, validClass) {
+                $(element).addClass("is-valid").removeClass("is-invalid");
+            },
+            submitHandler: function(form, e) {
+                console.log(form);
+/*                 $.ajax({
+                    type: 'post',
+                    data: {
+                        _token: '{{csrf_token()}}',
+                        password: 'password'
+                    }
+                }) */
+                return true;
+            }
+        });
+
+
+        $('#changepassword').on('shown.bs.modal', function() {
+            $(this).find('#old-password').focus();
+        }).on('hide.bs.modal', function() {
+            $(this).find('input').val('');
+            var $alertas = $('#changepassword_form');
+            $alertas.validate().resetForm();
+            $alertas.find('input').removeClass('is-invalid is-valid');
+        });;
+
+
         $('#clearsig').click(function() {
             event.stopPropagation();
             event.preventDefault();
@@ -144,6 +265,21 @@
         $('#signature').on('hide.bs.modal', function() {
             signaturePad.clear();
         });
+
+        $('#viewsig').on('show.bs.modal', function() {
+            var mod = $(this).find('.modal-body');
+            $.ajax({
+                type: 'POST',
+                url: 'profile/viewSignature',
+                data: {
+                    _token: "{{csrf_token()}}"
+                },
+                success: function(data) {
+                    mod.html('<img src="' + data.msg + '"></img>');
+                }
+            });
+        });
+
         // End Signature
     });
 </script>
