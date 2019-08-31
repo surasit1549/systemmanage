@@ -21,23 +21,23 @@
           <th>ชื่อเลขที่เอกสาร PO</th>
           <th>ชื่อเลขที่เอกสาร PR</th>
           <th>วันที่ใบสั่งซื้อ</th>
-          <th>แปลง</th>
           <th>พิมพ์</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          @foreach($prporders as $row)
-            <td>{{$number++}}</td>
-            <td>        
-              
-            </td>
-            <td>{{$row[1]}}</td>
-            <td>{{$row[3]}}</td>
-            <td>{{$row[2]}}</td>
-            <td><a href="{{action('PurchaseorderController@show',$row[0])}}" data-toggle="tooltip" data-placement="top" title="View"><i style="font-size:20px;;" class="fas fa-eye text-primary"></i></a></td>
-        </tr>
-        @endforeach
+        @if(empty($data))
+
+        @else
+          <tr>
+            @foreach($data as $row)
+              <td>{{$number++}}</td>
+              <td>{{$row['PO_ID']}}</td>
+              <td>{{$row['keyPR']}}</td>
+              <td>{{substr($row['created_at'],0,-9)}}</td>
+              <td><a href="{{action('PurchaseorderController@show',$row['id'])}}" data-toggle="tooltip" data-placement="top" title="View"><i style="font-size:20px;;" class="fas fa-eye text-primary"></i></a></td>
+          </tr>
+          @endforeach
+        @endif
     </table>
   </div>
 </div>

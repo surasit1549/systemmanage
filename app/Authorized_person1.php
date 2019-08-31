@@ -10,4 +10,5 @@ class Authorized_person1 extends Model
         'key_person',
         'keyPR'
     ];
+
 }

@@ -161,19 +161,6 @@ class PuchaserequestController extends Controller
    */
   public function update(Request $request, $id)
   {
-    $lengtharray = sizeof($request->get('Product_name'));
-    for($i=0; $i<$lengtharray; $i++){
-      $pr_store = new pr_store([
-                'keyPR'         =>$request->get('keyPR'),
-                'Product_name'  =>$request->get('Product_name')[$i],
-                'Product_number'=>$request->get('Product_number')[$i],
-                'unit'          =>$request->get('unit')[$i],
-                'keystore'      =>$request->get('keystore')[$i],
-                'price'         =>$request->get('price')[$i],
-                'product_sum'   =>$request->get('product_sum')[$i]
-      ]);
-      $pr_store->save();
-    }
     $prequest = new prequest([
                 'keyPR'             =>$request->get('keyPR'),
                 'date'              =>$request->get('date'),

@@ -15,6 +15,7 @@ class CreatePrStoresTable extends Migration
     {
         Schema::create('pr_stores', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('PO_ID');
             $table->string('keyPR');
             $table->string('Product_name');
             $table->integer('Product_number');
@@ -22,6 +23,7 @@ class CreatePrStoresTable extends Migration
             $table->string('keystore');
             $table->integer('price');
             $table->integer('product_sum');
+            $table->unsignedMediumInteger('sumofprice');
             $table->timestamps();
         });
     }

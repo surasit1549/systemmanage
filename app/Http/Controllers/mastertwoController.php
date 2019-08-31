@@ -11,6 +11,8 @@ use App\product_Price;
 use App\Authorized_person1;
 use App\Authorized_person2;
 use Carbon\Carbon;
+use App\porder;
+use App\pr_store;
 
 class mastertwoController extends Controller
 {
@@ -22,7 +24,7 @@ class mastertwoController extends Controller
     public function index()
     {
         $data = Authorized_person1::join('prequests','authorized_person1s.keyPR','prequests.keyPR')->get()->toArray();
-        
+       
         return view('Authorized_person2.index',compact('data'));
     }
 
@@ -181,6 +183,7 @@ class mastertwoController extends Controller
 
     public function update(Request $request, $id)
     {
+        
         $data = Authorized_person2::get()->toArray();
         $date_request = $request->get('date');
         $store = $request->get('keystore');
@@ -204,13 +207,33 @@ class mastertwoController extends Controller
                     $key_num = strval($num);
                     $PO = "$date_1$date_2-$key_num";
                 }
+
                 $master2 = new Authorized_person2([
                     'PO_ID'          =>$PO,
                     'key_person'     =>$carbon,
                     'keyPR'          =>$request->get('keyPR'),
-
                 ]);
                 $master2->save();
+
+                $porder = new porder([
+                    'PO_ID'         =>$PO,
+                    'keyPR'         =>$request->get('keyPR'),
+                    'store_ID'      =>$request->get('keystore')[$i],
+                ]);
+                $porder->save();
+
+                $pr_store = new pr_store([
+                    'PO_ID'         =>$PO,
+                    'keyPR'         =>$request->get('keyPR'),
+                    'Product_name'  =>$request->get('Product_name')[$i],
+                    'Product_number'=>$request->get('Product_number')[$i],
+                    'unit'          =>$request->get('unit')[$i],
+                    'keystore'      =>$request->get('keystore')[$i],
+                    'price'         =>$request->get('price')[$i],
+                    'product_sum'   =>$request->get('product_sum')[$i],
+                    'sumofprice'    =>$request->get('sum'),
+                ]);
+                $pr_store->save();
             }
         }else{
             for($i=0; $i<$lengtharray; $i++){
@@ -221,9 +244,27 @@ class mastertwoController extends Controller
                     'PO_ID'          =>$PO,
                     'key_person'     =>$carbon,
                     'keyPR'          =>$request->get('keyPR'),
-
                 ]);
                 $master2->save();
+
+                $porder = new porder([
+                    'PO_ID'         =>$PO,
+                    'keyPR'         =>$request->get('keyPR'),
+                    'store_ID'      =>$request->get('keystore')[$i],
+                ]);
+                $porder->save();
+
+                $pr_store = new pr_store([
+                    'keyPR'         =>$request->get('keyPR'),
+                    'Product_name'  =>$request->get('Product_name')[$i],
+                    'Product_number'=>$request->get('Product_number')[$i],
+                    'unit'          =>$request->get('unit')[$i],
+                    'keystore'      =>$request->get('keystore')[$i],
+                    'price'         =>$request->get('price')[$i],
+                    'product_sum'   =>$request->get('product_sum')[$i],
+                    'sumofprice'    =>$request->get('sum'),
+                ]);
+                $pr_store->save();
             }
         }
         return redirect()->route('Authorized_person2.index')->with('success','เรียบร้อย');
