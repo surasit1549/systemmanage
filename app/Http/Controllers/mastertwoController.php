@@ -171,6 +171,7 @@ class mastertwoController extends Controller
         //dd($min);
         $data = Authorized_person2::get()->toArray();
         $lengt = sizeof($min);
+        $store = Store::get()->toArray();
         $date_request = $pr_create['date'];
         if(empty($data)){
             $date_1 = substr($date_request,3,-5);
