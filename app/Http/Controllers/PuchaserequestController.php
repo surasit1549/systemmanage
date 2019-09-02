@@ -95,7 +95,6 @@ class PuchaserequestController extends Controller
   {
     $number=1;
     $db = Create_product::get()->toArray();
-    //dd($db[0]['key']);
     $pr_create = PR_create::find($id)->toArray();
     $productdb = Create_product::where('key',$pr_create['key'])->get()->toArray();
     //dd($productdb);

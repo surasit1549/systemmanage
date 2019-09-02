@@ -3,6 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\prequest;
+use App\transform;
+use App\store;
+use App\product;
+use vendor\autoload;
+use App\porder;
+
+use App\Create_product;
+use App\PR_create;
+use App\product_Price;
+use App\product_main;
+use App\pr_store;
 
 class CheckController extends Controller
 {
@@ -13,7 +25,10 @@ class CheckController extends Controller
      */
     public function index()
     {
-        return view('check.index');
+        $number = 1;
+        $data = porder::get()->toArray();
+        return view('check.index',compact('data','number'));
+ 
     }
 
     /**
@@ -56,7 +71,19 @@ class CheckController extends Controller
      */
     public function edit($id)
     {
-        //
+        $number=1;
+        $db = Create_product::get()->toArray();
+        dd($db);
+        $pr_create = PR_create::find($id)->toArray();
+        $productdb = Create_product::where('key',$pr_create['key'])->get()->toArray();
+        //dd($productdb);
+        return view('check.edit', compact(
+                                            'number',
+                                            'id',
+                                            'productdb',
+                                            'pr_create'
+
+        ));
     }
 
     /**
