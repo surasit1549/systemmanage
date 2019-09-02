@@ -99,13 +99,15 @@ class CheckController extends Controller
         $length = sizeof($lengthArray);
         for($i=0; $i<$length; $i++){
             if($check === 'on'){
-                $data = [
-                    $request->get('check'),
-                    $request->get('product')
-                ];
+                $a[] =  $request->get('check');
+                $b[] =  $request->get('product');
+            }else{
+                $a[] = "ไม่ครบ";
+                $b[] = '';
             }
         }
-        dd($data);
+        $sum =[$a,$b];
+        dd($sum);
     }
 
     /**

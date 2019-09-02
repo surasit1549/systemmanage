@@ -10,7 +10,8 @@ class porder extends Model
     protected $fillable=[
         'PO_ID',
         'keyPR',
-        'store_ID'
+        'store_ID',
+        'status'
     ];
 
 }

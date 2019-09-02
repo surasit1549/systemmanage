@@ -115,11 +115,27 @@
           </tr>
         </tfoot>
       </table>
-  </div>
+      
+      <div class="form-group col-md-8">
+        <label>key master</label>
+        <input type="text" name="key_person" class="form-control" value="{{$carbon}}" autocomplete="off" required>
+      </div>
 
-  <div class="form-group text-center">
-    <a class="btn btn-danger" href="{{route('Authorized_person2.index')}}"><i style="font-size:18px" class="fas fa-undo-alt"></i>&nbsp;&nbsp;ย้อนกลับ</a>
-    <button id="subform" type="submit" class="btn btn-success ml-2" value="Update"><i style="font-size:18px" class="fas fa-save"></i>&nbsp;&nbsp;บันทึก</button>
+      <table class="table table-hover table-bordered border-dark table-border-dark">
+        <thead>
+            <tr class="text-center">
+              <th >ชื้อร้านค้า</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach($PO as $row)
+              <tr>
+                <td ><input type="text" name="PO_ID[]" class="form-control productname border-0" value="{{$row}}" required></label></td>
+              </tr>
+            @endforeach
+          </tbody>
+      </table>
+    </form>
   </div>
   <input type="hidden" name="_method" value="PATCH" />
 
