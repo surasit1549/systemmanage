@@ -1,5 +1,28 @@
 @extends('Home.master')
 @section('title','ข้อมูลใบสั่งซื้อ PO')
+@section('tabbarcss')
+<style>
+  .main_detail_po {
+    width: 100%;
+    border: 1px solid black;
+  }
+
+
+  .detail_po {
+    padding: 10px;
+    font-size: 18px;
+  }
+
+  .detail_po td,
+  .detail_po th {
+    padding: 10px;
+  }
+
+  .pd_table {
+    padding: 20px;
+  }
+</style>
+@stop
 @section('content')
 <div class="container">
   <div class="card">
@@ -7,20 +30,18 @@
       <h3><i class="far fa-file-alt"></i>&nbsp;&nbsp;ข้อมูลใบสั่งซื้อ</h3>
     </div>
     <div class="card-body">
-    <form method="post" action="{{action('PurchaseorderController@show', $id)}}">
+      <form method="post" action="{{action('PurchaseorderController@show', $id)}}">
         {{csrf_field()}}
         <div class='text-right'>
           <button class="btn btn-lg btn-primary"><i class="fas fa-print"></i>&nbsp;&nbsp;พิมพ์เอกสาร</button>
         </div>
-
         <hr>
-
         <div class="container">
           <table class="table table-borderless">
             <tr>
               <th> ผู้ขาย :</th>
               <td>
-                {{$store[0]['name']}}&nbsp;&nbsp; [ {{$store[0]['keystore']}} ] 
+                {{$store[0]['name']}}&nbsp;&nbsp; [ {{$store[0]['keystore']}} ]
               </td>
               <th> วันที่เอกสาร :</th>
               <td>
@@ -32,7 +53,7 @@
               <td>
                 {{$store[0]['address']}}
               </td>
-              <th>  ผู้ติดต่อ : </th>
+              <th> ผู้ติดต่อ : </th>
               <td>
                 {{$store[0]['contect']}} &nbsp;&nbsp; {{$store[0]['cellphone']}}
               </td>
@@ -60,7 +81,7 @@
             <tr>
               <th> </th>
               <td> </td>
-              <th> เงื่อนไขการชำระ :  </th>
+              <th> เงื่อนไขการชำระ : </th>
               <td>
 
               </td>
@@ -81,14 +102,14 @@
           </thead>
           <tbody>
             @foreach($data as $row)
-              <tr>
-                <td class="text-center"><label class="col-form-label">{{$number++}}</label></td>
-                <td class="text-center result"><label  class="form-control productname border-0" value="{{$row['Product_name']}}" name="" required>{{$row['Product_name']}}</label>
-                <td class="text-center result"><label  class="form-control productnumber border-0" value="{{$row['Product_number']}}" name="" required>{{$row['Product_number']}}</label></td>
-                <td class="text-center result"><label  class="form-control unit border-0" value="{{$row['unit']}}" name="" required>{{$row['unit']}}</label>
-                <td class="text-center result"><label  class="form-control price border-0" value="{{$row['price']}}" required>{{$row['price']}}</label></td>
-                <td class="text-center result"><label  class="sum col-form-label border-0" value="{{$row['product_sum']}}" required>{{$row['product_sum']}}</label></td>
-              </tr>
+            <tr>
+              <td class="text-center"><label class="col-form-label">{{$number++}}</label></td>
+              <td class="text-center result"><label class="form-control productname border-0" value="{{$row['Product_name']}}" name="" required>{{$row['Product_name']}}</label>
+              <td class="text-center result"><label class="form-control productnumber border-0" value="{{$row['Product_number']}}" name="" required>{{$row['Product_number']}}</label></td>
+              <td class="text-center result"><label class="form-control unit border-0" value="{{$row['unit']}}" name="" required>{{$row['unit']}}</label>
+              <td class="text-center result"><label class="form-control price border-0" value="{{$row['price']}}" required>{{$row['price']}}</label></td>
+              <td class="text-center result"><label class="sum col-form-label border-0" value="{{$row['product_sum']}}" required>{{$row['product_sum']}}</label></td>
+            </tr>
             @endforeach
           </tbody>
           <tfoot>
@@ -107,6 +128,79 @@
     </div>
   </div>
 </div>
+
+
+<div>
+  <div>
+    <div style="position:absolute;left:60px">
+      <img src="{{asset('pic/store.png')}}" alt="pic">
+    </div>
+    <div style="text-align:center">
+      <h4>{{ $store_mine[0]->name }}</h4>
+      <h5>{{ $store_mine[0]->address }}</h5>
+      <h5>{{ $store_mine[0]->phone }}</h5>
+    </div>
+    <div style="text-align:center;top:20px;position:relative">
+      <h4>ใบสั่งซื้อ</h4>
+    </div>
+    <div style="border:2px solid black;position:absolute;right:200px;padding:10px;">
+      <h5>เลขที่เอกสาร PO </h5>
+    </div>
+  </div>
+  <br>
+  <br>
+  <div class="pd_table">
+    <table class="main_detail_po">
+      <tr>
+        <td>
+          <table class="detail_po">
+            <tr>
+              <th>ผู้ขาย :</th>
+              <td>{{$store[0]['name']}}&nbsp;&nbsp; [ {{$store[0]['keystore']}} ]</td>
+            </tr>
+            <tr>
+              <th>โทรศัทพ์ :</th>
+              <td>{{$store[0]['phone']}}</td>
+            </tr>
+            <tr>
+              <th>ที่อยู่ :</th>
+              <td>{{$store[0]['address']}}</td>
+            </tr>
+            <tr>
+              <th>โทรสาร :</th>
+              <td>{{$store[0]['fax']}}</td>
+            </tr>
+          </table>
+        </td>
+        <td>
+          <table class="detail_po">
+            <tr>
+              <th>วันที่เอกสาร :</th>
+              <td> {{substr($data[0]['created_at'],0,-9)}}</td>
+            </tr>
+            <tr>
+              <th>ผู้ติดต่อ :</th>
+              <td>{{$store[0]['contect']}} &nbsp;&nbsp; {{$store[0]['cellphone']}}</td>
+            </tr>
+            <tr>
+              <th>วันที่กำหนดส่ง :</th>
+              <td>ผู้ขาย</td>
+            </tr>
+            <tr>
+              <th>จำนวนเครดิต :</th>
+              <td>ผู้ขาย</td>
+              <th>วัน</th>
+            </tr>
+            <tr>
+              <th>เงื่อนไขการชำระ :</th>
+              <td>ผู้ขาย</td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </div>
 </div>
-</div>
+
+
 @endsection

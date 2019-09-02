@@ -10,13 +10,13 @@
         <div class="form-group">
           <table style="width:100%">
             <tr>
-                <td>ชื่อแปลง :</td>
-                <td><input type="text" class="form-control"/></td>
+              <td>ชื่อแปลง :</td>
+              <td><input type="text" class="form-control" /></td>
             </tr>
             <tr>
               <div class="form-group">
                 <td>ขนาด :</td>
-                <td><input type="text" class="form-control"  /></td>
+                <td><input type="text" class="form-control" /></td>
               </div>
             </tr>
           </table>
@@ -28,4 +28,6 @@
     </div>
   </div>
 </div>
+
+
 @endsection

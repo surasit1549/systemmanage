@@ -11,21 +11,6 @@
     box-shadow: none;
   }
 
-  .main_detail_po {
-    width: 100%;
-    border: 1px solid black;
-  }
-
-
-  .detail_po {
-    padding: 10px;
-    font-size: 18px;
-  }
-
-  .detail_po td,
-  .detail_po th {
-    padding: 10px;
-  }
 </style>
 @stop
 @section('content')
@@ -115,7 +100,7 @@
           </tr>
         </tfoot>
       </table>
-      
+
       <div class="form-group col-md-8">
         <label>key master</label>
         <input type="text" name="key_person" class="form-control" value="{{$carbon}}" autocomplete="off" required>
@@ -123,88 +108,21 @@
 
       <table class="table table-hover table-bordered border-dark table-border-dark">
         <thead>
-            <tr class="text-center">
-              <th >ชื้อร้านค้า</th>
-            </tr>
-          </thead>
-          <tbody>
-            @foreach($PO as $row)
-              <tr>
-                <td ><input type="text" name="PO_ID[]" class="form-control productname border-0" value="{{$row}}" required></label></td>
-              </tr>
-            @endforeach
-          </tbody>
+          <tr class="text-center">
+            <th>ชื้อร้านค้า</th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach($PO as $row)
+          <tr>
+            <td><input type="text" name="PO_ID[]" class="form-control productname border-0" value="{{$row}}" required></label></td>
+          </tr>
+          @endforeach
+        </tbody>
       </table>
     </form>
   </div>
   <input type="hidden" name="_method" value="PATCH" />
-
-  <br><br><br>
-
-  <div>
-    <div style="text-align:center">
-      <div>
-        <img src="{{asset('pic/store.png')}}" alt="pic">
-      </div>
-      <br>
-      <h4>{{ $store[0]->name }}</h4>
-      <h5>{{ $store[0]->address }}</h5>
-      <h5>{{ $store[0]->phone }}</h5>
-      <h5>ใบสั่งซื้อ</h5>
-    </div>
-    <table class="main_detail_po">
-      <tr>
-        <td>
-          <table class="detail_po">
-            <tr>
-              <th>ผู้ขาย :</th>
-              <td>{{$stores[0]['name']}}</td>
-            </tr>
-            <tr>
-              <th>โทรศัทพ์ :</th>
-              <td>ผู้ขาย</td>
-            </tr>
-            <tr>
-              <th>ที่อยู่ :</th>
-              <td>ผู้ขาย</td>
-            </tr>
-            <tr>
-              <th>โทรสาร :</th>
-              <td>ผู้ขาย</td>
-            </tr>
-          </table>
-        </td>
-        <td>
-          <table class="detail_po">
-            <tr>
-              <th>วันที่เอกสาร :</th>
-              <td>ผู้ขาย</td>
-            </tr>
-            <tr>
-              <th>ผู้ติดต่อ :</th>
-              <td>ผู้ขาย</td>
-            </tr>
-            <tr>
-              <th>วันที่กำหนดส่ง :</th>
-              <td>ผู้ขาย</td>
-            </tr>
-            <tr>
-              <th>จำนวนเครดิต :</th>
-              <td>ผู้ขาย</td>
-              <th>วัน</th>
-            </tr>
-            <tr>
-              <th>เงื่อนไขการชำระ :</th>
-              <td>ผู้ขาย</td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-    </table>
-  </div>
-
-
-
 
 
   <br><br><br><br>
@@ -223,11 +141,11 @@
     <tbody>
       @foreach($stores as $row)
       <tr>
-        <td><input type="text" name="name[]" class="form-control productname border-0" value="{{$row[0]['name']}}" required></label></td>
-        <td><input type="text" name="keystore[]" min="1" class="form-control productnumber border-0" value="{{$row[0]['keystore']}}" required></label></td>
-        <td><input type="text" name="address[]" class="form-control unit border-0" value="{{$row[0]['address']}}" required></label></td>
+        <td><input type="text" name="name[]" class="form-control productname border-0" value="{{$row[0]['name']}}" required></td>
+        <td><input type="text" name="keystore[]" min="1" class="form-control productnumber border-0" value="{{$row[0]['keystore']}}" required></td>
+        <td><input type="text" name="address[]" class="form-control unit border-0" value="{{$row[0]['address']}}" required></td>
         <td><input type="text" name="phone[]" class="form-control keystore" value="{{$row[0]['phone']}}" required></td>
-        <td><input type="text" name="fax[]" min="1" class="form-control price border-0" value="{{$row[0]['fax']}}" required></label></td>
+        <td><input type="text" name="fax[]" min="1" class="form-control price border-0" value="{{$row[0]['fax']}}" required></td>
         <td><input type="text" name="contect[]" min="1" class="sum col-form-label border-0" value="{{$row[0]['contect']}}" required></td>
         <td><input type="text" name="cellphone[]" min="1" class="sum col-form-label border-0" value="{{$row[0]['cellphone']}}" required></td>
       </tr>

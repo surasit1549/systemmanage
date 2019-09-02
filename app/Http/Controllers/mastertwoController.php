@@ -196,19 +196,21 @@ class mastertwoController extends Controller
             }
         }else{
             for($i=0; $i<$lengt; $i++){
-                $stores = $store[$i];
                 $carbon = $this->carbon($date_request);
                 $PO[]     = $this->po($date_request,$stores);
 
             }
         }
-        //dd($PO);
+        //dd($store);
+        $store_mine = Store::where('keystore','master')->get();
         return view('Authorized_person2.edit', compact(
+            
                                               'number',
                                               'pr_create',
                                               'min',
                                               'sum',
                                               'stores',
+                                              'store_mine',
                                               'PO',
                                               'carbon',
                                               'id'));
