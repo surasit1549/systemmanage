@@ -122,7 +122,26 @@
             @endforeach
           </tbody>
       </table>
+      
+      <div class="form-group col-md-8">
+        <label>key master</label>
+        <input type="text" name="key_person" class="form-control" value="{{$carbon}}" autocomplete="off" required>
+      </div>
 
+      <table class="table table-hover table-bordered border-dark table-border-dark">
+        <thead>
+            <tr class="text-center">
+              <th >ชื้อร้านค้า</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach($PO as $row)
+              <tr>
+                <td ><input type="text" name="PO_ID[]" class="form-control productname border-0" value="{{$row}}" required></label></td>
+              </tr>
+            @endforeach
+          </tbody>
+      </table>
     </form>
   </div>
 @endsection

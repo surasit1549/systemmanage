@@ -18,6 +18,7 @@ class CreatePordersTable extends Migration
             $table->string('PO_ID');
             $table->string('keyPR');
             $table->string('store_ID');
+            $table->string('status');
             $table->timestamps();
         });
     }
