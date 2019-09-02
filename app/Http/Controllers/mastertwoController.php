@@ -13,6 +13,7 @@ use App\Authorized_person2;
 use Carbon\Carbon;
 use App\porder;
 use App\pr_store;
+use App\Store;
 
 class mastertwoController extends Controller
 {
@@ -95,6 +96,7 @@ class mastertwoController extends Controller
                     $product_min_price[$i][0]['Price'],
                     $products_sum[0],
                     ];  
+          $stores[] = Store::where('keystore',$product_min_price[$i][0]['Store'])->get()->toArray();
         }
         //dd($min);
         return view('Authorized_person2.edit', compact(
@@ -102,6 +104,7 @@ class mastertwoController extends Controller
                                               'pr_create',
                                               'min',
                                               'sum',
+                                              'stores',
                                               'id'));
     }
 

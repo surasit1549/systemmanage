@@ -73,7 +73,6 @@ class CheckController extends Controller
     {
         $number=1;
         $db = Create_product::get()->toArray();
-        dd($db);
         $pr_create = PR_create::find($id)->toArray();
         $productdb = Create_product::where('key',$pr_create['key'])->get()->toArray();
         //dd($productdb);
@@ -95,7 +94,18 @@ class CheckController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $check = $request->get('check');
+        $lengthArray = $request->get('product');
+        $length = sizeof($lengthArray);
+        for($i=0; $i<$length; $i++){
+            if($check === 'on'){
+                $data = [
+                    $request->get('check'),
+                    $request->get('product')
+                ];
+            }
+        }
+        dd($data);
     }
 
     /**

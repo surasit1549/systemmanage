@@ -70,10 +70,10 @@
           <tbody>
           @foreach($productdb as $row)
               <tr>
-                <td>{{$number++}}</td>
-                <td>{{$row['productname']}}</td>
-                <td>{{$row['productnumber']}}</td>
-                <td>{{$row['unit']}}</td>
+                <td class="text-center"><input type="checkbox" name="check"></td>
+                <td class="text-center result"><input type="text" name="product" value="{{$row['productname']}}"></td>
+                <td class="text-center result">{{$row['productnumber']}}</td>
+                <td class="text-center result">{{$row['unit']}}</td>
               </tr>
               @endforeach
           </tbody>
@@ -81,7 +81,9 @@
         <br>
         <div class="text-center">
           <a class="btn btn-danger" onclick="window.history.back()" href="#"><i class="fas fa-undo"></i>&nbsp;&nbsp;ย้อนกลับ</a>
+          <button id="subform" type="submit" class="btn btn-success" value="Update"><i class="far fa-save"></i>&nbsp;&nbsp;บันทึก</button>
         </div>
+        <input type="hidden" name="_method" value="PATCH" />
       </form>
     </div>
   </div>
