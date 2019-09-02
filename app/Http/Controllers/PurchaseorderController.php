@@ -20,6 +20,7 @@ class PurchaseorderController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+
     public function index()
     {  
         $number = 1;

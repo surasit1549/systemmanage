@@ -25,18 +25,19 @@
         </tr>
       </thead>
       <tbody>
-        @if(empty($data))
-
-        @else
-          <tr>
-            @foreach($data as $row)
-              <td>{{$number++}}</td>
-              <td>{{$row['PO_ID']}}</td>
-              <td>{{$row['keyPR']}}</td>
-              <td>{{substr($row['created_at'],0,-9)}}</td>
-              <td><a href="{{action('PurchaseorderController@show',$row['id'])}}" data-toggle="tooltip" data-placement="top" title="View"><i style="font-size:20px;;" class="fas fa-eye text-primary"></i></a></td>
-          </tr>
-          @endforeach
+        @if(!empty($data))
+        <tr>
+          @foreach($data as $row)
+          <td>{{$number++}}</td>
+          <td>{{$row['PO_ID']}}</td>
+          <td>{{$row['keyPR']}}</td>
+          <td>{{substr($row['created_at'],0,-9)}}</td>
+          <td>
+            <a href="{{action('PurchaseorderController@show',$row['id'])}}" data-toggle="tooltip" data-placement="top" title="View"><i style="font-size:20px" class="fas fa-eye text-primary"></i></a>
+            <a class="ml-2" href="{{action('PurchaseorderController@show',$row['id'])}}" data-toggle="tooltip" data-placement="top" title="PDF"><i style="font-size:20px" class="text-danger fas fa-file-pdf"></i></a>
+          </td>
+        </tr>
+        @endforeach
         @endif
     </table>
   </div>

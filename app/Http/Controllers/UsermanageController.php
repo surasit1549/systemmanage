@@ -18,6 +18,11 @@ class UsermanageController extends Controller
         return view('usermanage.indexuser',compact('user'));
     }
 
+    public function makepdf()
+    {
+
+    }
+
     /**
      * Show the form for creating a new resource.
      *

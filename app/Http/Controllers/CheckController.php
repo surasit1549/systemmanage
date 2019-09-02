@@ -71,18 +71,17 @@ class CheckController extends Controller
      */
     public function edit($id)
     {
-        $number=1;
-        $data = porder::find($id)->toArray();
-        $db = Create_product::get()->toArray();
-        $pr_create = PR_create::find($id)->toArray();
-        $productdb = Create_product::where('key',$pr_create['key'])->get()->toArray();
+        $number = 1;
+        $po_id = porder::find($id);
+        $data = pr_store::where('PO_ID',$po_id['PO_ID'])->get()->toArray();
+        $store = Store::where('keystore',$po_id['store_ID'])->get()->toArray();
         //dd($productdb);
-        return view('check.edit', compact(
-                                            'number',
-                                            'id',
-                                            'productdb',
-                                            'pr_create'
-
+        return view('porder.show', compact(
+                                    'po_id',
+                                    'data',
+                                    'store',
+                                    'number',
+                                    'id'
         ));
     }
 
