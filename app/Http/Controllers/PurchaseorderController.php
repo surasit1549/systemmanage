@@ -62,11 +62,17 @@ class PurchaseorderController extends Controller
         $po_id = porder::find($id);
         $data = pr_store::where('PO_ID',$po_id['PO_ID'])->get()->toArray();
         $store = Store::where('keystore',$po_id['store_ID'])->get()->toArray();
+<<<<<<< HEAD
         //dd($po_id);
+=======
+        //dd($data);
+        $store_mine = Store::where('keystore','master')->get();
+>>>>>>> 4e7e9310e900022b7d494e76e33503c219f9b7fc
         return view('porder.show', compact(
                                             'po_id',
                                             'data',
                                             'store',
+                                            'store_mine',
                                             'number',
                                             'id'
         ));
