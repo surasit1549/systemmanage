@@ -72,9 +72,7 @@
           <input type="text" name="prequestconvert" class="form-control" value="{{$pr_create['prequestconvert']}}" required>
         </div>
       </div>
-<<<<<<< HEAD
       <input type="hidden" name="_method" value="PATCH" />
-=======
       <!-- สินค้าที่ขอสั่งซื้อ -->
       <br>
 
@@ -138,7 +136,6 @@
             @endforeach
           </tbody>
       </table>
->>>>>>> d5758df6a49c3036d72b2881a7f1c0d50610fbda
     </form>
   </div>
   <input type="hidden" name="_method" value="PATCH" />
