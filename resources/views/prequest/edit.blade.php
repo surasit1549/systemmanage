@@ -78,7 +78,7 @@
           <tr>
             <th></th>
             <th class="text-right" colspan="4">รวมเป็นเงิน</th>
-            <th class="text-center"><label type="number" name="sum" id="sumofprice" class="text-danger" value="{{$sum[0]}}">{{$sum[0]}}</th>
+            <th class="text-center"><input type="number" name="sum" id="sumofprice" class="text-danger" value="{{$sum[0]}}"></th>
             <th class="text-center">บาท</th>
           </tr>
         </tfoot>
