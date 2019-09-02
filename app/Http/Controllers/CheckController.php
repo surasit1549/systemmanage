@@ -72,6 +72,7 @@ class CheckController extends Controller
     public function edit($id)
     {
         $number=1;
+        $data = porder::find($id)->toArray();
         $db = Create_product::get()->toArray();
         $pr_create = PR_create::find($id)->toArray();
         $productdb = Create_product::where('key',$pr_create['key'])->get()->toArray();

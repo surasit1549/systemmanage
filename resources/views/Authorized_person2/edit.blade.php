@@ -94,54 +94,6 @@
         <button id="subform" type="submit" class="btn btn-success" value="Update"><i class="far fa-save"></i>&nbsp;&nbsp;บันทึก</button>
       </div>
       <input type="hidden" name="_method" value="PATCH" />
-
-      <br><br><br><br>
-      <table class="table table-hover table-bordered border-dark table-border-dark">
-        <thead>
-            <tr class="text-center">
-              <th >ชื้อร้านค้า</th>
-              <th >รหัสร้านค้า</th>
-              <th >ที่อยู่</th>
-              <th >โทรศัทพ์</th>
-              <th >โทรสาร</th>
-              <th >ผู้ติดต่อ</th>
-              <th >เบอร์โทร</th>
-            </tr>
-          </thead>
-          <tbody>
-            @foreach($stores as $row)
-              <tr>
-                <td ><input type="text" name="name[]" class="form-control productname border-0" value="{{$row[0]['name']}}" required></label></td>
-                <td ><input type="text" name="keystore[]" min="1" class="form-control productnumber border-0" value="{{$row[0]['keystore']}}" required></label></td>
-                <td ><input type="text" name="address[]" class="form-control unit border-0" value="{{$row[0]['address']}}" required></label></td>
-                <td ><input type="text" name="phone[]" class="form-control keystore" value="{{$row[0]['phone']}}" required></td>
-                <td ><input type="text" name="fax[]" min="1" class="form-control price border-0" value="{{$row[0]['fax']}}" required></label></td>
-                <td ><input type="text" name="contect[]" min="1" class="sum col-form-label border-0" value="{{$row[0]['contect']}}" required></td>
-                <td ><input type="text" name="cellphone[]" min="1" class="sum col-form-label border-0" value="{{$row[0]['cellphone']}}" required></td>
-              </tr>
-            @endforeach
-          </tbody>
-      </table>
-      
-      <div class="form-group col-md-8">
-        <label>key master</label>
-        <input type="text" name="key_person" class="form-control" value="{{$carbon}}" autocomplete="off" required>
-      </div>
-
-      <table class="table table-hover table-bordered border-dark table-border-dark">
-        <thead>
-            <tr class="text-center">
-              <th >ชื้อร้านค้า</th>
-            </tr>
-          </thead>
-          <tbody>
-            @foreach($PO as $row)
-              <tr>
-                <td ><input type="text" name="PO_ID[]" class="form-control productname border-0" value="{{$row}}" required></label></td>
-              </tr>
-            @endforeach
-          </tbody>
-      </table>
     </form>
   </div>
 @endsection

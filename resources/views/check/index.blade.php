@@ -35,7 +35,7 @@
               <td>{{$row['PO_ID']}}</td>
               <td>{{$row['keyPR']}}</td>
               <td>{{substr($row['created_at'],0,-9)}}</td>
-              <td>สถานะ</td>
+              <td>{{$row['status']}}</td>
               <td><a href="{{action('CheckController@edit',$row['id'])}}" data-toggle="tooltip" data-placement="top" title="View"><i style="font-size:20px;;" class="fas fa-eye text-primary"></i></a></td>
           </tr>
           @endforeach

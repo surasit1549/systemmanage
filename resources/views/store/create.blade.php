@@ -65,6 +65,21 @@
               </div>
             </div>
             <br>
+            <h3>กำหนดส่ง</h3>
+            <hr class="line">
+            <br>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <input type="text" name="contect" placeholder="จำนวนเครดิต" class="form-control" autocomplete="off" required>
+                <label class="invalid-feedback">กรอกจำนวนเครดิต</label>
+              </div>
+
+              <div class="form-group col-md-6">
+                <input type="text" name="cellphone" class="form-control" placeholder="เบอร์โทรผู้ติดต่อ" autocomplete="off" pattern="[0-9]{9,}" required>
+                <label class="invalid-feedback">เงื่อนไงการชำระ</label>
+              </div>
+            </div>
+            <br>
             <div class="form-group text-right">
               <a class="btn btn-danger" href="{{route('store.index')}}"><i style="font-size:18px;" class="fas fa-undo-alt"></i>&nbsp;&nbsp;ย้อนกลับ</a>
               <button id="subform" type="submit" class="btn btn-success ml-2"><i style="font-size:18px;" class="far fa-save"></i>&nbsp;&nbsp;บันทึกข้อมูล</button>

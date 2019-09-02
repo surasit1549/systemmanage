@@ -73,7 +73,9 @@ class StoreController extends Controller
       'phone'     => 'required',
       'fax'       => 'required',
       'contect'   => 'required',
-      'cellphone' => 'required'
+      'cellphone' => 'required',
+      'pay_condition' => 'required',
+      'credit'        => 'required',
     ]);
     $store = new Store(
       [
@@ -83,7 +85,9 @@ class StoreController extends Controller
         'phone'     => $request->get('phone'),
         'fax'       => $request->get('fax'),
         'contect'   => $request->get('contect'),
-        'cellphone' => $request->get('cellphone')
+        'cellphone' => $request->get('cellphone'),
+        'pay_condition' => $request->get('pay_condition'),
+        'credit'        => $request->get('credit'),
       ]
     );
     $store->save();

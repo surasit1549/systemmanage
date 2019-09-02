@@ -12,7 +12,11 @@
         <div class='text-right'>
           <button class="btn btn-lg btn-primary"><i class="fas fa-print"></i>&nbsp;&nbsp;พิมพ์เอกสาร</button>
         </div>
-
+        <div class="row">
+          <div class="col-form-label col-md-6">
+            <h4 class="d-inline shadow-sm" style="padding:10px"><label class="text-danger">&nbsp;PO {{$po_id['PO_ID']}}</label></h4>
+          </div>
+        </div>
         <hr>
 
         <div class="container">

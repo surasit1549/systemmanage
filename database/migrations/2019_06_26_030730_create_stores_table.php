@@ -22,6 +22,8 @@ class CreateStoresTable extends Migration
             $table->string('fax');
             $table->string('contect');
             $table->string('cellphone');
+            $table->string('pay_condition');
+            $table->string('credit');
             $table->timestamps();
         });
     }
