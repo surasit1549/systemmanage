@@ -70,12 +70,12 @@
             <br>
             <div class="form-row">
               <div class="form-group col-md-6">
-                <input type="text" name="contect" placeholder="จำนวนเครดิต" class="form-control" autocomplete="off" required>
+                <input type="text" name="pay_condition" placeholder="จำนวนเครดิต" class="form-control" autocomplete="off" required>
                 <label class="invalid-feedback">กรอกจำนวนเครดิต</label>
               </div>
 
               <div class="form-group col-md-6">
-                <input type="text" name="cellphone" class="form-control" placeholder="เบอร์โทรผู้ติดต่อ" autocomplete="off" pattern="[0-9]{9,}" required>
+                <input type="text" name="credit" placeholder="หลังส่งสินค้า" class="form-control" autocomplete="off" required>
                 <label class="invalid-feedback">เงื่อนไงการชำระ</label>
               </div>
             </div>

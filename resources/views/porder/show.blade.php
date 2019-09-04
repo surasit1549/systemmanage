@@ -119,7 +119,7 @@
           <tfoot>
             <tr>
               <th class="text-right" colspan="4">รวมเป็นเงิน</th>
-              <th class="text-center"><label class="text-danger" value="{{$row['sumofprice']}}">{{$row['sumofprice']}}</label></th>
+              <th class="text-center"><label class="text-danger" value="{{$data[0]['sumofprice']}}">{{$data[0]['sumofprice']}}</label></th>
               <th class="text-center">บาท</th>
             </tr>
           </tfoot>
@@ -133,6 +133,7 @@
   </div>
 </div>
 
+<<<<<<< HEAD
 <div id="exportpdf" class="d-none">
   <div style="position:absolute">
   </div>
@@ -151,6 +152,93 @@
   </div>
   <div class="pd_table">
     <table class="main_detail_po">
+=======
+<<<<<<< HEAD
+=======
+
+<div style="position:absolute;left:60px">
+  <img style="width:300px;height:150px" src="{{asset('pic/store.png')}}" alt="pic">
+</div>
+<div style="text-align:center">
+  <h4>{{ $store_mine[0]->name }}</h4>
+  <h5>{{ $store_mine[0]->address }}</h5>
+  <h5>{{ $store_mine[0]->phone }}</h5>
+</div>
+<div style="text-align:center;top:20px;position:relative">
+  <h4>ใบสั่งซื้อ</h4>
+</div>
+<div style="border:2px solid black;position:absolute;right:100px;padding:10px;">
+  <h5>เลขที่เอกสาร PO {{$po_id['PO_ID']}}</h5>
+</div>
+<br>
+<br>
+<div class="pd_table">
+  <table class="main_detail_po">
+    <tr>
+      <td>
+        <table class="detail_po">
+          <tr>
+            <th>ผู้ขาย :</th>
+            <td>{{$store[0]['name']}}&nbsp;&nbsp; [ {{$store[0]['keystore']}} ]</td>
+          </tr>
+          <tr>
+            <th>โทรศัทพ์ :</th>
+            <td>{{$store[0]['phone']}}</td>
+          </tr>
+          <tr>
+            <th>ที่อยู่ :</th>
+            <td>{{$store[0]['address']}}</td>
+          </tr>
+          <tr>
+            <th>โทรสาร :</th>
+            <td>{{$store[0]['fax']}}</td>
+          </tr>
+        </table>
+      </td>
+      <td>
+        <table class="detail_po">
+          <tr>
+            <th>วันที่เอกสาร :</th>
+            <td> {{substr($data[0]['created_at'],0,-9)}}</td>
+          </tr>
+          <tr>
+            <th>ผู้ติดต่อ :</th>
+            <td>{{$store[0]['contect']}} &nbsp;&nbsp; {{$store[0]['cellphone']}}</td>
+          </tr>
+          <tr>
+            <th>วันที่กำหนดส่ง :</th>
+            <td>ผู้ขาย</td>
+          </tr>
+          <tr>
+            <th>จำนวนเครดิต :</th>
+            <td>ผู้ขาย</td>
+            <th>วัน</th>
+          </tr>
+          <tr>
+            <th>เงื่อนไขการชำระ :</th>
+            <td>ผู้ขาย</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div style="position:absolute;padding:20">
+  <table class="table-detail" style="font-size:18px">
+    <thead>
+      <tr>
+        <th>ลำดับ</th>
+        <th>รายการ</th>
+        <th>จำนวน</th>
+        <th>หน่วย</th>
+        <th>ราคา/หน่วย</th>
+        <th>จำนวนเงิน</th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach($data as $num=>$row)
+>>>>>>> 311c68cc2301d9139e3ec2317afcf93db1fb7035
       <tr>
         <td>
           <table class="detail_po">

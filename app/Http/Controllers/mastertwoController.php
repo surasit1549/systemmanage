@@ -72,7 +72,6 @@ class mastertwoController extends Controller
         $number = 1;
         $sum = 0;
         $pr_create = PR_create::find($id)->toArray();
-        //dd($pr_create['date']);
         $productdb = Create_product::where('key',$pr_create['key'])->get('productname')->toArray();
         $data = Authorized_person2::get()->toArray();
         $lengtharray = sizeof($productdb);
@@ -98,6 +97,7 @@ class mastertwoController extends Controller
                     $products_sum[0],
                     ];  
           $stores[] = Store::where('keystore',$product_min_price[$i][0]['Store'])->get()->toArray();
+          
         }
         return view('Authorized_person2.edit', compact(
                                               'number',
@@ -243,34 +243,79 @@ class mastertwoController extends Controller
         } else {
             for ($i = 0; $i < $lengtharray; $i++) {
                 $stores = $store[$i];
-                $carbon = $this->carbon($date_request);
-                $PO     = $this->po($date_request, $stores);
-                $master2 = new Authorized_person2([
-                    'PO_ID'          => $PO,
-                    'key_person'     => $carbon,
-                    'keyPR'          => $request->get('keyPR'),
-                ]);
-                $master2->save();
+                if($i === 0){
+                    $carbon = $this->carbon($date_request);
+                    $PO     = $this->po($date_request, $stores);
+                    $master2 = new Authorized_person2([
+                        'PO_ID'          => $PO,
+                        'key_person'     => $carbon,
+                        'keyPR'          => $request->get('keyPR'),
+                    ]);
+                    $porder = new porder([
+                        'PO_ID'         =>$PO,
+                        'keyPR'         =>$request->get('keyPR'),
+                        'store_ID'      =>$request->get('keystore')[$i],
+                        'status'        =>"ยังไม่ได้รับของ",
+                    ]);
+                    $pr_store = new pr_store([
+                        'PO_ID'         => $PO,
+                        'keyPR'         => $request->get('keyPR'),
+                        'Product_name'  => $request->get('Product_name')[$i],
+                        'Product_number' => $request->get('Product_number')[$i],
+                        'unit'          => $request->get('unit')[$i],
+                        'keystore'      => $request->get('keystore')[$i],
+                        'price'         => $request->get('price')[$i],
+                        'product_sum'   => $request->get('product_sum')[$i],
+                        'sumofprice'    => $request->get('sum'),
+                    ]);
+                }else{
+                    $data1 = porder::where('keyPR',$request->get('keyPR'))->get()->toArray();
 
-                $porder = new porder([
-                    'PO_ID'         =>$PO,
-                    'keyPR'         =>$request->get('keyPR'),
-                    'store_ID'      =>$request->get('keystore')[$i],
-                    'status'        =>"ยังไม่ได้รับของ",
-                ]);
-                $porder->save();
-                
-                $pr_store = new pr_store([
-                    'keyPR'         => $request->get('keyPR'),
-                    'Product_name'  => $request->get('Product_name')[$i],
-                    'Product_number' => $request->get('Product_number')[$i],
-                    'unit'          => $request->get('unit')[$i],
-                    'keystore'      => $request->get('keystore')[$i],
-                    'price'         => $request->get('price')[$i],
-                    'product_sum'   => $request->get('product_sum')[$i],
-                    'sumofprice'    => $request->get('sum'),
-                ]);
-                $pr_store->save();
+                    if($data1[0]['store_ID'] === $stores){
+                        $pr_store = new pr_store([
+                            'PO_ID'         => $data1[0]['PO_ID'],
+                            'keyPR'         => $request->get('keyPR'),
+                            'Product_name'  => $request->get('Product_name')[$i],
+                            'Product_number' => $request->get('Product_number')[$i],
+                            'unit'          => $request->get('unit')[$i],
+                            'keystore'      => $request->get('keystore')[$i],
+                            'price'         => $request->get('price')[$i],
+                            'product_sum'   => $request->get('product_sum')[$i],
+                            'sumofprice'    => $request->get('sum'),
+                        ]);
+                        $pr_store->save();
+                    }else{
+                        $carbon = $this->carbon($date_request);
+                        $PO     = $this->po($date_request, $stores);
+                        $master2 = new Authorized_person2([
+                            'PO_ID'          => $PO,
+                            'key_person'     => $carbon,
+                            'keyPR'          => $request->get('keyPR'),
+                        ]);
+                        $master2->save();
+        
+                        $porder = new porder([
+                            'PO_ID'         =>$PO,
+                            'keyPR'         =>$request->get('keyPR'),
+                            'store_ID'      =>$request->get('keystore')[$i],
+                            'status'        =>"ยังไม่ได้รับของ",
+                        ]);
+                        $porder->save();
+                        
+                        $pr_store = new pr_store([
+                            'PO_ID'         => $PO,
+                            'keyPR'         => $request->get('keyPR'),
+                            'Product_name'  => $request->get('Product_name')[$i],
+                            'Product_number' => $request->get('Product_number')[$i],
+                            'unit'          => $request->get('unit')[$i],
+                            'keystore'      => $request->get('keystore')[$i],
+                            'price'         => $request->get('price')[$i],
+                            'product_sum'   => $request->get('product_sum')[$i],
+                            'sumofprice'    => $request->get('sum'),
+                        ]);
+                        $pr_store->save();
+                    }
+                }
             }
         }
         return redirect()->route('Authorized_person2.index')->with('success', 'เรียบร้อย');

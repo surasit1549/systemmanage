@@ -76,7 +76,7 @@ class CheckController extends Controller
         $data = pr_store::where('PO_ID',$po_id['PO_ID'])->get()->toArray();
         $store = Store::where('keystore',$po_id['store_ID'])->get()->toArray();
         //dd($productdb);
-        return view('porder.show', compact(
+        return view('check.edit', compact(
                                     'po_id',
                                     'data',
                                     'store',
@@ -95,19 +95,26 @@ class CheckController extends Controller
     public function update(Request $request, $id)
     {
         $check = $request->get('check');
+        $porder_old = porder::find($id);
         $lengthArray = $request->get('product');
+        $PO_ID = $request->PO_ID;
+        $product = pr_store::where('PO_ID',$PO_ID)->get()->toArray();
         $length = sizeof($lengthArray);
         for($i=0; $i<$length; $i++){
-            if($check === 'on'){
-                $a[] =  $request->get('check');
-                $b[] =  $request->get('product');
+            if($check[$i] === "รับ"){
+                $status =  "ครบ";
             }else{
-                $a[] = "ไม่ครบ";
-                $b[] = '';
+                $status = "ไม่ครบ";
+                break;
             }
         }
-        $sum =[$a,$b];
-        dd($sum);
+        $porder = porder::find($id);
+        $porder->PO_ID           = $porder_old['PO_ID'];
+        $porder->keyPR           = $porder_old['keyPR'];
+        $porder->store_ID        = $porder_old['store_ID'];
+        $porder->status          = $status;
+        $porder->save();
+        return redirect()->route('check.index')->with('success','เรียบร้อยแล้ว');
     }
 
     /**
