@@ -152,8 +152,6 @@
   </div>
 </div>
 
-<<<<<<< HEAD
-=======
 
 <div style="position:absolute;left:60px">
   <img style="width:300px;height:150px" src="{{asset('pic/store.png')}}" alt="pic">
@@ -281,5 +279,4 @@
   </table>
 </div>
 
->>>>>>> 7e900cdc4d9aba2f2d8f67e95f206f22f50eef3c
 @endsection
