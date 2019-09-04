@@ -1,47 +1,28 @@
 @extends('Home.master')
 @section('title','ข้อมูลใบสั่งซื้อ PO')
-@section('tabbarcss')
-<style>
-  .main_detail_po {
-    width: 100%;
-    border: 1px solid black;
-  }
-
-  .main_detail_po_two {
-    width: 100%;
-    border: 1px solid black;
-  }
-
-
-  .detail_po {
-    padding: 10px;
-    font-size: 18px;
-  }
-
-  .detail_po td,
-  .detail_po th {
-    padding: 10px;
-  }
-
-  .pd_table {
-    padding: 20px;
-  }
-
-  .table-detail,
-  .table-detail tr,
-  .table-detail th,
-  .table-detail td {
-    border: 1px solid black;
-    padding: 10px;
-  }
-
-  .table-detail {
-    padding-right : 20px;
-  }
-
-</style>
-@stop
 @section('content')
+
+<script>
+  $(document).ready(function() {
+    $('#exportpdfbtn').click(function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      $.ajax({
+        type: 'post',
+        url: 'makepdf',
+        data: {
+          _token: '{{csrf_token()}}',
+          pdf: $('#exportpdf').html(),
+          po: $('#ponumber').text()
+        },
+        success: function(data) {
+          console.log(data.msg);
+        }
+      })
+    });
+  });
+</script>
+
 <div class="container">
   <div class="card">
     <div class="card-header text-white">
@@ -51,11 +32,11 @@
       <form method="post" action="{{action('PurchaseorderController@show', $id)}}">
         {{csrf_field()}}
         <div class='text-right'>
-          <button class="btn btn-lg btn-primary"><i class="fas fa-print"></i>&nbsp;&nbsp;พิมพ์เอกสาร</button>
+          <button class="btn btn-lg btn-primary" id="exportpdfbtn"><i class="fas fa-print"></i>&nbsp;&nbsp;พิมพ์เอกสาร</button>
         </div>
         <div class="row">
           <div class="col-form-label col-md-6">
-            <h4 class="d-inline shadow-sm" style="padding:10px"><label class="text-danger">&nbsp;PO {{$po_id['PO_ID']}}</label></h4>
+            <h4 class="d-inline shadow-sm" style="padding:10px"><label class="text-danger">&nbsp;PO <span id="po_number">{{$po_id['PO_ID']}}</span></label></h4>
           </div>
         </div>
         <hr>
@@ -152,6 +133,28 @@
   </div>
 </div>
 
+<div id="exportpdf" class="d-none">
+  <div style="position:absolute">
+  </div>
+  <div style="text-align:center">
+    <h3>
+      {{ $store_mine[0]->name }} <br>
+      {{ $store_mine[0]->address }} <br>
+      {{ $store_mine[0]->phone }}
+    </h3>
+  </div>
+  <div style="position:absolute;top:140px;left:47%;text-align:center">
+    <h4>ใบสั่งซื้อ</h4>
+  </div>
+  <div id="number_doc">
+    <h4>เลขที่เอกสาร PO <span style="color:red">{{$po_id['PO_ID']}}</span></h4>
+  </div>
+  <div class="pd_table">
+    <table class="main_detail_po">
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> 32323488ff5f2f665b33a1e86e52a04e823f45d4
 
 <div style="position:absolute;left:60px">
   <img style="width:300px;height:150px" src="{{asset('pic/store.png')}}" alt="pic">
@@ -236,47 +239,113 @@
     <tbody>
       @foreach($data as $num=>$row)
       <tr>
-        <td style="width:5%">{{$num + 1}}</td>
-        <td style="width:30%">{{$row['Product_name']}}</td>
-        <td style="width:15%">{{$row['Product_number']}}</td>
-        <td style="width:15%">{{$row['unit']}}</td>
-        <td style="width:15%">{{$row['price']}}</td>
-        <td style="width:20%">{{$row['product_sum']}}</td>
+        <td>
+          <table class="detail_po">
+            <tr>
+              <th style="text-align:left">ผู้ขาย :</th>
+              <td style="width:290px">{{$store[0]['name']}}&nbsp;&nbsp; [ {{$store[0]['keystore']}} ]</td>
+            </tr>
+            <tr>
+              <th style="text-align:left">โทรศัทพ์ :</th>
+              <td style="width:290px">{{$store[0]['phone']}}</td>
+            </tr>
+            <tr>
+              <th style="text-align:left;vertical-align:top">ที่อยู่ :</th>
+              <td style="width:290px">{{$store[0]['address']}}</td>
+            </tr>
+            <tr>
+              <th style="text-align:left">โทรสาร :</th>
+              <td style="width:290px">{{$store[0]['fax']}}</td>
+            </tr>
+          </table>
+        </td>
+        <td>
+          <table class="detail_po">
+            <tr>
+              <th style="text-align:left">วันที่เอกสาร :</th>
+              <td>{{substr($data[0]['created_at'],0,-9)}}</td>
+            </tr>
+            <tr>
+              <th style="text-align:left">ผู้ติดต่อ :</th>
+              <td>{{$store[0]['contect']}} &nbsp;&nbsp; {{$store[0]['cellphone']}}</td>
+            </tr>
+            <tr>
+              <th style="text-align:left">วันที่กำหนดส่ง :</th>
+              <td>..</td>
+            </tr>
+            <tr>
+              <th style="text-align:left">จำนวนเครดิต :</th>
+              <td>..</td>
+              <th>วัน</th>
+            </tr>
+            <tr>
+              <th style="text-align:left">เงื่อนไขการชำระ :</th>
+              <td>..</td>
+            </tr>
+          </table>
+        </td>
       </tr>
-      @endforeach
-      @for( $num = $number ; $num <= 10 ; $num++ ) <tr>
-        <td style="width:5%">&nbsp;</td>
-        <td style="width:30%"></td>
-        <td style="width:15%"></td>
-        <td style="width:15%"></td>
-        <td style="width:15%"></td>
-        <td style="width:20%"></td>
+    </table>
+  </div>
+
+
+  <div class="detail_table">
+    <table class="table-detail">
+      <thead>
+        <tr>
+          <th style="width:5%;font-size:200px">ลำดับ</th>
+          <th style="width:30%;font-size:200px">รายการ</th>
+          <th style="width:15%;font-size:200px">จำนวน</th>
+          <th style="width:15%;font-size:200px">หน่วย</th>
+          <th style="width:15%;font-size:200px">ราคา/หน่วย</th>
+          <th style="width:20%;font-size:200px">จำนวนเงิน</th>
         </tr>
-        @endfor
-    </tbody>
-    <tfoot>
-      <tr>
-        <th rowspan="3">หมายเหตุ</th>
-        <td rowspan="3" colspan="3">สำหรับ..</td>
-        <th>ราคายังไม่รวมภาษี</th>
-        <td>..</td>
-      </tr>
-      <tr>
-        <th>ส่วนลด</th>
-        <td></td>
-      </tr>
-      <tr>
-        <th>ภาษีมูลค่าเพิ่ม 7%</th>
-        <td>..</td>
-      </tr>
-      <tr>
-        <th>ตัวอักษร</th>
-        <td colspan="3">..</td>
-        <th>รวมทั้งสิ้น</th>
-        <td>..</td>
-      </tr>
-    </tfoot>
-  </table>
+      </thead>
+      <tbody>
+        @foreach($data as $num=>$row)
+        <tr>
+          <td style="width:5%;font-size:200px">{{$num + 1}}</td>
+          <td style="width:30%;font-size:200px">{{$row['Product_name']}}</td>
+          <td style="width:15%;font-size:200px">{{$row['Product_number']}}</td>
+          <td style="width:15%;font-size:200px">{{$row['unit']}}</td>
+          <td style="width:15%;font-size:200px">{{$row['price']}}</td>
+          <td style="width:20%;font-size:200px">{{$row['product_sum']}}</td>
+        </tr>
+        @endforeach
+        @for( $num = $number ; $num <= 10 ; $num++ ) <tr>
+          <td style="width:5%">&nbsp;</td>
+          <td style="width:30%"></td>
+          <td style="width:15%"></td>
+          <td style="width:15%"></td>
+          <td style="width:15%"></td>
+          <td style="width:20%"></td>
+          </tr>
+          @endfor
+      </tbody>
+      <tfoot>
+        <tr>
+          <th rowspan="3">หมายเหตุ</th>
+          <td rowspan="3" colspan="3">สำหรับ..</td>
+          <th>ราคายังไม่รวมภาษี</th>
+          <td>..</td>
+        </tr>
+        <tr>
+          <th>ส่วนลด</th>
+          <td></td>
+        </tr>
+        <tr>
+          <th>ภาษีมูลค่าเพิ่ม 7%</th>
+          <td>..</td>
+        </tr>
+        <tr>
+          <th>ตัวอักษร</th>
+          <td colspan="3">..</td>
+          <th>รวมทั้งสิ้น</th>
+          <td>..</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
 </div>
 
 @endsection

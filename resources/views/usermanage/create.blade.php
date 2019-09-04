@@ -85,8 +85,8 @@
         $(document).ready(function() {
             $('#create_user_form').validate({
                 rules: {
-                    first_name: "required",
-                    last_name: "required",
+                    firstname: "required",
+                    lastname: "required",
                     username: {
                         required: true,
                         minlength: 5
@@ -109,8 +109,8 @@
                     email: "required"
                 },
                 messages: {
-                    first_name: "กรุณากรอกชื่อจริง",
-                    last_name: "กรุณากรอกนามสกุล",
+                    firstname: "กรุณากรอกชื่อจริง",
+                    lastname: "กรุณากรอกนามสกุล",
                     username: {
                         required: "กรุณากรอกชื่อในการเข้าใช้งาน",
                         minlength: 'ต้องมีอย่างน้อย 5 ตัวอักษร'
@@ -146,7 +146,32 @@
                 },
                 unhighlight: function(element, errorClass, validClass) {
                     $(element).addClass("is-valid").removeClass("is-invalid");
+                },
+                submitHandler: function(form) {
+                    var email = $('#email').val();
+                    var form = form;
+                    $.ajax({
+                        type: 'post',
+                        url: 'checkemail',
+                        data: {
+                            _token: '{{csrf_token()}}',
+                            email: email
+                        },
+                        success: function(data) {
+                            if (data.msg) {
+                                Swal.fire({
+                                    type: 'error',
+                                    title: 'มีอีเมลนี้อยู่แล้วในระบบ',
+                                    text: 'ไม่สามารถดำเนินการต่อได้กรุณากรอกอีเมลใหม่',
+                                    confirmButtonText: 'เข้า้ใจแล้ว'
+                                })
+                            }else{
+                                form.submit();
+                            }
+                        }
+                    });
                 }
+
             });
 
             $('#deny').click(function() {

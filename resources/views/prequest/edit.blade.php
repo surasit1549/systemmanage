@@ -2,20 +2,40 @@
 @section('title','ใบขอสั่งซื้อ')
 @section('content')
 
+<script>
+  $(document).ready(function() {
 
+    $('#subform').click(function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      var check = $('#signature').val();
+      if( check == '-' ){
+        Swal.fire({
+          type : 'error',
+          title : 'ไม่สามารถดำเนินการต่อได้',
+          text : 'จำเป็นต้องกรอกลายเซ็นในหัวช่องโปรไฟล์ก่อนดำเนินการต่อ',
+          confirmButtonText : 'เข้าใจแล้ว'
+        });
+      }else{
+        $('#formsub').submit();
+      }
+    });
+
+  });
+</script>
 
 <div class="card">
   <div class="card-header text-white">
     <h3><i class="far fa-plus-square"></i>&nbsp;&nbsp;สร้างใบขอสั่งซื้อ PR</h3>
   </div>
   <div class="card-body">
-    <form method="post" action="{{action('PuchaserequestController@update', $id)}}" class="needs-validation" novalidate>
+    <form method="post" id="formsub" action="{{action('PuchaserequestController@update', $id)}}" class="needs-validation" novalidate>
       {{csrf_field()}}
       <div class="row">
         <div class="form-group col-md-12 text-right">
           <label>วันที่ขอสั่งชื้อ</label><br>
           <input type="text" name="date" value="{{$pr_create['date']}}" class="border-0 bg-light" size="8">
-          <input type="hidden" name="id" value="{{$id}}" class="border-0" >
+          <input type="hidden" name="id" value="{{$id}}" class="border-0">
         </div>
       </div>
       <div class="form-row">
@@ -26,18 +46,17 @@
         <div class="form-group col-md-8">
           <label>ชื่อผู้รับเหมา</label>
           <input type="text" name="contractor" class="form-control" value="{{$pr_create['contractor']}}" autocomplete="off">
-
         </div>
       </div>
 
       <div class="form-row">
         <div class="form-group col-md-6">
           <label>แบบงาน</label>
-          <input type="text" name="formwork" class="form-control" value="{{$pr_create['formwork']}}" >
+          <input type="text" name="formwork" class="form-control" value="{{$pr_create['formwork']}}">
         </div>
         <div class="form-group col-md-6">
           <label>แปลง</label>
-          <input type="text" name="prequestconvert" class="form-control" value="{{$pr_create['prequestconvert']}}" >
+          <input type="text" name="prequestconvert" class="form-control" value="{{$pr_create['prequestconvert']}}">
         </div>
       </div>
       <!-- สินค้าที่ขอสั่งซื้อ -->
@@ -83,14 +102,16 @@
           </tr>
         </tfoot>
       </table>
-      </div>
-
-      <div class="form-group text-center">
-        <a class="btn btn-danger" href="#" onclick="window.history.back()"><i style="font-size:18px" class="fas fa-undo-alt"></i>&nbsp;&nbsp;ย้อนกลับ</a>
-        <button id="subform" type="submit" class="btn btn-success ml-2" value="Update"><i class="far fa-save"></i>&nbsp;&nbsp;บันทึก</button>
-      </div>
-      <input type="hidden" name="_method" value="PATCH" />
-    </form>
   </div>
+
+  <div class="form-group text-center">
+    <a class="btn btn-danger" href="#" onclick="window.history.back()"><i style="font-size:18px" class="fas fa-undo-alt"></i>&nbsp;&nbsp;ย้อนกลับ</a>
+    <button id="subform" type="submit" class="btn btn-success ml-2" value="Update"><i style="font-size:18px" class="fas fa-save"></i>&nbsp;&nbsp;บันทึก</button>
+  </div>
+  <input type="hidden" name="_method" value="PATCH" />
+  </form>
 </div>
+
+<input type="hidden" id="signature" value="{{ Auth::user()->signature }}">
+
 @endsection

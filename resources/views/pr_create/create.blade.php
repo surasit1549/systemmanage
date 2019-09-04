@@ -31,7 +31,7 @@
         <h3><i class="far fa-plus-square"></i>&nbsp;&nbsp;สร้างใบขอสั่งซื้อ PR</h3>
     </div>
     <div class="card-body">
-        <form method="post" class="needs-validation" novalidate action="{{url('pr_create')}}">
+        <form method="post" id="forminput" class="needs-validation" action="{{url('pr_create')}}" novalidate>
             {{csrf_field()}}
             <div class="row">
                 <div class="form-group col-md-6">
@@ -44,7 +44,6 @@
                     <a class="d-none" id="keyja">{{$key}}</a>
                     <input type="hidden" name="key" value="{{ $key }}" class="border-0" size="8" autocomplete="off">
                 </div>
-
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
@@ -97,16 +96,16 @@
                             <input type="text" list="product" name="productname[]" class="form-control productname" required>
                             <datalist id="product">
                                 @foreach($product as $row)
-                                    <option value="{{$row['Product_name']}}">{{$row['Product_name']}}</option>
+                                <option value="{{$row['Product_name']}}">{{$row['Product_name']}}</option>
                                 @endforeach
                             </datalist>
                         </td>
-                        <td><input type="number" name="productnumber[]" min="1"class="form-control productnumber" required></td>
+                        <td><input type="number" name="productnumber[]" min="1" class="form-control productnumber" required></td>
                         <td>
                             <input type="text" name="unit[]" list="unit" class="form-control unit" required>
                             <datalist id="unit">
                                 @foreach($unit as $row)
-                                    <option value="{{$row['unit']}}">{{$row['unit']}}</option>
+                                <option value="{{$row['unit']}}">{{$row['unit']}}</option>
                                 @endforeach
                             </datalist>
                         </td>
@@ -143,7 +142,7 @@
             </div>
             <div class="form-group text-center">
                 <a class="btn btn-danger" href="{{route('pr_create.index')}}"><i style="font-size:18px" class="fas fa-undo-alt"></i>&nbsp;&nbsp;ย้อนกลับ</a>
-                <button type="submit" class="btn btn-success ml-2" id="subbutton"><i style="font-size:18px" class="far fa-save"></i>&nbsp;&nbsp;บันทึก</button>
+                <button type="submit" class="btn btn-success ml-2" id="subform"><i style="font-size:18px" class="far fa-save"></i>&nbsp;&nbsp;บันทึก</button>
             </div>
         </form>
     </div>
@@ -199,28 +198,41 @@
             </tbody>
         </table>
         <div id="signature">
-            <img id="signatureimg" src="https://s3.ap-southeast-1.amazonaws.com/document-flow-s3/signature/test" alt="">
-            <h4>( ณัฐดนัย จำปาศรี )<br>ผู้รับเหมา<br>วันที่ {{ date('d-m-Y') }}</h4>
+            <img id="signatureimg" src="{{Auth::user()->signature}}" alt="">
+            <h4>{{ Auth::user()->firstname }}&nbsp;&nbsp;{{ Auth::user()->lastname }}<br>{{ Auth::user()->role }}<br>วันที่ {{ date('d-m-Y') }}</h4>
         </div>
     </div>
-<script type="text/javascript">
-  $('#subform').click(function() {
-      if ($('form')[0].checkValidity() == false) {
-        event.preventDefault();
-        event.stopPropagation();
-        $('form').addClass('was-validated');
-      }
-    });
-  $('#addrow').click(function(e) {
-    e.preventDefault();
-    e.stopPropagation();
-      $('#detailmenu tbody').append('<tr></label></td><td>' +
-          '<input type="text" list="product" name="productname[]" class="form-control productname" required>' +
-          '<td><input type="number" name="productnumber[]" min="1"class="form-control productnumber" required></td>' +
-          '<td><input type="text" name="unit[]" list="unit" class="form-control unit" required></td>' +
-          '<td class="text-center"><button class="btn btn-outline-danger"><i style="font-size:18px" class="far fa-trash-alt"></i></button></td></tr>');
-      $('#detailmenu tbody tr:last .productname').focus();
-      
-  });
-</script>
-@stop
+
+    <input type="hidden" id="signature" value="{{ Auth::user()->signature }}">
+
+    <script type="text/javascript">
+        $('#subform').click(function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if ($('form')[0].checkValidity() == false) {
+                $('form').addClass('was-validated');
+            }
+            if ($('#signature').val() == '-') {
+                Swal.fire({
+                    type: 'error',
+                    title: 'ไม่สามารถดำเนินการต่อได้',
+                    text: 'ต้องใส่ลายเซ็นในหมวดโปรไฟล์',
+                    confirmButtonText: 'ยอมรับ'
+                })
+            } else {
+                $('#forminput').submit();
+            }
+        });
+        $('#addrow').click(function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            $('#detailmenu tbody').append('<tr></label></td><td>' +
+                '<input type="text" list="product" name="productname[]" class="form-control productname" required>' +
+                '<td><input type="number" name="productnumber[]" min="1"class="form-control productnumber" required></td>' +
+                '<td><input type="text" name="unit[]" list="unit" class="form-control unit" required></td>' +
+                '<td class="text-center"><button class="btn btn-outline-danger"><i style="font-size:18px" class="far fa-trash-alt"></i></button></td></tr>');
+            $('#detailmenu tbody tr:last .productname').focus();
+
+        });
+    </script>
+    @stop

@@ -12,15 +12,17 @@ class UsermanageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function checkemail(Request $request){
+        $user = User::where('email',$request->input('email'))->exists();
+        return response()->json(['msg' => $user ]);
+    }
+
+
     public function index()
     {
         $user = User::all()->toArray();
         return view('usermanage.indexuser',compact('user'));
-    }
-
-    public function makepdf()
-    {
-
     }
 
     /**

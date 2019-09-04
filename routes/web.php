@@ -13,7 +13,9 @@ use phpDocumentor\Reflection\DocBlock\Tags\Uses;
 |
 */
 
+Route::post('porder/makepdf','purchaseorderController@makepdf');
 Route::post('profile/changpassword','profileController@changepassword');
+Route::post('usermanage/checkemail','UsermanageController@checkemail');
 
 Route::resource('store', 'StoreController')->middleware('123');
 //Route ::resource('store','FillinformationController');
