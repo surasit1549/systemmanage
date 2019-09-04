@@ -1,74 +1,123 @@
+#number_doc {
+  position: absolute;
+  right: 40px;
+  padding: 0px 10px;
+  top: 140px;
+}
 
+.main_detail_po {
+  width: 100%;
+  border: 1px solid black;
+}
 
+.pd_table {
+  position: absolute;
+  top: 185px;
+  margin-right: 50px;
+}
+
+.detail_table {
+  position: absolute;
+  top: 800px;
+}
+
+.detail_table {
+  position: absolute;
+  top: 350px;
+  margin-right: 50px;
+}
+
+.table-detail th,
+.table-detail td {
+  padding: 160px;
+}
+.table-detail ,
+.table-detail tr,
+.table-detail th,
+.table-detail td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+.table-detail {
+  padding-right: 20px;
+}
 
 /* Signature */
 
 #signature {
-    text-align: center;
-    position: absolute;
-    right: 40px;
-    bottom: 20px;
+  text-align: center;
+  position: absolute;
+  right: 40px;
+  bottom: 20px;
 }
 
-#signatureimg{
-    width:232px;
-    height:102px;
+#signatureimg {
+  width: 232px;
+  height: 102px;
 }
 
 #heading {
-    position: relative;
-    text-align: center;
-    top: 0px;
+  position: relative;
+  text-align: center;
+  top: 0px;
 }
 
 #tabletop {
-    position:absolute;
-    right:0;
-    top:0;
-    padding-top : 130px;
-    padding-right: 40px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding-top: 130px;
+  padding-right: 40px;
 }
 
 /* TOP DETAIL */
 
 #exporta {
-    text-align: right !important;
-    width: 100%;
-    padding: 15px;
-    left: 0;
-    font-size: 18px;
+  text-align: right !important;
+  width: 100%;
+  padding: 15px;
+  left: 0;
+  font-size: 18px;
 }
 
-#exporta tr , #exporta th , #exporta td , #exporta table {
-    text-align: left !important;
+#exporta tr,
+#exporta th,
+#exporta td,
+#exporta table {
+  text-align: left !important;
 }
 
-#tableexa tr , #tableexa td , #tableexa th{
-    padding: 10px 5px;
+#tableexa tr,
+#tableexa td,
+#tableexa th {
+  padding: 10px 5px;
 }
-
 
 /*   MENU DETAIL    */
 
 #exportb {
-    width: 100%;
+  width: 100%;
 }
 #no_exb {
-    width : 10%;
+  width: 10%;
 }
 #detail_exb {
-    width : 60%;
+  width: 60%;
 }
 #num_exb {
-    width : 15%;
+  width: 15%;
 }
 #unit_exb {
-    width : 15%;
+  width: 15%;
 }
 
-#exportb , #exportb tr , #exportb td , #exportb th {
-    text-align: center;
-    border : 1px solid black;
-    border-collapse: collapse;
-    padding: 10px 5px;
+#exportb,
+#exportb tr,
+#exportb td,
+#exportb th {
+  text-align: center;
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 10px 5px;
 }

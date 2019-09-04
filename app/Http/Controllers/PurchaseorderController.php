@@ -11,6 +11,7 @@ use App\prequest;
 use App\checkkeystore;
 use App\Authorized_person2;
 use App\pr_store;
+use vendor\autoload;
 
 class PurchaseorderController extends Controller
 {
@@ -20,13 +21,27 @@ class PurchaseorderController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+    public function makepdf(Request $request)
+    {
+        $stylesheet = file_get_contents(__DIR__ . '\style.css');
+        $mpdf = new \Mpdf\Mpdf([
+            'mode' => 'utf-8',
+            'format' => [210, 297],
+            'default_font_size' => 14,
+            'default_font' => 'thsarabunnew'
+        ]);
+        $mpdf->WriteHTML($stylesheet, 1);
+        $mpdf->WriteHTML($request->pdf);
+        $mpdf->Output('pdf/test.pdf', 'F');
+        return response()->json(['msg' => 'Successful']);
+    }
+
 
     public function index()
-    {  
+    {
         $number = 1;
         $data = porder::get()->toArray();
-        return view('porder.index',compact('data','number'));
- 
+        return view('porder.index', compact('data', 'number'));
     }
 
     /**
@@ -60,19 +75,18 @@ class PurchaseorderController extends Controller
     {
         $number = 1;
         $po_id = porder::find($id);
-        $data = pr_store::where('PO_ID',$po_id['PO_ID'])->get()->toArray();
-        $store = Store::where('keystore',$po_id['store_ID'])->get()->toArray();
+        $data = pr_store::where('PO_ID', $po_id['PO_ID'])->get()->toArray();
+        $store = Store::where('keystore', $po_id['store_ID'])->get()->toArray();
         //dd($data);
-        $store_mine = Store::where('keystore','master')->get();
+        $store_mine = Store::where('keystore', 'master')->get();
         return view('porder.show', compact(
-                                            'po_id',
-                                            'data',
-                                            'store',
-                                            'store_mine',
-                                            'number',
-                                            'id'
+            'po_id',
+            'data',
+            'store',
+            'store_mine',
+            'number',
+            'id'
         ));
-
     }
 
     /**
