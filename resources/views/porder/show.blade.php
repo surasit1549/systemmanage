@@ -35,14 +35,11 @@
         <div class='text-right'>
           <button class="btn btn-lg btn-primary"><i class="fas fa-print"></i>&nbsp;&nbsp;พิมพ์เอกสาร</button>
         </div>
-<<<<<<< HEAD
         <div class="row">
           <div class="col-form-label col-md-6">
             <h4 class="d-inline shadow-sm" style="padding:10px"><label class="text-danger">&nbsp;PO {{$po_id['PO_ID']}}</label></h4>
           </div>
         </div>
-=======
->>>>>>> 4e7e9310e900022b7d494e76e33503c219f9b7fc
         <hr>
         <div class="container">
           <table class="table table-borderless">
@@ -123,7 +120,7 @@
           <tfoot>
             <tr>
               <th class="text-right" colspan="4">รวมเป็นเงิน</th>
-              <th class="text-center"><label class="text-danger" value="{{$row['sumofprice']}}">{{$row['sumofprice']}}</label></th>
+              <th class="text-center"><label class="text-danger" value="{{$data[0]['sumofprice']}}">{{$data[0]['sumofprice']}}</label></th>
               <th class="text-center">บาท</th>
             </tr>
           </tfoot>
@@ -136,79 +133,5 @@
     </div>
   </div>
 </div>
-
-
-<div>
-  <div>
-    <div style="position:absolute;left:60px">
-      <img src="{{asset('pic/store.png')}}" alt="pic">
-    </div>
-    <div style="text-align:center">
-      <h4>{{ $store_mine[0]->name }}</h4>
-      <h5>{{ $store_mine[0]->address }}</h5>
-      <h5>{{ $store_mine[0]->phone }}</h5>
-    </div>
-    <div style="text-align:center;top:20px;position:relative">
-      <h4>ใบสั่งซื้อ</h4>
-    </div>
-    <div style="border:2px solid black;position:absolute;right:200px;padding:10px;">
-      <h5>เลขที่เอกสาร PO </h5>
-    </div>
-  </div>
-  <br>
-  <br>
-  <div class="pd_table">
-    <table class="main_detail_po">
-      <tr>
-        <td>
-          <table class="detail_po">
-            <tr>
-              <th>ผู้ขาย :</th>
-              <td>{{$store[0]['name']}}&nbsp;&nbsp; [ {{$store[0]['keystore']}} ]</td>
-            </tr>
-            <tr>
-              <th>โทรศัทพ์ :</th>
-              <td>{{$store[0]['phone']}}</td>
-            </tr>
-            <tr>
-              <th>ที่อยู่ :</th>
-              <td>{{$store[0]['address']}}</td>
-            </tr>
-            <tr>
-              <th>โทรสาร :</th>
-              <td>{{$store[0]['fax']}}</td>
-            </tr>
-          </table>
-        </td>
-        <td>
-          <table class="detail_po">
-            <tr>
-              <th>วันที่เอกสาร :</th>
-              <td> {{substr($data[0]['created_at'],0,-9)}}</td>
-            </tr>
-            <tr>
-              <th>ผู้ติดต่อ :</th>
-              <td>{{$store[0]['contect']}} &nbsp;&nbsp; {{$store[0]['cellphone']}}</td>
-            </tr>
-            <tr>
-              <th>วันที่กำหนดส่ง :</th>
-              <td>ผู้ขาย</td>
-            </tr>
-            <tr>
-              <th>จำนวนเครดิต :</th>
-              <td>ผู้ขาย</td>
-              <th>วัน</th>
-            </tr>
-            <tr>
-              <th>เงื่อนไขการชำระ :</th>
-              <td>ผู้ขาย</td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-    </table>
-  </div>
-</div>
-
 
 @endsection
