@@ -2,7 +2,7 @@
 @section('title','welcome Homepage')
 @section('tabbarcss')
 <style>
-  #transformtab {
+  #person2 {
     border-right: 5px solid rgb(41, 207, 219);
   }
 
@@ -84,7 +84,11 @@
 
   <script>
     $(document).ready(function() {
-      $('#example').DataTable();
+      $('#example').DataTable({
+        'columnDefs' : [
+          { 'orderable' : false , 'targets' : 5 }
+        ]
+      });
     });
   </script>
-@stop
+  @stop

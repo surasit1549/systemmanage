@@ -33,7 +33,7 @@
         </div>
     </div>
     <div class="form-group text-center">
-      <a class="btn btn-danger" href="{{route('transform.index')}}"><i class="fas fa-undo"></i>&nbsp;&nbsp;ย้อนกลับ</a>
+      <a class="btn btn-danger" onclick="window.history.back()" href="#"><i class="fas fa-undo"></i>&nbsp;&nbsp;ย้อนกลับ</a>
       <button id="subform" type="submit" class="btn btn-success" value="Update"><i class="far fa-save"></i>&nbsp;&nbsp;บันทึก</button>
     </div>
     </form>
@@ -55,9 +55,9 @@
         event.stopPropagation();
         Swal.fire({
           title: 'ชื่อแปลงไม่สามารถมีช่องว่างได้',
-          text : 'กรอกชื่อแปลงให้ถูกต้อง',
-          type : 'info',
-          confirmButtonText : 'ตกลง'
+          text: 'กรอกชื่อแปลงให้ถูกต้อง',
+          type: 'info',
+          confirmButtonText: 'ตกลง'
         })
       }
     });

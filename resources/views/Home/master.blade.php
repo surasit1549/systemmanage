@@ -26,19 +26,17 @@
     <div class="wrapper">
         <!-- Sidebar  -->
         <nav id="sidebar">
-            <div class="sidebar-header">
-                <h3>System Manage</h3>
-            </div>
+            <img class="siderbar-header" style="width:250px" src="{{asset('pic/logo1.png')}}" alt="">
             <ul class="list-unstyled components">
                 @if( Auth::user()->role != 'ผู้รับเหมา' )
                 <li>
                     <a href="{{route('store.index')}}" id="storetab">
-                        <i class="fas fa-store-alt"></i>&nbsp;&nbsp;
+                        <i style="font-size:20px" class="fas fa-store-alt"></i>&nbsp;&nbsp;
                         ร้านค้า
                     </a>
                 </li>
                 <li>
-                    <a href="#menu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="far fa-file-alt"></i>
+                    <a href="#menu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i style="font-size:20px" class="far fa-file-alt"></i>
                         &nbsp;&nbsp;การจัดการสินค้า</a>
                     <ul class="collapse list-unstyled" id="menu">
                         <li>
@@ -51,20 +49,20 @@
                 </li>
                 <li>
                     <a href="{{route('transform.index')}}" id="transformtab">
-                        <i class="fas fa-map"></i>
+                        <i style="font-size:20px" class="fas fa-map"></i>
                         &nbsp;&nbsp;แปลง</a>
                 </li>
                 @endif
                 @if( Auth::user()->role == 'ผู้รับเหมา' || Auth::user()->role == 'แอดมิน' )
                 <li>
                     <a href="{{route('pr_create.index')}}" id="constructtab">
-                        <i class="fas fa-map"></i>
-                        &nbsp;&nbsp;ผู้รับเหมา</a>
+                        <i style="font-size:20px" class="far fa-file-alt"></i>
+                        &nbsp;&nbsp;ใบขอสั่งซื้อ</a>
                 </li>
                 @endif
                 @if( Auth::user()->role != 'ผู้รับเหมา' )
                 <li>
-                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="far fa-file-alt"></i>
+                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i style="font-size:20px" class="far fa-file-alt"></i>
                         &nbsp;&nbsp;รายละเอียดการสั่งซื้อ</a>
                     <ul class="collapse list-unstyled" id="pageSubmenu">
                         <li>
@@ -81,32 +79,32 @@
                 @endif
                 @if( Auth::user()->role == 'ผู้มีอำนาจคน1' || Auth::user()->role == 'แอดมิน' )
                 <li>
-                    <a href="{{route('Authorized_person1.index')}}" id="constructtab">
-                        <i class="fas fa-user"></i>
+                    <a href="{{route('Authorized_person1.index')}}" id="person1">
+                        <i style="font-size:20px" class="fas fa-user"></i>
                         &nbsp;&nbsp;ผู้มีอำนาจคนที่1</a>
                 </li>
                 @endif
                 @if( Auth::user()->role == 'ผู้มีอำนาจคน2' || Auth::user()->role == 'แอดมิน' )
                 <li>
-                    <a href="{{route('Authorized_person2.index')}}" id="constructtab">
-                        <i class="fas fa-user"></i>
+                    <a href="{{route('Authorized_person2.index')}}" id="person2">
+                        <i style="font-size:20px" class="fas fa-user"></i>
                         &nbsp;&nbsp;ผู้มีอำนาจคนที่2</a>
                 </li>
                 @endif
                 @if( Auth::user()->role == 'แอดมิน' )
                 <li>
-                    <a href="{{route('usermanage.index')}}" id="usertab"><i class="far fa-user"></i>&nbsp;&nbsp;จัดการผู้ใช้งาน</a>
+                    <a href="{{route('usermanage.index')}}" id="usertab"><i style="font-size:20px" class="far fa-user"></i>&nbsp;&nbsp;จัดการผู้ใช้งาน</a>
                 </li>
                 @endif
                 <li>
                     <a href="{{route('profile.index')}}" id="user_profile">
-                        <i class="far fa-address-card"></i>
+                        <i style="font-size:20px" class="far fa-address-card"></i>
                         &nbsp;&nbsp;ข้อมูลผู้ใช้งาน
                     </a>
                 </li>
                 <li>
                     <a href="logout" id="exit">
-                        <i class="fas fa-sign-out-alt"></i>
+                        <i style="font-size:20px" class="fas fa-sign-out-alt"></i>
                         &nbsp;&nbsp;ออกจากระบบ
                     </a>
                 </li>

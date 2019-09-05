@@ -2,7 +2,7 @@
 @section('title','ใบขอสั่งซื้อ')
 @section('tabbarcss')
 <style>
-  #transformtab {
+  #person2 {
     border-right: 5px solid rgb(41, 207, 219);
   }
 
