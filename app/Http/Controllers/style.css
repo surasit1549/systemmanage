@@ -1,46 +1,78 @@
-#number_doc {
-  position: absolute;
-  right: 40px;
-  padding: 0px 10px;
-  top: 140px;
+
+#cover_detail_table {
+  top: 10px;
+  text-align: center;
 }
 
-.main_detail_po {
+#title_table {
+  position: absolute;
+  top: 130px;
+  left: 46%;
+}
+
+#store_ID_table {
+  position: absolute;
+  top: 150px;
+  right: 35px;
+  border: 1px solid black;
+  padding: 0px;
+}
+
+#store_table {
+  position: absolute;
+  top: 190px;
+  width: 83%;
+  border: 1px solid black;
+  padding: 20px;
+}
+#table_store {
+  border-collapse: collapse;
   width: 100%;
+}
+
+#product_table {
+  position: absolute;
+  top: 400px;
+  width: 88%;
   border: 1px solid black;
 }
-
-.pd_table {
-  position: absolute;
-  top: 185px;
-  margin-right: 50px;
+#table_product {
+  width: 100%;
 }
-
-.detail_table {
-  position: absolute;
-  top: 800px;
+tbody tr td{
+  text-align: center;
 }
-
-.detail_table {
-  position: absolute;
-  top: 350px;
-  margin-right: 50px;
+tbody th {
+  height: 30px;
 }
-
-.table-detail th,
-.table-detail td {
-  padding: 160px;
+tbody td {
+  height: 30px;
 }
-.table-detail ,
-.table-detail tr,
-.table-detail th,
-.table-detail td {
+#table_product,#table_product tr,#table_product td , #table_product th {
   border: 1px solid black;
   border-collapse: collapse;
 }
 
-.table-detail {
-  padding-right: 20px;
+#signature_1 {
+  text-align: center;
+  position: absolute;
+  top: 880px;
+  right: 250px;
+  bottom: 20px;
+}
+#signature_2 {
+  text-align: center;
+  position: absolute;
+  top: 880px;
+  right: 10px;
+  bottom: 20px;
+}
+#contrator {
+  text-align: center;
+  position: absolute;
+  top: 880px;
+  left: 40px;
+  bottom: 20px;
 }
 
 /* Signature */
