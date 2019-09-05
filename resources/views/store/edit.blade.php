@@ -82,6 +82,7 @@
               <a class="ml-2 btn btn-danger" href="{{route('store.index')}}"><i style="font-size:18px;" class="fas fa-undo-alt"></i>&nbsp;&nbsp;ย้อนกลับ</a>
             </div>
             <input type="hidden" name="_method" value="PATCH" />
+            <input type="hidden" name="store_id" value="{{$id}}">
           </form>
         </div>
       </div>
