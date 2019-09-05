@@ -70,6 +70,7 @@ class pr_createController extends Controller
      */
     public function create()
     {
+        $number = 1;
         $prequestconvert = transform::all()->toArray();
         $pr_create = PR_create::all('created_at')->toArray();
         $product = product_main::all()->toArray();
@@ -119,7 +120,7 @@ class pr_createController extends Controller
             }
         }
         //hidden
-        return view('pr_create.create', compact('prequestconvert', 'key', 'product', 'unit'));
+        return view('pr_create.create', compact('prequestconvert', 'key', 'product', 'unit', 'number'));
     }
 
     /**

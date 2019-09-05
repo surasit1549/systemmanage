@@ -84,6 +84,7 @@
             <table class="table table-hover table-bordered border-dark table-border-dark" id="detailmenu">
                 <thead>
                     <tr class="text-center">
+                        <th style="width:5%;">ลำดับ</th>
                         <th style="width:20%;">รายการสินค้า</th>
                         <th style="width:10%;">จำนวน</th>
                         <th style="width:10%;">หน่วย</th>
@@ -92,6 +93,7 @@
                 </thead>
                 <tbody>
                     <tr>
+                        <td class="text-center"><label class="col-form-label">1</label></td>
                         <td>
                             <input type="text" list="product" name="productname[]" class="form-control productname" required>
                             <datalist id="product">
@@ -109,7 +111,7 @@
                                 @endforeach
                             </datalist>
                         </td>
-                        <td class="text-center"><button class="btn btn-outline-danger"><i style="font-size:18px" class="far fa-trash-alt"></i></button></td>
+                        <td class="text-center"><a class="btn btn-outline-danger delete"><i style="font-size:18px" class="far fa-trash-alt"></i></a></td>
                     </tr>
                 </tbody>
                 <tfoot>
@@ -206,33 +208,45 @@
     <input type="hidden" id="signature" value="{{ Auth::user()->signature }}">
 
     <script type="text/javascript">
-        $('#subform').click(function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            if ($('form')[0].checkValidity() == false) {
-                $('form').addClass('was-validated');
-            }
-            if ($('#signature').val() == '-') {
-                Swal.fire({
-                    type: 'error',
-                    title: 'ไม่สามารถดำเนินการต่อได้',
-                    text: 'ต้องใส่ลายเซ็นในหมวดโปรไฟล์',
-                    confirmButtonText: 'ยอมรับ'
-                })
-            } else {
-                $('#forminput').submit();
-            }
-        });
-        $('#addrow').click(function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            $('#detailmenu tbody').append('<tr></label></td><td>' +
-                '<input type="text" list="product" name="productname[]" class="form-control productname" required>' +
-                '<td><input type="number" name="productnumber[]" min="1"class="form-control productnumber" required></td>' +
-                '<td><input type="text" name="unit[]" list="unit" class="form-control unit" required></td>' +
-                '<td class="text-center"><button class="btn btn-outline-danger"><i style="font-size:18px" class="far fa-trash-alt"></i></button></td></tr>');
-            $('#detailmenu tbody tr:last .productname').focus();
+        $(document).ready(function() {
 
-        });
+            var index = 2,
+                array = [];
+
+            $('#subform').click(function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                if ($('form')[0].checkValidity() == false) {
+                    $('form').addClass('was-validated');
+                }
+                if ($('#signature').val() == '-') {
+                    Swal.fire({
+                        type: 'error',
+                        title: 'ไม่สามารถดำเนินการต่อได้',
+                        text: 'ต้องใส่ลายเซ็นในหมวดโปรไฟล์',
+                        confirmButtonText: 'ยอมรับ'
+                    })
+                } else {
+                    $('#forminput').submit();
+                }
+            });
+            $('#addrow').click(function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                if (index <= 10) {
+                    $('#detailmenu tbody').append('<tr><td class="text-center"><label class="col-form-label">' + (index++) + '</label></td><td>' +
+                        '<input type="text" list="product" name="productname[]" class="form-control productname" required>' +
+                        '<td><input type="number" name="productnumber[]" min="1"class="form-control productnumber" required></td>' +
+                        '<td><input type="text" name="unit[]" list="unit" class="form-control unit" required></td>' +
+                        '<td class="text-center"><a class="btn btn-outline-danger delete"><i style="font-size:18px" class="far fa-trash-alt"></i></a></td></tr>');
+                    $('#detailmenu tbody tr:last .productname').focus();
+
+                    $(".delete").click(function() {
+                        $(this).parents("tr").remove();
+                    });
+                }
+
+            });
+        })
     </script>
     @stop
