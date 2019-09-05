@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Auth;
+use App\log;
 
 class admin
 {
@@ -13,12 +14,14 @@ class admin
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
      * @return mixed
-     */
+     */ 
+
     public function handle($request, Closure $next)
     {
         if (!Auth::check()) {
             return redirect('login');
         } else {
+            
             return $next($request);
         }
     }

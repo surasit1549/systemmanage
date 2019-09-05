@@ -2,7 +2,7 @@
 @section('title','welcome Homepage')
 @section('tabbarcss')
 <style>
-  #transformtab {
+  #person1 {
     border-right: 5px solid rgb(41, 207, 219);
   }
 
@@ -56,7 +56,7 @@
           <th style="width:20%;">รหัสเอกสาร</th>
           <th style="width:20%;">วัน/เดือน/ปี</th>
           <th style="width:20%;">แบบงาน</th>
-          <th style="width:15%;">แปลก</th>
+          <th style="width:15%;">แปลง</th>
           <th>จัดการ</th>
         </tr>
       </thead>
@@ -84,7 +84,12 @@
 
   <script>
     $(document).ready(function() {
-      $('#example').DataTable();
+      $('#example').DataTable({
+        'columnDefs': [{
+          'orderable': false,
+          'targets': 5
+        }]
+      });
     });
   </script>
 

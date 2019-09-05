@@ -12,6 +12,22 @@
   $(document).ready(function() {
     $('[data-toggle="tooltip"]').tooltip();
     $('#prtable').DataTable({
+      order: [
+        [1, 'desc']
+      ],
+      columns: [{
+          orderable: false,
+          width: '5%'
+        },
+        null,
+        null,
+        null,
+        null,
+        null,
+        {
+          orderable: false
+        }
+      ],
       "oLanguage": {
         "sSearch": 'ค้นหา',
         "sInfo": 'จำนวนรายการสั่งซื้อ _TOTAL_ รายการ',

@@ -13,33 +13,34 @@ use phpDocumentor\Reflection\DocBlock\Tags\Uses;
 |
 */
 
-Route::post('porder/makepdf','purchaseorderController@makepdf');
-Route::post('profile/changpassword','profileController@changepassword');
-Route::post('usermanage/checkemail','UsermanageController@checkemail');
 
-Route::resource('store', 'StoreController')->middleware('123');
-//Route ::resource('store','FillinformationController');
-Route::resource('transform', 'TransformController')->middleware('123');
-//Route ::resource('fillinformation','StoreController');
-Route ::resource('prequest','PuchaserequestController')->middleware('123');
-Route ::resource('porder','PurchaseorderController')->middleware('123');
-Route ::resource('check','CheckController')->middleware('123');
-Route ::resource('usermanage','UsermanageController')->middleware('123');
-Route ::resource('pr_create','pr_createController')->middleware('123');
-Route ::resource('Product', 'ProductController')->middleware('123');
-Route ::resource('Product_Price', 'ProductPriceController')->middleware('123');
-Route ::resource('profile','profileController')->middleware('123');
-Route ::resource('Authorized_person1', 'masteroneController')->middleware('123');
-Route ::resource('Authorized_person2', 'mastertwoController')->middleware('123');
 
-// Sent by Ajax
-Route::post('profile/viewSignature', 'profileController@viewSignature');
-Route::post('profile/createSignature', 'profileController@createSignature');
-Route::post('prequest/index', 'PuchaserequestController@store');
-Route::post('pr_create/index','pr_createController@store');
-//Route::post('prequest/index', 'PuchaserequestController@update');
+Route::group(['middleware' => ['123','checkAction']], function () {
+    //Route ::resource('store','FillinformationController');
+    //Route ::resource('fillinformation','StoreController');
+    Route::post('porder/makepdf', 'purchaseorderController@makepdf');
+    Route::post('profile/changpassword', 'profileController@changepassword');
+    Route::post('usermanage/checkemail', 'UsermanageController@checkemail');
+    Route::resource('store', 'StoreController');
+    Route::resource('transform', 'TransformController');
+    Route::resource('prequest', 'PuchaserequestController');
+    Route::resource('porder', 'PurchaseorderController');
+    Route::resource('check', 'CheckController');
+    Route::resource('usermanage', 'UsermanageController');
+    Route::resource('pr_create', 'pr_createController');
+    Route::resource('Product', 'ProductController');
+    Route::resource('Product_Price', 'ProductPriceController');
+    Route::resource('profile', 'profileController');
+    Route::resource('Authorized_person1', 'masteroneController');
+    Route::resource('Authorized_person2', 'mastertwoController');
+    // Sent by Ajax
+    Route::post('profile/viewSignature', 'profileController@viewSignature');
+    Route::post('profile/createSignature', 'profileController@createSignature');
+    Route::post('prequest/index', 'PuchaserequestController@store');
+    Route::post('pr_create/index', 'pr_createController@store');
+    //Route::post('prequest/index', 'PuchaserequestController@update');
+    Route::get('logout', 'masterController@logout');
+});
+
 Auth::routes();
-Route::get('logout','masterController@logout');
 Route::get('/home', 'HomeController@index')->name('home');
-
-
