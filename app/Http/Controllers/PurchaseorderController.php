@@ -32,9 +32,9 @@ class PurchaseorderController extends Controller
             'default_font' => 'thsarabunnew'
         ]);
         $mpdf->WriteHTML($stylesheet, 1);
-        $mpdf->WriteHTML($request->pdf);
-        $mpdf->Output('pdf/test.pdf', 'F');
+        $mpdf->WriteHTML($request->pdf,2);
         return response()->json(['msg' => 'Successful']);
+        $mpdf->Output('pdf/test.pdf', 'F');
     }
 
 
