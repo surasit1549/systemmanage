@@ -84,6 +84,7 @@
             <table class="table table-hover table-bordered border-dark table-border-dark" id="detailmenu">
                 <thead>
                     <tr class="text-center">
+                        <th style="width:5%;">ลำดับ</th>
                         <th style="width:20%;">รายการสินค้า</th>
                         <th style="width:10%;">จำนวน</th>
                         <th style="width:10%;">หน่วย</th>
@@ -92,6 +93,7 @@
                 </thead>
                 <tbody>
                     <tr>
+                        <td class="text-center"><label class="col-form-label">1</label></td>
                         <td>
                             <input type="text" list="product" name="productname[]" class="form-control productname" required>
                             <datalist id="product">
@@ -109,7 +111,7 @@
                                 @endforeach
                             </datalist>
                         </td>
-                        <td class="text-center"><button class="btn btn-outline-danger"><i style="font-size:18px" class="far fa-trash-alt"></i></button></td>
+                        <td class="text-center"><a class="btn btn-outline-danger delete"><i style="font-size:18px" class="far fa-trash-alt"></i></a></td>
                     </tr>
                 </tbody>
                 <tfoot>
@@ -206,116 +208,46 @@
     <input type="hidden" id="signature" value="{{ Auth::user()->signature }}">
 
     <script type="text/javascript">
-        $('#confirm').click(function() {
+        $(document).ready(function() {
 
-            event.stopPropagation();
-            event.preventDefault();
-            console.log(123);
-            if (!signaturePad.isEmpty()) {
-                var name = [];
-                var num = [];
-                var units = [];
-                var store = [];
-                var price = [];
-                var sum = [];
-                var image = signaturePad.toDataURL();
-                var key = $('#convert').val() + '-' + $('#keyja').text();
+            var index = 2,
+                array = [];
 
-                $('#prcode_ex').text(key);
-                $('#confirm').html('<div class="spinner-border spinner-border-sm text-light" role="status"> <span class = "sr-only" > รอสักครู่ < /span></div>&nbsp;&nbsp;รอสักครู่')
+            $('#subform').click(function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                if ($('form')[0].checkValidity() == false) {
+                    $('form').addClass('was-validated');
+                }
+                if ($('#signature').val() == '-') {
+                    Swal.fire({
+                        type: 'error',
+                        title: 'ไม่สามารถดำเนินการต่อได้',
+                        text: 'ต้องใส่ลายเซ็นในหมวดโปรไฟล์',
+                        confirmButtonText: 'ยอมรับ'
+                    })
+                } else {
+                    $('#forminput').submit();
+                }
+            });
+            $('#addrow').click(function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                if (index <= 10) {
+                    $('#detailmenu tbody').append('<tr><td class="text-center"><label class="col-form-label">' + (index++) + '</label></td><td>' +
+                        '<input type="text" list="product" name="productname[]" class="form-control productname" required>' +
+                        '<td><input type="number" name="productnumber[]" min="1"class="form-control productnumber" required></td>' +
+                        '<td><input type="text" name="unit[]" list="unit" class="form-control unit" required></td>' +
+                        '<td class="text-center"><a class="btn btn-outline-danger delete"><i style="font-size:18px" class="far fa-trash-alt"></i></a></td></tr>');
+                    $('#detailmenu tbody tr:last .productname').focus();
 
-                $('table tbody tr').each(function(index, value) {
-                    name.push($('td .productname', this).val());
-                    num.push($('td .productnumber', this).val());
-                    units.push($('td .unit', this).val());
-                });
+                    $(".delete").click(function() {
+                        $(this).parents("tr").remove();
+                    });
+                }
 
-                $('#date_ex').text($('#datetime').val());
-                $('#work_ex').text($('select[name=formwork]').val());
-                $('#transform_ex').text($('select[name=prequestconvert]').val());
-
-                $('#detailmenu tbody tr').each(function(index) {
-                    productname = $(this).find('.productname').val();
-                    productnumber = $(this).find('.productnumber').val();
-                    unit = $(this).find('.unit').val();
-                    $('#exportb tbody').append('<tr><td>' + (index + 1) + '</td><td>' + productname + '</td><td>' + productnumber + '</td><td>' + unit + '</td></tr>');
-                });
-
-                $.ajax({
-                    type: 'post',
-                    url: 'index',
-                    data: {
-                        _token: '{{csrf_token()}}',
-                        key: key,
-                        image: image,
-                        productname: name,
-                        productnumber: num,
-                        units: units,
-                        date: $('input[name=date]').val(),
-                        contractor: 'คุณ เก่ง',
-                        formwork: $('select[name=formwork]').val(),
-                        prequestconvert: $('select[name=prequestconvert]').val(),
-                        filepdf: $('#filepdf').html()
-                    },
-                    success: function(data) {
-                        console.log(data.msg);
-                        $('#signature').modal('hide');
-                        swal.fire({
-                            showCancelButton: true,
-                            confirmButtonText: 'ไปยังหน้า PR',
-                            cancelButtonText: 'สร้าง PR ใหม่',
-                            focusConfirm: true,
-                            width: 600,
-                            heightAuto: true,
-                            type: 'success',
-                            title: 'บันทึกข้อมูลเรียบร้อยแล้ว',
-                            text: 'สามารถตรวจสอบข้อมูลได้ที่ตาราง PR'
-                        }).then((result) => {
-                            if (result.value)
-                                window.location.replace('./');
-                            else
-                                location.reload();
-                        })
-                    }
-                });
-            } else {
-                Swal.fire({
-                    title: 'กรุณากรอกลายเซ็น',
-                    text: 'กรอกลายเซ็นก่อนกดตกลง',
-                    confirmButtonText: 'เข้าใจแล้ว',
-                    type: 'warning'
-                })
-            }
-        });
-
-        $('#subform').click(function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            if ($('form')[0].checkValidity() == false) {
-                $('form').addClass('was-validated');
-            }
-            if ($('#signature').val() == '-') {
-                Swal.fire({
-                    type: 'error',
-                    title: 'ไม่สามารถดำเนินการต่อได้',
-                    text: 'ต้องใส่ลายเซ็นในหมวดโปรไฟล์',
-                    confirmButtonText: 'ยอมรับ'
-                })
-            } else {
-                $('#forminput').submit();
-            }
-        });
-        $('#addrow').click(function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            $('#detailmenu tbody').append('<tr></label></td><td>' +
-                '<input type="text" list="product" name="productname[]" class="form-control productname" required>' +
-                '<td><input type="number" name="productnumber[]" min="1"class="form-control productnumber" required></td>' +
-                '<td><input type="text" name="unit[]" list="unit" class="form-control unit" required></td>' +
-                '<td class="text-center"><button class="btn btn-outline-danger"><i style="font-size:18px" class="far fa-trash-alt"></i></button></td></tr>');
-            $('#detailmenu tbody tr:last .productname').focus();
-
-        });
+            });
+        })
     </script>
 
     <div id="exportpdf" class="d-none">

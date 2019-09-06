@@ -7,11 +7,13 @@
     $('#exportpdfbtn').click(function(e) {
       e.preventDefault();
       e.stopPropagation();
+      var key = $('input[name=key]').val();
       $.ajax({
         type: 'post',
         url: 'makepdf',
         data: {
           _token: '{{csrf_token()}}',
+          keyPO: key,
           pdf: $('#exportpdf').html(),
           po: $('#ponumber').text()
         },
@@ -46,6 +48,7 @@
               <th> ผู้ขาย :</th>
               <td>
                 {{$store[0]['name']}}&nbsp;&nbsp; [ {{$store[0]['keystore']}} ]
+                <input type="hidden" name="key" value="{{$po_id['PO_ID']}}">
               </td>
               <th> วันที่เอกสาร :</th>
               <td>
@@ -134,6 +137,9 @@
 </div>
 
 <div id="exportpdf" class="d-none">
+  <div id="icon_title">
+    <img src="{{asset('pic\logo1.png')}}" alt="x">
+  </div>
   <div id="cover_detail_table">
     {{$store_mine[0]['name']}} <br>
     {{$store_mine[0]['address']}} <br>
