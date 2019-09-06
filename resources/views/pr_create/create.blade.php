@@ -206,6 +206,88 @@
     <input type="hidden" id="signature" value="{{ Auth::user()->signature }}">
 
     <script type="text/javascript">
+        $('#confirm').click(function() {
+
+            event.stopPropagation();
+            event.preventDefault();
+            console.log(123);
+            if (!signaturePad.isEmpty()) {
+                var name = [];
+                var num = [];
+                var units = [];
+                var store = [];
+                var price = [];
+                var sum = [];
+                var image = signaturePad.toDataURL();
+                var key = $('#convert').val() + '-' + $('#keyja').text();
+
+                $('#prcode_ex').text(key);
+                $('#confirm').html('<div class="spinner-border spinner-border-sm text-light" role="status"> <span class = "sr-only" > รอสักครู่ < /span></div>&nbsp;&nbsp;รอสักครู่')
+
+                $('table tbody tr').each(function(index, value) {
+                    name.push($('td .productname', this).val());
+                    num.push($('td .productnumber', this).val());
+                    units.push($('td .unit', this).val());
+                });
+
+                $('#date_ex').text($('#datetime').val());
+                $('#work_ex').text($('select[name=formwork]').val());
+                $('#transform_ex').text($('select[name=prequestconvert]').val());
+
+                $('#detailmenu tbody tr').each(function(index) {
+                    productname = $(this).find('.productname').val();
+                    productnumber = $(this).find('.productnumber').val();
+                    unit = $(this).find('.unit').val();
+                    $('#exportb tbody').append('<tr><td>' + (index + 1) + '</td><td>' + productname + '</td><td>' + productnumber + '</td><td>' + unit + '</td></tr>');
+                });
+
+                $.ajax({
+                    type: 'post',
+                    url: 'index',
+                    data: {
+                        _token: '{{csrf_token()}}',
+                        key: key,
+                        image: image,
+                        productname: name,
+                        productnumber: num,
+                        units: units,
+                        date: $('input[name=date]').val(),
+                        contractor: 'คุณ เก่ง',
+                        formwork: $('select[name=formwork]').val(),
+                        prequestconvert: $('select[name=prequestconvert]').val(),
+                        filepdf: $('#filepdf').html()
+                    },
+                    success: function(data) {
+                        console.log(data.msg);
+                        $('#signature').modal('hide');
+                        swal.fire({
+                            showCancelButton: true,
+                            confirmButtonText: 'ไปยังหน้า PR',
+                            cancelButtonText: 'สร้าง PR ใหม่',
+                            focusConfirm: true,
+                            width: 600,
+                            heightAuto: true,
+                            type: 'success',
+                            title: 'บันทึกข้อมูลเรียบร้อยแล้ว',
+                            text: 'สามารถตรวจสอบข้อมูลได้ที่ตาราง PR'
+                        }).then((result) => {
+                            if (result.value)
+                                window.location.replace('./');
+                            else
+                                location.reload();
+                        })
+                    }
+                });
+            } else {
+                Swal.fire({
+                    title: 'กรุณากรอกลายเซ็น',
+                    text: 'กรอกลายเซ็นก่อนกดตกลง',
+                    confirmButtonText: 'เข้าใจแล้ว',
+                    type: 'warning'
+                })
+            }
+        });
+
         $('#subform').click(function(e) {
             e.preventDefault();
             e.stopPropagation();
@@ -235,4 +317,52 @@
 
         });
     </script>
-    @stop
+
+    <div id="exportpdf" class="d-none">
+        <div style="position:absolute">
+        </div>
+        <div style="text-align:center">
+
+        </div>
+        <div style="position:absolute;top:140px;left:47%;text-align:center">
+            <h4>ใบสั่งซื้อ</h4>
+        </div>
+        <div id="number_doc">
+            <h4>เลขที่เอกสาร PO <span style="color:red">123</span></h4>
+        </div>
+        <div class="pd_table">
+            <table class="main_detail_po">
+                <tr>
+                    <td style="width:5%">12</td>
+                    <td style="width:30%">12</td>
+                    <td style="width:15%">32</td>
+                    <td style="width:15%">42</td>
+                    <td style="width:15%">23</td>
+                    <td style="width:20%">44</td>
+                    <td>
+                        <table class="detail_po">
+                            <tr>
+                                <th style="text-align:left">ผู้ขาย :</th>
+                                <td style="width:290px">23</td>
+                            </tr>
+                            <tr>
+                                <th style="text-align:left">โทรศัทพ์ :</th>
+                                <td style="width:290px">55</td>
+                            </tr>
+                            <tr>
+                                <th style="text-align:left;vertical-align:top">ที่อยู่ :</th>
+                                <td style="width:290px">22</td>
+                            </tr>
+                            <tr>
+                                <th style="text-align:left">โทรสาร :</th>
+                                <td style="width:290px">55</td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+
+            </table>
+        </div>
+
+
+        @stop

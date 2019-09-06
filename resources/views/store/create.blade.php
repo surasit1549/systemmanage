@@ -85,7 +85,6 @@
         $('form').addClass('was-validated');
       }
     });
-
   });
 </script>
 

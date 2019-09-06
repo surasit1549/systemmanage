@@ -132,12 +132,29 @@ class pr_createController extends Controller
 
     public function store(Request $request)
     {
-
         $num = 0;
         $key = $request->input('key');
         $ID = $request->input('prequestconvert') . '-' . $key;
         $lengtharray = sizeof($request->input('productname'));
 
+        // make PDF of pr
+        $filepath = 'pdf/' . $request->input('key') . '.pdf';
+        $stylesheet = file_get_contents(__DIR__ . '\style.css');
+        $mpdf = new \Mpdf\Mpdf([
+            'mode' => 'utf-8',
+            'format' => [210, 297],
+            'default_font_size' => 16,
+            'default_font' => 'thsarabunnew'
+        ]);
+        $mpdf->WriteHTML($stylesheet, 1);
+        $mpdf->WriteHTML($request->input('filepdf'));
+        $mpdf->Output($filepath, 'F');
+        // pass pdf of pr to S3
+        $path = "C:/xampp/htdocs/project/public/";
+        $img_path = 'https://s3.' . env('AWS_DEFAULT_REGION') . '.amazonaws.com/' . env('AWS_BUCKET') . '/pr_pdf/' . $request->input('key');
+        $s3 = Storage::disk('s3');
+        $s3->put('pr_pdf/' . $request->input('key'), file_get_contents($path . $filepath), 'public');
+        // Delete File after saving on S3
  
 
         for ($i = 0; $i < $lengtharray; $i++) {
@@ -154,7 +171,8 @@ class pr_createController extends Controller
             'date'              => $request->input('date'),
             'contractor'        => 'เก่ง',
             'formwork'          => $request->input('formwork'),
-            'prequestconvert'   => $request->input('prequestconvert')
+            'prequestconvert'   => $request->input('prequestconvert'),
+            'pdf'               => $img_path
         ]);
 
         $arr->save();

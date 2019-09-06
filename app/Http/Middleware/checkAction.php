@@ -8,6 +8,7 @@ use App\Store;
 use App\product_main;
 use Auth;
 
+
 class checkAction
 {
     /**
@@ -25,16 +26,18 @@ class checkAction
         $path = $request->route()->getActionName();
         if ($data == 'StoreController@store') {
             $arr = [
-                'username' => Auth::user()->username, 'data' => $path . ';CREATE ร้านค้า ;รหัสร้านค้า:' . $request->keystore . '&ชื่อร้านค้า:' .
+                'username' => Auth::user()->username, 'data' => 'CREATE ร้านค้า ;รหัสร้านค้า:' . $request->keystore . '&ชื่อร้านค้า:' .
                     $request->name . '&ที่อยู่:' . $request->address . '&โทรศัพท์:' . $request->phone . '&fax:' .
-                    $request->fax . '&ผู้ติดต่อ:' . $request->contect . '&เบอร์โทร:' . $request->cellphone
+                    $request->fax . '&ผู้ติดต่อ:' . $request->contect . '&เบอร์โทร:' . $request->cellphone,
+                'action' => $path
             ];
             log::create($arr);
         } else if ($data == 'StoreController@update') {
             $store = Store::find($request->store_id);
             $arr = [
                 'username' => Auth::user()->username,
-                'data' => $path . ';UPDATE ร้านค้า '
+                'data' => 'UPDATE ร้านค้า ',
+                'action' => $path
             ];
             if ($store->keystore != $request->keystore) {
                 $arr['data'] = $arr['data'] . ';รหัสร้านค้า(' . $store->keystore . '=>' . $request->keystore . ')';
@@ -59,27 +62,54 @@ class checkAction
             }
 
             log::create($arr);
-        } else if ($data == 'storeController@destroy') {
+        } else if ($data == 'StoreController@destroy') {
             $arr = [
-                'username' => Auth::user()->username, 'data' => $path . ';DELETE ร้านค้า ;รหัสร้านค้า:' . $request->keystore
+                'username' => Auth::user()->username, 'data' => 'DELETE ร้านค้า ;รหัสร้านค้า:' . $request->keystore,
+                'action' => $path
             ];
             log::create($arr);
         } else if ($data == 'ProductController@store') {
             $arr = [
-                'username' => Auth::user()->username, 'data' => $path . ';CREATE สินค้า ;รหัสสินค้า:' . $request->Product_ID .
-                    ';ชื่อสินค้า:' . $request->Product_name . ';unit:' . $request->unit
+                'username' => Auth::user()->username, 'data' => 'CREATE สินค้า ;รหัสสินค้า:' . $request->Product_ID .
+                    ';ชื่อสินค้า:' . $request->Product_name . ';หน่วย:' . $request->unit,
+                'action' => $path
             ];
             log::create($arr);
         } else if ($data == 'ProductController@update') {
-            $store = Product::find($request->store_id);
+            $product = product_main::find($request->product_id);
             $arr = [
                 'username' => Auth::user()->username,
-                'data' => $path . ';UPDATE สินค้า '
+                'data' => 'UPDATE สินค้า ',
+                'action' => $path
             ];
-            if ($store->keystore != $request->keystore) {
-                $arr['data'] = $arr['data'] . ';รหัสร้านค้า(' . $store->keystore . '=>' . $request->keystore . ')';
+
+            if ($product->Product_ID != $request->Product_ID) {
+                $arr['data'] = $arr['data'] . ';รหัสสินค้า(' . $product->Product_ID . '=>' . $request->Product_ID . ')';
             }
-        } else if ($data == 'ProductController@destroy') { } else if ($data == 'ProductPriceController@store') { } else if ($data == 'ProductPriceController@update') { } else if ($data == 'ProductPriceController@destroy') { } else if ($data == 'pr_createController@store') { } else if ($data == 'pr_createController@update') { } else if ($data == 'pr_createController@destroy') { } else if ($data == 'PuchaserequestController@store') { } else if ($data == 'PuchaserequestController@update') { } else if ($data == 'PuchaserequestController@destroy') { } else if ($data == 'PurchaseorderController@store') { } else if ($data == 'usermanageController@store') { } else if ($data == 'usermanageController@update') { } else if ($data == 'usermanageController@destroy') { } else if ($data == 'profileController@update') { }
+            if ($product->Product_name != $request->Product_name) {
+                $arr['data'] = $arr['data'] . ';ชื่อสินค้า(' . $product->Product_name . '=>' . $request->Product_name . ')';
+            }
+            if ($product->unit != $request->unit) {
+                $arr['data'] = $arr['data'] . ';หน่วย(' . $product->unit . '=>' . $request->unit . ')';
+            }
+            log::create($arr);
+        } else if ($data == 'ProductController@destroy') {
+            $arr = [
+                'username' => Auth::user()->username, 'data' => 'DELETE สินค้า ;รหัสสินค้า:' . $request->Product_ID,
+                'action' => $path
+            ];
+            log::create($arr);
+        } else if ($data == 'ProductPriceController@store') {
+            $arr = [
+                'username' => Auth::user()->username, 'data' => 'CREATE ร้านค้า ;รหัสร้านค้า:' . $request->keystore . '&ชื่อร้านค้า:' .
+                    $request->name . '&ที่อยู่:' . $request->address . '&โทรศัพท์:' . $request->phone . '&fax:' .
+                    $request->fax . '&ผู้ติดต่อ:' . $request->contect . '&เบอร์โทร:' . $request->cellphone,
+                'action' => $path
+            ];
+            log::create($arr);
+        } else if ($data == 'ProductPriceController@update') {
+
+         } else if ($data == 'ProductPriceController@destroy') { } else if ($data == 'pr_createController@store') { } else if ($data == 'pr_createController@update') { } else if ($data == 'pr_createController@destroy') { } else if ($data == 'PuchaserequestController@store') { } else if ($data == 'PuchaserequestController@update') { } else if ($data == 'PuchaserequestController@destroy') { } else if ($data == 'PurchaseorderController@store') { } else if ($data == 'usermanageController@store') { } else if ($data == 'usermanageController@update') { } else if ($data == 'usermanageController@destroy') { } else if ($data == 'profileController@update') { }
         return $next($request);
     }
 }

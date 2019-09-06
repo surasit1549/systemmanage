@@ -119,6 +119,7 @@
             <a class="test" href="#" data-toggle="tooltip" data-placement="top" title="Remove"><i style="font-size:20px;" class="fas fa-trash-alt text-danger"></i></a>
             <form method="post" class="delete_form" action="{{action('StoreController@destroy',$row->id)}}">
               {{csrf_field()}}
+              <input type="hidden" name="keystore" value="{{$row->keystore}}">
               <input type="hidden" name="_method" value="DELETE" />
             </form>
           </td>

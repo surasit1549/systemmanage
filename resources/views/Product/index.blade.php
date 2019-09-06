@@ -66,22 +66,23 @@
       </thead>
       <tbody>
         @foreach($products as $row)
-          <tr>
-            <td>{{$num++}}</td>
-            <td>{{$row[1]}}</td>
-            <td>{{$row[2]}}</td>
-            <td>
-              &nbsp;&nbsp;<a href="{{action('ProductController@edit',$row[0])}}" data-toggle="tooltip" data-placement="top" title="Edit"><i style="font-size:20px;" class="fas fa-edit text-warning"></i></a>
-              &nbsp;&nbsp;
-              <a class="test" href="#" data-toggle="tooltip" data-placement="top" title="Remove"><i style="font-size:20px;" class="fas fa-trash-alt text-danger"></i></a>
-              <form method="post" class="delete_form" action="{{action('ProductController@destroy',$row[0])}}">
-                {{csrf_field()}}
-                <input type="hidden" name="_method" value="DELETE" />
-              </form>
-            </td>
-          </tr>
+        <tr>
+          <td>{{$num++}}</td>
+          <td>{{$row[1]}}</td>
+          <td>{{$row[2]}}</td>
+          <td>
+            &nbsp;&nbsp;<a href="{{action('ProductController@edit',$row[0])}}" data-toggle="tooltip" data-placement="top" title="Edit"><i style="font-size:20px;" class="fas fa-edit text-warning"></i></a>
+            &nbsp;&nbsp;
+            <a class="test" href="#" data-toggle="tooltip" data-placement="top" title="Remove"><i style="font-size:20px;" class="fas fa-trash-alt text-danger"></i></a>
+            <form method="post" class="delete_form" action="{{action('ProductController@destroy',$row[0])}}">
+              {{csrf_field()}}
+              <input type="hidden" name="_method" value="DELETE" />
+              <input type="hidden" name="Product_ID" value="{{$row[1]}}">
+            </form>
+          </td>
+        </tr>
         @endforeach
       </tbody>
     </table>
   </div>
-@stop
+  @stop
