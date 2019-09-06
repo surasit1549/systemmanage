@@ -53,6 +53,7 @@
           <button id="subform" type="submit" class="btn btn-success" value="Update"><i class="far fa-save"></i>&nbsp;&nbsp;บันทึก</button>
         </div>
         <input type="hidden" name="_method" value="PATCH" />
+        <input type="hidden" name="product_id" value="{{$product->id}}">
       </form>
     </div>
   </div>
