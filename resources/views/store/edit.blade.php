@@ -5,7 +5,6 @@
   #storetab {
     border-right: 5px solid rgb(41, 207, 219);
   }
-  }
 </style>
 @stop
 @section('content')
@@ -79,7 +78,7 @@
 
             <div class="form-group text-right mt-3">
               <button id="subform" type="submit" class="btn btn-success ml-2"><i class="far fa-edit"></i>&nbsp;&nbsp;บันทึกข้อมูล</button>
-              <a class="ml-2 btn btn-danger" href="{{route('store.index')}}"><i style="font-size:18px;" class="fas fa-undo-alt"></i>&nbsp;&nbsp;ย้อนกลับ</a>
+              <a class="ml-2 btn btn-danger" href="#" onclick="window.history.back()"><i style="font-size:18px;" class="fas fa-undo-alt"></i>&nbsp;&nbsp;ย้อนกลับ</a>
             </div>
             <input type="hidden" name="_method" value="PATCH" />
             <input type="hidden" name="store_id" value="{{$id}}">

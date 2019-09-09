@@ -22,18 +22,20 @@ Route::group(['middleware' => ['123','checkAction']], function () {
     Route::post('pr_create/makepdf', 'pr_createController@makepdf');
     Route::post('profile/changpassword', 'profileController@changepassword');
     Route::post('usermanage/checkemail', 'UsermanageController@checkemail');
-    Route::resource('store', 'StoreController');
-    Route::resource('transform', 'TransformController');
-    Route::resource('prequest', 'PuchaserequestController');
-    Route::resource('porder', 'PurchaseorderController');
-    Route::resource('check', 'CheckController');
-    Route::resource('usermanage', 'UsermanageController');
-    Route::resource('pr_create', 'pr_createController');
-    Route::resource('Product', 'ProductController');
-    Route::resource('Product_Price', 'ProductPriceController');
-    Route::resource('profile', 'profileController');
-    Route::resource('Authorized_person1', 'masteroneController');
-    Route::resource('Authorized_person2', 'mastertwoController');
+    Route::resources([
+        'store' => 'StoreController',
+        'transform' => 'TransformController',
+        'prequest' => 'PuchaserequestController',
+        'porder' => 'PurchaseorderController',
+        'check' => 'CheckController',
+        'usermanage' => 'UsermanageController',
+        'pr_create' => 'pr_createController',
+        'Product' => 'ProductController',
+        'Product_Price' => 'ProductPriceController',
+        'profile' => 'profileController',
+        'Authorized_person1' => 'masteroneController',
+        'Authorized_person2' => 'mastertwoController'
+    ]);
     // Sent by Ajax
     Route::post('profile/viewSignature', 'profileController@viewSignature');
     Route::post('profile/createSignature', 'profileController@createSignature');

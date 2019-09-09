@@ -62,7 +62,8 @@
                         &nbsp;&nbsp;
                         <a class="delete_user" data-toggle="tooltip" data-placement="top" title="Remove"><i style="font-size:20px;" class="fas fa-trash-alt text-danger"></i></a>
                         <form method="post" class="delete_form" action="{{action('UsermanageController@destroy',$users['id'])}}">
-                            {{csrf_field()}}
+                            @csrf
+                            <input type="hidden" name="username" value="{{$users['username']}}">
                             <input type="hidden" name="_method" value="DELETE" />
                         </form>
                     </td>

@@ -16,7 +16,24 @@
 <script>
   $(document).ready(function() {
     $('[data-toggle="tooltip"]').tooltip();
-    $('#main').DataTable();
+    $('#main').DataTable({
+      'order': [
+        [1, 'desc']
+      ],
+      'columns': [{
+          'orderable': false
+        },
+        null,
+        null,
+        null,
+        null,
+        null,
+        {
+          'orderable': false
+        },
+
+      ]
+    });
     $('.test').click(function() {
       $(this).next('form').submit();
     });

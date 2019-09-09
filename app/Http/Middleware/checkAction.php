@@ -109,7 +109,42 @@ class checkAction
             log::create($arr);
         } else if ($data == 'ProductPriceController@update') {
 
-         } else if ($data == 'ProductPriceController@destroy') { } else if ($data == 'pr_createController@store') { } else if ($data == 'pr_createController@update') { } else if ($data == 'pr_createController@destroy') { } else if ($data == 'PuchaserequestController@store') { } else if ($data == 'PuchaserequestController@update') { } else if ($data == 'PuchaserequestController@destroy') { } else if ($data == 'PurchaseorderController@store') { } else if ($data == 'usermanageController@store') { } else if ($data == 'usermanageController@update') { } else if ($data == 'usermanageController@destroy') { } else if ($data == 'profileController@update') { }
+         } else if ($data == 'ProductPriceController@destroy') {
+            $arr = [
+                'username' => Auth::user()->username, 'data' => 'DELETE userid ;usename:' . $request->username,
+                'action' => $path
+            ];
+            log::create($arr);
+         } else if ($data == 'pr_createController@store') {
+            $arr = [
+                'username' => Auth::user()->username, 'data' => 'CREATE ใบขอสั่งซื้อ PR ;เลขใบขอสั่งซื้อ:' . $request->keystore ,
+                'action' => $path
+            ];
+            log::create($arr);
+         } 
+         else if ($data == 'pr_createController@update') { 
+
+        }else if ($data == 'PuchaserequestController@update') {
+
+        }else if ($data == 'UsermanageController@store') {
+            $arr = [
+                'username' => Auth::user()->username, 'data' => 'CREATE userid ;ชื่อจริง:' . $request->firstname . '&นามสกุล:' .
+                    $request->lastname . '&ที่อยู่:' . $request->address . '&โทรศัพท์:' . $request->phone . '&อีเมล:' .
+                    $request->email . '&username:' . $request->username . '&role:' . $request->role,
+                'action' => $path
+            ];
+            log::create($arr);
+         }else if ($data == 'UsermanageController@update') { 
+
+         }else if ($data == 'UsermanageController@destroy') {
+            $arr = [
+                'username' => Auth::user()->username, 'data' => 'DELETE userid ;usename:' . $request->username,
+                'action' => $path
+            ];
+            log::create($arr);
+        }else if ($data == 'profileController@update') { 
+
+        }
         return $next($request);
     }
 }
