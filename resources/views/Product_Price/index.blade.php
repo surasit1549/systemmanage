@@ -2,10 +2,7 @@
 @section('title','welcome Homepage')
 @section('tabbarcss')
 <style>
-  #transformtab {
-    border-right: 5px solid rgb(41, 207, 219);
-  }
-
+ 
   #searchtext:focus {
     outline: none !important;
     box-shadow: none;
