@@ -5,8 +5,10 @@ namespace App\Http\Middleware;
 use Closure;
 use App\log;
 use App\Store;
+use App\User;
 use App\product_main;
 use Auth;
+
 
 
 class checkAction
@@ -60,7 +62,6 @@ class checkAction
             if ($store['cellphone'] != $request->cellphone) {
                 $arr['data'] = $arr['data'] . ';เบอร์โทร(' . $store->cellphone . '=>' . $request->cellphone . ')';
             }
-
             log::create($arr);
         } else if ($data == 'StoreController@destroy') {
             $arr = [
@@ -121,10 +122,7 @@ class checkAction
                 'action' => $path
             ];
             log::create($arr);
-         } 
-         else if ($data == 'pr_createController@update') { 
-
-        }else if ($data == 'PuchaserequestController@update') {
+         }else if ($data == 'PuchaserequestController@update') {
 
         }else if ($data == 'UsermanageController@store') {
             $arr = [
@@ -134,8 +132,32 @@ class checkAction
                 'action' => $path
             ];
             log::create($arr);
-         }else if ($data == 'UsermanageController@update') { 
-
+         }else if ($data == 'UsermanageController@update') {
+            $user = User::find($request->id);
+            $arr = [
+                'username' => Auth::user()->username,
+                'data' => 'UPDATE ผู้ใช้งาน ',
+                'action' => $path
+            ];
+            if ($user->firstname != $request->firstname) {
+                $arr['data'] = $arr['data'] . ';ชื่อจริง(' . $user->firstname . '=>' . $request->firstname . ')';
+            }
+            if ($user->lastname != $request->lastname) {
+                $arr['data'] = $arr['data'] . ';นามสกุล(' . $user->lastname . '=>' . $request->lastname . ')';
+            }
+            if ($user->address != $request->address) {
+                $arr['data'] = $arr['data'] . ';ที่อยู่(' . $user->address . '=>' . $request->address . ')';
+            }
+            if ($user->phone != $request->phone) {
+                $arr['data'] = $arr['data'] . ';เบอร์โทรศัพท์(' . $user->phone . '=>' . $request->phone . ')';
+            }
+            if ($user->email != $request->email) {
+                $arr['data'] = $arr['data'] . ';อีเมล(' . $user->email . '=>' . $request->email . ')';
+            }
+            if ($user->role != $request->role) {
+                $arr['data'] = $arr['data'] . ';ตำแหน่ง(' . $user->role . '=>' . $request->role . ')';
+            }
+            log::create($arr);
          }else if ($data == 'UsermanageController@destroy') {
             $arr = [
                 'username' => Auth::user()->username, 'data' => 'DELETE userid ;usename:' . $request->username,

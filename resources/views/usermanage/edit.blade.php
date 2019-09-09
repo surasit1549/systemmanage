@@ -56,6 +56,7 @@
             <a href="#" id="deny" class="btn btn-danger text-white"><i class="fas fa-undo-alt"></i>&nbsp;&nbsp;ย้อนกลับ</a>
             <button type="submit" id="save" name="save" class="btn btn-success ml-2"><i class="fas fa-check"></i>&nbsp;&nbsp;บันทึก</button>
         </div>
+        <input type="hidden" name="id" value="{{$user['id']}}">
         <input type="hidden" name="_method" value="PATCH">
         <input type="hidden" name="token" value="{{csrf_token()}}">
         <input type="hidden" name="signature" value="-">
