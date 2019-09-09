@@ -137,9 +137,6 @@
 </div>
 
 <div id="exportpdf" class="d-none">
-  <div id="icon_title">
-    <img src="{{asset('pic\logo1.png')}}" alt="x">
-  </div>
   <div id="cover_detail_table">
     {{$store_mine[0]['name']}} <br>
     {{$store_mine[0]['address']}} <br>
@@ -262,18 +259,6 @@
         </tr>
       </tfoot>
     </table>
-  </div>
-  <div id="signature_1">
-    <img id="signatureimg" src="{{Auth::user()->signature}}" alt="">
-    <h4>{{ Auth::user()->firstname }}&nbsp;&nbsp;{{ Auth::user()->lastname }}<br>{{ Auth::user()->role }}<br>วันที่ {{ date('d-m-Y') }}</h4>
-  </div>
-  <div id="signature_2">
-    <img id="signatureimg" src="{{Auth::user()->signature}}" alt="">
-    <h4>{{ Auth::user()->firstname }}&nbsp;&nbsp;{{ Auth::user()->lastname }}<br>{{ Auth::user()->role }}<br>วันที่ {{ date('d-m-Y') }}</h4>
-  </div>
-  <div id="contrator">
-    <img id="signatureimg" src="{{Auth::user()->signature}}" alt="">
-    <h4>{{ Auth::user()->firstname }}&nbsp;&nbsp;{{ Auth::user()->lastname }}<br>{{ Auth::user()->role }}<br>วันที่ {{ date('d-m-Y') }}</h4>
   </div>
 </div>
 

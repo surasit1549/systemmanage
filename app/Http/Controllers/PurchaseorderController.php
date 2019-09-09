@@ -31,10 +31,11 @@ class PurchaseorderController extends Controller
             'default_font_size' => 14,
             'default_font' => 'thsarabunnew'
         ]);
+        $key = $request->keyPO;
         $mpdf->WriteHTML($stylesheet, 1);
         $mpdf->WriteHTML($request->pdf,2);
+        $mpdf->Output("pdf/PO$key.pdf", 'F');
         return response()->json(['msg' => 'Successful']);
-        $mpdf->Output('pdf/test.pdf', 'F');
     }
 
 
