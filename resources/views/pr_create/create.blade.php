@@ -149,62 +149,6 @@
         </form>
     </div>
 
-    <div id="filepdf" class="d-none">
-        <div id="heading">
-            <h3 style="text-align:center">ใบขอสั่งซื้อ<br>PURCHASE REQUEST</h3>
-        </div>
-        <div id="tabletop">
-            <table>
-                <tr>
-                    <th>เลขที่เอกสาร</th>
-                    <td id="prcode_ex"></td>
-                </tr>
-                <tr>
-                    <th>วันที่ขอสั่งซื้อ</th>
-                    <td id="date_ex"></td>
-                </tr>
-            </table>
-        </div>
-        <div id="exporta">
-            <table id="tableexa">
-                <tbody>
-                    <tr>
-                        <th>TO :</th>
-                        <td>THERA ASSET CO.,LTD</td>
-                        <th style="padding-left:30px">งวดงานที่</th>
-                        <td>18</td>
-                    </tr>
-                    <tr>
-                        <th>ชื่อผู้รับเหมา</th>
-                        <td id="name_ex">คุณ เก่ง</td>
-                        <th style="padding-left:30px">แปลง</th>
-                        <td id="transform_ex"></td>
-                    </tr>
-                    <tr>
-                        <th>แบบงาน</th>
-                        <td id="work_ex"></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <table id="exportb">
-            <thead>
-                <tr>
-                    <th id="no_exb">ลำดับ</th>
-                    <th id="detail_exb">รายการสินค้า</th>
-                    <th id="num_exb">จำนวน</th>
-                    <th id="unit_exb">หน่วย</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-        <div id="signature">
-            <img id="signatureimg" src="{{Auth::user()->signature}}" alt="">
-            <h4>{{ Auth::user()->firstname }}&nbsp;&nbsp;{{ Auth::user()->lastname }}<br>{{ Auth::user()->role }}<br>วันที่ {{ date('d-m-Y') }}</h4>
-        </div>
-    </div>
-
     <input type="hidden" id="signature" value="{{ Auth::user()->signature }}">
 
     <script type="text/javascript">
@@ -213,23 +157,6 @@
             var index = 2,
                 array = [];
 
-            $('#subform').click(function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                if ($('form')[0].checkValidity() == false) {
-                    $('form').addClass('was-validated');
-                }
-                if ($('#signature').val() == '-') {
-                    Swal.fire({
-                        type: 'error',
-                        title: 'ไม่สามารถดำเนินการต่อได้',
-                        text: 'ต้องใส่ลายเซ็นในหมวดโปรไฟล์',
-                        confirmButtonText: 'ยอมรับ'
-                    })
-                } else {
-                    $('#forminput').submit();
-                }
-            });
             $('#addrow').click(function(e) {
                 e.preventDefault();
                 e.stopPropagation();
@@ -249,52 +176,4 @@
             });
         })
     </script>
-
-    <div id="exportpdf" class="d-none">
-        <div style="position:absolute">
-        </div>
-        <div style="text-align:center">
-
-        </div>
-        <div style="position:absolute;top:140px;left:47%;text-align:center">
-            <h4>ใบสั่งซื้อ</h4>
-        </div>
-        <div id="number_doc">
-            <h4>เลขที่เอกสาร PO <span style="color:red">123</span></h4>
-        </div>
-        <div class="pd_table">
-            <table class="main_detail_po">
-                <tr>
-                    <td style="width:5%">12</td>
-                    <td style="width:30%">12</td>
-                    <td style="width:15%">32</td>
-                    <td style="width:15%">42</td>
-                    <td style="width:15%">23</td>
-                    <td style="width:20%">44</td>
-                    <td>
-                        <table class="detail_po">
-                            <tr>
-                                <th style="text-align:left">ผู้ขาย :</th>
-                                <td style="width:290px">23</td>
-                            </tr>
-                            <tr>
-                                <th style="text-align:left">โทรศัทพ์ :</th>
-                                <td style="width:290px">55</td>
-                            </tr>
-                            <tr>
-                                <th style="text-align:left;vertical-align:top">ที่อยู่ :</th>
-                                <td style="width:290px">22</td>
-                            </tr>
-                            <tr>
-                                <th style="text-align:left">โทรสาร :</th>
-                                <td style="width:290px">55</td>
-                            </tr>
-                        </table>
-                    </td>
-                    <td>
-
-            </table>
-        </div>
-
-
-        @stop
+    @stop
