@@ -71,7 +71,7 @@
     </div>
   </div>
   <div class="card-body">
-    <table class="table table-bordered" id="prtable">
+    <table cellspacing="0" width="100%" class="table table-bordered display responsive nowrap" id="prtable">
       <thead>
         <tr>
           <th style="width:15%">เลขที่ใบขอซื้อ</th>

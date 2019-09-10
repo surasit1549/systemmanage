@@ -6,7 +6,6 @@
     border-right: 5px solid rgb(41, 207, 219);
   }
 </style>
-<link rel="stylesheet" href="https://cdn.datatables.net/responsive/1.0.7/css/responsive.dataTables.min.css">
 @stop
 @section('content')
 <script>
@@ -15,6 +14,7 @@
     $('[data-toggle="tooltip"]').tooltip();
 
     $('#prtable').DataTable({
+      
       'columnDefs': [{
         'orderable': false,
         'targets': 6

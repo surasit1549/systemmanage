@@ -48,8 +48,7 @@
     <h3 class="text-white"><i class="fas fa-map"></i>&nbsp;&nbsp;ผู้มีอำนาจคนที่ 1</h3>
   </div>
   <div class="card-body">
-
-    <table class="table table-bordered" id="example">
+    <table class="table table-bordered display responsive nowrap" cellspacing="0" width="100%" id="example">
       <thead>
         <tr>
           <th style="width:20%;">เลขที่ใบขอสั่งซื้อ</th>
