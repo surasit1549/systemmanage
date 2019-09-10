@@ -18,6 +18,14 @@
     $('.test').click(function() {
       $(this).next('form').submit();
     });
+
+    $('#example').DataTable({
+      'columnDefs' : [
+        { 'orderable' : false , 'targets' : 2 }
+      ],
+      ''
+    });
+
   });
 </script>
 
@@ -55,7 +63,6 @@
     <table class="table table-bordered" id="example">
       <thead>
         <tr>
-          <th style="width:5%;">ลำดับ</th>
           <th style="width:10%">รหัสร้านค้า</th>
           <th style="width:40%;">ชื่อร้านค้า</th>
           <th style="width:10%;">จัดการ</th>
@@ -64,7 +71,6 @@
       <tbody>
         @foreach($store_name as $row)
           <tr>
-            <td>{{$number++}}</td>
             <td>{{$row[0]['keystore']}}</td>
             <td>{{$row[0]['name']}}</td>
             <td>
