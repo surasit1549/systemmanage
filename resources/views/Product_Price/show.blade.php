@@ -3,6 +3,11 @@
 @section('content')
 <script>
   $(document).ready(function() {
+
+    $('.test').click(function() {
+      $(this).next('form').submit();
+    });
+
     $('#thisone').DataTable({
       "oLanguage": {
         "sSearch": 'ค้นหา',
@@ -41,19 +46,29 @@
         <table id="thisone" class="table table-hover table-bordered">
           <thead class="text-center">
             <tr>
+              <th></th>
               <th>ลำดับที่</th>
               <th>รหัสสินค้า</th>
               <th>ชื่อสินค้า</th>
               <th>ราคาสินค้า (บาท)</th>
+              <th>จัดการ</th>
             </tr>
           </thead>
           <tbody>
             @foreach($data as $row)
             <tr>
+              <td>{{$row['id']}}</td>
               <td>{{$number++}}</td>
               <td>{{$row['Product']}}</td>
               <td>{{$row['Product_name']}}</td>
               <td>{{$row['Price']}}</td>
+              <td>
+                <a class="test" href="#" data-toggle="tooltip" data-placement="top" title="Remove"><i style="font-size:20px;" class="fas fa-trash-alt text-danger"></i></a>
+                <form method="post" class="delete_form" action="{{action('ProductPriceController@destroy',$row['id'])}}">
+                  {{csrf_field()}}
+                  <input type="hidden" name="_method" value="DELETE" />
+                </form>
+              </td>
             </tr>
             @endforeach
           </tbody>
@@ -65,7 +80,5 @@
       </form>
     </div>
   </div>
-</div>
-</div>
 </div>
 @endsection

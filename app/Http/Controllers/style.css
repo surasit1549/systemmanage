@@ -74,6 +74,22 @@ tbody td {
   left: 40px;
   bottom: 20px;
 }
+/*-------------------------------------------------*/
+/* pr */
+#data_intormation {
+  text-align: right !important;
+  width: 100%;
+  padding: 15px;
+  left: 0;
+  font-size: 18px;
+}
+
+#data_intormation tr,
+#data_intormation th,
+#data_intormation td,
+#data_intormation table {
+  text-align: left !important;
+}
 
 /* Signature */
 

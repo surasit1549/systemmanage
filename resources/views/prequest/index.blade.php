@@ -72,12 +72,14 @@
             <td>{{$row[3]}}</td>
             <td class="text-nowrap">{{$row[4]}}</td>
             <td>{{$row[5]}}</td>
-            <td>สถานะ</td>
+            <td>{{$status}}</td>
             <td class="text-nowrap">
               &nbsp;&nbsp;
               <a href="{{action('PuchaserequestController@edit',$row[0])}}" data-toggle="tooltip" data-placement="top" title="แก้ไข"><i style="font-size:20px;" class="fas fa-edit text-warning"></i></a>
               &nbsp;&nbsp;
-              <a href="#" data-toggle="tooltip" data-placement="top" title="PDF"><i style="font-size:20px" class="text-danger fas fa-file-pdf"></i></a>
+              @if($status === 'สมบูรณ์')
+                <a href="{{action('PuchaserequestController@show',$row[0])}}" data-toggle="tooltip" data-placement="top" title="PDF"><i style="font-size:20px" class="text-danger fas fa-file-pdf"></i></a>
+              @endif
               &nbsp;&nbsp;
               <a class="test" href="#" data-toggle="tooltip" data-placement="top" title="ยกเลิกใบขอซื้อ"><i style="font-size:20px;" class="text-danger fas fa-times-circle"></i></a>
               <form method="post" class="delete_form" action="{{action('PuchaserequestController@destroy',$row[0])}}">

@@ -14,6 +14,10 @@ use App\PR_create;
 use App\product_Price;
 use App\product_main;
 use App\pr_store;
+use App\Authorized_person1;
+use App\Authorized_person2;
+
+use Barryvdh\DomPDF\PDF;
 
 class PuchaserequestController extends Controller
 {
@@ -36,12 +40,26 @@ class PuchaserequestController extends Controller
   {
     $number = 1;
     $num = 1;
+    $keypr = prequest::get()->toArray();
+    $master1 = Authorized_person1::get()->toArray();
+    $master2 = Authorized_person2::get()->toArray();
     $pr_create = pr_create::all()->toArray();
-
+    //dd($pr_create);
     if(empty($pr_create)){
       $pr_create = '';
       $PR_creates = '';
+      $status = '';
     }else{
+      $lengtharray = sizeof($pr_create);
+      for($i=0; $i<$lengtharray; $i++){
+        if(empty($keypr)){
+          $status = "กำลังตรวจสอบ";
+        }elseif($keypr != NULL && empty($master1) && empty($master2)){
+          $data[] = prequest::where('keyPR',$pr_create[$i]['key'])->get('keyPR')->toArray();
+          $status = "สมบูรณ์";
+        }
+      }
+      dd($data);
       foreach($pr_create as $row){
         $PR_create[] = [
                           $row['id'],
@@ -60,7 +78,8 @@ class PuchaserequestController extends Controller
     return view('prequest.index', compact(
                                           'number',
                                           'PR_creates',
-                                          'pr_create'
+                                          'pr_create',
+                                          'status'
     ));
   }
 
@@ -97,12 +116,14 @@ class PuchaserequestController extends Controller
     $db = Create_product::get()->toArray();
     $pr_create = PR_create::find($id)->toArray();
     $productdb = Create_product::where('key',$pr_create['key'])->get()->toArray();
+    $store_master = store::where('keystore',"master")->get()->toArray();
     //dd($productdb);
     return view('prequest.show', compact(
                                           'number',
                                           'id',
                                           'productdb',
-                                          'pr_create'
+                                          'pr_create',
+                                          'store_master'
 
     ));
   }
@@ -134,7 +155,7 @@ class PuchaserequestController extends Controller
       $products_sum = [$product_price*$product_number[$i]['productnumber']];
       $sum = [$sum[0]+$products_sum[0]];
       $min[] = [
-                $product_min_price[$i][0]['Product_ID'],
+                $product_min_price[$i][0]['Product_name'],
                 $product_number[$i]['productnumber'],
                 $product_min_price[$i][0]['unit'],
                 $product_min_price[$i][0]['Store'],
