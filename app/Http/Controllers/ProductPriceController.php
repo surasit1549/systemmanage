@@ -149,7 +149,9 @@ class ProductPriceController extends Controller
                                ->join('stores','product__Prices.Store','stores.keystore')
                                ->join('product_mains','Product__Prices.Product','product_mains.Product_ID')
                                ->get()->toArray();
+        //dd($data);
         return view('Product_Price.show',compact('number','data','id'));
+    
     }
 
 
@@ -161,7 +163,14 @@ class ProductPriceController extends Controller
      */
     public function edit($id)
     {
-        //
+        $number = 1;
+        $data = product_Price::where('Store',$id)
+                               ->join('stores','product__Prices.Store','stores.keystore')
+                               ->join('product_mains','Product__Prices.Product','product_mains.Product_ID')
+                               ->get()->toArray();
+        //dd($data[0]['Cat_ID']);
+        return view('Product_Price.edit',compact('number','data','id'));
+    
     }
 
     /**
@@ -184,6 +193,14 @@ class ProductPriceController extends Controller
      */
     public function destroy($id)
     {
-        //
+        dd($id);
+        $store_name = Store::find($id);
+        $product_price = product_Price::where('Store',$store_name['keystore'])->get();
+        $lengtharray = sizeof($product_price);
+        for($i=0; $i<$lengtharray; $i++){
+            $product_price[$i]->delete();
+        }
+        //$product_price->delete();
+        return redirect()->route('Product_Price.index')->with('success', 'ลบข้อมูลเรียบร้อยแล้ว');
     }
 }
