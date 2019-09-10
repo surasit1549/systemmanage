@@ -10,24 +10,11 @@
 @section('content')
 <script>
   $(document).ready(function() {
-    $('[data-toggle="tooltip"]').tooltip();
     $('#prtable').DataTable({
-      order: [
-        [1, 'desc']
-      ],
-      columns: [{
-          orderable: false,
-          width: '5%'
-        },
-        null,
-        null,
-        null,
-        null,
-        null,
-        {
-          orderable: false
-        }
-      ],
+      'columnDefs': [{
+        'targets': 5,
+        'orderable': false
+      }],
       "oLanguage": {
         "sSearch": 'ค้นหา',
         "sInfo": 'จำนวนรายการสั่งซื้อ _TOTAL_ รายการ',
@@ -87,12 +74,11 @@
     <table class="table table-bordered" id="prtable">
       <thead>
         <tr>
-          <th style="width:5%">ลำดับ</th>
-          <th style="width:10%">วันที่ขอซื้อ</th>
-          <th style="width:10%">รหัสผู้รับเหมา</th>
-          <th style="width:20%">แบบงาน</th>
+          <th style="width:15%">เลขที่ใบขอซื้อ</th>
+          <th style="width:15%">วันที่ขอซื้อ</th>
+          <th style="width:25%">แบบงาน</th>
           <th style="width:15%">แปลง</th>
-          <th style="width:15%">ผู้รับเหมา</th>
+          <th style="width:15%">สถานะ</th>
           <th style="width:15%">จัดการ</th>
         </tr>
       </thead>
@@ -100,30 +86,26 @@
         @if(empty($pr_create))
         @foreach($pr_create as $row)
         <tr>
-          <td>{{$number++}}</td>
-          <td>{{$row['date']}}</td>
           <td>{{$row['key']}}</td>
+          <td>{{$row['date']}}</td>
           <td>{{$row['formwork']}}</td>
           <td>{{$row['prequestconvert']}}</td>
-          <td>{{$row['contractor']}}</td>
+          <td>สถานะ</td>
           <td>
             <a href="{{action('pr_createController@show',$row['id'])}}" data-placement="top" data-toggle="tooltip" title="View"><i style="font-size:20px;color:blue" class="fas fa-eye"></i></a>
-            <a class="ml-3" data-placement="top" data-toggle="tooltip" title="Status" href="#"><i style="font-size:20px;color:seagreen" class="far fa-paper-plane"></i></a>
           </td>
         </tr>
         @endforeach
         @else
         @foreach($pr_products as $row)
         <tr>
-          <td>{{$number++}}</td>
-          <td>{{$row[1]}}</td>
           <td>{{$row[5]}}</td>
+          <td>{{$row[1]}}</td>
           <td>{{$row[3]}}</td>
           <td>{{$row[4]}}</td>
-          <td>{{$row[2]}}</td>
+          <td>สถานะ</td>
           <td>
-            <a href="{{action('pr_createController@show',$row[0])}}" data-placement="top" data-toggle="tooltip" title="View"><i style="font-size:20px;color:blue" class="fas fa-eye"></i></a>
-            <a class="ml-3" data-placement="top" data-toggle="tooltip" title="Status" href="#"><i style="font-size:20px;color:seagreen" class="far fa-paper-plane"></i></a>
+            <a class="btn btn-sm btn-info text-white" href="{{action('pr_createController@show',$row[0])}}" data-placement="top">ข้อมูลเพิ่มเติม</a>
           </td>
         </tr>
         @endforeach

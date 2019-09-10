@@ -58,16 +58,14 @@
     <table class="table table-bordered" id="example">
       <thead>
         <tr>
-          <th style="width:5%;">ลำดับ</th>
-          <th style="width:40%;">ชื่อแปลง</th>
-          <th style="width:30%;">ขนาด ( ตารางวา )</th>
-          <th>จัดการ</th>
+          <th style="width:30%;">ชื่อแปลง</th>
+          <th style="width:40%;">ขนาด ( ตารางวา )</th>
+          <th style="width:30%;">จัดการ</th>
         </tr>
       </thead>
       <tbody>
-        @foreach($transform as $index=>$row)
+        @foreach($transform as $row)
         <tr>
-          <td>{{ $index + 1 }}</td>
           <td>{{$row['convertname']}}</td>
           <td>{{$row['size']}}</td>
           <td>
@@ -87,7 +85,30 @@
 
   <script>
     $(document).ready(function() {
-      $('#example').DataTable();
+      $('#example').DataTable({
+        'columnDefs' : [
+          { 'orderable' : false , 'targets' : 2 }
+        ]
+        ,
+        "oLanguage": {
+          "sSearch": 'ค้นหา',
+          "sInfo": 'แปลงทั้งหมดจำนวน _TOTAL_ รายการ',
+          'sEmptyTable': 'ไม่มีข้อมูลแปลง',
+          'sInfoEmpty': 'ไม่พบรายการที่ต้องการ',
+          'sZeroRecords': 'ไม่พบคำที่ต้องการค้นหา',
+          "oPaginate": {
+            "sPrevious": 'ก่อนหน้า',
+            "sNext": 'ถัดไป'
+          },
+          "sInfoFiltered": '( จากทั้งหมด _MAX_ รายการ )',
+          "sLengthMenu": 'แสดงข้อมูล <select class="custom-select custom-select-sm">' +
+            '<option value="10">10</option>' +
+            '<option value="30">30</option>' +
+            '<option value="50">50</option>' +
+            '<option value="-1">ทั้งหมด</option>' +
+            '</select> รายการ'
+        }
+      });
     });
   </script>
 

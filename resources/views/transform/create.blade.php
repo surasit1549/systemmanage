@@ -5,7 +5,6 @@
   #transformtab {
     border-right: 5px solid rgb(41, 207, 219);
   }
-  }
 </style>
 @stop
 @section('content')
@@ -34,7 +33,7 @@
     </div>
     <div class="form-group text-center">
       <a class="btn btn-danger" onclick="window.history.back()" href="#"><i class="fas fa-undo"></i>&nbsp;&nbsp;ย้อนกลับ</a>
-      <button id="subform" type="submit" class="btn btn-success" value="Update"><i class="far fa-save"></i>&nbsp;&nbsp;บันทึก</button>
+      <button id="subform" type="submit" class="btn btn-success ml-2" value="Update"><i class="fas fa-save"></i>&nbsp;&nbsp;บันทึก</button>
     </div>
     </form>
   </div>

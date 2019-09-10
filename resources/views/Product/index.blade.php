@@ -15,7 +15,45 @@
     $('[data-toggle="tooltip"]').tooltip();
 
     $('.test').click(function() {
-      $(this).next('form').submit();
+      Swal.fire({
+        type : 'question',
+        title : 'ต้องการลบรหัสสินค้า<br>'+$(this).parents().eq(2).find('.sorting_1').text(),
+        text : 'หากลบแล้ว จะไม่สามารถนำสินค้ากลับคืนมาได้',
+        confirmButtonText : 'ตกลง',
+        showCancelButton : true,
+        cancelButtonText : 'ยกเลิก',
+        focusCancel : true
+      }).then((result) => {
+        if( result.value ){
+          $(this).next('form').submit();
+        }
+      });
+    });
+
+    $('#example').DataTable({
+
+      'columnDefs' : [
+        { 'orderable' : false , 'targets' : 3 }
+      ]
+      ,
+      "oLanguage": {
+        "sSearch": 'ค้นหา',
+        "sInfo": 'จำนวนสินค้า _TOTAL_ ชิ้น',
+        'sEmptyTable': 'ไม่มีข้อมูลสินค้า',
+        'sInfoEmpty': 'ไม่พบรายการสินค้าต้องการ',
+        'sZeroRecords': 'ไม่พบคำที่ต้องการค้นหา',
+        "oPaginate": {
+          "sPrevious": 'ก่อนหน้า',
+          "sNext": 'ถัดไป'
+        },
+        "sInfoFiltered": '( จากทั้งหมด _MAX_ รายการ )',
+        "sLengthMenu": 'แสดงข้อมูล <select class="custom-select custom-select-sm">' +
+          '<option value="10">10</option>' +
+          '<option value="30">30</option>' +
+          '<option value="50">50</option>' +
+          '<option value="-1">ทั้งหมด</option>' +
+          '</select> รายการ'
+      }
     });
   });
 </script>
@@ -54,18 +92,18 @@
     <table class="table table-bordered" id="example">
       <thead>
         <tr>
-          <th style="width:5%;">ลำดับ</th>
-          <th style="width:40%;">รหัสสินค้า</th>
-          <th style="width:30%;">ชื่อสินค้า</th>
-          <th>จัดการ</th>
+          <th style="width:20%;">รหัสสินค้า</th>
+          <th style="width:40%;">ชื่อสินค้า</th>
+          <th style="width:20%;">หน่วย</th>
+          <th style="width:20%;">จัดการ</th>
         </tr>
       </thead>
       <tbody>
         @foreach($products as $row)
         <tr>
-          <td>{{$num++}}</td>
           <td>{{$row[1]}}</td>
           <td>{{$row[2]}}</td>
+          <td>{{$row[3]}}</td>
           <td>
             &nbsp;&nbsp;<a href="{{action('ProductController@edit',$row[0])}}" data-toggle="tooltip" data-placement="top" title="Edit"><i style="font-size:20px;" class="fas fa-edit text-warning"></i></a>
             &nbsp;&nbsp;

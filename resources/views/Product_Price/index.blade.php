@@ -19,9 +19,28 @@
     });
 
     $('#example').DataTable({
-      'columnDefs' : [
-        { 'orderable' : false , 'targets' : 2 }
-      ]
+      'columnDefs': [{
+        'orderable': false,
+        'targets': 2
+      }],
+      "oLanguage": {
+        "sSearch": 'ค้นหา',
+        "sInfo": 'จำนวนร้านค้า _TOTAL_ ร้าน',
+        'sEmptyTable': 'ไม่มีข้อมูลร้านค้า',
+        'sInfoEmpty': 'ไม่พบรายการที่ต้องการ',
+        'sZeroRecords': 'ไม่พบคำที่ต้องการค้นหา',
+        "oPaginate": {
+          "sPrevious": 'ก่อนหน้า',
+          "sNext": 'ถัดไป'
+        },
+        "sInfoFiltered": '( จากทั้งหมด _MAX_ รายการ )',
+        "sLengthMenu": 'แสดงข้อมูล <select class="custom-select custom-select-sm">' +
+          '<option value="10">10</option>' +
+          '<option value="30">30</option>' +
+          '<option value="50">50</option>' +
+          '<option value="-1">ทั้งหมด</option>' +
+          '</select> รายการ'
+      }
     });
 
   });
@@ -69,7 +88,6 @@
       <tbody>
         @foreach($store_name as $row)
         <tr>
-          <td>{{$number++}}</td>
           <td>{{$row[0]['keystore']}}</td>
           <td>{{$row[0]['name']}}</td>
           <td>

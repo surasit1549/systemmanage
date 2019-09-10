@@ -1,13 +1,11 @@
 @extends('Home.master')
 @section('title','เพิ่มแปลง')
-@section('tabbarcss')
-<style>
-
-</style>
-@stop
 @section('content')
 <div class="container">
   <div class="card">
+    <div class="card-header">
+      <h3 class="text-white"><i class="fas fa-tag"></i>&nbsp;&nbsp;เพิ่มราคาสินค้า</h3>
+    </div>
     <div class="card-body">
       <form method="post" action="{{url('Product_Price')}}" class="needs-validation" novalidate>
         {{csrf_field()}}
@@ -62,8 +60,8 @@
         </table>
     </div>
     <div class="form-group text-center">
-      <a class="btn btn-danger" href="{{route('Product_Price.index')}}"><i class="fas fa-undo"></i>&nbsp;&nbsp;ย้อนกลับ</a>
-      <button type="submit" id="subform" class="btn btn-success"><i class="far fa-save"></i>&nbsp;&nbsp;บันทึก</button>
+      <a class="btn btn-danger" href="#" onclick="window.history.back()"><i class="fas fa-undo"></i>&nbsp;&nbsp;ย้อนกลับ</a>
+      <button type="submit" id="subform" class="btn btn-success ml-2"><i class="fas fa-save"></i>&nbsp;&nbsp;บันทึก</button>
     </div>
     </form>
   </div>
