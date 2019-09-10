@@ -105,7 +105,7 @@
         </table>
         <br>
         <div class="text-center">
-          <a class="btn btn-danger" href="{{route('pr_create.index')}}"><i class="fas fa-undo"></i>&nbsp;&nbsp;ย้อนกลับ</a>
+          <a class="btn btn-danger" href="#" onclick="window.history.back()"><i class="fas fa-undo"></i>&nbsp;&nbsp;ย้อนกลับ</a>
         </div>
       </form>
     </div>

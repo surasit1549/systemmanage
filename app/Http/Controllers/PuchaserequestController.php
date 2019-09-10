@@ -59,7 +59,6 @@ class PuchaserequestController extends Controller
           $status = "สมบูรณ์";
         }
       }
-      dd($data);
       foreach($pr_create as $row){
         $PR_create[] = [
                           $row['id'],

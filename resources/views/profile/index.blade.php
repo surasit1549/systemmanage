@@ -30,7 +30,7 @@
 
 <div class="card">
     <div class="card-header">
-        <h5 class="text-white"><i style="font-size:25px" class="far fa-address-card"></i>&nbsp;&nbsp;ข้อมูลผู้ใช้งาน</h5>
+        <h3 class="text-white card-title"><i class="far fa-address-card"></i>&nbsp;&nbsp;ข้อมูลผู้ใช้งาน</h3>
     </div>
     <div class="card-body">
         <div class="container mb-3">
