@@ -17,22 +17,28 @@
   $(document).ready(function() {
     $('[data-toggle="tooltip"]').tooltip();
     $('#main').DataTable({
-      'order': [
-        [1, 'desc']
-      ],
-      'columns': [{
-          'orderable': false
+      'columnDefs': [{
+        'orderable': false,
+        'targets': 3
+      }],
+      "oLanguage": {
+        "sSearch": 'ค้นหา',
+        "sInfo": 'พบร้านค้าจำนวน _TOTAL_ ร้าน',
+        'sEmptyTable': 'ไม่มีข้อมูลร้านค้า',
+        'sInfoEmpty': 'ไม่พบร้านค้า',
+        'sZeroRecords': 'ไม่พบคำที่ต้องการค้นหา',
+        "oPaginate": {
+          "sPrevious": 'ก่อนหน้า',
+          "sNext": 'ถัดไป'
         },
-        null,
-        null,
-        null,
-        null,
-        null,
-        {
-          'orderable': false
-        },
-
-      ]
+        "sInfoFiltered": '( จากทั้งหมด _MAX_ ร้านค้า )',
+        "sLengthMenu": 'แสดงข้อมูล <select class="custom-select custom-select-sm">' +
+          '<option value="10">10</option>' +
+          '<option value="30">30</option>' +
+          '<option value="50">50</option>' +
+          '<option value="-1">ทั้งหมด</option>' +
+          '</select> รายการ'
+      }
     });
     $('.test').click(function() {
       $(this).next('form').submit();
@@ -110,24 +116,18 @@
     <table class="table table-bordered" id="main">
       <thead>
         <tr>
-          <th style="width:5%;">ลำดับ</th>
-          <th style="width:10%;">รหัสร้านค้า</th>
-          <th style="width:30%;">ชื่อร้านค้า</th>
-          <th style="width:15%;">โทรศัพท์ร้านค้า</th>
-          <th style="width:15%;">ผู้ติดต่อ</th>
-          <th style="width:15%;">โทรศัพท์ผู้ติดต่อ</th>
-          <th style="width:10%;">Manage</th>
+          <th style="width:25%;">รหัสร้านค้า</th>
+          <th style="width:35%;">ชื่อร้านค้า</th>
+          <th style="width:20%;">โทรศัพท์ร้านค้า</th>
+          <th style="width:20%;">จัดการ</th>
         </tr>
       </thead>
       <tbody>
-        @foreach($store as $index=>$row)
+        @foreach($store as $row)
         <tr>
-          <td>{{ $index+1 }}</td>
           <td>{{$row->keystore}}</td>
           <td>{{$row->name}}</td>
           <td>{{ substr($row->phone,0,3).'-'.substr($row->phone,3) }}</td>
-          <td>{{$row->contect}}</td>
-          <td>{{ substr($row->cellphone,0,3).'-'.substr($row->cellphone,3) }}</td>
           <td>
             <a data-toggle="modal" data-target="#test{{$row->id}}" data-placement="top" title="View"><i style="font-size:20px;;" class="fas fa-eye text-primary"></i></a>
             &nbsp;&nbsp;
@@ -145,7 +145,6 @@
   @endforeach
   </tbody>
   </table>
-</div>
 </div>
 
 

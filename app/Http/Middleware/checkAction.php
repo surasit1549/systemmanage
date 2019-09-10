@@ -26,6 +26,7 @@ class checkAction
         $method = explode('\\', $request->route()->getActionName());
         $data = $method[count($method) - 1];
         $path = $request->route()->getActionName();
+
         if ($data == 'StoreController@store') {
             $arr = [
                 'username' => Auth::user()->username, 'data' => 'CREATE ร้านค้า ;รหัสร้านค้า:' . $request->keystore . '&ชื่อร้านค้า:' .
@@ -101,30 +102,18 @@ class checkAction
             ];
             log::create($arr);
         } else if ($data == 'ProductPriceController@store') {
+            
+        } else if ($data == 'ProductPriceController@update') { } else if ($data == 'ProductPriceController@destroy') {
+            
+        } else if ($data == 'pr_createController@store') {
             $arr = [
-                'username' => Auth::user()->username, 'data' => 'CREATE ร้านค้า ;รหัสร้านค้า:' . $request->keystore . '&ชื่อร้านค้า:' .
-                    $request->name . '&ที่อยู่:' . $request->address . '&โทรศัพท์:' . $request->phone . '&fax:' .
-                    $request->fax . '&ผู้ติดต่อ:' . $request->contect . '&เบอร์โทร:' . $request->cellphone,
+                'username' => Auth::user()->username, 'data' => 'CREATE ใบขอสั่งซื้อ PR ;เลขใบขอสั่งซื้อ:' . $request->keystore,
                 'action' => $path
             ];
             log::create($arr);
-        } else if ($data == 'ProductPriceController@update') {
+        } else if ($data == 'PuchaserequestController@update') { 
 
-         } else if ($data == 'ProductPriceController@destroy') {
-            $arr = [
-                'username' => Auth::user()->username, 'data' => 'DELETE userid ;usename:' . $request->username,
-                'action' => $path
-            ];
-            log::create($arr);
-         } else if ($data == 'pr_createController@store') {
-            $arr = [
-                'username' => Auth::user()->username, 'data' => 'CREATE ใบขอสั่งซื้อ PR ;เลขใบขอสั่งซื้อ:' . $request->keystore ,
-                'action' => $path
-            ];
-            log::create($arr);
-         }else if ($data == 'PuchaserequestController@update') {
-
-        }else if ($data == 'UsermanageController@store') {
+        } else if ($data == 'UsermanageController@store') {
             $arr = [
                 'username' => Auth::user()->username, 'data' => 'CREATE userid ;ชื่อจริง:' . $request->firstname . '&นามสกุล:' .
                     $request->lastname . '&ที่อยู่:' . $request->address . '&โทรศัพท์:' . $request->phone . '&อีเมล:' .
@@ -132,13 +121,16 @@ class checkAction
                 'action' => $path
             ];
             log::create($arr);
-         }else if ($data == 'UsermanageController@update') {
+        } else if ($data == 'UsermanageController@update') {
             $user = User::find($request->id);
             $arr = [
                 'username' => Auth::user()->username,
                 'data' => 'UPDATE ผู้ใช้งาน ',
                 'action' => $path
             ];
+
+            $arr['data'] = $arr['data'] . ';username:' . $user->username;
+
             if ($user->firstname != $request->firstname) {
                 $arr['data'] = $arr['data'] . ';ชื่อจริง(' . $user->firstname . '=>' . $request->firstname . ')';
             }
@@ -158,15 +150,40 @@ class checkAction
                 $arr['data'] = $arr['data'] . ';ตำแหน่ง(' . $user->role . '=>' . $request->role . ')';
             }
             log::create($arr);
-         }else if ($data == 'UsermanageController@destroy') {
+        } else if ($data == 'UsermanageController@destroy') {
             $arr = [
                 'username' => Auth::user()->username, 'data' => 'DELETE userid ;usename:' . $request->username,
                 'action' => $path
             ];
             log::create($arr);
-        }else if ($data == 'profileController@update') { 
+        } else if ($data == 'profileController@update') {
+            $profile = User::find($request->id);
+            $arr = [
+                'username' => Auth::user()->username,
+                'data' => 'UPDATE ผู้ใช้งาน ',
+                'action' => $path
+            ];
 
+            $arr['data'] = $arr['data'] . ';username:' . $profile->username;
+
+            if ($profile->firstname != $request->firstname) {
+                $arr['data'] = $arr['data'] . ';ชื่อจริง(' . $profile->firstname . '=>' . $request->firstname . ')';
+            }
+            if ($profile->lastname != $request->lastname) {
+                $arr['data'] = $arr['data'] . ';นามสกุล(' . $profile->lastname . '=>' . $request->lastname . ')';
+            }
+            if ($profile->address != $request->address) {
+                $arr['data'] = $arr['data'] . ';ที่อยู่(' . $profile->address . '=>' . $request->address . ')';
+            }
+            if ($profile->phone != $request->phone) {
+                $arr['data'] = $arr['data'] . ';เบอร์โทรศัพท์(' . $profile->phone . '=>' . $request->phone . ')';
+            }
+            if ($profile->email != $request->email) {
+                $arr['data'] = $arr['data'] . ';อีเมล(' . $profile->email . '=>' . $request->email . ')';
+            }
+            log::create($arr);
         }
+
         return $next($request);
     }
 }

@@ -52,18 +52,16 @@
     <table class="table table-bordered" id="example">
       <thead>
         <tr>
-          <th style="width:5%;">ลำดับ</th>
-          <th style="width:20%;">รหัสเอกสาร</th>
+          <th style="width:20%;">เลขที่ใบขอสั่งซื้อ</th>
           <th style="width:20%;">วัน/เดือน/ปี</th>
-          <th style="width:20%;">แบบงาน</th>
-          <th style="width:15%;">แปลก</th>
-          <th>จัดการ</th>
+          <th style="width:30%;">แบบงาน</th>
+          <th style="width:15%;">แปลง</th>
+          <th style="width:15%;">จัดการ</th>
         </tr>
       </thead>
       <tbody>
-        @foreach($data as $index=>$row)
+        @foreach($data as $row)
         <tr>
-          <td>{{ $index + 1 }}</td>
           <td>{{$row['keyPR']}}</td>
           <td>{{$row['date']}}</td>
           <td>{{$row['formwork']}}</td>
@@ -85,9 +83,28 @@
   <script>
     $(document).ready(function() {
       $('#example').DataTable({
-        'columnDefs' : [
-          { 'orderable' : false , 'targets' : 5 }
-        ]
+        'columnDefs': [{
+          'orderable': false,
+          'targets': 4
+        }],
+        "oLanguage": {
+          "sSearch": 'ค้นหา',
+          "sInfo": 'ใบสั่งซื้อทั้งหมด _TOTAL_ รายการ',
+          'sEmptyTable': 'ไม่มีข้อมูลใบขอสั่งซื้อ',
+          'sInfoEmpty': 'ไม่พบรายการขอสั่งซื้อ',
+          'sZeroRecords': 'ไม่พบคำที่ต้องการค้นหา',
+          "oPaginate": {
+            "sPrevious": 'ก่อนหน้า',
+            "sNext": 'ถัดไป'
+          },
+          "sInfoFiltered": '( จากทั้งหมด _MAX_ รายการ )',
+          "sLengthMenu": 'แสดงข้อมูล <select class="custom-select custom-select-sm">' +
+            '<option value="10">10</option>' +
+            '<option value="30">30</option>' +
+            '<option value="50">50</option>' +
+            '<option value="-1">ทั้งหมด</option>' +
+            '</select> รายการ'
+        }
       });
     });
   </script>

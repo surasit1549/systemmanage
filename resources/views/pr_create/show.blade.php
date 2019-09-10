@@ -86,10 +86,10 @@
         <table class="table table-hover table-bordered">
           <thead class="text-center">
             <tr>
-              <th>ลำดับที่</th>
-              <th>ชื่อสินค้า</th>
-              <th>จำนวนสินค้า</th>
-              <th>หน่วย</th>
+              <th style="width:10%">ลำดับ</th>
+              <th style="width:35%">ชื่อสินค้า</th>
+              <th style="width:30%">จำนวนสินค้า</th>
+              <th style="width:20%">หน่วย</th>
             </tr>
           </thead>
           <tbody>
@@ -105,7 +105,7 @@
         </table>
         <br>
         <div class="text-center">
-          <a class="btn btn-danger btn-lg" href="{{route('pr_create.index')}}"><i class="fas fa-undo"></i>&nbsp;&nbsp;ย้อนกลับ</a>
+          <a class="btn btn-danger" href="#" onclick="window.history.back()"><i class="fas fa-undo"></i>&nbsp;&nbsp;ย้อนกลับ</a>
         </div>
       </form>
     </div>

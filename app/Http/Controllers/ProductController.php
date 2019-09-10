@@ -24,7 +24,8 @@ class ProductController extends Controller
             $products[] = [
                         $row['id'],
                         $row['Product_ID'],
-                        $row['Product_name']
+                        $row['Product_name'],
+                        $row['unit']
             ];
         }
         //dd($products);
@@ -151,6 +152,6 @@ class ProductController extends Controller
     {
         $product = product_main::find($id);
         $product->delete();
-        return redirect()->route('transform.index') ->with('success','ลบข้อมูลเรียบร้อยแล้ว');
+        return redirect()->route('Product.index') ->with('success','ลบข้อมูลเรียบร้อยแล้ว');
     }
 }

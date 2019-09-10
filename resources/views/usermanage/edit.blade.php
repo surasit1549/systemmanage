@@ -48,7 +48,7 @@
                     <option value="ฝ่ายจัดซื้อ" {{ $user['role'] == 'ฝ่ายจัดซื้อ' ? 'selected' : '' }}>ฝ่ายจัดซื้อ</option>
                     <option value="ผู้มีอำนาจ1" {{ $user['role'] == 'ผู้มีอำนาจ1' ? 'selected' : '' }}>ผู้มีอำนาจคนที่ 1</option>
                     <option value="ผู้มีอำนาจ2" {{ $user['role'] == 'ผู้มีอำนาจ2' ? 'selected' : '' }}>ผู้มีอำนาจคนที่ 2</option>
-                    <option value="admin" {{ $user['role'] == 'admin' ? 'selected' : '' }}>admin</option>
+                    <option value="แอดมิน" {{ $user['role'] == 'แอดมิน' ? 'selected' : '' }}>แอดมิน</option>
                 </select>
             </div>
         </div>
