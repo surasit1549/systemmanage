@@ -19,7 +19,7 @@
         <div class="card-body">
           <form method="post" action="{{url('store')}}" class="needs-validation" novalidate>
             {{csrf_field()}}
-            <h3>Company Information</h3>
+            <h3>รายละเอียดร้านค้า</h3>
             <hr class="line">
             <br>
             <div class="form-row">
@@ -50,7 +50,7 @@
               </div>
             </div>
             <br>
-            <h3>Contact with</h3>
+            <h3>ข้อมูลผู้ติดต่อ</h3>
             <hr class="line">
             <br>
             <div class="form-row">
