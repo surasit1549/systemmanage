@@ -46,7 +46,6 @@
         <table id="thisone" class="table table-hover table-bordered">
           <thead class="text-center">
             <tr>
-              <th></th>
               <th>ลำดับที่</th>
               <th>รหัสสินค้า</th>
               <th>ชื่อสินค้า</th>
@@ -57,17 +56,13 @@
           <tbody>
             @foreach($data as $row)
             <tr>
-              <td>{{$row['id']}}</td>
               <td>{{$number++}}</td>
               <td>{{$row['Product']}}</td>
               <td>{{$row['Product_name']}}</td>
               <td>{{$row['Price']}}</td>
               <td>
-                <a class="test" href="#" data-toggle="tooltip" data-placement="top" title="Remove"><i style="font-size:20px;" class="fas fa-trash-alt text-danger"></i></a>
-                <form method="post" class="delete_form" action="{{action('ProductPriceController@destroy',$row['id'])}}">
-                  {{csrf_field()}}
-                  <input type="hidden" name="_method" value="DELETE" />
-                </form>
+                &nbsp;&nbsp;<a href="{{action('ProductPriceController@edit',$row['Cat_ID'])}}" data-toggle="tooltip" data-placement="top" title="Edit"><i style="font-size:20px;" class="fas fa-edit text-warning"></i></a>
+      
               </td>
             </tr>
             @endforeach
