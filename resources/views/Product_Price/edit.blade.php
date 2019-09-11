@@ -11,7 +11,8 @@
                 <div class="form-group">
                     <label for="">ร้านค้า</label>
                     <input type="text" name="store_name" class="form-control" value="{{$data[0]->name}}" autocomplete="off" required>
-                
+                    <input type="hidden" name="Cat_ID" value="{{$data[0]->Cat_ID}}" required>
+                    <input type="hidden" name="store_id" value="{{$data[0]->Store}}" required>
                 </div>
                 <table class="table table-hover table-bordered border-dark table-border-dark" id="detailmenu">
                     <thead>
@@ -25,7 +26,7 @@
                         <tr>
                             <td>
                                 <input type="text" name="product" class="form-control productname" value="{{$data[0]->Product_name}}" required>
-                     
+                                <input type="hidden" name="product_id" value="{{$data[0]->Product}}" required>
                             </td>
                             <td>
                                 <input type="text" class="form-control unit" name="unit" value="{{$data[0]->unit}}" required>

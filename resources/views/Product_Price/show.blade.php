@@ -62,8 +62,7 @@
               <td>{{$row['Price']}}</td>
               <td>
                 &nbsp;&nbsp;<a href="{{action('ProductPriceController@edit',$row['Cat_ID'])}}" data-toggle="tooltip" data-placement="top" title="Edit"><i style="font-size:20px;" class="fas fa-edit text-warning"></i></a>
-      
-              </td>
+                </td>
             </tr>
             @endforeach
           </tbody>

@@ -168,6 +168,7 @@ class ProductPriceController extends Controller
             ->join('stores', 'product__Prices.Store', 'stores.keystore')
             ->join('product_mains', 'Product__Prices.Product', 'product_mains.Product_ID')
             ->get();
+        //dd($data);
         return view('Product_Price.edit', compact( 'data', 'id'));
     }
 
@@ -180,7 +181,16 @@ class ProductPriceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        dd($id);
+        $show = $request->get('store_id');
+        $product_price_update = product_Price::where('Cat_ID',$id)->get();
+        $product_price_update[0]->Store        = $request->get('store_id');
+        $product_price_update[0]->Cat_ID       = $request->get('Cat_ID');
+        $product_price_update[0]->Product      = $request->get('product_id');
+        $product_price_update[0]->Price        = $request->get('Price');
+        $product_price_update[0]->save();
+    
+        $this->show($show);
+    
     }
 
     /**
