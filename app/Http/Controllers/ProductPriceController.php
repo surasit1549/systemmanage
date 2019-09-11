@@ -189,7 +189,8 @@ class ProductPriceController extends Controller
         $product_price_update[0]->Price        = $request->get('Price');
         $product_price_update[0]->save();
     
-        $this->show($show);
+        return redirect()->route('Product_Price.show',$show)->with('success', 'อัพเดทเรียบร้อย');
+        //$this->show($show);
     
     }
 
