@@ -54,7 +54,6 @@
     <h3 class="text-white"><i class="fas fa-map"></i>&nbsp;&nbsp;แปลง</h3>
   </div>
   <div class="card-body">
-
     <table class="table table-bordered" id="example">
       <thead>
         <tr>
@@ -73,7 +72,8 @@
             &nbsp;&nbsp;
             <a class="test" href="#" data-toggle="tooltip" data-placement="top" title="Remove"><i style="font-size:20px;" class="fas fa-trash-alt text-danger"></i></a>
             <form method="post" class="delete_form" action="{{action('TransformController@destroy',$row['id'])}}">
-              {{csrf_field()}}
+              @csrf
+              <input type="hidden" name="convertname" value="{{$row['convertname']}}">
               <input type="hidden" name="_method" value="DELETE" />
             </form>
           </td>
