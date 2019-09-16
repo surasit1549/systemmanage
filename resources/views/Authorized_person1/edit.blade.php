@@ -16,11 +16,8 @@
       ผู้มีอำนาจคนที่ 1</h3>
   </div>
   <div class="card-body">
-    <form method="post" action="{{action('masteroneController@update', $id)}}" class="needs-validation" novalidate> {
-      {
-      csrf_field()
-      }
-      }
+    <form method="post" action="{{action('masteroneController@update', $id)}}" class="needs-validation" novalidate> 
+      {{csrf_field()}}
 
       <div class="row">
         <div class="form-group col-md-6"><a class="btn btn-info text-white" onclick="location.reload();">Refresh</a></div>
@@ -34,7 +31,7 @@
         <div class="form-group col-md-6"><label>แบบงาน</label><input type="text" name="formwork" class="form-control" value="{{$pr_create['formwork']}}" required></div>
         <div class="form-group col-md-6"><label>แปลง</label><input type="text" name="prequestconvert" class="form-control" value="{{$pr_create['prequestconvert']}}" required></div>
       </div>
-      < !-- สินค้าที่ขอสั่งซื้อ --><br>
+      <!-- สินค้าที่ขอสั่งซื้อ --><br>
         <table class="table table-hover table-bordered border-dark table-border-dark">
           <thead>
             <tr>
@@ -52,47 +49,23 @@
             </tr>
           </thead>
           <tbody>@foreach($min as $row) <tr>
-              <td class="text-center"><label class="col-form-label"> {
-                  {
-                  $number++
-                  }
-                  }
+              <td class="text-center"><label class="col-form-label"> {{$number++}}
 
                 </label></td>
-              <td class="text-center result"><label type="text" name="Product_name[]" class="form-control productname border-0" value="{{$row[0]}}" name="" required> {
-                  {
-                  $row[0]
-                  }
-                  }
+              <td class="text-center result"><label type="text" name="Product_name[]" class="form-control productname border-0" value="{{$row[0]}}" name="" required> {{$row[0]}}
 
                 </label>
-              <td class="text-center result"><label type="number" name="Product_number[]" min="1" class="form-control productnumber border-0" value="{{$row[1]}}" name="" required> {
-                  {
-                  $row[1]
-                  }
-                  }
+              <td class="text-center result"><label type="number" name="Product_number[]" min="1" class="form-control productnumber border-0" value="{{$row[1]}}" name="" required> {{$row[1]}}
 
                 </label></td>
-              <td class="text-center result"><label type="text" name="unit[]" class="form-control unit border-0" value="{{$row[2]}}" name="" required> {
-                  {
-                  $row[2]
-                  }
-                  }
+              <td class="text-center result"><label type="text" name="unit[]" class="form-control unit border-0" value="{{$row[2]}}" name="" required> {{$row[2]}}
 
                 </label>
               <td><input type="text" name="keystore[]" class="form-control keystore" value="{{$row[3]}}" required></td>
-              <td class="text-center result"><label type="number" name="price[]" min="1" class="form-control price border-0" value="{{$row[4]}}" required> {
-                  {
-                  $row[4]
-                  }
-                  }
+              <td class="text-center result"><label type="number" name="price[]" min="1" class="form-control price border-0" value="{{$row[4]}}" required> {{$row[4]}}
 
                 </label></td>
-              <td class="text-center result"><label type="number" name="product_sum[]" min="1" class="sum col-form-label border-0" value="{{$row[5]}}" required> {
-                  {
-                  $row[5]
-                  }
-                  }
+              <td class="text-center result"><label type="number" name="product_sum[]" min="1" class="sum col-form-label border-0" value="{{$row[5]}}" required> {{$row[5]}}
 
                 </label></td>
             </tr>@endforeach </tbody>
@@ -100,11 +73,7 @@
             <tr>
               <th></th>
               <th class="text-right" colspan="4">รวมเป็นเงิน</th>
-              <th class="text-center"><label type="number" name="sum" id="sumofprice" class="text-danger" value="{{$sum[0]}}"> {
-                  {
-                  $sum[0]
-                  }
-                  }
+              <th class="text-center"><label type="number" name="sum" id="sumofprice" class="text-danger" value="{{$sum[0]}}"> {{$sum[0]}}
 
                 </label></th>
               <th class="text-center">บาท</th>

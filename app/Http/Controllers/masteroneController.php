@@ -67,7 +67,6 @@ class masteroneController extends Controller
         $number = 1;
         $sum = 0;
         $pr_create = PR_create::find($id);
-        dd(123);
         //dd($pr_create['key']);
         $productdb = Create_product::where('key',$pr_create['key'])->get('productname')->toArray();
         $lengtharray = sizeof($productdb);
