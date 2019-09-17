@@ -7,7 +7,7 @@
     <div class="card">
         <div class="card-body">
             <form method="post" action="{{action('ProductPriceController@update', $id)}}" class="needs-validation" novalidate>
-                {{csrf_field()}}
+                @csrf
                 <div class="form-group">
                     <label for="">ร้านค้า</label>
                     <input type="text" name="store_name" class="form-control" value="{{$data[0]->name}}" autocomplete="off" required>
@@ -30,15 +30,14 @@
                             </td>
                             <td>
                                 <input type="text" class="form-control unit" name="unit" value="{{$data[0]->unit}}" required>
-                                
                             </td>
                             <td><input type="text" class="form-control price" name="Price" value="{{$data[0]->Price}}" required></td>
                         </tr>
                     </tbody>
                 </table>
                 <div class="form-group text-center">
-                    <a class="btn btn-danger" href="{{route('Product_Price.index')}}"><i class="fas fa-undo"></i>&nbsp;&nbsp;ย้อนกลับ</a>
-                    <button id="subform" type="submit" class="btn btn-success" value="Update"><i class="far fa-save"></i>&nbsp;&nbsp;บันทึก</button>
+                    <a class="btn btn-danger" href="#" onclick="window.history.back()"><i class="fas fa-undo"></i>&nbsp;&nbsp;ย้อนกลับ</a>
+                    <button id="subform" type="submit" class="ml-2 btn btn-success" value="Update"><i class="fas fa-save"></i>&nbsp;&nbsp;บันทึก</button>
                 </div>
                 <input type="hidden" name="_method" value="PATCH" />
             </form>

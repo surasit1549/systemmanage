@@ -8,6 +8,7 @@ use App\Store;
 use App\User;
 use App\product_main;
 use Auth;
+use App\Transform;
 
 
 
@@ -22,7 +23,6 @@ class checkAction
      */
     public function handle($request, Closure $next)
     {
-
         $method = explode('\\', $request->route()->getActionName());
         $data = $method[count($method) - 1];
         $path = $request->route()->getActionName();
@@ -102,10 +102,20 @@ class checkAction
             ];
             log::create($arr);
         } else if ($data == 'ProductPriceController@store') {
+            $arr = [
+                'username' => Auth::user()->username, 'data' => 'CREATE ร้านค้า ;ชื่อร้านค้า:' . $request->Product_ID .
+                    ';ชื่อสินค้า:' . $request->Product_name . ';หน่วย:' . $request->unit,
+                'action' => $path
+            ];
+            log::create($arr);
             
-        } else if ($data == 'ProductPriceController@update') { } else if ($data == 'ProductPriceController@destroy') {
+        } else if ($data == 'ProductPriceController@update') { 
+
+        } 
+        else if ($data == 'ProductPriceController@destroy') {
             
-        } else if ($data == 'pr_createController@store') {
+        }
+         else if ($data == 'pr_createController@store') {
             $arr = [
                 'username' => Auth::user()->username, 'data' => 'CREATE ใบขอสั่งซื้อ PR ;เลขใบขอสั่งซื้อ:' . $request->keystore,
                 'action' => $path
@@ -156,7 +166,37 @@ class checkAction
                 'action' => $path
             ];
             log::create($arr);
-        } else if ($data == 'profileController@update') {
+        } 
+        else if( $data == 'TransformController@store'  ){
+            $arr = [
+                'username' => Auth::user()->username, 'data' => 'CREATE แปลง ;ชื่อแปลง:' . $request->convertname . '&ขนาด:'.$request->size ,
+                'action' => $path
+            ];
+            log::create($arr);
+        }
+        else if( $data == 'TransformController@update' ){
+            $transform = Transform::find($request->id);
+            $arr = [
+                'username' => Auth::user()->username,
+                'data' => 'UPDATE แปลง ',
+                'action' => $path
+            ];
+            if ($transform->convertname != $request->convertname) {
+                $arr['data'] = $arr['data'] . ';ชื่อแปลง(' . $transform->convertname . '=>' . $request->convertname . ')';
+            }
+            if ($transform->size != $request->size) {
+                $arr['data'] = $arr['data'] . ';ขนาด(' . $transform->size . '=>' . $request->size . ')';
+            }
+            log::create($arr);
+        }
+        else if( $data == 'TransformController@destroy' ){
+            $arr = [
+                'username' => Auth::user()->username, 'data' => 'DELETE แปลง ;ชื่อแปลง:' . $request->convertname,
+                'action' => $path
+            ];
+            log::create($arr);
+        }
+        else if ($data == 'profileController@update') {
             $profile = User::find($request->id);
             $arr = [
                 'username' => Auth::user()->username,
@@ -183,7 +223,6 @@ class checkAction
             }
             log::create($arr);
         }
-
         return $next($request);
     }
 }

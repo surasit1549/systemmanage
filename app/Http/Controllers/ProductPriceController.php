@@ -26,7 +26,6 @@ class ProductPriceController extends Controller
                 $store_name[] = Store::where('keystore', $store_id[$i]['Store'])->get()->toArray();
             }
         }
-        //dd($store_name);
         return view('Product_Price.index', compact('number', 'store_name'));
     }
 
