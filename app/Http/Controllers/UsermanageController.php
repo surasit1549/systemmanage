@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\users;
-
+use Illuminate\Support\Facades\Hash;
+use App\User;
 class UsermanageController extends Controller
 {
     /**
@@ -12,9 +12,16 @@ class UsermanageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function checkemail(Request $request){
+        $user = User::where('email',$request->input('email'))->exists();
+        return response()->json(['msg' => $user ]);
+    }
+
+
     public function index()
     {
-        $user = users::all()->toArray();
+        $user = User::all()->toArray();
         return view('usermanage.indexuser',compact('user'));
     }
 
@@ -36,7 +43,9 @@ class UsermanageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->merge(['password' => Hash::make($request->password)]);
+        User::create($request->toArray());
+        return redirect()->route('usermanage.index')->with('msg','Success !');
     }
 
     /**
@@ -47,7 +56,7 @@ class UsermanageController extends Controller
      */
     public function show($id)
     {
-        $user = users::find($id);
+        $user = User::find($id);
         return view('usermanage.show',compact('user'));
     }
 
@@ -59,7 +68,7 @@ class UsermanageController extends Controller
      */
     public function edit($id)
     {
-        $user = users::find($id);
+        $user = User::find($id);
         return view('usermanage.edit',compact('user'));
     }
 
@@ -72,7 +81,8 @@ class UsermanageController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        User::find($id)->update($request->toArray());
+        return redirect()->route('usermanage.index');
     }
 
     /**
@@ -83,6 +93,7 @@ class UsermanageController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::find($id)->delete();
+        return redirect()->route('usermanage.index');
     }
 }

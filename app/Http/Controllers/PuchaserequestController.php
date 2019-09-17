@@ -5,27 +5,29 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\prequest;
 use App\transform;
-use App\prequestconvert;
 use App\store;
-use App\prequeststore;
-use App\prequestdb;
 use App\product;
-use App\productdb;
-use App\prequestproduct;
-use App\number;
-use App\porderdb;
-use App\porder;
 use vendor\autoload;
+
+use App\Create_product;
+use App\PR_create;
+use App\product_Price;
+use App\product_main;
+use App\pr_store;
+use App\Authorized_person1;
+use App\Authorized_person2;
+
+use Barryvdh\DomPDF\PDF;
 
 class PuchaserequestController extends Controller
 {
 
-  public function filetopdf(Request $request){
-    
-    $mpdf = new \Mpdf\Mpdf(['default_font_size' => 16,'default_font' => 'thsarabunnew']);
-    $mpdf->WriteHTML($request->get('html'));
-    $mpdf->Output(); 
+  public function filetopdf(Request $request)
+  {
 
+    $mpdf = new \Mpdf\Mpdf(['default_font_size' => 16, 'default_font' => 'thsarabunnew']);
+    $mpdf->WriteHTML($request->get('html'));
+    $mpdf->Output();
   }
 
 
@@ -37,28 +39,50 @@ class PuchaserequestController extends Controller
   public function index()
   {
     $number = 1;
-    $num = 0;
-    $prequestdb = prequest::all()->toArray();
-    if(empty($prequestdb)){
-      $prequest = $prequestdb;
-    }else{
-      foreach($prequestdb as $row){
-        $pr_prequest[] = [
-                          $num_id = $num++,
-                          $row['keyPR'],
-                          $row['date'],
-                          $row['contractor'],
-                          $row['formwork'],
-                          $row['prequestconvert']
+    $num = 1;
+    $keypr = prequest::get()->toArray();
+    $pr_create = pr_create::all()->toArray();
+    //dd($pr_create);
+    if (empty($pr_create)) {
+      $pr_create = '';
+      $PR_creates = '';
+      $status = '';
+    } else {
+      $lengtharray = sizeof($pr_create);
+      for ($i = 0; $i < $lengtharray; $i++) {
+        $master1 = Authorized_person1::where();
+        $master2 = Authorized_person2::get()->toArray();
+        if (empty($keypr)) {
+          $status = "กำลังตรวจสอบ";
+        } elseif ($keypr != NULL && empty($master1) && empty($master2)) {
+          $status = "กำลังดำเนินการ";
+        } elseif ($keypr != NULL && $master1 != NULL && empty($master2)) {
+          $status = "กำลังดำเนินการ";
+        } elseif ($keypr != NULL && $master1 != NULL && $master2 != NULL) {
+          $status = "สำเร็จ";
+        }
+        $PR_create[] = [
+          $pr_create[$i]['id'],
+          $pr_create[$i]['key'],
+          $pr_create[$i]['date'],
+          $pr_create[$i]['contractor'],
+          $pr_create[$i]['formwork'],
+          $pr_create[$i]['prequestconvert'],
+          $status
+
         ];
-      }  
+      }
+      $pr_num = sizeof($pr_create);
+      for ($i = $pr_num - 1; $i >= 0; $i--) {
+        $PR_creates[] = $PR_create[$i];
+      }
     }
-    //dd($prequest);
-    //dd($pr_prequest[2][0]);
     return view('prequest.index', compact(
-                                          'prequestdb',
-                                          'number'
-                                        ));
+      'number',
+      'PR_creates',
+      'pr_create',
+      'status'
+    ));
   }
 
   /**
@@ -68,14 +92,7 @@ class PuchaserequestController extends Controller
    */
   public function create()
   {
-    $prequeststore = store::all()->toArray();
-    $prequestconvert = transform::all()->toArray();
-    $stores = store::all()->toArray();
-    return view('prequest.create', compact(
-                                            'prequeststore', 
-                                            'prequestconvert',
-                                            'stores'
-                                          ));
+    return view('prequest.create');
   }
 
   /**
@@ -86,77 +103,31 @@ class PuchaserequestController extends Controller
    */
   public function store(Request $request)
   {
-    
-    $lengtharray = sizeof($request->input('name'));
-    /*     $this->validate($request, [
-      'keyPR'           => 'required',      // หมายเลขใบPR
-      'date'            => 'required',      // วันเดือนปี PR
-      'contractor'      => 'required',      // ชื่อผู้รับเหมา
-      'formwork'        => 'required',      // รูปแบบงาน
-      'prequestconvert' => 'required',      // แปลง
-    ]); */
-    for ($i = 0; $i < $lengtharray; $i++) {
-      $productdb = new Product([
-        'keyPR'           => $request->input('keyPR'),
-        'formwork'        => $request->input('formwork'),
-        'productname'     => $request->input('name')[$i],
-        'productnumber'   => $request->input('num')[$i],
-        'unit'            => $request->input('units')[$i],
-        'keystore'        => $request->input('store')[$i],
-        'price'           => $request->input('price')[$i],
-        'sum'             => $request->input('sum')[$i],
-        ]);
-        
-        $productdb->save();
-        
-        $porderdb = new porder([
-          'keyPR'           => $request->input('keyPR'),
-          'date'            => $request->input('date'),
-          'keystore'        => $request->input('store')[$i],
-          'contractor'      => $request->input('contractor'),
-          'formwork'        => $request->input('formwork'),
-          'prequestconvert' => $request->input('prequestconvert'),
-          ]);
-          $porderdb->save();
-        }
-        $prequestdb = new prequest([
-          'keyPR'           => $request->input('keyPR'),
-          'date'            => $request->input('date'),
-          'contractor'      => $request->input('contractor'),
-          'formwork'        => $request->input('formwork'),
-          'prequestconvert' => $request->input('prequestconvert'),
-          'sumofprice'      => $request->input('sumofprice')
-          
-          ]);
-          
-          $prequestdb->save();
-          return response()->json(['message' => 'success'],200);
-        }
-        
-        /**
-         * Display the specified resource.
-         *
+    //
+  }
+
+  /**
+   * Display the specified resource.
+   *
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
   public function show($id)
   {
-    $number=1;
-    $prequeststore = store::all()->toArray();
-    $prequestconvert = transform::all()->toArray();
-    $prequestdb = prequest::find($id);
-    $productdb = product::find($id);
-    //dd($productdb->keyPR);
-    $prequestproduct = product::all()->toArray();
-    //dd($prequestproduct);
-    
+    $number = 1;
+    $db = Create_product::get()->toArray();
+    $pr_create = PR_create::find($id)->toArray();
+    $productdb = Create_product::where('key', $pr_create['key'])->get()->toArray();
+    $store_master = store::where('keystore', "master")->get()->toArray();
+    //dd($productdb);
     return view('prequest.show', compact(
-                                          'prequestdb', 
-                                          'prequeststore', 
-                                          'prequestconvert', 
-                                          'prequestproduct', 
-                                          'id', 
-                                          'number'));
+      'number',
+      'id',
+      'productdb',
+      'pr_create',
+      'store_master'
+
+    ));
   }
 
   /**
@@ -167,68 +138,40 @@ class PuchaserequestController extends Controller
    */
   public function edit($id)
   {
-    $stores = store::all()->toArray();
-    $prequestconvert = transform::all()->toArray();
-    $number=1;
-    $prequestdb = prequest::find($id);
-    $productdb = product::find($id);
-    $pr_db = prequest::all()->toArray();
-    $prequestproduct = product::all()->toArray();
-
-    $num_pr = sizeof($pr_db);
-    $num_product = sizeof($prequestproduct);
-    $num_id = intval($id);
-    //dd($num_id);
-    foreach($prequestproduct as $row){
-      $pr_product1[] = [
-                      $row['keyPR'],
-                      $row['formwork'],
-                      $row['productname'],
-                      $row['productnumber'],
-                      $row['unit'],
-                      $row['keystore'],
-                      $row['price'],
-                      $row['sum']
-      ];
-      $pr_product2[] = [
-                      $row['keyPR']
-];
-    }
-    foreach($pr_db as $row){
-      $pr1[] = [
-                $row['keyPR'],
-                $row['date'],
-                $row['contractor'],
-                $row['formwork'],
-                $row['prequestconvert'],
-                $row['sumofprice']
+    $number = 1;
+    $sum = 0;
+    $pr_create = PR_create::find($id)->toArray();
+    //dd($pr_create['key']);
+    $productdb = Create_product::where('key', $pr_create['key'])->get('productname')->toArray();
+    $lengtharray = sizeof($productdb);
+    for ($i = 0; $i < $lengtharray; $i++) {
+      $product_id = product_main::where('product_name', $productdb[$i])->get()->toArray();
+      $product_price = product_Price::where('Product', $product_id)->min('Price');
+      //  ->where('Product',$product_id[0]['Product_ID'])->min('Price');
+      $product_min_price[] = product_main::where('product_name', $productdb[$i])
+        ->join('product__Prices', 'product_mains.Product_ID', 'product__Prices.Product')
+        ->where('Price', $product_price)
+        ->get()->toArray();
+      $product_number = Create_product::where('key', $pr_create['key'])->get()->toArray();
+      dd($product_id);
+      $products_sum = [$product_price * $product_number[$i]['productnumber']];
+      $sum = [$sum[0] + $products_sum[0]];
+      $min[] = [
+        $product_min_price[$i][0]['Product_name'],
+        $product_number[$i]['productnumber'],
+        $product_min_price[$i][0]['unit'],
+        $product_min_price[$i][0]['Store'],
+        $product_min_price[$i][0]['Price'],
+        $products_sum[0],
       ];
     }
-    
-    $sum = [$pr1[$num_id],$pr_product2[$num_id][0],$pr1[$num_id][0]];
-    //dd($pr1[$num_id]);
-
-    for($j=0; $j<$num_pr; $j++){
-      if($pr1[$num_id][0] === $pr1[$j][0]){
-        $pr_prequest = $pr1[$j];
-      }
-    }
-    for($i=0; $i<$num_product; $i++){
-      if($pr1[$num_id][0] === $pr_product2[$i][0]){
-        $pr_products[] = $pr_product1[$i];
-      }
-    }
-    $sums = [$pr_products,$pr_prequest];
-    //dd($sums);
-    //dd($pr_products);
+    //dd($min);
     return view('prequest.edit', compact(
-                                        'prequestdb', 
-                                        'stores',
-                                        'prequestconvert', 
-                                        'id',
-                                        'pr_products',
-                                        'number',
-                                        'pr_prequest'
+      'number',
+      'pr_create',
+      'min',
+      'sum',
+      'id'
     ));
   }
 
@@ -241,7 +184,15 @@ class PuchaserequestController extends Controller
    */
   public function update(Request $request, $id)
   {
-    //
+    $prequest = new prequest([
+      'keyPR'             => $request->get('keyPR'),
+      'date'              => $request->get('date'),
+      'formwork'          => $request->get('formwork'),
+      'prequestconvert'   => $request->get('prequestconvert'),
+      'sumofprice'        => $request->get('sum'),
+    ]);
+    $prequest->save();
+    return redirect()->route('prequest.index')->with('success', 'เรียบร้อยแล้ว');
   }
 
   /**
@@ -252,7 +203,7 @@ class PuchaserequestController extends Controller
    */
   public function destroy($id)
   {
-    
+
     $prequestdb = prequest::find($id);
     $prequestdb->delete();
     return redirect()->route('prequest.index')->with('success', 'ลบข้อมูลเรียบร้อย');

@@ -13,7 +13,9 @@ class Store extends Model
                           'phone',
                           'fax',
                           'contect',
-                          'cellphone'
+                          'cellphone',
+                          'pay_condition',
+                          'credit'
                         ];
 
     public function prequeststore(){

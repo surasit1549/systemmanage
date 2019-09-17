@@ -17,7 +17,6 @@ class CreatePrequestsTable extends Migration
             $table->bigIncrements('id');
             $table->string('keyPR');
             $table->string('date');
-            $table->string('contractor');
             $table->string('formwork');
             $table->string('prequestconvert');
             $table->unsignedMediumInteger('sumofprice');

@@ -4,26 +4,20 @@
 // Bootstrap
 @import "~bootstrap/scss/bootstrap";
 
-
 // DATATABLES
-@import '~datatables.net-bs4/css/dataTables.bootstrap4.css';
-
+@import "~datatables.net-bs4/css/dataTables.bootstrap4.css";
 
 /*
 DEMO STYLE
 */
 @import "https://fonts.googleapis.com/css?family=Sarabun:300,400,500,600,700";
 
-
-
-
 // Modal view Information
 
-.modal input[type=text],.modal textarea {
-  background-color : #f1f1f1 !important;
+.modal input[type="text"],
+.modal textarea {
+  background-color: #f1f1f1 !important;
 }
-
-
 
 body {
   font-family: "Sarabun", sans-serif;
@@ -136,7 +130,6 @@ ul ul a {
   background: #6d7fcc;
 }
 
-
 a.article,
 a.article:hover {
   background: #6d7fcc !important;
@@ -175,18 +168,17 @@ a.article:hover {
   background-color: #435d7d;
 }
 
-.popover-body a::after{
-    content: ""; /* This is necessary for the pseudo element to work. */ 
-    display: block; /* This will put the pseudo element on its own line. */
-    width: 0%; /* Change this to whatever width you want to have before hover. */
-    padding-top: 10px; /* This creates some space between the element and the border. */
-    border-bottom: 2px solid #6d7fcc; /* This creates the border. Replace black with whatever color you want. */
-    transition: .5s; /* This establishes the amount of time in seconds the animation should take from start to finish */
+.popover-body a::after {
+  content: ""; /* This is necessary for the pseudo element to work. */
+  display: block; /* This will put the pseudo element on its own line. */
+  width: 0%; /* Change this to whatever width you want to have before hover. */
+  padding-top: 10px; /* This creates some space between the element and the border. */
+  border-bottom: 2px solid #6d7fcc; /* This creates the border. Replace black with whatever color you want. */
+  transition: 0.5s; /* This establishes the amount of time in seconds the animation should take from start to finish */
 }
 
 .popover-body a:hover::after {
-
-    width: 100%; /* This will be the new width of your border when on hover */
+  width: 100%; /* This will be the new width of your border when on hover */
 }
 
 .popover .arrow:after {
@@ -227,14 +219,126 @@ a.article:hover {
   }
 }
 
-hr.line { 
-  display: block; height: 1px;
-    border: 0; border-top: 2px solid red;
-    margin: 1em 0; padding: 0; 
-  }
+hr.line {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 2px solid red;
+  margin: 1em 0;
+  padding: 0;
+}
 
 // header CARD
 
 .card-header {
   background-color: #47748b;
+}
+
+// DATATABLE CSS
+
+table.dataTable.dtr-inline.collapsed > tbody > tr > td:first-child,
+table.dataTable.dtr-inline.collapsed > tbody > tr > th:first-child {
+  position: relative;
+  padding-left: 30px;
+  cursor: pointer;
+}
+table.dataTable.dtr-inline.collapsed > tbody > tr > td:first-child:before,
+table.dataTable.dtr-inline.collapsed > tbody > tr > th:first-child:before {
+  top: 8px;
+  left: 4px;
+  height: 16px;
+  width: 16px;
+  display: block;
+  position: absolute;
+  color: white;
+  border: 2px solid white;
+  border-radius: 16px;
+  text-align: center;
+  line-height: 14px;
+  box-shadow: 0 0 3px #444;
+  box-sizing: content-box;
+  content: "+";
+  background-color: #31b131;
+}
+table.dataTable.dtr-inline.collapsed > tbody > tr > td:first-child.dataTables_empty:before,
+table.dataTable.dtr-inline.collapsed > tbody > tr > th:first-child.dataTables_empty:before {
+  display: none;
+}
+table.dataTable.dtr-inline.collapsed > tbody > tr.parent > td:first-child:before,
+table.dataTable.dtr-inline.collapsed > tbody > tr.parent > th:first-child:before {
+  content: "-";
+  background-color: #d33333;
+}
+table.dataTable.dtr-inline.collapsed > tbody > tr.child td:before {
+  display: none;
+}
+table.dataTable.dtr-inline.collapsed.compact > tbody > tr > td:first-child,
+table.dataTable.dtr-inline.collapsed.compact > tbody > tr > th:first-child {
+  padding-left: 27px;
+}
+table.dataTable.dtr-inline.collapsed.compact > tbody > tr > td:first-child:before,
+table.dataTable.dtr-inline.collapsed.compact > tbody > tr > th:first-child:before {
+  top: 5px;
+  left: 4px;
+  height: 14px;
+  width: 14px;
+  border-radius: 14px;
+  line-height: 12px;
+}
+table.dataTable.dtr-column > tbody > tr > td.control,
+table.dataTable.dtr-column > tbody > tr > th.control {
+  position: relative;
+  cursor: pointer;
+}
+table.dataTable.dtr-column > tbody > tr > td.control:before,
+table.dataTable.dtr-column > tbody > tr > th.control:before {
+  top: 50%;
+  left: 50%;
+  height: 16px;
+  width: 16px;
+  margin-top: -10px;
+  margin-left: -10px;
+  display: block;
+  position: absolute;
+  color: white;
+  border: 2px solid white;
+  border-radius: 16px;
+  text-align: center;
+  line-height: 14px;
+  box-shadow: 0 0 3px #444;
+  box-sizing: content-box;
+  content: "+";
+  background-color: #31b131;
+}
+table.dataTable.dtr-column > tbody > tr.parent td.control:before,
+table.dataTable.dtr-column > tbody > tr.parent th.control:before {
+  content: "-";
+  background-color: #d33333;
+}
+table.dataTable > tbody > tr.child {
+  padding: 0.5em 1em;
+}
+table.dataTable > tbody > tr.child:hover {
+  background: transparent !important;
+}
+table.dataTable > tbody > tr.child ul {
+  display: inline-block;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+table.dataTable > tbody > tr.child ul li {
+  border-bottom: 1px solid #efefef;
+  padding: 0.5em 0;
+}
+table.dataTable > tbody > tr.child ul li:first-child {
+  padding-top: 0;
+}
+table.dataTable > tbody > tr.child ul li:last-child {
+  border-bottom: none;
+}
+table.dataTable > tbody > tr.child span.dtr-title {
+  display: inline-block;
+  min-width: 75px;
+  font-weight: bold;
 }

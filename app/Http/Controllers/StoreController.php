@@ -5,9 +5,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Store;
 use Illuminate\Support\Facades\DB;
+use vendor\autoload;
 
 class StoreController extends Controller
 {
+
+
+  public function filetopdf(Request $request)
+  {
+    $mpdf = new \Mpdf\Mpdf(['default_font_size' => 16, 'default_font' => 'thsarabunnew']);
+    $mpdf->WriteHTML($request->get('html'));
+    $mpdf->Output();
+  }
 
   public function usersList()
   {
@@ -45,7 +54,7 @@ class StoreController extends Controller
    */
   public function create()
   {
-    
+
     return view('store.create');
   }
 
@@ -78,7 +87,7 @@ class StoreController extends Controller
       ]
     );
     $store->save();
-    return redirect()->route('store.index')->with('success', 'บันทึกข้อมูลเรียบร้อย');
+    return redirect()->route('store.index')->with('success', 'บันทึกข้อมูลเรียบร้อยแล้ว');
   }
 
   /**
@@ -88,9 +97,7 @@ class StoreController extends Controller
    * @return \Illuminate\Http\Response
    */
   public function show($id)
-  {
-    
-  }
+  { }
 
   /**
    * Show the form for editing the specified resource.
@@ -114,6 +121,7 @@ class StoreController extends Controller
    */
   public function update(Request $request, $id)
   {
+
     $this->validate(
       $request,
       [
@@ -135,7 +143,7 @@ class StoreController extends Controller
     $store->contect   = $request->get('contect');
     $store->cellphone = $request->get('cellphone');
     $store->save();
-    return redirect()->route('store.index')->with('success', 'successfully updated');
+    return redirect()->route('store.index')->with('success', 'อัพเดทข้อมูลเรียบร้อยแล้ว');
   }
 
   /**

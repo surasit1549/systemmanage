@@ -5,7 +5,6 @@
   #storetab {
     border-right: 5px solid rgb(41, 207, 219);
   }
-  }
 </style>
 @stop
 @section('content')
@@ -20,7 +19,7 @@
         <div class="card-body">
           <form method="post" action="{{url('store')}}" class="needs-validation" novalidate>
             {{csrf_field()}}
-            <h3>Company Information</h3>
+            <h3>รายละเอียดร้านค้า</h3>
             <hr class="line">
             <br>
             <div class="form-row">
@@ -41,17 +40,17 @@
 
             <div class="form-row">
               <div class="form-group col-md-6">
-                <input type="text" name="phone" class="form-control" placeholder="เบอร์โทรศัพท์" autocomplete="off" pattern="[0-9]{10}" required>
-                <label class="invalid-feedback">กรอกเบอร์โทรศัพท์ให้ถูกต้องไม่ต้องมี (-) ตัวอย่าง 0234567895</label>
+                <input type="text" name="phone" class="form-control" placeholder="เบอร์โทรศัพท์" autocomplete="off" pattern="[0-9]{9,}" required>
+                <label class="invalid-feedback">กรอกเบอร์โทรศัพท์ให้ถูกต้อง</label>
               </div>
 
               <div class="form-group col-md-6">
-                <input type="text" name="fax" class="form-control" placeholder="เบอร์โทรสาร" autocomplete="off" pattern="[0-9]{9}" required>
-                <label class="invalid-feedback">กรอกเบอร์โทรสารให้ถูกต้องไม่ต้องมี (-) ตัวอย่าง 053894659</label>
+                <input type="text" name="fax" class="form-control" placeholder="เบอร์โทรสาร" autocomplete="off" pattern="[0-9]{9,}" required>
+                <label class="invalid-feedback">กรอกเบอร์โทรสารให้ถูกต้อง</label>
               </div>
             </div>
             <br>
-            <h3>Contact with</h3>
+            <h3>ข้อมูลผู้ติดต่อ</h3>
             <hr class="line">
             <br>
             <div class="form-row">
@@ -61,13 +60,13 @@
               </div>
 
               <div class="form-group col-md-6">
-                <input type="text" name="cellphone" class="form-control" placeholder="เบอร์โทรผู้ติดต่อ" autocomplete="off" pattern="[0-9]{10}" required>
-                <label class="invalid-feedback">กรอกเบอร์โทรศัพท์ผู้ติดต่อให้ถูกต้องไม่ต้องมี (-) ตัวอย่าง 0234567895</label>
+                <input type="text" name="cellphone" class="form-control" placeholder="เบอร์โทรผู้ติดต่อ" autocomplete="off" pattern="[0-9]{9,}" required>
+                <label class="invalid-feedback">กรอกเบอร์โทรศัพท์ผู้ติดต่อ</label>
               </div>
             </div>
             <br>
             <div class="form-group text-right">
-              <a class="btn btn-danger" href="{{route('store.index')}}"><i style="font-size:18px;" class="fas fa-undo-alt"></i>&nbsp;&nbsp;ย้อนกลับ</a>
+              <a href="#" class="btn btn-danger" onclick="window.history.back()"><i style="font-size:18px;" class="fas fa-undo-alt"></i>&nbsp;&nbsp;ย้อนกลับ</a>
               <button id="subform" type="submit" class="btn btn-success ml-2"><i style="font-size:18px;" class="far fa-save"></i>&nbsp;&nbsp;บันทึกข้อมูล</button>
             </div>
           </form>

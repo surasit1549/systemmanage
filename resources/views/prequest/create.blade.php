@@ -17,57 +17,30 @@
         </div>
         <div class="form-group col-md-6 text-right">
           <label>วันที่ขอสั่งชื้อ</label><br>
-          <input type="text" name="date" value="{{ date('d-m-Y') }}" class="border-0" size="8" autocomplete="off">
+          <input type="text" name="date" value="{{$pr_create['date']}}" class="border-0" size="8" autocomplete="off">
         </div>
       </div>
       <div class="form-row">
         <div class="form-group col-md-4">
           <label>เลขที่เอกสาร</label>
-          <input type="text" name="keyPR" class="form-control" placeholder="กรอกเลขที่เอกสาร.." autocomplete="off" required>
-          <div class="invalid-feedback">
-            กรุณากรอกเลขที่เอกสาร
-          </div>
+          <input type="text" name="keyPR" class="form-control" value="{{$pr_create['key']}}" autocomplete="off" required>
+          
         </div>
         <div class="form-group col-md-8">
           <label>ชื่อผู้รับเหมา</label>
-          <input type="text" name="contractor" class="form-control" placeholder="กรอกชื่อผู้รับเหมา.." autocomplete="off" required>
-          <div class="invalid-feedback">
-            กรุณากรอกชื่อผู้รับเหมา
-          </div>
+          <input type="text" name="contractor" class="form-control" value="{{$pr_create['contractor']}}" autocomplete="off" required>
+          
         </div>
       </div>
 
       <div class="form-row">
         <div class="form-group col-md-6">
           <label>แบบงาน</label>
-          <select class="custom-select" name="formwork" required>
-            <option value="">กรุณาเลือกแบบงาน..</option>
-            <option value="งานโครงสร้างอาคาร">งานโครงสร้างอาคาร</option>
-            <option value="งานโครงสร้างหลังคา/หลังคา">งานโครงสร้างหลังคา/หลังคา</option>
-            <option value="งานผนัง">งานผนัง</option>
-            <option value="งานผิวพื้น">งานผิวพื้น</option>
-            <option value="งานฝ้าเพดาน">งานฝ้าเพดาน</option>
-            <option value="งานรั้ว">งานรั้ว</option>
-            <option value="งานไฟฟ้า">งานไฟฟ้า</option>
-            <option value="งานประปา/สุขาภิบาล">งานประปา/สุขาภิบาล</option>
-            <option value="งานเบ็ดเตล็ด">งานเบ็ดเตล็ด</option>
-            <option value="งานสุขาภิบาลภายนอก">งานสุขาภิบาลภายนอก</option>
-          </select>
-          <div class="invalid-feedback">
-            กรุณาเลือกรูปแบบงานที่ต้องการสั่งซื้อ
-          </div>
+          <input type="text" name="formwork" class="form-control" value="{{$pr_create['formwork']}}" required>
         </div>
         <div class="form-group col-md-6">
           <label>แปลง</label>
-          <select name="prequestconvert" class="custom-select" required>
-            <option value="">กรุณากรอกแปลง..</option>
-            @foreach($prequestconvert as $row)
-            <option value="{{$row['convertname']}}">{{$row['convertname']}}</option>
-            @endforeach
-          </select>
-          <div class="invalid-feedback">
-            กรุณาเลือกแบบแปลง
-          </div>
+          <input type="text" name="prequestconvert" class="form-control" value="{{$pr_create['prequestconvert']}}" required>
         </div>
       </div>
       <!-- สินค้าที่ขอสั่งซื้อ -->
@@ -91,18 +64,20 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td class="text-center"><label class="col-form-label">1</label></td>
-            <td><input type="text" class="form-control productname" name="" required></td>
-            <td><input type="number" min="1" class="form-control productnumber" name="" required></td>
-            <td><input type="text" class="form-control unit" name="" required></td>
-            <td>
-              <input type="text" class="form-control keystore" required>
-            </td>
-            <td><input type="number" min="1" class="form-control price" name="" required></td>
-            <td class="text-center result"><label class="sum col-form-label">0</label></td>
-            <td class="text-center"><button class="btn btn-outline-danger"><i style="font-size:18px" class="far fa-trash-alt"></i></button></td>
-          </tr>
+          @foreach($pr_products as $row)
+            <tr>
+              <td class="text-center"><label class="col-form-label">{{$number++}}</label></td>
+              <td><input type="text" class="form-control productname" value="{{$row['productname']}}" name="" required></td>
+              <td><input type="number" min="1" class="form-control productnumber" value="{{$row['productnumber']}}" name="" required></td>
+              <td><input type="text" class="form-control unit" value="{{$row['unit']}}" name="" required></td>
+              <td>
+                <input type="text" class="form-control keystore" required>
+              </td>
+              <td><input type="number" min="1" class="form-control price" name="" required></td>
+              <td class="text-center result"><label class="sum col-form-label">0</label></td>
+              <td class="text-center"><button class="btn btn-outline-danger"><i style="font-size:18px" class="far fa-trash-alt"></i></button></td>
+            </tr>
+          @endforeach
         </tbody>
         <tfoot>
           <tr>
@@ -224,6 +199,7 @@
     });
     $('#addrow').click(function(e) {
       e.preventDefault();
+      e.stopPropagation();
       $('tbody').append('<tr><td class="text-center"><label class="col-form-label">' + (index++) + '</label></td><td>' +
         '<input type="text" class="form-control productname" required></td>' +
         '<td><input type="number" min="1" class="form-control productnumber" required></td>' +
@@ -296,6 +272,7 @@
     // Remove Record on the table 
     $('tbody').on('click', '.btn-outline-danger', function(e) {
       e.preventDefault();
+      e.stopPropagation();
       if (index == 2)
         swal.fire({
           title: 'ไม่สามารถลบข้อมูลได้',

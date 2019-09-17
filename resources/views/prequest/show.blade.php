@@ -11,130 +11,80 @@
         {{csrf_field()}}
         <div class="row">
           <div class="col-form-label col-md-6">
-            <h4 class="d-inline shadow-sm" style="padding:10px"><label class="text-danger">&nbsp;PR {{$prequestdb->keyPR}}</label></h4>
+            <h4 class="d-inline shadow-sm" style="padding:10px"><label class="text-danger">&nbsp;PR {{$pr_create['key']}}</label></h4>
           </div>
           <div class='col-md-6 text-right'>
-            <button id="topdf" class="btn btn-danger"><i style="font-size:18px" class="far fa-file-pdf"></i>&nbsp;&nbsp;PDF</button>
+            <button class="btn btn-danger"><i style="font-size:18px" class="far fa-file-pdf"></i>&nbsp;&nbsp;PDF</button>
           </div>
         </div>
         <hr>
 
         <div class="container">
-          <table class="table table-borderless">
-            <tr>
-              <th>
-                เลขที่เอกสาร
-                </td>
-              <td>
-                {{$prequestdb->keyPR}}
-              </td>
-              <th>
-                วันที่ขอสั่งซื้อ
-                </td>
-              <td>
-                {{$prequestdb->date}}
-              </td>
-            </tr>
-            <tr>
-              <th>
-                ชื่อผู้รับเหมา
-                </td>
-              <td>
-                {{$prequestdb->contractor}}
-              </td>
-              <th>
-                แบบงาน
-                </td>
-              <td>
-                {{$prequestdb->formwork}}
-              </td>
-            </tr>
-            <tr>
-              <th>แปลง</th>
-              <td>{{$prequestdb->prequestconvert}}</td>
-            </tr>
-          </table>
-        </div>
+          <div style="text-align:center">
+            <h5>{{$store_master[0]['name']}}</h5> <br>
+            <h5>{{$store_master[0]['address']}}</h5> <br>
+            <h5>เบอร์โทรศัทพ์ {{$store_master[0]['phone']}}</h5>
+          </div><br>
+          <div style="text-align:right">
+            <h6>เลขที่เอกสาร <a>{{$pr_create['key']}}</a></h6>
+            <h6>วันที่ขอสั่งซื้อ <a>{{$pr_create['date']}}</a></h6>
+          </div>
+          <div id="data_information">
+            <table id="tableexa" >
+              <tbody>
+                <tr>
+                  <th>TO :</th>
+                  <td>THERA ASSET CO.,LTD</td>
+                </tr>
+                <tr>
+                  <th>ชื่อผู้รับเหมา</th>
+                  <td id="name_ex">{{$pr_create['contractor']}}</td>
+                  <th style="padding-left:30px">แปลง</th>
+                  <td id="transform_ex">{{$pr_create['prequestconvert']}}</td>
+                </tr>
+                <tr>
+                  <th>แบบงาน</th>
+                  <td id="work_ex">{{$pr_create['formwork']}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div><br>
 
-        <table class="table table-hover table-bordered">
-          <thead class="text-center">
-            <tr>
-              <th>ลำดับที่</th>
-              <th>ชื่อสินค้า</th>
-              <th>จำนวนสินค้า</th>
-              <th>ราคา</th>
-              <th>หน่วย</th>
-              <th>รวม</th>
-              <th>ร้านค้า</th>
-            </tr>
-          </thead>
-          @foreach($prequestproduct as $row)
-          @if($prequestdb->keyPR === $row['keyPR'])
-          @if($prequestdb->formwork === $row['formwork'])
-          <tbody class="text-center">
-            <td style="width:5%">{{$number++}}</td>
-            <td style="width:20%">{{$row['productname']}}</td>
-            <td style="width:10%">{{$row['productnumber']}}</td>
-            <td style="width:10%">{{$row['price']}}</td>
-            <td style="width:10%">{{$row['unit']}}</td>
-            <td style="width:10%">{{$row['sum']}}</td>
-            <td style="width:10%">{{$row['keystore']}}</td>
-          </tbody>
-          @endif
-          @endif
-          @endforeach
-          <tfoot>
-            <tr>
-              <th class="text-right" colspan="5">รวมเป็นเงิน</th>
-              <th class="text-center"><label id="sumofprice" class="text-danger">{{$prequestdb['sumofprice']}}</label></th>
-              <th class="text-center">บาท</th>
-            </tr>
-          </tfoot>
-        </table>
-        <br>
-        <div class="text-center">
-          <a class="btn btn-danger btn-lg" href="{{route('prequest.index')}}"><i class="fas fa-undo"></i>&nbsp;&nbsp;ย้อนกลับ</a>
-        </div>
+          <table class="table table-hover table-bordered">
+            <thead class="text-center">
+              <tr>
+                <th>ลำดับที่</th>
+                <th>ชื่อสินค้า</th>
+                <th>จำนวนสินค้า</th>
+                <th>หน่วย</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach($productdb as $row)
+              <tr>
+                <td>{{$number++}}</td>
+                <td>{{$row['productname']}}</td>
+                <td>{{$row['productnumber']}}</td>
+                <td>{{$row['unit']}}</td>
+              </tr>
+              @endforeach
+              @for($i = $number ; $i <= 10 ; $i++) <tr>
+                <td style="padding:10px 0px">&nbsp;</td>
+                <td style="padding:10px 0px"></td>
+                <td style="padding:10px 0px"></td>
+                <td style="padding:10px 0px"></td>
+                </tr>
+                @endfor
+            </tbody>
+          </table>
+          <br>
+          <div class="text-center">
+            <a class="btn btn-danger" onclick="window.history.back()" href="#"><i class="fas fa-undo"></i>&nbsp;&nbsp;ย้อนกลับ</a>
+          </div>
       </form>
     </div>
   </div>
 </div>
-
-<div class="new">
-  <table>
-    <thead>
-      <tr>
-        <th>TEST</th>
-        <th>TEST</th>
-        <th>TEST</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>AAA</td>
-        <td>BBB</td>
-        <td>CCC</td>
-      </tr>
-    </tbody>
-  </table>
 </div>
-
-<script>
-  $(document).ready(function() {
-    $('#topdf').click(function() {
-      event.stopPropagation();
-      event.preventDefault();
-      var html = $('.new').html();
-      console.log(html);
-      $.ajax({
-        type: 'post',
-        url: 'filetopdf',
-        data: {
-          _token: '{{csrf_token()}}',
-          html: html
-        }
-      })
-    });
-  });
-</script>
+</div>
 @endsection

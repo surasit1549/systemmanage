@@ -15,15 +15,73 @@
 @section('content')
 <script>
   $(document).ready(function() {
-
     $('[data-toggle="tooltip"]').tooltip();
-    $('table').DataTable();
+    $('#main').DataTable({
+      'columnDefs': [{
+        'orderable': false,
+        'targets': 3
+      }],
+      "oLanguage": {
+        "sSearch": 'ค้นหา',
+        "sInfo": 'พบร้านค้าจำนวน _TOTAL_ ร้าน',
+        'sEmptyTable': 'ไม่มีข้อมูลร้านค้า',
+        'sInfoEmpty': 'ไม่พบร้านค้า',
+        'sZeroRecords': 'ไม่พบคำที่ต้องการค้นหา',
+        "oPaginate": {
+          "sPrevious": 'ก่อนหน้า',
+          "sNext": 'ถัดไป'
+        },
+        "sInfoFiltered": '( จากทั้งหมด _MAX_ ร้านค้า )',
+        "sLengthMenu": 'แสดงข้อมูล <select class="custom-select custom-select-sm">' +
+          '<option value="10">10</option>' +
+          '<option value="30">30</option>' +
+          '<option value="50">50</option>' +
+          '<option value="-1">ทั้งหมด</option>' +
+          '</select> รายการ'
+      }
+    });
     $('.test').click(function() {
       $(this).next('form').submit();
+    });
+
+    $('.savetopdf').click(function() {
+      var html = $('#sumall').html();
+      $.ajax({
+        url: 'store/posttopdf',
+        type: 'post',
+        data: {
+          "_token": '{{csrf_token()}}',
+          html: html
+        }
+      });
     });
   });
 </script>
 
+<div id="sumall">
+  <!--mpdf
+  <div class="thisone">
+    <table>
+      <tr>
+        <th>รหัสร้านค้า</th>
+        <th>..</th>
+        <th>ชื่อร้านค้า</th>
+        <th>...</th>
+      </tr>
+      <tr>
+        <th>เบอร์โทรศัพท์</th>
+        <th>...</th>
+        <th>โทรสาร</th>
+        <th>...</th>
+      </tr>
+      <tr>
+        <th>ที่อยู่</th>
+        <th>...</th>
+      </tr>
+    </table>
+  </div>
+  mpdf-->
+</div>
 
 
 @if(\Session::has('success'))
@@ -55,27 +113,21 @@
     <h3 class="text-white"><i class="fas fa-store"></i>&nbsp;&nbsp;STORES</h3>
   </div>
   <div class="card-body">
-    <table class="table table-bordered" id="example">
+    <table class="table table-bordered" id="main">
       <thead>
         <tr>
-          <th style="width:5%;">ลำดับ</th>
-          <th style="width:10%;">รหัสร้านค้า</th>
-          <th style="width:30%;">ชื่อร้านค้า</th>
-          <th style="width:15%;">โทรศัพท์ร้านค้า</th>
-          <th style="width:15%;">ผู้ติดต่อ</th>
-          <th style="width:15%;">โทรศัพท์ผู้ติดต่อ</th>
-          <th>Manage</th>
+          <th style="width:25%;">รหัสร้านค้า</th>
+          <th style="width:35%;">ชื่อร้านค้า</th>
+          <th style="width:20%;">โทรศัพท์ร้านค้า</th>
+          <th style="width:20%;">จัดการ</th>
         </tr>
       </thead>
       <tbody>
         @foreach($store as $row)
         <tr>
-          <td>{{$row->id}}</td>
           <td>{{$row->keystore}}</td>
           <td>{{$row->name}}</td>
-          <td>{{$row->phone}}</td>
-          <td>{{$row->contect}}</td>
-          <td>{{$row->cellphone}}</td>
+          <td>{{ substr($row->phone,0,3).'-'.substr($row->phone,3) }}</td>
           <td>
             <a data-toggle="modal" data-target="#test{{$row->id}}" data-placement="top" title="View"><i style="font-size:20px;;" class="fas fa-eye text-primary"></i></a>
             &nbsp;&nbsp;
@@ -84,6 +136,7 @@
             <a class="test" href="#" data-toggle="tooltip" data-placement="top" title="Remove"><i style="font-size:20px;" class="fas fa-trash-alt text-danger"></i></a>
             <form method="post" class="delete_form" action="{{action('StoreController@destroy',$row->id)}}">
               {{csrf_field()}}
+              <input type="hidden" name="keystore" value="{{$row->keystore}}">
               <input type="hidden" name="_method" value="DELETE" />
             </form>
           </td>
@@ -92,7 +145,6 @@
   @endforeach
   </tbody>
   </table>
-</div>
 </div>
 
 
@@ -112,7 +164,7 @@
             <h5 class="modal-title"><i style="font-size:20px" class="far fa-file-alt"></i>&nbsp;&nbsp;ข้อมูลร้านค้า</h5>
           </div>
           <div class="col-md-6 text-right">
-            <button class="btn btn-danger"><i style="font-size:18px" class="far fa-file-pdf"></i>&nbsp;&nbsp;PDF</button>
+            <button class="btn btn-danger savetopdf"><i style="font-size:18px" class="far fa-file-pdf"></i>&nbsp;&nbsp;PDF</button>
           </div>
         </div>
         <hr class="line">
@@ -133,11 +185,11 @@
         <div class="row">
           <div class="form-group col-md-6">
             <label for="#phone">เบอร์โทรศัพท์</label>
-            <input id="phone" type="text" class="form-control" value="{{$row->phone}}" disabled>
+            <input id="phone" type="text" class="form-control" value="{{ substr($row->phone,0,3).'-'.substr($row->phone,3) }}" disabled>
           </div>
           <div class="form-group col-md-6">
             <label for="#address">โทรสาร</label>
-            <input id="address" type="text" class="form-control" value="{{$row->fax}}" disabled>
+            <input id="address" type="text" class="form-control" value="{{ substr($row->fax,0,3).'-'.substr($row->fax,3) }}" disabled>
           </div>
         </div>
         <br>
@@ -150,7 +202,7 @@
           </div>
           <div class="form-group col-md-6">
             <label for="#phone">เบอร์ผู้ติดต่อ</label>
-            <input id="phone" type="text" class="form-control" value="{{$row->cellphone}}" disabled>
+            <input id="phone" type="text" class="form-control" value="{{ substr($row->cellphone,0,3).'-'.substr($row->cellphone,3) }}" disabled>
           </div>
         </div>
       </div>

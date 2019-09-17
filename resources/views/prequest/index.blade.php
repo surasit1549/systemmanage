@@ -10,10 +10,34 @@
 @section('content')
 <script>
   $(document).ready(function() {
-    
+
     $('[data-toggle="tooltip"]').tooltip();
 
-    $('#prtable').DataTable();
+    $('#prtable').DataTable({
+      
+      'columnDefs': [{
+        'orderable': false,
+        'targets': 6
+      }],
+      "oLanguage": {
+        "sSearch": 'ค้นหา',
+        "sInfo": 'ใบสั่งซื้อทั้งหมด _TOTAL_ รายการ',
+        'sEmptyTable': 'ไม่มีข้อมูลใบขอสั่งซื้อ',
+        'sInfoEmpty': 'ไม่พบรายการขอสั่งซื้อ',
+        'sZeroRecords': 'ไม่พบคำที่ต้องการค้นหา',
+        "oPaginate": {
+          "sPrevious": 'ก่อนหน้า',
+          "sNext": 'ถัดไป'
+        },
+        "sInfoFiltered": '( จากทั้งหมด _MAX_ รายการ )',
+        "sLengthMenu": 'แสดงข้อมูล <select class="custom-select custom-select-sm">' +
+          '<option value="10">10</option>' +
+          '<option value="30">30</option>' +
+          '<option value="50">50</option>' +
+          '<option value="-1">ทั้งหมด</option>' +
+          '</select> รายการ'
+      }
+    });
 
     $('.test').click(function() {
       $(this).next('form').submit();
@@ -29,12 +53,6 @@
 
 
 <div class="form-row col-md-12">
-  <div class="form-group">
-    <a class="btn btn-sm btn-success text-white" href="{{route('prequest.create')}}">
-      <i class="fas fa-plus"></i>
-      สร้างใบขอสั่งซื้อ
-    </a>
-  </div>
   <div class="form-group ml-2">
     <a class="btn btn-sm btn-primary text-white" href="#">
       <i class="fas fa-info-circle"></i>
@@ -52,66 +70,46 @@
     </div>
   </div>
   <div class="card-body">
-    <table class="table table-bordered" id="prtable">
+    <table cellspacing="0" width="100%" class="table table-bordered display responsive nowrap" id="prtable">
       <thead>
         <tr>
-          <th style="width:5%">ลำดับ</th>
-          <th style="width:10%">วันที่ขอซื้อ</th>
-          <th style="width:25%">ชื่อเลขที่เอกสาร</th>
-          <th style="width:20%">แบบงาน</th>
-          <th style="width:15%">แปลง</th>
-          <th style="width:20%">จัดการ</th>
+          <th>&nbsp;&nbsp;เลขที่เอกสาร</th>
+          <th>วันที่ขอซื้อ</th>
+          <th>ผู้รับเหมา</th>
+          <th>แบบงาน</th>
+          <th>แปลง</th>
+          <th>สถานะ</th>
+          <th>จัดการ</th>
         </tr>
       </thead>
       <tbody>
-        @if(empty($prequestdb))
-          @foreach($prequestdb as $row)
-          <tr>
-            <td>{{$number++}}</td>
-            <td>{{$row['date']}}</td>
-            <td>{{$row['keyPR']}}</td>
-            <td>{{$row['formwork']}}</td>
-            <td>{{$row['prequestconvert']}}</td>
-            <td colspan="3">
-              <a href="{{action('PuchaserequestController@show',$row['id'])}}" data-toggle="tooltip" data-placement="top" title="View"><i style="font-size:20px;;" class="fas fa-eye text-primary"></i></a>
-              &nbsp;&nbsp;
-              <a href="{{action('PuchaserequestController@edit',$row['id'])}}" data-toggle="tooltip" data-placement="top" title="Edit"><i style="font-size:20px;" class="fas fa-edit text-warning"></i></a>
-              &nbsp;&nbsp;
-              <a href="#" data-toggle="tooltip" data-placement="top" title="Print"><i style="font-size:20px;" class="fas fa-print"></i></a>
-              &nbsp;&nbsp;
-              <a class="test" href="#" data-toggle="tooltip" data-placement="top" title="Remove"><i style="font-size:20px;" class="fas fa-trash-alt text-danger"></i></a>
-              <form method="post" class="delete_form" action="{{action('PuchaserequestController@destroy',$row['id'])}}">
-                {{csrf_field()}}
-                <input type="hidden" name="_method" value="DELETE" />
-              </form>
-            </td>
-          </tr>
-          @endforeach
+        @if(empty($pr_create))
         @else
-          @foreach($pr_prequest as $row)
-            <tr>
-              <td>{{$number++}}</td>
-              <td>{{$row[2]}}</td>
-              <td>{{$row[1]}}</td>
-              <td>{{$row[4]}}</td>
-              <td>{{$row[5]}}</td>
-              <td colspan="3">
-                <a href="{{action('PuchaserequestController@show',$row[0])}}" data-toggle="tooltip" data-placement="top" title="View"><i style="font-size:20px;;" class="fas fa-eye text-primary"></i></a>
-                &nbsp;&nbsp;
-                <a href="{{action('PuchaserequestController@edit',$row[0])}}" data-toggle="tooltip" data-placement="top" title="Edit"><i style="font-size:20px;" class="fas fa-edit text-warning"></i></a>
-                &nbsp;&nbsp;
-                <a href="#" data-toggle="tooltip" data-placement="top" title="Print"><i style="font-size:20px;" class="fas fa-print"></i></a>
-                &nbsp;&nbsp;
-                <a class="test" href="#" data-toggle="tooltip" data-placement="top" title="Remove"><i style="font-size:20px;" class="fas fa-trash-alt text-danger"></i></a>
-                <form method="post" class="delete_form" action="{{action('PuchaserequestController@destroy',$row[0])}}">
-                  {{csrf_field()}}
-                  <input type="hidden" name="_method" value="DELETE" />
-                </form>
-              </td>
-            </tr>
-            @endforeach
-          @endif
-        </tbody>
+        @foreach($PR_creates as $row)
+        <tr>
+          <td>&nbsp;&nbsp;{{$row[1]}}</td>
+          <td>{{$row[2]}}</td>
+          <td>{{$row[3]}}</td>
+          <td>{{$row[4]}}</td>
+          <td>{{$row[5]}}</td>
+          <td>{{$status}}</td>
+          <td>
+            &nbsp;&nbsp;
+            <a href="{{action('PuchaserequestController@edit',$row[0])}}" data-toggle="tooltip" data-placement="top" title="แก้ไข"><i style="font-size:20px;" class="fas fa-edit text-warning"></i></a>
+            &nbsp;&nbsp;
+            @if($status === 'สมบูรณ์')
+            <a href="{{action('PuchaserequestController@show',$row[0])}}" data-toggle="tooltip" data-placement="top" title="PDF"><i style="font-size:20px" class="text-danger fas fa-file-pdf"></i></a>
+            @endif
+            <a class="test" href="#" data-toggle="tooltip" data-placement="top" title="ยกเลิกใบขอซื้อ"><i style="font-size:20px;" class="text-danger fas fa-times-circle"></i></a>
+            <form method="post" class="delete_form" action="{{action('PuchaserequestController@destroy',$row[0])}}">
+              {{csrf_field()}}
+              <input type="hidden" name="_method" value="DELETE" />
+            </form>
+          </td>
+        </tr>
+        @endforeach
+        @endif
+      </tbody>
     </table>
   </div>
 </div>

@@ -1,0 +1,171 @@
+
+#cover_detail_table {
+  top: 10px;
+  text-align: center;
+}
+
+#title_table {
+  position: absolute;
+  top: 130px;
+  left: 46%;
+}
+
+#store_ID_table {
+  position: absolute;
+  top: 150px;
+  right: 35px;
+  border: 1px solid black;
+  padding: 0px;
+}
+
+#store_table {
+  position: absolute;
+  top: 190px;
+  width: 83%;
+  border: 1px solid black;
+  padding: 20px;
+}
+#table_store {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#product_table {
+  position: absolute;
+  top: 400px;
+  width: 88%;
+  border: 1px solid black;
+}
+#table_product {
+  width: 100%;
+}
+tbody tr td{
+  text-align: center;
+}
+tbody th {
+  height: 30px;
+}
+tbody td {
+  height: 30px;
+}
+#table_product,#table_product tr,#table_product td , #table_product th {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+#signature_1 {
+  text-align: center;
+  position: absolute;
+  top: 880px;
+  right: 250px;
+  bottom: 20px;
+}
+#signature_2 {
+  text-align: center;
+  position: absolute;
+  top: 880px;
+  right: 10px;
+  bottom: 20px;
+}
+#contrator {
+  text-align: center;
+  position: absolute;
+  top: 880px;
+  left: 40px;
+  bottom: 20px;
+}
+/*-------------------------------------------------*/
+/* pr */
+#data_intormation {
+  text-align: right !important;
+  width: 100%;
+  padding: 15px;
+  left: 0;
+  font-size: 18px;
+}
+
+#data_intormation tr,
+#data_intormation th,
+#data_intormation td,
+#data_intormation table {
+  text-align: left !important;
+}
+
+/* Signature */
+
+#signature {
+  text-align: center;
+  position: absolute;
+  right: 40px;
+  bottom: 20px;
+}
+
+#signatureimg {
+  width: 232px;
+  height: 102px;
+}
+
+#heading {
+  position: relative;
+  text-align: center;
+  top: 0px;
+}
+
+#tabletop {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding-top: 130px;
+  padding-right: 40px;
+}
+
+/* TOP DETAIL */
+
+#exporta {
+  text-align: right !important;
+  width: 100%;
+  padding: 15px;
+  left: 0;
+  font-size: 18px;
+}
+
+#exporta tr,
+#exporta th,
+#exporta td,
+#exporta table {
+  text-align: left !important;
+}
+
+#tableexa tr,
+#tableexa td,
+#tableexa th {
+  padding: 10px 5px;
+}
+
+/*   MENU DETAIL    */
+
+#exportb {
+  width: 100%;
+}
+#no_exb {
+  width: 10%;
+}
+#detail_exb {
+  width: 60%;
+}
+#num_exb {
+  width: 15%;
+}
+#unit_exb {
+  width: 15%;
+}
+
+#exportb,
+#exportb tr,
+#exportb td,
+#exportb th {
+  text-align: center;
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 10px 5px;
+}

@@ -3,18 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\porderdb;
 use App\porder;
-use App\prporder;
-use App\prequest;
-use App\porderstore;
-use App\store;
-use App\porderconvert;
-use App\transform;
-use App\proderproduct;
 use App\product;
-use App\number;
+use App\Store;
+use App\transform;
+use App\prequest;
 use App\checkkeystore;
+use App\Authorized_person2;
+use App\pr_store;
+use vendor\autoload;
+use App\pr_create;
 
 class PurchaseorderController extends Controller
 {
@@ -24,79 +22,28 @@ class PurchaseorderController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+    public function makepdf(Request $request)
+    {
+        $stylesheet = file_get_contents(__DIR__ . '\style.css');
+        $mpdf = new \Mpdf\Mpdf([
+            'mode' => 'utf-8',
+            'format' => [210, 297],
+            'default_font_size' => 14,
+            'default_font' => 'thsarabunnew'
+        ]);
+        $key = $request->keyPO;
+        $mpdf->WriteHTML($stylesheet, 1);
+        $mpdf->WriteHTML($request->pdf,2);
+        $mpdf->Output("pdf/PO$key.pdf", 'F');
+        return response()->json(['msg' => 'Successful']);
+    }
+
+
     public function index()
-    {  
-        $num = 0;
-        $num1 = 0;
-        $numberkey = 1;
+    {
         $number = 1;
-        $porderproduct = product::all()->toArray();
-        $porderstore = store::all()->toArray();
-        $porderconvert = transform::select('convertname')->distinct()->get();
-        $porderdb = porder::all()->toArray();
-        $prporder = porder::select('keyPR', 'keystore')
-                                                    ->distinct()
-                                                    ->addSelect('formwork')
-                                                    ->addSelect('date')                                 
-                                                    ->get();
-        foreach($prporder as $row){
-            $a[] = $row['keyPR'];
-        }
-        $key = substr($row['keyPR'], 6,-4);
-        $c = sizeof($a);
-        for($i=0; $i<$c; $i++){
-            if($key != $a[$i]){
-                $num1++;
-                $orders = strval($num1);
-                $keypr[] = "$key-$orders";
-            }else{
-                $num1 = 1;
-                $orders = strval($num1);
-                $keypr[] = "$key-$orders";
-            }
-        }
-        //$num = sizeof($a);
-        //dd($num);
-        //dd($num);
-        /*
-        $a = ['2015','2015','2016','2017'];
-        $b = '2015';
-        $c = sizeof($a);
-        for($i=0; $i<$c; $i++){
-            if($b != $a[$i]){
-                $d[] = 1;
-            }else{
-                $d[] = 2;
-            }
-        }
-        */
-        //dd($c);
-
-
-        foreach($prporder as $row){
-            $prporders[] = [
-                            $order = $num++,  
-                            $row['keyPR'], 
-                            $row['formwork'],
-                            $row['date'],
-                            $keypr
-                            
-            ];
-        }
-        //$dfg = strval($prporders[1]);
-        //dd($asd);
-
-        $pr = prequest::all()->toArray();
-        //dd(gettype($asd));
-        //dd($bot);
-        return view('porder.index',compact(
-                                            'prporder',
-                                            'number',
-                                            'numberkey',
-                                            'prporders',
-                                            'num'                                        
-        ));
- 
+        $data = porder::get()->toArray();
+        return view('porder.index', compact('data', 'number'));
     }
 
     /**
@@ -106,7 +53,7 @@ class PurchaseorderController extends Controller
      */
     public function create()
     {
-        return view('porder.create');
+        //
     }
 
     /**
@@ -126,104 +73,74 @@ class PurchaseorderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    function sum_price($sumofprice)
+    {
+        $sum = number_format(($sumofprice * (100 / 107)), 2, '.', '');
+        return $sum;
+    }
+
+    function tax($sum_price, $sumofprice)
+    {
+        $tax = floatval($sumofprice) - $sum_price;
+        $str_tax = number_format($tax, 2, '.', '');
+        return $tax;
+    }
+
+    function bathformat($number)
+    {
+        $numberstr = array('ศูนย์', 'หนึ่ง', 'สอง', 'สาม', 'สี่', 'ห้า', 'หก', 'เจ็ด', 'แปด', 'เก้า', 'สิบ');
+        $digitstr = array('', 'สิบ', 'ร้อย', 'พัน', 'หมื่น', 'แสน', 'ล้าน');
+
+        $number = str_replace(",", "", $number); // ลบ comma
+        $number = explode(".", $number); // แยกจุดทศนิยมออก
+
+        // เลขจำนวนเต็ม
+        $strlen = strlen($number[0]);
+        $result = '';
+        for ($i = 0; $i < $strlen; $i++) {
+            $n = substr($number[0], $i, 1);
+            if ($n != 0) {
+                if ($i == ($strlen - 1) and $n == 1) {
+                    $result .= 'เอ็ด';
+                } elseif ($i == ($strlen - 2) and $n == 2) {
+                    $result .= 'ยี่';
+                } elseif ($i == ($strlen - 2) and $n == 1) {
+                    $result .= '';
+                } else {
+                    $result .= $numberstr[$n];
+                }
+                $result .= $digitstr[$strlen - $i - 1];
+            }
+        }
+        $result .= 'บาทถ้วน';
+        return $result;
+    }
+
     public function show($id)
     {
         $number = 1;
-        $nums = 0;
-        $prequeststore = store::all()->toArray();;
-        $prequestconvert = transform::all()->toArray();
-        $prequestdb = prequest::find($id);
-        $productdb = product::find($id);
-        $porderdb = porder::find($id);
-        $product = product::all()->toArray();
-        $porder = porder::all()->toArray();
-        $prequestproduct = product::all()->toArray();
-        //dd($pr_product);
-        $prporder = porder::select('keyPR', 'keystore')
-                                                    ->distinct()                                
-                                                    ->get();
-        //dd($prporder);
-        $num_product = sizeof($product);
-        $num_store = sizeof($prequeststore);
-        $num_poporder = sizeof($prporder);
-        //dd($id);
-        foreach ($prporder as $row) {
-            $po_prporder[] = [  
-                                $num_po = $nums++,
-                                $row['keystore'],
-                                $row['keyPR']
-            ];
-        }
-        
-        foreach($product as $row){
-            $product1[] = [
-                            $row['keyPR'],
-                            $row['formwork'],
-                            $row['productname'],
-                            $row['productnumber'],
-                            $row['unit'],
-                            $row['keystore'],
-                            $row['price'],
-                            $row['sum'],
-                            $row['id']
-            ];
-            $product2[] = [
-                            $row['keystore'],
-                            $row['keyPR']
-            ]; 
-        }
-        $num = intval( $id );
-        //dd($num_poporder);
-        //dd($product2[1][1]);
-        foreach($prequeststore as $row){
-            $store1[] = [
-                            $row['keystore'],
-                            $row['name'],
-                            $row['address'],
-                            $row['phone'],
-                            $row['fax'],
-                            $row['contect'],
-                            $row['cellphone']
-            ];
-            $store2[] = [
-                            $row['keystore'],
-            ];
-        }
-        foreach($porder as $row){
-            $po[] = $row['date'];
-        }
-
-        $sum = [$product2[$num][0],$po_prporder[$num][1]];
-        //dd($sum);
-        
-        for($i=0; $i<$num_poporder; $i++){
-            if($num === $po_prporder[$i][0]){
-                for($j=0; $j<$num_store; $j++){
-                    if($po_prporder[$num][1] === $store2[$j][0]){
-                        $po_store[] = $store1[$j];
-                    }
-                }
-                for($a=0; $a<$num_product; $a++){
-                    if($product2[$a][1] === $po_prporder[$num][2]){
-                        if($product2[$a][0] === $po_prporder[$num][1] ){
-                            $po_product[] = $product1[$a];
-                            $po_date    = $po[$a];
-                        }
-                    }
-                }
-            }
-        }
-        //$number_product = sizeof($po_product);
-        //dd($po_product);
+        $po_id = porder::find($id);
+        $convert = pr_create::where('key', $po_id['keyPR'])->get();
+        $data = pr_store::where('PO_ID', $po_id['PO_ID'])->get()->toArray();
+        //dd($data[0]['sumofprice']);
+        $sum_price = $this->sum_price($data[0]['sumofprice']);
+        $tax = $this->tax($sum_price, $data[0]['sumofprice']);
+        $letter_sumofprice = $this->bathformat($data[0]['sumofprice']);
+        $store = Store::where('keystore', $po_id['store_ID'])->get()->toArray();
+        $store_mine = Store::where('keystore', 'master')->get();
         return view('porder.show', compact(
-                                            'po_product',
-                                            'po_store',
-                                            'id',
-                                            'po_date',
-                                            'po',
-                                            'number'
+            'po_id',
+            'data',
+            'store',
+            'store_mine',
+            'convert',
+            'sum_price',
+            'tax',
+            'letter_sumofprice',
+            'number',
+            'id'
         ));
-
     }
 
     /**
