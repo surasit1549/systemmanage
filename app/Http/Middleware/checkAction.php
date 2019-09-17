@@ -102,6 +102,12 @@ class checkAction
             ];
             log::create($arr);
         } else if ($data == 'ProductPriceController@store') {
+            $arr = [
+                'username' => Auth::user()->username, 'data' => 'CREATE ร้านค้า ;ชื่อร้านค้า:' . $request->Product_ID .
+                    ';ชื่อสินค้า:' . $request->Product_name . ';หน่วย:' . $request->unit,
+                'action' => $path
+            ];
+            log::create($arr);
             
         } else if ($data == 'ProductPriceController@update') { 
 

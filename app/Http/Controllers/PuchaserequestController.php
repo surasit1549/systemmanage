@@ -143,14 +143,14 @@ class PuchaserequestController extends Controller
     $lengtharray = sizeof($productdb);
     for($i=0; $i<$lengtharray; $i++){
       $product_id = product_main::where('product_name',$productdb[$i])->get()->toArray();
-      $product_price = product_Price::where('Product',$product_id)->min('Price');
+      $product_price = product_Price::where('Product',$product_id[0]['Product_ID'])->min('Price');
                                     //  ->where('Product',$product_id[0]['Product_ID'])->min('Price');
       $product_min_price[] = product_main::where('product_name',$productdb[$i])
                                        ->join('product__Prices','product_mains.Product_ID','product__Prices.Product')
                                        ->where('Price',$product_price)
                                        ->get()->toArray();
       $product_number = Create_product::where('key',$pr_create['key'])->get()->toArray();      
-      //dd($product_min_price[0][0]);   
+      //dd($product_price);   
       $products_sum = [$product_price*$product_number[$i]['productnumber']];
       $sum = [$sum[0]+$products_sum[0]];
       $min[] = [
