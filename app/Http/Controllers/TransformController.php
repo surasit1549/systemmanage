@@ -84,7 +84,6 @@ class TransformController extends Controller
    */
   public function update(Request $request, $id)
   {
-    //dd('55');
     $this->validate(
       $request,
       [

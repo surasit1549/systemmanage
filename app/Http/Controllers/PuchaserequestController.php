@@ -22,6 +22,22 @@ use Barryvdh\DomPDF\PDF;
 class PuchaserequestController extends Controller
 {
 
+  public function makepdf(Request $request)
+  {
+    $stylesheet = file_get_contents(__DIR__ . '\style.css');
+    $mpdf = new \Mpdf\Mpdf([
+      'mode' => 'utf-8',
+      'format' => [210, 297],
+      'default_font_size' => 14,
+      'default_font' => 'thsarabunnew'
+    ]);
+    $key = $request->keyPO;
+    $mpdf->WriteHTML($stylesheet, 1);
+    $mpdf->WriteHTML($request->pdf, 2);
+    $mpdf->Output("pdf/PR$key.pdf", 'F');
+    return response()->json(['msg' => 'Successful']);
+  }
+
   public function filetopdf(Request $request)
   {
 
@@ -42,7 +58,6 @@ class PuchaserequestController extends Controller
     $num = 1;
     $keypr = prequest::get()->toArray();
     $pr_create = pr_create::all()->toArray();
-    //dd($pr_create);
     if (empty($pr_create)) {
       $pr_create = '';
       $PR_creates = '';
@@ -50,17 +65,19 @@ class PuchaserequestController extends Controller
     } else {
       $lengtharray = sizeof($pr_create);
       for ($i = 0; $i < $lengtharray; $i++) {
-        $master1 = Authorized_person1::where();
-        $master2 = Authorized_person2::get()->toArray();
-        if (empty($keypr)) {
+
+        $master1 = Authorized_person1::where('keyPR', $pr_create[$i]["key"])->get()->toArray();
+        $master2 = Authorized_person2::where('keyPR', $pr_create[$i]["key"])->get()->toArray();
+        if (empty($keypr[$i])) {
           $status = "กำลังตรวจสอบ";
         } elseif ($keypr != NULL && empty($master1) && empty($master2)) {
-          $status = "กำลังดำเนินการ";
+          $status = "กำลังดำเนินการ [ 1 ]";
         } elseif ($keypr != NULL && $master1 != NULL && empty($master2)) {
-          $status = "กำลังดำเนินการ";
+          $status = "กำลังดำเนินการ [ 2 ]";
         } elseif ($keypr != NULL && $master1 != NULL && $master2 != NULL) {
           $status = "สำเร็จ";
         }
+        //dd($status);
         $PR_create[] = [
           $pr_create[$i]['id'],
           $pr_create[$i]['key'],
@@ -72,6 +89,8 @@ class PuchaserequestController extends Controller
 
         ];
       }
+
+      //dd($PR_create);
       $pr_num = sizeof($pr_create);
       for ($i = $pr_num - 1; $i >= 0; $i--) {
         $PR_creates[] = $PR_create[$i];
@@ -112,21 +131,74 @@ class PuchaserequestController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
+
+  function sum_price($sumofprice)
+  {
+    $sum = number_format(($sumofprice * (100 / 107)), 2, '.', '');
+    return $sum;
+  }
+
+  function tax($sum_price, $sumofprice)
+  {
+    $tax = floatval($sumofprice) - $sum_price;
+    $str_tax = number_format($tax, 2, '.', '');
+    return $tax;
+  }
+
+  function bathformat($number)
+  {
+    $numberstr = array('ศูนย์', 'หนึ่ง', 'สอง', 'สาม', 'สี่', 'ห้า', 'หก', 'เจ็ด', 'แปด', 'เก้า', 'สิบ');
+    $digitstr = array('', 'สิบ', 'ร้อย', 'พัน', 'หมื่น', 'แสน', 'ล้าน');
+
+    $number = str_replace(",", "", $number); // ลบ comma
+    $number = explode(".", $number); // แยกจุดทศนิยมออก
+
+    // เลขจำนวนเต็ม
+    $strlen = strlen($number[0]);
+    $result = '';
+    for ($i = 0; $i < $strlen; $i++) {
+      $n = substr($number[0], $i, 1);
+      if ($n != 0) {
+        if ($i == ($strlen - 1) and $n == 1) {
+          $result .= 'เอ็ด';
+        } elseif ($i == ($strlen - 2) and $n == 2) {
+          $result .= 'ยี่';
+        } elseif ($i == ($strlen - 2) and $n == 1) {
+          $result .= '';
+        } else {
+          $result .= $numberstr[$n];
+        }
+        $result .= $digitstr[$strlen - $i - 1];
+      }
+    }
+    $result .= 'บาทถ้วน';
+    return $result;
+  }
+
   public function show($id)
   {
     $number = 1;
+    $pr_store = pr_store::where('keyPR', $id)->get()->toArray();
     $db = Create_product::get()->toArray();
-    $pr_create = PR_create::find($id)->toArray();
-    $productdb = Create_product::where('key', $pr_create['key'])->get()->toArray();
+    $pr_create = PR_create::where('key', $id)->get()->toArray();
+    $productdb = Create_product::where('key', $pr_create[0]['key'])->get()->toArray();
     $store_master = store::where('keystore', "master")->get()->toArray();
-    //dd($productdb);
+    $sum_price = $this->sum_price($pr_store[0]['sumofprice']);
+    $tax = $this->tax($sum_price, $pr_store[0]['sumofprice']);
+    $letter_sumofprice = $this->bathformat($pr_store[0]['sumofprice']);
+    $store_mine = Store::where('keystore', 'master')->get();
+    //dd($pr_create);
     return view('prequest.show', compact(
       'number',
       'id',
       'productdb',
       'pr_create',
-      'store_master'
-
+      'store_master',
+      'sum_price',
+      'tax',
+      'letter_sumofprice',
+      'store_mine',
+      'pr_store'
     ));
   }
 
@@ -152,17 +224,19 @@ class PuchaserequestController extends Controller
         ->join('product__Prices', 'product_mains.Product_ID', 'product__Prices.Product')
         ->where('Price', $product_price)
         ->get()->toArray();
+      $store_price[] = product_Price::where('Price', $product_price)->get('Store')->toArray();
       $product_number = Create_product::where('key', $pr_create['key'])->get()->toArray();
-      dd($product_id);
       $products_sum = [$product_price * $product_number[$i]['productnumber']];
       $sum = [$sum[0] + $products_sum[0]];
+      $length_store[] = sizeof($store_price[$i]);
       $min[] = [
         $product_min_price[$i][0]['Product_name'],
         $product_number[$i]['productnumber'],
         $product_min_price[$i][0]['unit'],
-        $product_min_price[$i][0]['Store'],
+        $store_price[$i],
         $product_min_price[$i][0]['Price'],
         $products_sum[0],
+        $store_price[$i][0]['Store'],
       ];
     }
     //dd($min);

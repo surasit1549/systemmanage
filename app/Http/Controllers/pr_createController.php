@@ -20,6 +20,9 @@ use App\pr_create;
 use vendor\autoload;
 use Storage;
 use App\product_main;
+use App\prequest;
+use App\Authorized_person1;
+use App\Authorized_person2;
 
 
 class pr_createController extends Controller
@@ -41,30 +44,45 @@ class pr_createController extends Controller
         ]);
         $key = $request->keypr;
         $mpdf->WriteHTML($stylesheet, 1);
-        $mpdf->WriteHTML($request->pdf,2);
+        $mpdf->WriteHTML($request->pdf, 2);
         $mpdf->Output("pdf/$key.pdf", 'F');
         return response()->json(['msg' => 'Succesful']);
     }
-    
+
     public function index()
     {
         $number = 1;
         $num = 1;
+        $keypr = prequest::get()->toArray();
         $pr_create = PR_create::all()->toArray();
         if (empty($pr_create)) {
             $prequest = $pr_create;
             $pr_products = '';
+            $status = '';
         } else {
-            foreach ($pr_create as $row) {
-                $pr_product[] = [
-                    $row['id'],
-                    $row['date'],
-                    $row['contractor'],
-                    $row['formwork'],
-                    $row['prequestconvert'],
-                    $row['key']
-                ];
-                $pr_date = $row['created_at'];
+            $lengtharray = sizeof($pr_create);
+            for ($i = 0; $i < $lengtharray; $i++) {
+
+                $master1 = Authorized_person1::where('keyPR', $pr_create[$i]["key"])->get()->toArray();
+                $master2 = Authorized_person2::where('keyPR', $pr_create[$i]["key"])->get()->toArray();
+                if (empty($keypr[$i])) {
+                    $status = "กำลังตรวจสอบ";
+                } elseif ($keypr != NULL && empty($master1) && empty($master2)) {
+                    $status = "กำลังดำเนินการ [ 1 ]";
+                } elseif ($keypr != NULL && $master1 != NULL && empty($master2)) {
+                    $status = "กำลังดำเนินการ [ 2 ]";
+                } elseif ($keypr != NULL && $master1 != NULL && $master2 != NULL) {
+                    $status = "สำเร็จ";
+                }
+                    $pr_product[] = [
+                        $pr_create[$i]['id'],
+                        $pr_create[$i]['date'],
+                        $pr_create[$i]['contractor'],
+                        $pr_create[$i]['formwork'],
+                        $pr_create[$i]['prequestconvert'],
+                        $pr_create[$i]['key'],
+                        $status
+                    ];
             }
             $pr_num = sizeof($pr_product);
             for ($i = $pr_num - 1; $i >= 0; $i--) {
@@ -146,8 +164,8 @@ class pr_createController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    
-    
+
+
     public function store(Request $request)
     {
         $num = 0;

@@ -84,18 +84,7 @@
       </thead>
       <tbody>
         @if(empty($pr_create))
-        @foreach($pr_create as $row)
-        <tr>
-          <td>{{$row['key']}}</td>
-          <td>{{$row['date']}}</td>
-          <td>{{$row['formwork']}}</td>
-          <td>{{$row['prequestconvert']}}</td>
-          <td>สถานะ</td>
-          <td>
-            <a href="{{action('pr_createController@show',$row['id'])}}" data-placement="top" data-toggle="tooltip" title="View"><i style="font-size:20px;color:blue" class="fas fa-eye"></i></a>
-          </td>
-        </tr>
-        @endforeach
+
         @else
         @foreach($pr_products as $row)
         <tr>
@@ -103,7 +92,7 @@
           <td>{{$row[1]}}</td>
           <td>{{$row[3]}}</td>
           <td>{{$row[4]}}</td>
-          <td>สถานะ</td>
+          <td>{{$row[6]}}</td>
           <td>
             <a class="btn btn-sm btn-info text-white" href="{{action('pr_createController@show',$row[0])}}" data-placement="top">ข้อมูลเพิ่มเติม</a>
           </td>

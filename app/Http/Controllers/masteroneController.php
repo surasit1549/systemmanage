@@ -21,7 +21,8 @@ class masteroneController extends Controller
     public function index()
     {
         $data = prequest::get()->toArray();
-        return view('Authorized_person1.index',compact('data'));
+        $pr_create = PR_create::get()->toArray();
+        return view('Authorized_person1.index',compact('data','pr_create'));
     }
 
     /**
@@ -66,10 +67,11 @@ class masteroneController extends Controller
     {
         $number = 1;
         $sum = 0;
-        $pr_create = PR_create::find($id);
-        //dd($pr_create['key']);
-        $productdb = Create_product::where('key',$pr_create['key'])->get('productname')->toArray();
+        $pr_create = PR_create::where('key',$id)->get()->toArray();
+        //dd($pr_create[0]['key']);
+        $productdb = Create_product::where('key',$pr_create[0]['key'])->get('productname')->toArray();
         $lengtharray = sizeof($productdb);
+        //dd($id);
         for($i=0; $i<$lengtharray; $i++){
           $product_id = product_main::where('product_name',$productdb[$i])->get()->toArray();
           $product_price = product_Price::where('Product',$product_id)->min('Price');
@@ -78,11 +80,13 @@ class masteroneController extends Controller
                                            ->join('product__Prices','product_mains.Product_ID','product__Prices.Product')
                                            ->where('Price',$product_price)
                                            ->get()->toArray();
-          $product_number = Create_product::where('key',$pr_create['key'])->get()->toArray();      
+          $product_number = Create_product::where('key',$pr_create[0]['key'])->get()->toArray();      
+        
           //dd($product_min_price[0][0]);   
           $products_sum = [$product_price*$product_number[$i]['productnumber']];
           $sum = [$sum[0]+$products_sum[0]];
           $product_name = product_main::where('Product_ID',$product_min_price[$i][0]['Product_ID'])->get()->toArray();
+         
           $min[] = [
                     $product_name[0]['Product_name'],
                     $product_number[$i]['productnumber'],

@@ -66,7 +66,7 @@
           <td>{{$row['formwork']}}</td>
           <td>{{$row['prequestconvert']}}</td>
           <td>
-            &nbsp;&nbsp;<a href="{{action('masteroneController@edit',$row['id'])}}" data-toggle="tooltip" data-placement="top" title="Edit"><i style="font-size:20px;" class="fas fa-edit text-warning"></i></a>
+            &nbsp;&nbsp;<a href="{{action('masteroneController@edit',$row['keyPR'])}}" data-toggle="tooltip" data-placement="top" title="Edit"><i style="font-size:20px;" class="fas fa-edit text-warning"></i></a>
             &nbsp;&nbsp;
             <a class="test" href="#" data-toggle="tooltip" data-placement="top" title="Remove"><i style="font-size:20px;" class="fas fa-trash-alt text-danger"></i></a>
             <form method="post" class="delete_form" action="{{action('masteroneController@destroy',$row['id'])}}">

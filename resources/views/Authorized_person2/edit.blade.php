@@ -30,19 +30,19 @@
         </div>
         <div class="form-group col-md-6 text-right">
           <label>วันที่ขอสั่งชื้อ</label><br>
-          <input type="text" name="date" value="{{$pr_create['date']}}" class="border-0" size="8" autocomplete="off">
+          <input type="text" name="date" value="{{$pr_create[0]['date']}}" class="border-0" size="8" autocomplete="off">
           <input type="hidden" name="id" value="{{$id}}" class="border-0" size="8" autocomplete="off">
         </div>
       </div>
       <div class="form-row">
         <div class="form-group col-md-4">
           <label>เลขที่เอกสาร</label>
-          <input type="text" name="keyPR" class="form-control" value="{{$pr_create['key']}}" autocomplete="off" required>
+          <input type="text" name="keyPR" class="form-control" value="{{$pr_create[0]['key']}}" autocomplete="off" required>
 
         </div>
         <div class="form-group col-md-8">
           <label>ชื่อผู้รับเหมา</label>
-          <input type="text" name="contractor" class="form-control" value="{{$pr_create['contractor']}}" autocomplete="off" required>
+          <input type="text" name="contractor" class="form-control" value="{{$pr_create[0]['contractor']}}" autocomplete="off" required>
 
         </div>
       </div>
@@ -50,11 +50,11 @@
       <div class="form-row">
         <div class="form-group col-md-6">
           <label>แบบงาน</label>
-          <input type="text" name="formwork" class="form-control" value="{{$pr_create['formwork']}}" required>
+          <input type="text" name="formwork" class="form-control" value="{{$pr_create[0]['formwork']}}" required>
         </div>
         <div class="form-group col-md-6">
           <label>แปลง</label>
-          <input type="text" name="prequestconvert" class="form-control" value="{{$pr_create['prequestconvert']}}" required>
+          <input type="text" name="prequestconvert" class="form-control" value="{{$pr_create[0]['prequestconvert']}}" required>
         </div>
       </div>
       <input type="hidden" name="_method" value="PATCH" />

@@ -71,41 +71,41 @@ class mastertwoController extends Controller
     {
         $number = 1;
         $sum = 0;
-        $pr_create = PR_create::find($id)->toArray();
-        $productdb = Create_product::where('key',$pr_create['key'])->get('productname')->toArray();
+        $pr_create = PR_create::where('key', $id)->get()->toArray();
+        $productdb = Create_product::where('key', $pr_create[0]['key'])->get('productname')->toArray();
         $data = Authorized_person2::get()->toArray();
         $lengtharray = sizeof($productdb);
-        for($i=0; $i<$lengtharray; $i++){
-          $product_id = product_main::where('product_name',$productdb[$i])->get()->toArray();
-          $product_price = product_Price::where('Product',$product_id)->min('Price');
-                                        //  ->where('Product',$product_id[0]['Product_ID'])->min('Price');
-          $product_min_price[] = product_main::where('product_name',$productdb[$i])
-                                           ->join('product__Prices','product_mains.Product_ID','product__Prices.Product')
-                                           ->where('Price',$product_price)
-                                           ->get()->toArray();
-          $product_number = Create_product::where('key',$pr_create['key'])->get()->toArray();      
-          //dd($product_min_price[0][0]);   
-          $products_sum = [$product_price*$product_number[$i]['productnumber']];
-          $sum = [$sum[0]+$products_sum[0]];
-          $product_name = product_main::where('Product_ID',$product_min_price[$i][0]['Product_ID'])->get()->toArray();
-          $min[] = [
-                    $product_name[0]['Product_name'],
-                    $product_number[$i]['productnumber'],
-                    $product_min_price[$i][0]['unit'],
-                    $product_min_price[$i][0]['Store'],
-                    $product_min_price[$i][0]['Price'],
-                    $products_sum[0],
-                    ];  
-          $stores[] = Store::where('keystore',$product_min_price[$i][0]['Store'])->get()->toArray();
-          
+        for ($i = 0; $i < $lengtharray; $i++) {
+            $product_id = product_main::where('product_name', $productdb[$i])->get()->toArray();
+            $product_price = product_Price::where('Product', $product_id)->min('Price');
+            //  ->where('Product',$product_id[0]['Product_ID'])->min('Price');
+            $product_min_price[] = product_main::where('product_name', $productdb[$i])
+                ->join('product__Prices', 'product_mains.Product_ID', 'product__Prices.Product')
+                ->where('Price', $product_price)
+                ->get()->toArray();
+            $product_number = Create_product::where('key', $pr_create[0]['key'])->get()->toArray();
+            //dd($product_min_price[0][0]);   
+            $products_sum = [$product_price * $product_number[$i]['productnumber']];
+            $sum = [$sum[0] + $products_sum[0]];
+            $product_name = product_main::where('Product_ID', $product_min_price[$i][0]['Product_ID'])->get()->toArray();
+            $min[] = [
+                $product_name[0]['Product_name'],
+                $product_number[$i]['productnumber'],
+                $product_min_price[$i][0]['unit'],
+                $product_min_price[$i][0]['Store'],
+                $product_min_price[$i][0]['Price'],
+                $products_sum[0],
+            ];
+            $stores[] = Store::where('keystore', $product_min_price[$i][0]['Store'])->get()->toArray();
         }
         return view('Authorized_person2.edit', compact(
-                                              'number',
-                                              'pr_create',
-                                              'min',
-                                              'sum',
-                                              'stores',
-                                              'id'));
+            'number',
+            'pr_create',
+            'min',
+            'sum',
+            'stores',
+            'id'
+        ));
     }
 
     /**
@@ -116,7 +116,8 @@ class mastertwoController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    function carbon($date_request){
+    function carbon($date_request)
+    {
         $date_now = Carbon::now();
         $date_check1 = new Carbon($date_request);
         $date_check2 = new Carbon($date_request);
@@ -184,7 +185,7 @@ class mastertwoController extends Controller
         }
         return ($key);
     }
-    
+
     public function update(Request $request, $id)
     {
         $data = Authorized_person2::get()->toArray();
@@ -198,8 +199,7 @@ class mastertwoController extends Controller
             $keys = substr($carbon, 5);
             $num = intval($keys);
             $key_num = 0;
-            $status = "ยังไม่ได้รับของ";
-            for($i=0; $i<$lengtharray; $i++){
+            for ($i = 0; $i < $lengtharray; $i++) {
                 $num = $num + $key_num;
                 if ($num < 10) {
                     $key_num = strval($num);
@@ -220,10 +220,10 @@ class mastertwoController extends Controller
                 $master2->save();
 
                 $porder = new porder([
-                    'PO_ID'         =>$PO,
-                    'keyPR'         =>$request->get('keyPR'),
-                    'store_ID'      =>$request->get('keystore')[$i],
-                    'status'        =>"ยังไม่ได้รับของ",
+                    'PO_ID'         => $PO,
+                    'keyPR'         => $request->get('keyPR'),
+                    'store_ID'      => $request->get('keystore')[$i],
+                    'status'        => "ยังไม่ได้รับของ",
                 ]);
                 $porder->save();
 
@@ -243,20 +243,23 @@ class mastertwoController extends Controller
         } else {
             for ($i = 0; $i < $lengtharray; $i++) {
                 $stores = $store[$i];
-                if($i === 0){
+                if ($i === 0) {
                     $carbon = $this->carbon($date_request);
                     $PO     = $this->po($date_request, $stores);
+            
                     $master2 = new Authorized_person2([
                         'PO_ID'          => $PO,
                         'key_person'     => $carbon,
                         'keyPR'          => $request->get('keyPR'),
                     ]);
+                    $master2->save();
                     $porder = new porder([
-                        'PO_ID'         =>$PO,
-                        'keyPR'         =>$request->get('keyPR'),
-                        'store_ID'      =>$request->get('keystore')[$i],
-                        'status'        =>"ยังไม่ได้รับของ",
+                        'PO_ID'         => $PO,
+                        'keyPR'         => $request->get('keyPR'),
+                        'store_ID'      => $request->get('keystore')[$i],
+                        'status'        => "ยังไม่ได้รับของ",
                     ]);
+                    $porder->save();
                     $pr_store = new pr_store([
                         'PO_ID'         => $PO,
                         'keyPR'         => $request->get('keyPR'),
@@ -268,10 +271,11 @@ class mastertwoController extends Controller
                         'product_sum'   => $request->get('product_sum')[$i],
                         'sumofprice'    => $request->get('sum'),
                     ]);
-                }else{
-                    $data1 = porder::where('keyPR',$request->get('keyPR'))->get()->toArray();
-
-                    if($data1[0]['store_ID'] === $stores){
+                    $pr_store->save();
+                } else {
+                    $data1 = porder::where('keyPR', $request->get('keyPR'))->get()->toArray();
+                    
+                    if ($data1[0]['store_ID'] === $stores) {
                         $pr_store = new pr_store([
                             'PO_ID'         => $data1[0]['PO_ID'],
                             'keyPR'         => $request->get('keyPR'),
@@ -284,7 +288,7 @@ class mastertwoController extends Controller
                             'sumofprice'    => $request->get('sum'),
                         ]);
                         $pr_store->save();
-                    }else{
+                    } else {
                         $carbon = $this->carbon($date_request);
                         $PO     = $this->po($date_request, $stores);
                         $master2 = new Authorized_person2([
@@ -293,15 +297,15 @@ class mastertwoController extends Controller
                             'keyPR'          => $request->get('keyPR'),
                         ]);
                         $master2->save();
-        
+
                         $porder = new porder([
-                            'PO_ID'         =>$PO,
-                            'keyPR'         =>$request->get('keyPR'),
-                            'store_ID'      =>$request->get('keystore')[$i],
-                            'status'        =>"ยังไม่ได้รับของ",
+                            'PO_ID'         => $PO,
+                            'keyPR'         => $request->get('keyPR'),
+                            'store_ID'      => $request->get('keystore')[$i],
+                            'status'        => "ยังไม่ได้รับของ",
                         ]);
                         $porder->save();
-                        
+
                         $pr_store = new pr_store([
                             'PO_ID'         => $PO,
                             'keyPR'         => $request->get('keyPR'),

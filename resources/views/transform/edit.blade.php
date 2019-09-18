@@ -14,7 +14,7 @@
       <h3><i class="far fa-file"></i>&nbsp;&nbsp;แก้ไขข้อมูลแปลง</h3>
     </div>
     <div class="card-body">
-      <form method="post" action="{{action('ProductController@update', $id)}}" class="needs-validation" novalidate>
+      <form method="post" action="{{action('TransformController@update', $id)}}" class="needs-validation" novalidate>
         {{csrf_field()}}
         <div class="form-group">
           <label>ชื่อแปลง</label>
@@ -32,11 +32,11 @@
         </div>
         <br>
         <div class="form-group text-center">
-          <a class="btn btn-danger" href="#" onclick="window.history.back()"><i class="fas fa-undo"></i>&nbsp;&nbsp;ย้อนกลับ</a>
-          &nbsp;
-          <button id="subform" type="submit" class="btn btn-success" value="Update"><i class="fas fa-save"></i>&nbsp;&nbsp;บันทึก</button>
+          <a class="ml-2 btn btn-danger" href="#" onclick="window.history.back()"><i style="font-size:18px;" class="fas fa-undo-alt"></i>&nbsp;&nbsp;ย้อนกลับ</a>
+          <button id="subform" type="submit" class="btn btn-success ml-2"><i class="far fa-edit"></i>&nbsp;&nbsp;บันทึกข้อมูล</button>
         </div>
         <input type="hidden" name="_method" value="PATCH" />
+        <input type="hidden" name="transform_id" value="{{$id}}">
       </form>
     </div>
   </div>
