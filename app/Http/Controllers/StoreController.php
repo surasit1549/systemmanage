@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Store;
 use Illuminate\Support\Facades\DB;
 use vendor\autoload;
+use App\log;
+use Illuminate\Support\Facades\Auth;
+
 
 class StoreController extends Controller
 {
@@ -64,6 +67,15 @@ class StoreController extends Controller
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
+
+
+  public function insertlog($action, $table, $previous_data, $new_data, $element)
+  {
+    Log::create([
+      'username' => Auth::user()->username, 'previous_data' => $previous_data, 'new_data' => $new_data, 'element' => $element, 'table' => $table, 'action' => $action
+    ]);
+  }
+
   public function store(Request $request)
   {
     $this->validate($request, [
@@ -75,17 +87,20 @@ class StoreController extends Controller
       'contect'   => 'required',
       'cellphone' => 'required'
     ]);
-    $store = new Store(
-      [
-        'keystore'  => $request->get('keystore'),
-        'name'      => $request->get('name'),
-        'address'   => $request->get('address'),
-        'phone'     => $request->get('phone'),
-        'fax'       => $request->get('fax'),
-        'contect'   => $request->get('contect'),
-        'cellphone' => $request->get('cellphone')
-      ]
-    );
+
+    $input =       [
+      'keystore'  => $request->get('keystore'),
+      'name'      => $request->get('name'),
+      'address'   => $request->get('address'),
+      'phone'     => $request->get('phone'),
+      'fax'       => $request->get('fax'),
+      'contect'   => $request->get('contect'),
+      'cellphone' => $request->get('cellphone')
+    ];
+    $store = new Store($input);
+    $element =  implode(',', array_keys($input));
+    $new_data =  implode(',', $input);
+    $this->insertlog('CREATE','stores','-',$new_data,$element);
     $store->save();
     return redirect()->route('store.index')->with('success', 'บันทึกข้อมูลเรียบร้อยแล้ว');
   }
@@ -134,6 +149,41 @@ class StoreController extends Controller
         'cellphone' => 'required'
       ]
     );
+
+    $data = array();
+    $old = array();
+    $detailTable = Store::find($id)->get();
+    if ($detailTable[0]->keystore != $request->keystore) {
+      $data += ['keystore' => $request->keystore];
+      $old += ['0' => $detailTable[0]->keystore];
+    }
+    if ($detailTable[0]->name != $request->name) {
+      $data += ['name' => $request->name];
+      $old += ['1' =>$detailTable[0]->name];
+    }
+    if ($detailTable[0]->address != $request->address) {
+      $data += ['address' => $request->address];
+      $old += ['2' => $detailTable[0]->address];
+    }
+    if ($detailTable[0]->phone != $request->phone) {
+      $data += ['phone' => $request->phone];
+      $old += ['3' => $detailTable[0]->phone];
+    }
+    if ($detailTable[0]->fax != $request->fax) {
+      $data += ['fax' => $request->fax];
+      $old += ['4' =>$detailTable[0]->fax];
+    }
+    if ($detailTable[0]->contect != $request->contect) {
+      $data += ['contact' => $request->contect];
+      $old += ['5' => $detailTable[0]->contect];
+    }
+    if ($detailTable[0]->cellphone != $request->cellphone) {
+      $data += ['cellphone' => $request->cellphone];
+      $old += ['6' => $detailTable[0]->cellphone];
+    }
+
+    $this->insertlog('UPDATE', 'stores', implode(',',$old), implode(',',$data) , implode(',',array_keys($data)));
+
     $store = Store::find($id);
     $store->keystore  = $request->get('keystore');
     $store->name      = $request->get('name');
@@ -155,6 +205,7 @@ class StoreController extends Controller
   public function destroy($id)
   {
     $store = Store::find($id);
+    $this->insertlog('DELETE','stores','-', (clone $store)->get('keystore')[0]->keystore,'keystore');
     $store->delete();
     return redirect()->route('store.index')->with('success', 'ลบข้อมูลเรียบร้อย');
   }

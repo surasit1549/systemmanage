@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Transform;
+use Auth;
+use App\log;
 
 class TransformController extends Controller
 {
@@ -41,13 +43,22 @@ class TransformController extends Controller
       'convertname'   => 'required',
       'size'          => 'required'
     ]);
-    $transform = new Transform(
-      [
-        'convertname'   => $request->get('convertname'),
-        'size'          => $request->get('size')
-      ]
-    );
+    $input =       [
+      'convertname'   => $request->get('convertname'),
+      'size'          => $request->get('size')
+    ];
+
+    $transform = new Transform($input);
+
+    $data = '(' . implode(',', array_keys($input)) . ') => (' . implode(',', $input) . ')';
+    $table = 'transforms';
+    $action = 'CREATE';
+    log::create(['username' => Auth::user()->username, 'data' => $data, 'table' => $table, 'action' => $action]);
+
     $transform->save();
+
+
+
     return redirect()->route('transform.index')->with('success', 'เพิ่มข้อมูลเรียบร้อยแล้ว');
   }
 
@@ -58,9 +69,7 @@ class TransformController extends Controller
    * @return \Illuminate\Http\Response
    */
   public function show($id)
-  { 
-    
-  }
+  { }
 
   /**
    * Show the form for editing the specified resource.
@@ -91,10 +100,28 @@ class TransformController extends Controller
         'size'          => 'required'
       ]
     );
+
+    $data = array();
+    $old = array();
+    $detailTable = Transform::find($id)->get();
+    if ($detailTable[0]->convertname != $request->convertname) {
+      $data += ['convertname' => $request->convertname];
+      $old += ['0' => $detailTable[0]->convertname];
+    }
+    if ($detailTable[0]->size != $request->size) {
+      $data += ['size' => $request->size];
+      $old += ['1' => $detailTable[0]->size];
+    }
+    Log::create([
+      'table' => 'transforms', 'action' => 'UPDATE', 'username' => Auth::user()->username, 'data' => '(' . implode(',', array_keys($data)) . ') => OLD (' . implode(',', $old) . ') => NEW (' . implode(',', $data) . ')'
+    ]);
+
     $transform = Transform::find($id);
     $transform->convertname   = $request->get('convertname');
     $transform->size          = $request->get('size');
     $transform->save();
+
+
     return redirect()->route('transform.index')->with('success', 'อัพเดทข้อมูลเรียบร้อยแล้ว');
   }
 
@@ -107,6 +134,10 @@ class TransformController extends Controller
   public function destroy($id)
   {
     $transform = Transform::find($id);
+    $table = 'transforms';
+    $action = 'DELETE';
+    $data = 'convertname = ' . (clone $transform)->get('convertname')[0]->convertname;
+    log::create(['username' => Auth::user()->username, 'data' => $data, 'table' => $table, 'action' => $action]);
     $transform->delete();
     return redirect()->route('transform.index')->with('success', 'ลบข้อมูลเรียบร้อยแล้ว');
   }

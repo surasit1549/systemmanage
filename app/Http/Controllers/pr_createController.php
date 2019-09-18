@@ -23,7 +23,8 @@ use App\product_main;
 use App\prequest;
 use App\Authorized_person1;
 use App\Authorized_person2;
-
+use Illuminate\Support\Facades\Auth;
+use App\log;
 
 class pr_createController extends Controller
 {
@@ -183,16 +184,20 @@ class pr_createController extends Controller
             ]);
             $product->save();
         }
+
+        $name = Auth::user()->firstname.' '.Auth::user()->lastname;
         $arr = new PR_create([
             'key'               => $ID,
             'date'              => $request->input('date'),
-            'contractor'        => 'เก่ง',
+            'contractor'        => $name,
             'formwork'          => $request->input('formwork'),
             'prequestconvert'   => $request->input('prequestconvert'),
             'pdf'               => '123'
         ]);
 
         $arr->save();
+
+        log::create(['username' => Auth::user()->username, 'data' => 'key = '.$ID, 'table' => 'p_r_creates', 'action' => 'CREATE']);
         return redirect()->route('pr_create.index')->with('success', 'บันทึกข้อมูลเรียบร้อยแล้ว');
     }
 

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\product_main;
+use App\log;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -13,23 +15,23 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
+    {
         $num = 1;
         $number = 1;
         $product = product_main::all()->toArray();
-        if(empty($product)){
+        if (empty($product)) {
             $products = $product;
         }
-        foreach($product as $row){
+        foreach ($product as $row) {
             $products[] = [
-                        $row['id'],
-                        $row['Product_ID'],
-                        $row['Product_name'],
-                        $row['unit']
+                $row['id'],
+                $row['Product_ID'],
+                $row['Product_name'],
+                $row['unit']
             ];
         }
         //dd($products);
-        return view('Product.index', compact('products','num'));
+        return view('Product.index', compact('products', 'num'));
     }
 
     /**
@@ -41,12 +43,12 @@ class ProductController extends Controller
     {
         $product = product_main::all()->toArray();
         $ID = product_main::select('Product_ID')->distinct()->get();
-        foreach($ID as $row){
+        foreach ($ID as $row) {
             $product_id = $row['Product_ID'];
         }
-        if(empty($product)){
+        if (empty($product)) {
             $key = "0001";
-        }else{
+        } else {
             $number = intval($product_id);
             $number++;
             if ($number < 10) {
@@ -57,7 +59,7 @@ class ProductController extends Controller
                 $key_num = strval($number);
                 $key = "00$key_num";
                 //dd($key);
-            } elseif ($number < 1000){
+            } elseif ($number < 1000) {
                 $key_num = strval($number);
                 $key = "0$key_num";
             } else {
@@ -66,7 +68,9 @@ class ProductController extends Controller
                 //dd($key);
             }
         }
-        return view('Product.create', compact('product','key'));
+
+
+        return view('Product.create', compact('product', 'key'));
     }
 
     /**
@@ -77,20 +81,29 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,[
-                                    'Product_ID'        => 'required',
-                                    'Product_name'      => 'required',
-                                    'unit'              => 'required'
+        $this->validate($request, [
+            'Product_ID'        => 'required',
+            'Product_name'      => 'required',
+            'unit'              => 'required'
         ]);
         $product = new product_main(
-        [
-        'Product_ID'        => $request->get('Product_ID'),
-        'Product_name'      => $request->get('Product_name'),
-        'unit'              => $request->get('unit')
-        ]
+            [
+                'Product_ID'        => $request->get('Product_ID'),
+                'Product_name'      => $request->get('Product_name'),
+                'unit'              => $request->get('unit')
+            ]
         );
-        $product -> save();
-        return redirect()->route('Product.index')->with('success','เพิ่มข้อมูลเรียบร้อยแล้ว');
+
+        $product->save();
+        $data = [
+            'Product_ID' => $request->Product_ID,
+            'Product_name' => $request->Product_name,
+            'unit' => $request->unit
+        ];
+        $table = 'products_mains';
+        $action = 'CREATE';
+        log::create(['username' => Auth::user()->username, 'data' => '(' . implode(',', array_keys($data)) . ') => (' . implode(',', $data) . ')', 'table' => $table, 'action' => $action]);
+        return redirect()->route('Product.index')->with('success', 'เพิ่มข้อมูลเรียบร้อยแล้ว');
     }
 
     /**
@@ -114,7 +127,8 @@ class ProductController extends Controller
     {
         $product = product_main::find($id);
         //dd($product);
-        return view('product.edit',compact('product','id'));
+        $product->save();
+        return view('product.edit', compact('product', 'id'));
     }
 
     /**
@@ -126,20 +140,43 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request,
-        [
-          'Product_ID'      => 'required',
-          'Product_name'    => 'required',
-          'unit'            => 'required'
-        ]
+        $this->validate(
+            $request,
+            [
+                'Product_ID'      => 'required',
+                'Product_name'    => 'required',
+                'unit'            => 'required'
+            ]
         );
+
+        $detailTable = product_main::find($id)->get();
+        $data = array();
+        $old = array();
+
+        if ($detailTable[0]->Product_ID != $request->Product_ID) {
+            $data += ['Product_ID' => $request->Product_ID];
+            $old += ['0' => $detailTable[0]->Product_ID];
+        }
+        if ($detailTable[0]->Product_name != $request->Product_name) {
+            $data += ['Product_name' => $request->Product_name];
+            $old += ['1' => $detailTable[0]->Product_name];
+        }
+        if ($detailTable[0]->unit != $request->unit) {
+            $data += ['unit' => $request->unit];
+            $old += ['2' => $detailTable[0]->unit];
+        }
+
+        Log::create([
+            'table' => 'products_mains', 'action' => 'UPDATE', 'username' => Auth::user()->username, 'data' => '(' . implode(',', array_keys($data)) . ') => OLD (' . implode(',', $old) . ') => NEW (' . implode(',', $data) . ')'
+        ]);
+
         //dd($id);
         $product = product_main::find($id);
         $product->Product_ID      = $request->get('Product_ID');
         $product->Product_name    = $request->get('Product_name');
         $product->unit            = $request->get('unit');
         $product->save();
-        return redirect()->route('Product.index')->with('success','อัพเดทข้อมูลเรียบร้อยแล้ว');
+        return redirect()->route('Product.index')->with('success', 'อัพเดทข้อมูลเรียบร้อยแล้ว');
     }
 
     /**
@@ -151,7 +188,18 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product = product_main::find($id);
+        $table = 'products_mains';
+        $action = 'DELETE';
+        $data = 'Product_ID = ' . (clone $product)->get('Product_ID')[0]->Product_ID;
+        log::create(['username' => Auth::user()->username, 'data' => $data, 'table' => $table, 'action' => $action]);
         $product->delete();
-        return redirect()->route('Product.index') ->with('success','ลบข้อมูลเรียบร้อยแล้ว');
+        return redirect()->route('Product.index')->with('success', 'ลบข้อมูลเรียบร้อยแล้ว');
+    }
+
+    public function insertlog($action, $table, $previous_data, $new_data, $element)
+    {
+        Log::create([
+            'username' => Auth::user()->username, 'previous_data' => $previous_data, 'new_data' => $new_data, 'element' => $element, 'table' => $table, 'action' => $action
+        ]);
     }
 }
