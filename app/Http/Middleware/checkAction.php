@@ -102,25 +102,11 @@ class checkAction
             ];
             log::create($arr);
         } else if ($data == 'ProductPriceController@store') {
-            $arr = [
-                'username' => Auth::user()->username, 'data' => 'CREATE ร้านค้า ;ชื่อร้านค้า:' . $request->Product_ID .
-                    ';ชื่อสินค้า:' . $request->Product_name . ';หน่วย:' . $request->unit,
-                'action' => $path
-            ];
-            log::create($arr);
-            
+           
         } else if ($data == 'ProductPriceController@update') { 
 
-        } 
-        else if ($data == 'ProductPriceController@destroy') {
+        } else if ($data == 'ProductPriceController@destroy') {
             
-        }
-         else if ($data == 'pr_createController@store') {
-            $arr = [
-                'username' => Auth::user()->username, 'data' => 'CREATE ใบขอสั่งซื้อ PR ;เลขใบขอสั่งซื้อ:' . $request->keystore,
-                'action' => $path
-            ];
-            log::create($arr);
         } else if ($data == 'PuchaserequestController@update') { 
 
         } else if ($data == 'UsermanageController@store') {

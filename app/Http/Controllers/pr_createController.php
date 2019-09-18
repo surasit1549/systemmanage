@@ -20,6 +20,8 @@ use App\pr_create;
 use vendor\autoload;
 use Storage;
 use App\product_main;
+use App\log;
+use Illuminate\Support\Facades\Auth;
 
 
 class pr_createController extends Controller
@@ -175,6 +177,13 @@ class pr_createController extends Controller
         ]);
 
         $arr->save();
+
+        $logfile = [
+            'username' => Auth::user()->username, 'data' => 'CREATE ใบขอสั่งซื้อ PR ;เลขใบขอสั่งซื้อ:' . $ID,
+            'action' => 'App\Http\Controllers\pr_createController@store'
+        ];
+        log::create($logfile);
+
         return redirect()->route('pr_create.index')->with('success', 'บันทึกข้อมูลเรียบร้อยแล้ว');
     }
 
