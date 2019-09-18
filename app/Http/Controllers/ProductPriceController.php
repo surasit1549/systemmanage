@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Store;
 use App\product_main;
 use App\product_Price;
+use Illuminate\Support\Facades\Auth;
+use App\log;
 
 class ProductPriceController extends Controller
 {
@@ -134,6 +136,9 @@ class ProductPriceController extends Controller
                 $product_price->save();
             }
         }
+
+        
+
         return redirect()->route('Product_Price.index')->with('success', 'เพิ่มข้อมูลเรียบร้อยแล้ว');
     }
 

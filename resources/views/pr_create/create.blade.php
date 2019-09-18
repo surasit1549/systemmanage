@@ -160,7 +160,7 @@
             $('#addrow').click(function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-                if (index <= 10) {
+                if (index <= 10 && index >= 0) {
                     $('#detailmenu tbody').append('<tr><td class="text-center"><label class="col-form-label">' + (index++) + '</label></td><td>' +
                         '<input type="text" list="product" name="productname[]" class="form-control productname" required>' +
                         '<td><input type="number" name="productnumber[]" min="1"class="form-control productnumber" required></td>' +

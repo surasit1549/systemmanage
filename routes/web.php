@@ -19,6 +19,7 @@ Route::group(['middleware' => ['123','checkAction']], function () {
     //Route ::resource('store','FillinformationController');
     //Route ::resource('fillinformation','StoreController');
     Route::post('porder/makepdf', 'purchaseorderController@makepdf');
+    Route::post('prequest/makepdf', 'PuchaserequestController@makepdf');
     Route::post('pr_create/makepdf', 'pr_createController@makepdf');
     Route::post('profile/changpassword', 'profileController@changepassword');
     Route::post('usermanage/checkemail', 'UsermanageController@checkemail');

@@ -9,14 +9,14 @@
       e.preventDefault();
       e.stopPropagation();
       var check = $('#signature').val();
-      if( check == '-' ){
+      if (check == '-') {
         Swal.fire({
-          type : 'error',
-          title : 'ไม่สามารถดำเนินการต่อได้',
-          text : 'จำเป็นต้องกรอกลายเซ็นในหัวช่องโปรไฟล์ก่อนดำเนินการต่อ',
-          confirmButtonText : 'เข้าใจแล้ว'
+          type: 'error',
+          title: 'ไม่สามารถดำเนินการต่อได้',
+          text: 'จำเป็นต้องกรอกลายเซ็นในหัวช่องโปรไฟล์ก่อนดำเนินการต่อ',
+          confirmButtonText: 'เข้าใจแล้ว'
         });
-      }else{
+      } else {
         $('#formsub').submit();
       }
     });
@@ -86,7 +86,11 @@
             <td class="text-center result"><input type="number" name="Product_number[]" min="1" class="form-control productnumber border-0" value="{{$row[1]}}" name="" required></td>
             <td class="text-center result"><input type="text" name="unit[]" class="form-control unit border-0" value="{{$row[2]}}" name="" required></td>
             <td>
-              <input type="text" name="keystore[]" class="form-control keystore" value="{{$row[3]}}" required>
+                <select name="keystore[]">
+                  @foreach($row[3] as $r)
+                    <option value="{{$r['Store']}}">{{$r['Store']}}</option>
+                  @endforeach
+                </select>
             </td>
             <td class="text-center result"><input type="number" name="price[]" min="1" class="form-control price border-0" value="{{$row[4]}}" required></td>
             <td class="text-center result"><input type="number" name="product_sum[]" min="1" class="sum col-form-label border-0" value="{{$row[5]}}" required></td>

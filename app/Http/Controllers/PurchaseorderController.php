@@ -34,7 +34,7 @@ class PurchaseorderController extends Controller
         $key = $request->keyPO;
         $mpdf->WriteHTML($stylesheet, 1);
         $mpdf->WriteHTML($request->pdf,2);
-        $mpdf->Output("pdf/PO$key.pdf", 'F');
+        $mpdf->Output("pdf/PR$key.pdf", 'F');
         return response()->json(['msg' => 'Successful']);
     }
 
