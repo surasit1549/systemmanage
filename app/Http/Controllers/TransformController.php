@@ -49,12 +49,7 @@ class TransformController extends Controller
     ];
 
     $transform = new Transform($input);
-
-    $data = '(' . implode(',', array_keys($input)) . ') => (' . implode(',', $input) . ')';
-    $table = 'transforms';
-    $action = 'CREATE';
-    log::create(['username' => Auth::user()->username, 'data' => $data, 'table' => $table, 'action' => $action]);
-
+    $this->insertlog('CREATE','transforms','-', implode(',', $input), implode(',', array_keys($input)));
     $transform->save();
 
 
@@ -112,9 +107,8 @@ class TransformController extends Controller
       $data += ['size' => $request->size];
       $old += ['1' => $detailTable[0]->size];
     }
-    Log::create([
-      'table' => 'transforms', 'action' => 'UPDATE', 'username' => Auth::user()->username, 'data' => '(' . implode(',', array_keys($data)) . ') => OLD (' . implode(',', $old) . ') => NEW (' . implode(',', $data) . ')'
-    ]);
+
+    $this->insertlog('UPDATE', 'transforms', implode(',', $old), implode(',', $data), implode(',', array_keys($data)));
 
     $transform = Transform::find($id);
     $transform->convertname   = $request->get('convertname');
@@ -134,11 +128,15 @@ class TransformController extends Controller
   public function destroy($id)
   {
     $transform = Transform::find($id);
-    $table = 'transforms';
-    $action = 'DELETE';
-    $data = 'convertname = ' . (clone $transform)->get('convertname')[0]->convertname;
-    log::create(['username' => Auth::user()->username, 'data' => $data, 'table' => $table, 'action' => $action]);
+    $this->insertlog('DELETE', 'transforms', '-', (clone $transform)->get('convertname')[0]->convertname, 'convertname');
     $transform->delete();
     return redirect()->route('transform.index')->with('success', 'ลบข้อมูลเรียบร้อยแล้ว');
+  }
+
+  public function insertlog($action, $table, $previous_data, $new_data, $element)
+  {
+    Log::create([
+      'username' => Auth::user()->username, 'previous_data' => $previous_data, 'new_data' => $new_data, 'element' => $element, 'table' => $table, 'action' => $action
+    ]);
   }
 }
