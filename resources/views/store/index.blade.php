@@ -17,6 +17,7 @@
   $(document).ready(function() {
     $('[data-toggle="tooltip"]').tooltip();
     $('#main').DataTable({
+    'responsive' : true,
       'columnDefs': [{
         'orderable': false,
         'targets': 3
@@ -25,7 +26,7 @@
         "sSearch": 'ค้นหา',
         "sInfo": 'พบร้านค้าจำนวน _TOTAL_ ร้าน',
         'sEmptyTable': 'ไม่มีข้อมูลร้านค้า',
-        'sInfoEmpty': 'ไม่พบร้านค้า',
+        'sInfoEmpty': 'ไม่พบรายการ',
         'sZeroRecords': 'ไม่พบคำที่ต้องการค้นหา',
         "oPaginate": {
           "sPrevious": 'ก่อนหน้า',
@@ -113,13 +114,13 @@
     <h3 class="text-white"><i class="fas fa-store"></i>&nbsp;&nbsp;STORES</h3>
   </div>
   <div class="card-body">
-    <table class="table table-bordered" id="main">
+    <table class="table table-bordered" width="100%" id="main">
       <thead>
         <tr>
-          <th style="width:25%;">รหัสร้านค้า</th>
-          <th style="width:35%;">ชื่อร้านค้า</th>
-          <th style="width:20%;">โทรศัพท์ร้านค้า</th>
-          <th style="width:20%;">จัดการ</th>
+          <th class="text-nowrap">รหัสร้านค้า</th>
+          <th class="text-nowrap">ชื่อร้านค้า</th>
+          <th class="text-nowrap">โทรศัพท์ร้านค้า</th>
+          <th class="text-nowrap">จัดการ</th>
         </tr>
       </thead>
       <tbody>

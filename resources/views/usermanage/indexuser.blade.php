@@ -35,15 +35,15 @@
         <h3 class="text-white card-title"><i class="fas fa-users"></i>&nbsp;&nbsp;จัดการข้อมูลผู้ใช้งาน</h3>
     </div>
     <div class="card-body">
-        <table class="table table-bordered" id="user_table">
+        <table class="table table-bordered" id="user_table" width="100%">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">ชื่อจริง</th>
-                    <th scope="col">นามสกุล</th>
-                    <th scope="col">Username</th>
-                    <th scope="col">ตำแหน่ง</th>
-                    <th scope="col">จัดการ</th>
+                    <th class="text-nowrap">#</th>
+                    <th class="text-nowrap">ชื่อจริง</th>
+                    <th class="text-nowrap">นามสกุล</th>
+                    <th class="text-nowrap">Username</th>
+                    <th class="text-nowrap">ตำแหน่ง</th>
+                    <th class="text-nowrap">จัดการ</th>
                 </tr>
             </thead>
             <tbody>
@@ -52,12 +52,12 @@
                     <input type="hidden" class="email" value="{{$users['email']}}">
                     <input type="hidden" class="phone" value="{{$users['phone']}}">
                     <input type="hidden" class="address" value="{{$users['address']}}">
-                    <td style="cursor:pointer" class="details-control text-center"><i style="font-size:20px" class="fa fa-plus-square text-success" aria-hidden="true"></i></td>
-                    <td>{{$users['firstname']}}</td>
-                    <td>{{$users['lastname']}}</td>
-                    <td>{{$users['username']}}</td>
-                    <td>{{$users['role']}}</td>
-                    <td>
+                    <td style="cursor:pointer" class="text-nowrap details-control text-center"><i style="font-size:20px" class="fa fa-plus-square text-success" aria-hidden="true"></i></td>
+                    <td class="text-nowrap">{{$users['firstname']}}</td>
+                    <td class="text-nowrap">{{$users['lastname']}}</td>
+                    <td class="text-nowrap">{{$users['username']}}</td>
+                    <td class="text-nowrap">{{$users['role']}}</td>
+                    <td class="text-nowrap">
                         <a href="{{action('UsermanageController@edit',$users['id'])}}" data-toggle="tooltip" data-placement="top" title="Edit"><i style="font-size:20px;" class="fas fa-edit text-warning"></i></a>
                         &nbsp;&nbsp;
                         <a class="delete_user" data-toggle="tooltip" data-placement="top" title="Remove"><i style="font-size:20px;" class="fas fa-trash-alt text-danger"></i></a>
@@ -76,14 +76,21 @@
     <script>
         $(document).ready(function() {
             var table = $('#user_table').DataTable({
-                order : [[1,'desc']],
-                'columns' : [
-                    { 'orderable' : false , 'width' : '5%' },
+                'scrollX': true,
+                order: [
+                    [1, 'desc']
+                ],
+                'columns': [{
+                        'orderable': false,
+                        'width': '5%'
+                    },
                     null,
                     null,
                     null,
                     null,
-                    { 'orderable' : false }
+                    {
+                        'orderable': false
+                    }
                 ],
                 "oLanguage": {
                     "sSearch": 'ค้นหา',
