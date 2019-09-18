@@ -98,6 +98,7 @@ class ProductPriceController extends Controller
     {
         $lengtharray = sizeof($request->get('product'));
         $Cat_ID = product_Price::get()->toArray();
+        $data = '';
         $store_id = store::where('name', $request->get('store_name'))->addSelect('keystore')->get()->toArray();
         if (empty($Cat_ID)) {
             for ($i = 0; $i < $lengtharray; $i++) {
@@ -116,6 +117,8 @@ class ProductPriceController extends Controller
                     ]
                 );
                 $product_price->save();
+                $data += '('.($i+1).')('.$Cat_ID.','.$store_id[0]['keystore'].','.$product_id[0]['Product_ID'].','.$request->get('Price')[$i].')';
+                
             }
         } else {
             for ($i = 0; $i < $lengtharray; $i++) {
@@ -134,11 +137,12 @@ class ProductPriceController extends Controller
                     ]
                 );
                 $product_price->save();
+                $data += '(' . ($i + 1) . ')(' . $Cat_ID . ',' . $store_id[0]['keystore'] . ',' . $product_id[0]['Product_ID'] . ',' . $request->get('Price')[$i] . ')';
             }
         }
 
-        
 
+        dd($data);
         return redirect()->route('Product_Price.index')->with('success', 'เพิ่มข้อมูลเรียบร้อยแล้ว');
     }
 
@@ -173,7 +177,7 @@ class ProductPriceController extends Controller
             ->join('product_mains', 'Product__Prices.Product', 'product_mains.Product_ID')
             ->get();
         //dd($data);
-        return view('Product_Price.edit', compact( 'data', 'id'));
+        return view('Product_Price.edit', compact('data', 'id'));
     }
 
     /**
@@ -186,16 +190,16 @@ class ProductPriceController extends Controller
     public function update(Request $request, $id)
     {
         $show = $request->get('store_id');
-        $product_price_update = product_Price::where('Cat_ID',$id)->get();
+        $product_price_update = product_Price::where('Cat_ID', $id)->get();
         $product_price_update[0]->Store        = $request->get('store_id');
         $product_price_update[0]->Cat_ID       = $request->get('Cat_ID');
         $product_price_update[0]->Product      = $request->get('product_id');
         $product_price_update[0]->Price        = $request->get('Price');
         $product_price_update[0]->save();
-    
-        return redirect()->route('Product_Price.show',$show)->with('success', 'อัพเดทเรียบร้อย');
+
+        return redirect()->route('Product_Price.show', $show)->with('success', 'อัพเดทเรียบร้อย');
         //$this->show($show);
-    
+
     }
 
     /**
@@ -214,5 +218,12 @@ class ProductPriceController extends Controller
         }
         //$product_price->delete();
         return redirect()->route('Product_Price.index')->with('success', 'ลบข้อมูลเรียบร้อยแล้ว');
+    }
+
+    public function insertlog($action, $table, $previous_data, $new_data, $element)
+    {
+        Log::create([
+            'username' => Auth::user()->username, 'previous_data' => $previous_data, 'new_data' => $new_data, 'element' => $element, 'table' => $table, 'action' => $action
+        ]);
     }
 }

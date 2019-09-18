@@ -100,9 +100,7 @@ class ProductController extends Controller
             'Product_name' => $request->Product_name,
             'unit' => $request->unit
         ];
-        $table = 'products_mains';
-        $action = 'CREATE';
-        log::create(['username' => Auth::user()->username, 'data' => '(' . implode(',', array_keys($data)) . ') => (' . implode(',', $data) . ')', 'table' => $table, 'action' => $action]);
+        $this->insertlog('CREATE','product_mains','-', implode(',', $data), implode(',', array_keys($data)));
         return redirect()->route('Product.index')->with('success', 'เพิ่มข้อมูลเรียบร้อยแล้ว');
     }
 
@@ -166,9 +164,7 @@ class ProductController extends Controller
             $old += ['2' => $detailTable[0]->unit];
         }
 
-        Log::create([
-            'table' => 'products_mains', 'action' => 'UPDATE', 'username' => Auth::user()->username, 'data' => '(' . implode(',', array_keys($data)) . ') => OLD (' . implode(',', $old) . ') => NEW (' . implode(',', $data) . ')'
-        ]);
+        $this->insertlog('UPDATE','product_mains', implode(',', $old), implode(',', $data), implode(',', array_keys($data)));
 
         //dd($id);
         $product = product_main::find($id);
@@ -188,10 +184,7 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product = product_main::find($id);
-        $table = 'products_mains';
-        $action = 'DELETE';
-        $data = 'Product_ID = ' . (clone $product)->get('Product_ID')[0]->Product_ID;
-        log::create(['username' => Auth::user()->username, 'data' => $data, 'table' => $table, 'action' => $action]);
+        $this->insertlog('DELETE','product_mains','-', (clone $product)->get('Product_ID')[0]->Product_ID,'Product_ID');
         $product->delete();
         return redirect()->route('Product.index')->with('success', 'ลบข้อมูลเรียบร้อยแล้ว');
     }

@@ -68,14 +68,6 @@ class StoreController extends Controller
    * @return \Illuminate\Http\Response
    */
 
-
-  public function insertlog($action, $table, $previous_data, $new_data, $element)
-  {
-    Log::create([
-      'username' => Auth::user()->username, 'previous_data' => $previous_data, 'new_data' => $new_data, 'element' => $element, 'table' => $table, 'action' => $action
-    ]);
-  }
-
   public function store(Request $request)
   {
     $this->validate($request, [
@@ -209,4 +201,14 @@ class StoreController extends Controller
     $store->delete();
     return redirect()->route('store.index')->with('success', 'ลบข้อมูลเรียบร้อย');
   }
+
+  public function insertlog($action, $table, $previous_data, $new_data, $element)
+  {
+    Log::create([
+      'username' => Auth::user()->username, 'previous_data' => $previous_data, 'new_data' => $new_data, 'element' => $element, 'table' => $table, 'action' => $action
+    ]);
+  }
+
+
+
 }
