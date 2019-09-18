@@ -117,7 +117,7 @@ class ProductPriceController extends Controller
                     ]
                 );
                 $product_price->save();
-                $data += '('.($i+1).')('.$Cat_ID.','.$store_id[0]['keystore'].','.$product_id[0]['Product_ID'].','.$request->get('Price')[$i].')';
+                $data .= '('.($i+1).')('.$Cat_ID.','.$store_id[0]['keystore'].','.$product_id[0]['Product_ID'].','.$request->get('Price')[$i].')';
                 
             }
         } else {
@@ -137,7 +137,7 @@ class ProductPriceController extends Controller
                     ]
                 );
                 $product_price->save();
-                $data += '(' . ($i + 1) . ')(' . $Cat_ID . ',' . $store_id[0]['keystore'] . ',' . $product_id[0]['Product_ID'] . ',' . $request->get('Price')[$i] . ')';
+                $data .= '('.($i + 1).')('.$cat.','. $store_id[0]['keystore'] . ',' . $product_id[0]['Product_ID'] . ',' . $request->get('Price')[$i] . ')';
             }
         }
 
