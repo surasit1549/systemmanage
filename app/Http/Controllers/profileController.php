@@ -34,7 +34,10 @@ class profileController extends Controller
     public function changepassword(Request $request)
     {
         $request->merge(['password' => Hash::make($request->password)]);
-        $this->insertlog('UPDATE','users',$request->toArray());
+        $input = [
+            'password' => $request->password
+        ];
+        $this->insertlog('UPDATE','users',$input);
         User::find(Auth::id())->update($request->toArray());
         return redirect()->route('profile.index')->with('msg', 'เปลี่ยนรหัสผ่านเรียนร้อยแล้ว');
     }

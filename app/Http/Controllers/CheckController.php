@@ -108,6 +108,8 @@ class CheckController extends Controller
                 break;
             }
         }
+
+        
         $porder = porder::find($id);
         $porder->PO_ID           = $porder_old['PO_ID'];
         $porder->keyPR           = $porder_old['keyPR'];
