@@ -49,10 +49,14 @@ class profileController extends Controller
 
         // SENT SIGNATURE TO S3
         $img_path = 'https://s3.' . env('AWS_DEFAULT_REGION') . '.amazonaws.com/' . env('AWS_BUCKET') . '/signature/' . Auth::user()->email;
-        $path = "C:/xampp/htdocs/project/public/";
+        $path = "C:/xampp/htdocs/laravel/systemmanage/public/";
+        
         $s3 = Storage::disk('s3');
+        
         $s3->delete($img_path);
+        
         $s3->put('signature/' . Auth::user()->email, file_get_contents($path . 'signature/test.png'), 'public');
+        
         $arr = array("signature" => $img_path);
         User::find(Auth::id())->update($arr);
         return response()->json(['msg' => $img_path]);

@@ -28,7 +28,7 @@ class PuchaserequestController extends Controller
     $mpdf = new \Mpdf\Mpdf([
       'mode' => 'utf-8',
       'format' => [210, 297],
-      'default_font_size' => 14,
+      'default_font_size' => 16,
       'default_font' => 'thsarabunnew'
     ]);
     $key = $request->keyPO;
@@ -66,9 +66,11 @@ class PuchaserequestController extends Controller
       $lengtharray = sizeof($pr_create);
       for ($i = 0; $i < $lengtharray; $i++) {
 
+        $check = prequest::where('keyPR', $pr_create[$i]['key'])->get()->toArray();
+
         $master1 = Authorized_person1::where('keyPR', $pr_create[$i]["key"])->get()->toArray();
         $master2 = Authorized_person2::where('keyPR', $pr_create[$i]["key"])->get()->toArray();
-        if (empty($keypr[$i])) {
+        if (empty($check)) {
           $status = "กำลังตรวจสอบ";
         } elseif ($keypr != NULL && empty($master1) && empty($master2)) {
           $status = "กำลังดำเนินการ [ 1 ]";
@@ -85,11 +87,11 @@ class PuchaserequestController extends Controller
           $pr_create[$i]['contractor'],
           $pr_create[$i]['formwork'],
           $pr_create[$i]['prequestconvert'],
-          $status
+          $status,
+          $check
 
         ];
       }
-
       //dd($PR_create);
       $pr_num = sizeof($pr_create);
       for ($i = $pr_num - 1; $i >= 0; $i--) {
@@ -264,6 +266,7 @@ class PuchaserequestController extends Controller
       'formwork'          => $request->get('formwork'),
       'prequestconvert'   => $request->get('prequestconvert'),
       'sumofprice'        => $request->get('sum'),
+      
     ]);
     $prequest->save();
     return redirect()->route('prequest.index')->with('success', 'เรียบร้อยแล้ว');
@@ -277,7 +280,14 @@ class PuchaserequestController extends Controller
    */
   public function destroy($id)
   {
-
+    $collection = collect([1, 2, 3, 4]);
+    $prequestdb = prequest::where('keyPR',$id)->get();
+    //dd($prequestdb);
+    $filtered = $prequestdb->reject(function ($value, $key) {
+      return $value['keyPR'] > 100;
+    });
+    $filtered->all();
+    dd($filtered);
     $prequestdb = prequest::find($id);
     $prequestdb->delete();
     return redirect()->route('prequest.index')->with('success', 'ลบข้อมูลเรียบร้อย');

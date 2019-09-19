@@ -210,4 +210,16 @@ class ProductPriceController extends Controller
         //$product_price->delete();
         return redirect()->route('Product_Price.index')->with('success', 'ลบข้อมูลเรียบร้อยแล้ว');
     }
+
+    public function deleteproduct($id){
+        dd($id);
+        $product_price = product_Price::where('Cat_ID',$id)->get()->toArray();
+        //$product_price->delete();
+        $store = $product_price[0]['Store'];
+        return redirect()->route('Product_Price.show',$store)->with('success', 'ลบข้อมูลเรียบร้อยแล้ว');
+    }
+
+    public function deletename($id){
+        dd($id);
+    }
 }

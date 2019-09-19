@@ -147,7 +147,7 @@
 </div>
 
 <div id="exportpdf" class="d-none">
-  <div id="cover_detail_table">
+  <div id="store_cover_detail_table">
     <h5>{{$store_master[0]['name']}}</h5>
     <h5>{{$store_master[0]['address']}}</h5>
     <h5>เบอร์โทรศัทพ์ {{$store_master[0]['phone']}}</h5>

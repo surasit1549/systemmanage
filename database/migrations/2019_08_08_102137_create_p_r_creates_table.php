@@ -20,7 +20,7 @@ class CreatePRCreatesTable extends Migration
             $table->string('contractor');
             $table->string('formwork');
             $table->string('prequestconvert');
-            $table->string('pdf');
+            $table->string('status');
             $table->timestamps();
         });
     }
