@@ -16,7 +16,8 @@ use App\product_main;
 use App\pr_store;
 use App\Authorized_person1;
 use App\Authorized_person2;
-
+use App\log;
+use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\PDF;
 
 class PuchaserequestController extends Controller
@@ -218,9 +219,9 @@ class PuchaserequestController extends Controller
     $lengtharray = sizeof($productdb);
     for ($i = 0; $i < $lengtharray; $i++) {
       $product_id = product_main::where('product_name', $productdb[$i])->get()->toArray();
-      $product_price = product_Price::where('Product', $product_id)->min('Price');
+      $product_price = product_Price::where('Product', $product_id[0]['Product_ID'])->min('Price');
       //  ->where('Product',$product_id[0]['Product_ID'])->min('Price');
-      $product_min_price[] = product_main::where('product_name', $productdb[$i])
+      $product_min_price[] = product_main::where('Product_name', $productdb[$i])
         ->join('product__Prices', 'product_mains.Product_ID', 'product__Prices.Product')
         ->where('Price', $product_price)
         ->get()->toArray();
@@ -265,6 +266,10 @@ class PuchaserequestController extends Controller
       'prequestconvert'   => $request->get('prequestconvert'),
       'sumofprice'        => $request->get('sum'),
     ]);
+    $input = [
+      'keyPR' => $request->get('keyPR')
+    ];
+    $this->insertlog('CONFIRM', 'p_r_creates', $input);
     $prequest->save();
     return redirect()->route('prequest.index')->with('success', 'เรียบร้อยแล้ว');
   }
@@ -281,5 +286,12 @@ class PuchaserequestController extends Controller
     $prequestdb = prequest::find($id);
     $prequestdb->delete();
     return redirect()->route('prequest.index')->with('success', 'ลบข้อมูลเรียบร้อย');
+  }
+
+  public function insertlog($action, $table, $data)
+  {
+    Log::create([
+      'username' => Auth::user()->username, 'data' => serialize($data), 'table' => $table, 'action' => $action
+    ]);
   }
 }

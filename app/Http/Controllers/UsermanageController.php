@@ -48,6 +48,8 @@ class UsermanageController extends Controller
     {
         $request->merge(['password' => Hash::make($request->password)]);
         User::create($request->toArray());
+        unset($request['repassword'], $request['_token']);
+        $this->insertlog('CREATE','users',$request->toArray());
         return redirect()->route('usermanage.index')->with('msg','Success !');
     }
 
@@ -85,6 +87,8 @@ class UsermanageController extends Controller
     public function update(Request $request, $id)
     {
         User::find($id)->update($request->toArray());
+        unset($request['token'], $request['_token'], $request['_method'], $request['save']);
+        $this->insertlog('UPDATE','users',$request->toArray());
         return redirect()->route('usermanage.index');
     }
 
@@ -96,14 +100,19 @@ class UsermanageController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::find($id)->delete();
+        $user = User::find($id);
+        $input = [
+            'username' => $user->username
+        ];
+        $this->insertlog('DELETE','users',$input);
+        $user->delete();
         return redirect()->route('usermanage.index');
     }
 
-    public function insertlog($action, $table, $previous_data, $new_data, $element)
+    public function insertlog($action, $table, $data)
     {
         Log::create([
-            'username' => Auth::user()->username, 'previous_data' => $previous_data, 'new_data' => $new_data, 'element' => $element, 'table' => $table, 'action' => $action
+            'username' => Auth::user()->username, 'data' => serialize($data), 'table' => $table, 'action' => $action
         ]);
     }
     

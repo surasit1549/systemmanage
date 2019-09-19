@@ -7,6 +7,8 @@ use App\Transform;
 use Auth;
 use App\log;
 
+use function Opis\Closure\serialize;
+
 class TransformController extends Controller
 {
   /**
@@ -39,6 +41,7 @@ class TransformController extends Controller
   public function store(Request $request)
   {
 
+
     $this->validate($request, [
       'convertname'   => 'required',
       'size'          => 'required'
@@ -48,8 +51,9 @@ class TransformController extends Controller
       'size'          => $request->get('size')
     ];
 
+
     $transform = new Transform($input);
-    $this->insertlog('CREATE','transforms','-', implode(',', $input), implode(',', array_keys($input)));
+    $this->insertlog('CREATE','transforms',$input);
     $transform->save();
 
 
@@ -96,24 +100,14 @@ class TransformController extends Controller
       ]
     );
 
-    $data = array();
-    $old = array();
-    $detailTable = Transform::find($id)->get();
-    if ($detailTable[0]->convertname != $request->convertname) {
-      $data += ['convertname' => $request->convertname];
-      $old += ['0' => $detailTable[0]->convertname];
-    }
-    if ($detailTable[0]->size != $request->size) {
-      $data += ['size' => $request->size];
-      $old += ['1' => $detailTable[0]->size];
-    }
+    $input = [
+      'convertname' => $request->convertname,
+      'size' => $request->size
+    ];
 
-    $this->insertlog('UPDATE', 'transforms', implode(',', $old), implode(',', $data), implode(',', array_keys($data)));
+    $this->insertlog('UPDATE', 'transforms', $input);
 
-    $transform = Transform::find($id);
-    $transform->convertname   = $request->get('convertname');
-    $transform->size          = $request->get('size');
-    $transform->save();
+    $transform = Transform::find($id)->update($input);
 
 
     return redirect()->route('transform.index')->with('success', 'อัพเดทข้อมูลเรียบร้อยแล้ว');
@@ -128,15 +122,18 @@ class TransformController extends Controller
   public function destroy($id)
   {
     $transform = Transform::find($id);
-    $this->insertlog('DELETE', 'transforms', '-', (clone $transform)->get('convertname')[0]->convertname, 'convertname');
+    $input = [
+      'convertname' => $transform->convertname
+    ];
+    $this->insertlog('DELETE', 'transforms', $input);
     $transform->delete();
     return redirect()->route('transform.index')->with('success', 'ลบข้อมูลเรียบร้อยแล้ว');
   }
 
-  public function insertlog($action, $table, $previous_data, $new_data, $element)
+  public function insertlog($action, $table, $data)
   {
     Log::create([
-      'username' => Auth::user()->username, 'previous_data' => $previous_data, 'new_data' => $new_data, 'element' => $element, 'table' => $table, 'action' => $action
+      'username' => Auth::user()->username, 'data' => serialize($data), 'table' => $table, 'action' => $action
     ]);
   }
 }

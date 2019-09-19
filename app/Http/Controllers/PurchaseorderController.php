@@ -13,6 +13,8 @@ use App\Authorized_person2;
 use App\pr_store;
 use vendor\autoload;
 use App\pr_create;
+use App\log;
+use Illuminate\Support\Facades\Auth;
 
 class PurchaseorderController extends Controller
 {
@@ -176,4 +178,12 @@ class PurchaseorderController extends Controller
     {
         //
     }
+
+    public function insertlog($action, $table, $previous_data, $new_data, $element)
+    {
+        Log::create([
+            'username' => Auth::user()->username, 'previous_data' => $previous_data, 'new_data' => $new_data, 'element' => $element, 'table' => $table, 'action' => $action
+        ]);
+    }
+
 }

@@ -14,6 +14,8 @@ use Carbon\Carbon;
 use App\porder;
 use App\pr_store;
 use App\Store;
+use App\log;
+use Auth;
 
 class mastertwoController extends Controller
 {
@@ -77,7 +79,7 @@ class mastertwoController extends Controller
         $lengtharray = sizeof($productdb);
         for ($i = 0; $i < $lengtharray; $i++) {
             $product_id = product_main::where('product_name', $productdb[$i])->get()->toArray();
-            $product_price = product_Price::where('Product', $product_id)->min('Price');
+            $product_price = product_Price::where('Product', $product_id[0]['Product_ID'])->min('Price');
             //  ->where('Product',$product_id[0]['Product_ID'])->min('Price');
             $product_min_price[] = product_main::where('product_name', $productdb[$i])
                 ->join('product__Prices', 'product_mains.Product_ID', 'product__Prices.Product')
@@ -322,6 +324,14 @@ class mastertwoController extends Controller
                 }
             }
         }
+        $inputa = [
+            'keyPR' => $request->get('keyPR')
+        ];
+        $inputb = [
+            'PO_ID' => $PO
+        ];
+        $this->insertlog('CONFIRM', 'p_r_creates',$inputa);
+        $this->insertlog('CREATE','porders',$inputb);
         return redirect()->route('Authorized_person2.index')->with('success', 'เรียบร้อย');
     }
 
@@ -335,4 +345,12 @@ class mastertwoController extends Controller
     {
         //
     }
+    public function insertlog($action, $table, $data)
+    {
+        Log::create([
+            'username' => Auth::user()->username, 'data' => serialize($data), 'table' => $table, 'action' => $action
+        ]);
+    }
+
+
 }

@@ -7,6 +7,7 @@ use App\User;
 use Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
+use App\log;
 
 class profileController extends Controller
 {
@@ -33,6 +34,7 @@ class profileController extends Controller
     public function changepassword(Request $request)
     {
         $request->merge(['password' => Hash::make($request->password)]);
+        $this->insertlog('UPDATE','users',$request->toArray());
         User::find(Auth::id())->update($request->toArray());
         return redirect()->route('profile.index')->with('msg', 'เปลี่ยนรหัสผ่านเรียนร้อยแล้ว');
     }
@@ -54,6 +56,7 @@ class profileController extends Controller
         $s3->delete($img_path);
         $s3->put('signature/' . Auth::user()->email, file_get_contents($path . 'signature/test.png'), 'public');
         $arr = array("signature" => $img_path);
+        $this->insertlog('UPDATE','users',['signature' => $img_path]);
         User::find(Auth::id())->update($arr);
         return response()->json(['msg' => $img_path]);
     }
@@ -113,7 +116,9 @@ class profileController extends Controller
      */
     public function update(Request $request, $id)
     {
-        User::find($id)->update($request->toArray());
+        $user = User::find($id)->update($request->toArray());
+        unset($request['_token'],$request['_method'],$request['save'],$request['token'],$request['id']);
+        $this->insertlog('UPDATE','users',$request->toArray());
         return redirect()->route('profile.index');
     }
 
@@ -127,4 +132,14 @@ class profileController extends Controller
     {
         //
     }
+
+
+    public function insertlog($action, $table, $data)
+    {
+        Log::create([
+            'username' => Auth::user()->username, 'data' => serialize($data), 'table' => $table, 'action' => $action
+        ]);
+    }
+
+
 }

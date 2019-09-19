@@ -75,15 +75,15 @@ class pr_createController extends Controller
                 } elseif ($keypr != NULL && $master1 != NULL && $master2 != NULL) {
                     $status = "สำเร็จ";
                 }
-                    $pr_product[] = [
-                        $pr_create[$i]['id'],
-                        $pr_create[$i]['date'],
-                        $pr_create[$i]['contractor'],
-                        $pr_create[$i]['formwork'],
-                        $pr_create[$i]['prequestconvert'],
-                        $pr_create[$i]['key'],
-                        $status
-                    ];
+                $pr_product[] = [
+                    $pr_create[$i]['id'],
+                    $pr_create[$i]['date'],
+                    $pr_create[$i]['contractor'],
+                    $pr_create[$i]['formwork'],
+                    $pr_create[$i]['prequestconvert'],
+                    $pr_create[$i]['key'],
+                    $status
+                ];
             }
             $pr_num = sizeof($pr_product);
             for ($i = $pr_num - 1; $i >= 0; $i--) {
@@ -185,7 +185,7 @@ class pr_createController extends Controller
             $product->save();
         }
 
-        $name = Auth::user()->firstname.' '.Auth::user()->lastname;
+        $name = Auth::user()->firstname . ' ' . Auth::user()->lastname;
         $arr = new PR_create([
             'key'               => $ID,
             'date'              => $request->input('date'),
@@ -195,8 +195,12 @@ class pr_createController extends Controller
             'pdf'               => '123'
         ]);
 
+        $input = [
+            'key' => $ID
+        ];
+
+        $this->insertlog('CREATE','p_r_creates',$input);
         $arr->save();
-        $this->insertlog('CREATE','p_r_create','-',$ID,'key');
         return redirect()->route('pr_create.index')->with('success', 'บันทึกข้อมูลเรียบร้อยแล้ว');
     }
 
@@ -249,10 +253,10 @@ class pr_createController extends Controller
         //
     }
 
-    public function insertlog($action, $table, $previous_data, $new_data, $element)
+    public function insertlog($action, $table, $data)
     {
         Log::create([
-            'username' => Auth::user()->username, 'previous_data' => $previous_data, 'new_data' => $new_data, 'element' => $element, 'table' => $table, 'action' => $action
+            'username' => Auth::user()->username, 'data' => serialize($data), 'table' => $table, 'action' => $action
         ]);
     }
 }

@@ -100,7 +100,7 @@ class ProductController extends Controller
             'Product_name' => $request->Product_name,
             'unit' => $request->unit
         ];
-        $this->insertlog('CREATE','product_mains','-', implode(',', $data), implode(',', array_keys($data)));
+        $this->insertlog('CREATE','product_mains',$data);
         return redirect()->route('Product.index')->with('success', 'เพิ่มข้อมูลเรียบร้อยแล้ว');
     }
 
@@ -147,31 +147,15 @@ class ProductController extends Controller
             ]
         );
 
-        $detailTable = product_main::find($id)->get();
-        $data = array();
-        $old = array();
-
-        if ($detailTable[0]->Product_ID != $request->Product_ID) {
-            $data += ['Product_ID' => $request->Product_ID];
-            $old += ['0' => $detailTable[0]->Product_ID];
-        }
-        if ($detailTable[0]->Product_name != $request->Product_name) {
-            $data += ['Product_name' => $request->Product_name];
-            $old += ['1' => $detailTable[0]->Product_name];
-        }
-        if ($detailTable[0]->unit != $request->unit) {
-            $data += ['unit' => $request->unit];
-            $old += ['2' => $detailTable[0]->unit];
-        }
-
-        $this->insertlog('UPDATE','product_mains', implode(',', $old), implode(',', $data), implode(',', array_keys($data)));
-
         //dd($id);
         $product = product_main::find($id);
-        $product->Product_ID      = $request->get('Product_ID');
-        $product->Product_name    = $request->get('Product_name');
-        $product->unit            = $request->get('unit');
-        $product->save();
+        $input = [
+            'Product_ID' => $request->get('Product_ID'),
+            'Product_name'    => $request->get('Product_name'),
+            'unit'            => $request->get('unit')
+        ];
+        $product->update($input);
+        $this->insertlog('UPDATE','product_mains',$input);
         return redirect()->route('Product.index')->with('success', 'อัพเดทข้อมูลเรียบร้อยแล้ว');
     }
 
@@ -184,15 +168,18 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product = product_main::find($id);
-        $this->insertlog('DELETE','product_mains','-', (clone $product)->get('Product_ID')[0]->Product_ID,'Product_ID');
+        $input = [
+            'Product_ID' => $product->Product_ID
+        ];
+        $this->insertlog('DELETE','product_mains',$input);
         $product->delete();
         return redirect()->route('Product.index')->with('success', 'ลบข้อมูลเรียบร้อยแล้ว');
     }
 
-    public function insertlog($action, $table, $previous_data, $new_data, $element)
+    public function insertlog($action, $table, $data)
     {
         Log::create([
-            'username' => Auth::user()->username, 'previous_data' => $previous_data, 'new_data' => $new_data, 'element' => $element, 'table' => $table, 'action' => $action
+            'username' => Auth::user()->username, 'data' => serialize($data), 'table' => $table, 'action' => $action
         ]);
     }
 }

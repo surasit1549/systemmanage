@@ -18,9 +18,7 @@ class CreateLogsTable extends Migration
             $table->string('username');
             $table->string('table');
             $table->string('action');
-            $table->longText('element');
-            $table->longText('previous_data');
-            $table->longText('new_data');
+            $table->longText('data');
             $table->timestamps();
         });
     }

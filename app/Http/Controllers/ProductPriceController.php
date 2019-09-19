@@ -99,6 +99,7 @@ class ProductPriceController extends Controller
         $lengtharray = sizeof($request->get('product'));
         $Cat_ID = product_Price::get()->toArray();
         $data = '';
+        $input = '';
         $store_id = store::where('name', $request->get('store_name'))->addSelect('keystore')->get()->toArray();
         if (empty($Cat_ID)) {
             for ($i = 0; $i < $lengtharray; $i++) {
@@ -108,16 +109,15 @@ class ProductPriceController extends Controller
                 //dd($ID,$CatID);
                 $product_id = product_main::where('Product_name', $request->get('product')[$i])->addSelect('Product_ID')->get()->toArray();
                 $Cat_ID = $store_id[0]['keystore'] . '-' . $product_id[0]['Product_ID'] . '-' . $ID;
-                $product_price = new product_Price(
-                    [
+                $input = [
                         'Cat_ID'            => $Cat_ID,
                         'Store'             => $store_id[0]['keystore'],
                         'Product'           => $product_id[0]['Product_ID'],
                         'Price'             => $request->get('Price')[$i]
-                    ]
-                );
+                ];
+                
+                $product_price = new product_Price($input);
                 $product_price->save();
-                $data .= '('.($i+1).')('.$Cat_ID.','.$store_id[0]['keystore'].','.$product_id[0]['Product_ID'].','.$request->get('Price')[$i].')';
                 
             }
         } else {
@@ -128,20 +128,19 @@ class ProductPriceController extends Controller
                 $catid = product_Price::get()->toArray();
                 $ID = $this->cat_ID($id);
                 $cat = $store_id[0]['keystore'] . '-' . $product_id[0]['Product_ID'] . '-' . $ID;
-                $product_price = new product_Price(
-                    [
-                        'Cat_ID'            => $cat,
-                        'Store'             => $store_id[0]['keystore'],
-                        'Product'           => $product_id[0]['Product_ID'],
-                        'Price'             => $request->get('Price')[$i]
-                    ]
-                );
+                $input = [
+                    'Cat_ID'            => $cat,
+                    'Store'             => $store_id[0]['keystore'],
+                    'Product'           => $product_id[0]['Product_ID'],
+                    'Price'             => $request->get('Price')[$i]
+                ];
+                $product_price = new product_Price($input);
                 $product_price->save();
-                $data .= '('.($i + 1).')('.$cat.','. $store_id[0]['keystore'] . ',' . $product_id[0]['Product_ID'] . ',' . $request->get('Price')[$i] . ')';
             }
         }
 
-        $this->insertlog('CREATE','product_prices','-',$data,'Cat_ID,Store,Product,Price');
+        $this->insertlog('CREATE','product_prices',$input);
+
         return redirect()->route('Product_Price.index')->with('success', 'เพิ่มข้อมูลเรียบร้อยแล้ว');
     }
 
@@ -189,15 +188,15 @@ class ProductPriceController extends Controller
     public function update(Request $request, $id)
     {
         $show = $request->get('store_id');
-        $product_price_update = product_Price::where('Cat_ID', $id)->get();
+        $input = [
+            'Store' => $request->get('store_id'),
+            'Cat_ID'       => $request->get('Cat_ID'),
+            'Product'      => $request->get('product_id'),
+            'Price'        => $request->get('Price')
+        ];
 
-
-        $product_price_update[0]->Store        = $request->get('store_id');
-        $product_price_update[0]->Cat_ID       = $request->get('Cat_ID');
-        $product_price_update[0]->Product      = $request->get('product_id');
-        $product_price_update[0]->Price        = $request->get('Price');
-        $product_price_update[0]->save();
-        
+        product_Price::where('Cat_ID', $id)->update($input);
+        $this->insertlog('UPDATE','product_prices',$input);
         return redirect()->route('Product_Price.show', $show)->with('success', 'อัพเดทเรียบร้อย');
         //$this->show($show);
         
@@ -217,15 +216,18 @@ class ProductPriceController extends Controller
         for ($i = 0; $i < $lengtharray; $i++) {
             $product_price[$i]->delete();
         }
-        $this->insertlog('DELETE','product_prices','-', $store_name['keystore'],'Store');
+        $input = [
+            'Cat_ID' => $store_name->Store
+        ];
+        $this->insertlog('DELETE','product_prices',$input);
         //$product_price->delete();
         return redirect()->route('Product_Price.index')->with('success', 'ลบข้อมูลเรียบร้อยแล้ว');
     }
 
-    public function insertlog($action, $table, $previous_data, $new_data, $element)
+    public function insertlog($action, $table, $data)
     {
         Log::create([
-            'username' => Auth::user()->username, 'previous_data' => $previous_data, 'new_data' => $new_data, 'element' => $element, 'table' => $table, 'action' => $action
+            'username' => Auth::user()->username, 'data' => serialize($data), 'table' => $table, 'action' => $action
         ]);
     }
 }

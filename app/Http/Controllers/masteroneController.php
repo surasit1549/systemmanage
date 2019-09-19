@@ -10,6 +10,8 @@ use App\product_main;
 use App\product_Price;
 use App\Authorized_person1;
 use Carbon\Carbon;
+use App\log;
+use Illuminate\Support\Facades\Auth;
 
 class masteroneController extends Controller
 {
@@ -74,14 +76,13 @@ class masteroneController extends Controller
         //dd($id);
         for($i=0; $i<$lengtharray; $i++){
           $product_id = product_main::where('product_name',$productdb[$i])->get()->toArray();
-          $product_price = product_Price::where('Product',$product_id)->min('Price');
+          $product_price = product_Price::where('Product',$product_id[0]['Product_ID'])->min('Price');
                                         //  ->where('Product',$product_id[0]['Product_ID'])->min('Price');
           $product_min_price[] = product_main::where('product_name',$productdb[$i])
                                            ->join('product__Prices','product_mains.Product_ID','product__Prices.Product')
                                            ->where('Price',$product_price)
                                            ->get()->toArray();
-          $product_number = Create_product::where('key',$pr_create[0]['key'])->get()->toArray();      
-        
+          $product_number = Create_product::where('key',$pr_create[0]['key'])->get()->toArray();  
           //dd($product_min_price[0][0]);   
           $products_sum = [$product_price*$product_number[$i]['productnumber']];
           $sum = [$sum[0]+$products_sum[0]];
@@ -168,6 +169,10 @@ class masteroneController extends Controller
                     'keyPR'          =>$request->get('keyPR'),
 
         ]);
+        $input = [
+            'keyPR' => $request->get('keyPR')
+        ];
+        $this->insertlog('CONFIRM', 'p_r_creates', $input);
         $person1->save();
         return redirect()->route('Authorized_person1.index')->with('success','เรียบร้อย');
 
@@ -183,4 +188,12 @@ class masteroneController extends Controller
     {
         //
     }
+
+    public function insertlog($action, $table, $data)
+    {
+        Log::create([
+            'username' => Auth::user()->username, 'data' => serialize($data), 'table' => $table, 'action' => $action
+        ]);
+    }
+    
 }
