@@ -196,8 +196,7 @@ class pr_createController extends Controller
         ]);
 
         $arr->save();
-
-        log::create(['username' => Auth::user()->username, 'data' => 'key = '.$ID, 'table' => 'p_r_creates', 'action' => 'CREATE']);
+        $this->insertlog('CREATE','p_r_create','-',$ID,'key');
         return redirect()->route('pr_create.index')->with('success', 'บันทึกข้อมูลเรียบร้อยแล้ว');
     }
 
@@ -248,5 +247,12 @@ class pr_createController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function insertlog($action, $table, $previous_data, $new_data, $element)
+    {
+        Log::create([
+            'username' => Auth::user()->username, 'previous_data' => $previous_data, 'new_data' => $new_data, 'element' => $element, 'table' => $table, 'action' => $action
+        ]);
     }
 }
