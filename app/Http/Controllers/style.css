@@ -75,6 +75,25 @@ tbody td {
   bottom: 20px;
 }
 /*-------------------------------------------------*/
+
+/* PDF */
+#store_cover_detail_table {
+  top: 10px;
+  text-align: center;
+}
+
+#pr_ID {
+  position: absolute;
+  top: 150px;
+  right: 35px;
+}
+
+#data_information {
+  position: absolute;
+  top: 180px;
+}
+
+
 /* pr */
 #data_intormation {
   text-align: right !important;

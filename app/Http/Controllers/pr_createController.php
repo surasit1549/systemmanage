@@ -6,8 +6,6 @@ use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Http\Request;
 use App\transform;
 use App\store;
-use App\prequeststore;
-use App\prequestdb;
 use App\product;
 use App\productdb;
 use App\prequestproduct;
@@ -192,7 +190,8 @@ class pr_createController extends Controller
             'contractor'        => $name,
             'formwork'          => $request->input('formwork'),
             'prequestconvert'   => $request->input('prequestconvert'),
-            'pdf'               => '123'
+            'status'            => 'active'
+
         ]);
 
         $input = [

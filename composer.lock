@@ -3587,6 +3587,7 @@
     "packages-dev": [
         {
             "name": "aws/aws-sdk-php",
+<<<<<<< HEAD
             "version": "3.112.3",
             "source": {
                 "type": "git",
@@ -3597,6 +3598,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/c27c64904dcf3f3131a927b09b0036273a22a0ae",
                 "reference": "c27c64904dcf3f3131a927b09b0036273a22a0ae",
+=======
+            "version": "3.112.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/aws/aws-sdk-php.git",
+                "reference": "0d7a3ecb5dca10d1872ee5106cb154cbef52cf1c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/0d7a3ecb5dca10d1872ee5106cb154cbef52cf1c",
+                "reference": "0d7a3ecb5dca10d1872ee5106cb154cbef52cf1c",
+>>>>>>> 8dc401e682de8a12a4612dff5a88ae884edf92ef
                 "shasum": ""
             },
             "require": {
@@ -3666,7 +3679,11 @@
                 "s3",
                 "sdk"
             ],
+<<<<<<< HEAD
             "time": "2019-09-18T18:09:31+00:00"
+=======
+            "time": "2019-09-17T18:07:57+00:00"
+>>>>>>> 8dc401e682de8a12a4612dff5a88ae884edf92ef
         },
         {
             "name": "beyondcode/laravel-dump-server",

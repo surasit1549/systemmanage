@@ -29,6 +29,7 @@
         }
       }
     });
+
   });
 </script>
 <div class="row mb-2">
@@ -62,6 +63,8 @@
             <td>{{$row['Price']}}</td>
             <td>
               &nbsp;&nbsp;<a href="{{action('ProductPriceController@edit',$row['Cat_ID'])}}" data-toggle="tooltip" data-placement="top" title="อัพเดท"><i style="font-size:20px" class="text-info fas fa-file-signature"></i></a>
+              &nbsp;&nbsp;<a href="{{action('ProductPriceController@deletename',$row['Cat_ID'])}}" data-toggle="tooltip" data-placement="top" title="ลบ"><i style="font-size:20px" class="btn btn-xs btn-danger"></i></a>
+              
             </td>
           </tr>
           @endforeach
@@ -73,5 +76,6 @@
       </div>
     </form>
   </div>
-</div>  
+</div>
+
 @endsection
