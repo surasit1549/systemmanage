@@ -224,6 +224,10 @@ class ProductPriceController extends Controller
         return redirect()->route('Product_Price.index')->with('success', 'ลบข้อมูลเรียบร้อยแล้ว');
     }
 
+    public function deletename($id){
+        dd($id);
+    }
+
     public function insertlog($action, $table, $data)
     {
         Log::create([
