@@ -141,8 +141,7 @@ class ProductPriceController extends Controller
             }
         }
 
-
-        dd($data);
+        $this->insertlog('CREATE','product_prices','-',$data,'Cat_ID,Store,Product,Price');
         return redirect()->route('Product_Price.index')->with('success', 'เพิ่มข้อมูลเรียบร้อยแล้ว');
     }
 
@@ -179,7 +178,7 @@ class ProductPriceController extends Controller
         //dd($data);
         return view('Product_Price.edit', compact('data', 'id'));
     }
-
+    
     /**
      * Update the specified resource in storage.
      *
@@ -191,17 +190,19 @@ class ProductPriceController extends Controller
     {
         $show = $request->get('store_id');
         $product_price_update = product_Price::where('Cat_ID', $id)->get();
+
+
         $product_price_update[0]->Store        = $request->get('store_id');
         $product_price_update[0]->Cat_ID       = $request->get('Cat_ID');
         $product_price_update[0]->Product      = $request->get('product_id');
         $product_price_update[0]->Price        = $request->get('Price');
         $product_price_update[0]->save();
-
+        
         return redirect()->route('Product_Price.show', $show)->with('success', 'อัพเดทเรียบร้อย');
         //$this->show($show);
-
+        
     }
-
+    
     /**
      * Remove the specified resource from storage.
      *
@@ -216,6 +217,7 @@ class ProductPriceController extends Controller
         for ($i = 0; $i < $lengtharray; $i++) {
             $product_price[$i]->delete();
         }
+        $this->insertlog('DELETE','product_prices','-', $store_name['keystore'],'Store');
         //$product_price->delete();
         return redirect()->route('Product_Price.index')->with('success', 'ลบข้อมูลเรียบร้อยแล้ว');
     }
