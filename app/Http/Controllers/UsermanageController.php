@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\User;
+use App\log;
+Use Illuminate\Support\Facades\Auth;
+
 class UsermanageController extends Controller
 {
     /**
@@ -96,4 +99,12 @@ class UsermanageController extends Controller
         $user = User::find($id)->delete();
         return redirect()->route('usermanage.index');
     }
+
+    public function insertlog($action, $table, $previous_data, $new_data, $element)
+    {
+        Log::create([
+            'username' => Auth::user()->username, 'previous_data' => $previous_data, 'new_data' => $new_data, 'element' => $element, 'table' => $table, 'action' => $action
+        ]);
+    }
+    
 }

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Store;
 use App\product_main;
 use App\product_Price;
+use Illuminate\Support\Facades\Auth;
+use App\log;
 
 class ProductPriceController extends Controller
 {
@@ -96,6 +98,7 @@ class ProductPriceController extends Controller
     {
         $lengtharray = sizeof($request->get('product'));
         $Cat_ID = product_Price::get()->toArray();
+        $data = '';
         $store_id = store::where('name', $request->get('store_name'))->addSelect('keystore')->get()->toArray();
         if (empty($Cat_ID)) {
             for ($i = 0; $i < $lengtharray; $i++) {
@@ -114,6 +117,8 @@ class ProductPriceController extends Controller
                     ]
                 );
                 $product_price->save();
+                $data .= '('.($i+1).')('.$Cat_ID.','.$store_id[0]['keystore'].','.$product_id[0]['Product_ID'].','.$request->get('Price')[$i].')';
+                
             }
         } else {
             for ($i = 0; $i < $lengtharray; $i++) {
@@ -132,8 +137,11 @@ class ProductPriceController extends Controller
                     ]
                 );
                 $product_price->save();
+                $data .= '('.($i + 1).')('.$cat.','. $store_id[0]['keystore'] . ',' . $product_id[0]['Product_ID'] . ',' . $request->get('Price')[$i] . ')';
             }
         }
+
+        $this->insertlog('CREATE','product_prices','-',$data,'Cat_ID,Store,Product,Price');
         return redirect()->route('Product_Price.index')->with('success', 'เพิ่มข้อมูลเรียบร้อยแล้ว');
     }
 
@@ -168,9 +176,9 @@ class ProductPriceController extends Controller
             ->join('product_mains', 'Product__Prices.Product', 'product_mains.Product_ID')
             ->get();
         //dd($data);
-        return view('Product_Price.edit', compact( 'data', 'id'));
+        return view('Product_Price.edit', compact('data', 'id'));
     }
-
+    
     /**
      * Update the specified resource in storage.
      *
@@ -181,18 +189,20 @@ class ProductPriceController extends Controller
     public function update(Request $request, $id)
     {
         $show = $request->get('store_id');
-        $product_price_update = product_Price::where('Cat_ID',$id)->get();
+        $product_price_update = product_Price::where('Cat_ID', $id)->get();
+
+
         $product_price_update[0]->Store        = $request->get('store_id');
         $product_price_update[0]->Cat_ID       = $request->get('Cat_ID');
         $product_price_update[0]->Product      = $request->get('product_id');
         $product_price_update[0]->Price        = $request->get('Price');
         $product_price_update[0]->save();
-    
-        return redirect()->route('Product_Price.show',$show)->with('success', 'อัพเดทเรียบร้อย');
+        
+        return redirect()->route('Product_Price.show', $show)->with('success', 'อัพเดทเรียบร้อย');
         //$this->show($show);
-    
+        
     }
-
+    
     /**
      * Remove the specified resource from storage.
      *
@@ -207,19 +217,15 @@ class ProductPriceController extends Controller
         for ($i = 0; $i < $lengtharray; $i++) {
             $product_price[$i]->delete();
         }
+        $this->insertlog('DELETE','product_prices','-', $store_name['keystore'],'Store');
         //$product_price->delete();
         return redirect()->route('Product_Price.index')->with('success', 'ลบข้อมูลเรียบร้อยแล้ว');
     }
 
-    public function deleteproduct($id){
-        dd($id);
-        $product_price = product_Price::where('Cat_ID',$id)->get()->toArray();
-        //$product_price->delete();
-        $store = $product_price[0]['Store'];
-        return redirect()->route('Product_Price.show',$store)->with('success', 'ลบข้อมูลเรียบร้อยแล้ว');
-    }
-
-    public function deletename($id){
-        dd($id);
+    public function insertlog($action, $table, $previous_data, $new_data, $element)
+    {
+        Log::create([
+            'username' => Auth::user()->username, 'previous_data' => $previous_data, 'new_data' => $new_data, 'element' => $element, 'table' => $table, 'action' => $action
+        ]);
     }
 }

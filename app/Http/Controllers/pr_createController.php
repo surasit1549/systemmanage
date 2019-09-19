@@ -21,7 +21,8 @@ use App\product_main;
 use App\prequest;
 use App\Authorized_person1;
 use App\Authorized_person2;
-
+use Illuminate\Support\Facades\Auth;
+use App\log;
 
 class pr_createController extends Controller
 {
@@ -181,10 +182,12 @@ class pr_createController extends Controller
             ]);
             $product->save();
         }
+
+        $name = Auth::user()->firstname.' '.Auth::user()->lastname;
         $arr = new PR_create([
             'key'               => $ID,
             'date'              => $request->input('date'),
-            'contractor'        => 'เก่ง',
+            'contractor'        => $name,
             'formwork'          => $request->input('formwork'),
             'prequestconvert'   => $request->input('prequestconvert'),
             'status'            => 'active'
@@ -192,6 +195,7 @@ class pr_createController extends Controller
         ]);
 
         $arr->save();
+        $this->insertlog('CREATE','p_r_create','-',$ID,'key');
         return redirect()->route('pr_create.index')->with('success', 'บันทึกข้อมูลเรียบร้อยแล้ว');
     }
 
@@ -242,5 +246,12 @@ class pr_createController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function insertlog($action, $table, $previous_data, $new_data, $element)
+    {
+        Log::create([
+            'username' => Auth::user()->username, 'previous_data' => $previous_data, 'new_data' => $new_data, 'element' => $element, 'table' => $table, 'action' => $action
+        ]);
     }
 }
