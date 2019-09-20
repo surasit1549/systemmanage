@@ -20,7 +20,6 @@ class admin
         if (!Auth::check()) {
             return redirect('login');
         } else {
-            
             return $next($request);
         }
     }

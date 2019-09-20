@@ -45,7 +45,7 @@
 
 <div class="card">
   <div class="card-header">
-    <h3 class="text-white"><i class="fas fa-map"></i>&nbsp;&nbsp;ผู้มีอำนาจคนที่ 2</h3>
+    <h3 class="text-white"><i style="font-size:20px" class="fas fa-list"></i>&nbsp;&nbsp;ตรวจสอบรายการใบขอสั่งซื้อ</h3>
   </div>
   <div class="card-body">
 

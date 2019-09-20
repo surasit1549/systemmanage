@@ -11,10 +11,8 @@
 <script>
   $(document).ready(function() {
 
-    $('[data-toggle="tooltip"]').tooltip();
-
     $('#prtable').DataTable({
-      
+
       'columnDefs': [{
         'orderable': false,
         'targets': 6
@@ -92,20 +90,27 @@
           <td>{{$row[3]}}</td>
           <td>{{$row[4]}}</td>
           <td>{{$row[5]}}</td>
-          <td>{{$row[6]}}</td>
           <td>
-            @if(empty($row[7]))
-             <div id="edit_pr">
-              <a href="{{action('PuchaserequestController@edit',$row[0])}}" data-toggle="tooltip" data-placement="top" title="แก้ไข"><i style="font-size:20px;" class="fas fa-edit text-warning"></i></a>
-             </div>
+            @if( $row[6] == 'เสร็จสมบูรณ์' )
+            <button class="btn btn-success btn-sm"><i class="fas fa-check"></i>&nbsp;&nbsp;เสร็จสมบูรณ์</button>
+            @elseif( $row[6] == 'รอการตรวจสอบ')
+            <button class="btn btn-primary btn-sm text-white"><i class="fas fa-spin fa-spinner"></i>&nbsp;&nbsp;รอการตรวจสอบ</button>
+            @elseif( $row[6] == 'อยู่ระหว่างดำเนินการ')
+            <button class="btn btn-warning btn-sm"><i class="fas fa-running"></i>&nbsp;&nbsp;อยู่ระหว่างดำเนินการ</button>
+            @elseif( $row[6] == 'ถูกยกเลิก')
+            <button class="btn btn-secondary btn-sm"><i class="fas fa-times"></i>&nbsp;&nbsp;ถูกยกเลิก</button>
             @endif
-            
-            @if($row[6] != "กำลังตรวจสอบ" && $row[6] != "กำลังดำเนินการ [ 1 ]" && $row[6] != "กำลังดำเนินการ [ 2 ]")
-              <div id="show_pr">
-                <a href="{{action('PuchaserequestController@show',$row[1])}}" data-toggle="tooltip" data-placement="top" title="PDF"><i style="font-size:20px" class="text-danger fas fa-file-pdf"></i></a>
-              </div>
-            @endif
-            <a class="test" href="#" data-toggle="tooltip" data-placement="top" title="ยกเลิกใบขอซื้อ"><i style="font-size:20px;" class="text-danger fas fa-times-circle"></i></a>
+          </td>
+          <td>
+            <div class="list-group list-group-horizontal">
+              @if(empty($row[7]))
+              <a href="{{action('PuchaserequestController@edit',$row[0])}}" class="list-group-item list-group-item-action flex-fill"><i style="font-size:20px" class="fas fa-spell-check text-info"></i>&nbsp;&nbsp;ตรวจสอบ</a>
+              @endif
+              @if($row[6] != "กำลังตรวจสอบ" && $row[6] != "กำลังดำเนินการ [ 1 ]" && $row[6] != "กำลังดำเนินการ [ 2 ]")
+              <a href="{{action('PuchaserequestController@show',$row[1])}}" class="list-group-item list-group-item-action flex-fill"><i style="font-size:20px" class="fas fa-file-pdf text-danger"></i>&nbsp;&nbsp;PDF</a>
+              @endif
+              <a class="test list-group-item list-group-item-danger list-group-item-action flex-fill" href="#">ยกเลิก</a>
+            </div>
             <form method="post" class="delete_form" action="{{action('PuchaserequestController@destroy',$row[1])}}">
               {{csrf_field()}}
               <input type="hidden" name="_method" value="DELETE" />

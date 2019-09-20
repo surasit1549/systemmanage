@@ -72,13 +72,13 @@ class PuchaserequestController extends Controller
         $master1 = Authorized_person1::where('keyPR', $pr_create[$i]["key"])->get()->toArray();
         $master2 = Authorized_person2::where('keyPR', $pr_create[$i]["key"])->get()->toArray();
         if (empty($check)) {
-          $status = "กำลังตรวจสอบ";
+          $status = "รอการตรวจสอบ";
         } elseif ($keypr != NULL && empty($master1) && empty($master2)) {
-          $status = "กำลังดำเนินการ [ 1 ]";
+          $status = "อยู่ระหว่างดำเนินการ";
         } elseif ($keypr != NULL && $master1 != NULL && empty($master2)) {
-          $status = "กำลังดำเนินการ [ 2 ]";
+          $status = "อยู่ระหว่างดำเนินการ";
         } elseif ($keypr != NULL && $master1 != NULL && $master2 != NULL) {
-          $status = "สำเร็จ";
+          $status = "เสร็จสมบูรณ์";
         }
         //dd($status);
         $PR_create[] = [

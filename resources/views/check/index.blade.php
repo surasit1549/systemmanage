@@ -5,7 +5,6 @@
   #prtab {
     border-right: 5px solid rgb(41, 207, 219);
   }
-  }
 </style>
 @stop
 @section('content')
@@ -17,7 +16,6 @@
     <table class="table table-hover table-bordered">
       <thead>
         <tr>
-          <th>ลำดับ</th>
           <th>ชื่อเลขที่เอกสาร PO</th>
           <th>ชื่อเลขที่เอกสาร PR</th>
           <th>วันที่ใบสั่งซื้อ</th>
@@ -31,7 +29,6 @@
         @else
           <tr>
             @foreach($data as $row)
-              <td>{{$number++}}</td>
               <td>{{$row['PO_ID']}}</td>
               <td>{{$row['keyPR']}}</td>
               <td>{{substr($row['created_at'],0,-9)}}</td>
@@ -47,7 +44,11 @@
 <script>
   $(document).ready(function() {
     $('[data-toggle=tooltip]').tooltip();
-    $('table').DataTable();
+    $('table').DataTable({
+      'columnDefs' : [{
+        'targets' : 4 , 'orderable' : false
+      }]
+    });
   });
 </script>
 

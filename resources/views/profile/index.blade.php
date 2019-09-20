@@ -108,12 +108,12 @@
                 <h5><i style="font-size:20px" class="fas fa-key"></i>&nbsp;&nbsp;เปลี่ยนพาสเวิร์ด</h5>
                 <button data-dismiss="modal" class="close">&times;</button>
             </div>
-            <form id="changepassword_form" action="{{url('profile/changpassword')}}" method="post">
+            <form id="changepassword_form" method="post">
                 {{ csrf_field() }}
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="old-password">Password</label>
-                        <input type="password" class="form-control" name="oldpassword" id="old-password">
+                        <input type="password" class="form-control" name="oldpassword" id="oldpassword">
                     </div>
                     <div class="form-group">
                         <label for="password">New Password</label>
@@ -126,7 +126,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-success"><i class="fas fa-check"></i>&nbsp;&nbsp;ยืนยัน</button>
+                    <button class="btn btn-success" id="confirm_changepassword"><i class="fas fa-check"></i>&nbsp;&nbsp;ยืนยัน</button>
                     <a href="#" data-dismiss="modal" class="btn btn-secondary ml-2"><i class="fas fa-times"></i>&nbsp;&nbsp;ยกเลิก</a>
                 </div>
             </form>
@@ -167,6 +167,9 @@
             penColor: "blue"
         });
 
+
+
+
         $('#confirm').click(function() {
 
             event.stopPropagation();
@@ -178,7 +181,7 @@
 
                 $.ajax({
                     url: 'profile/createSignature',
-                    type: 'post',
+                    type: 'POST',
                     data: {
                         _token: '{{csrf_token()}}',
                         image: signaturePad.toDataURL()
@@ -233,21 +236,45 @@
                 $(element).addClass("is-valid").removeClass("is-invalid");
             },
             submitHandler: function(form, e) {
-                console.log(form);
-/*                 $.ajax({
-                    type: 'post',
+                var oldpassword = $('#changepassword_form').find('#oldpassword').val();
+                var newpassword = $('#changepassword_form').find('#password').val();
+                $.ajax({
+                    url: 'profile/changpassword',
+                    type: 'POST',
                     data: {
                         _token: '{{csrf_token()}}',
-                        password: 'password'
+                        previous_password: oldpassword,
+                        new_password: newpassword
+                    },
+                    success: function(data) {
+                        if (data.msg == 'fail') {
+                            Swal.fire({
+                                type: 'error',
+                                title: 'ไม่สามารถดำเนินการต่อได้',
+                                text: 'กรอกรหัสผ่านเดิมให้ถูกต้อง',
+                                confirmButtonText: 'ตกลง'
+                            })
+                        } else {
+                            Swal.fire({
+                                type: 'success',
+                                title: 'เปลี่ยนรหัสผ่านเรียบร้อยแล้ว',
+                                text: 'สามารถเข้าสู่ระบบโดยใช้รหัสผ่านใหม่ได้ทันที',
+                                showConfirmButton: false,
+                                timer: 1500,
+                                onAfterClose: () => {
+                                    location.reload();
+                                }
+                            })
+                        }
                     }
-                }) */
-                return true;
+                });
+                return false;
             }
         });
 
 
         $('#changepassword').on('shown.bs.modal', function() {
-            $(this).find('#old-password').focus();
+            $(this).find('#oldpassword').focus();
         }).on('hide.bs.modal', function() {
             $(this).find('input').val('');
             var $alertas = $('#changepassword_form');

@@ -77,18 +77,18 @@
                     </ul>
                 </li>
                 @endif
-                @if( Auth::user()->role == 'ผู้มีอำนาจคน1' || Auth::user()->role == 'แอดมิน' )
+                @if( Auth::user()->role == 'ผู้มีอำนาจ1' || Auth::user()->role == 'แอดมิน' )
                 <li>
                     <a href="{{route('Authorized_person1.index')}}" id="person1">
-                        <i style="font-size:20px" class="fas fa-user"></i>
-                        &nbsp;&nbsp;ผู้มีอำนาจคนที่1</a>
+                        <i style="font-size:20px" class="fas fa-list"></i>
+                        &nbsp;&nbsp;ตรวจสอบรายการขอสั่งซื้อ</a>
                 </li>
                 @endif
-                @if( Auth::user()->role == 'ผู้มีอำนาจคน2' || Auth::user()->role == 'แอดมิน' )
+                @if( Auth::user()->role == 'ผู้มีอำนาจ2' || Auth::user()->role == 'แอดมิน' )
                 <li>
                     <a href="{{route('Authorized_person2.index')}}" id="person2">
-                        <i style="font-size:20px" class="fas fa-user"></i>
-                        &nbsp;&nbsp;ผู้มีอำนาจคนที่2</a>
+                        <i style="font-size:20px"  class="fas fa-list"></i>
+                        &nbsp;&nbsp;ตรวจสอบรายการขอสั่งซื้อ</a>
                 </li>
                 @endif
                 @if( Auth::user()->role == 'แอดมิน' )
