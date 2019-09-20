@@ -228,7 +228,13 @@ class ProductPriceController extends Controller
         $Cat_ID = $request->Cat_ID;
         $product_price = product_Price::where('Cat_ID',$Cat_ID)->get();
         $product_price[0]->delete();
-        return redirect()->route('Product_Price.show',$product_price[0]['Store'])->with('success', 'ลบข้อมูลเรียบร้อยแล้ว');
+        $product = product_Price::get();
+
+        if(empty($product)){
+            return redirect()->route('Product_Price.show',$product_price[0]['Store'])->with('success', 'ลบข้อมูลเรียบร้อยแล้ว');
+        }else{
+            return redirect()->route('Product_Price.index')->with('success', 'ลบข้อมูลเรียบร้อยแล้ว');
+        }
     }
 
     public function insertlog($action, $table, $data)
