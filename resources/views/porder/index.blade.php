@@ -17,7 +17,6 @@
     <table class="table table-hover table-bordered">
       <thead>
         <tr>
-          <th>ลำดับ</th>
           <th>ชื่อเลขที่เอกสาร PO</th>
           <th>ชื่อเลขที่เอกสาร PR</th>
           <th>วันที่ใบสั่งซื้อ</th>
@@ -28,7 +27,6 @@
         @if(!empty($data))
         <tr>
           @foreach($data as $row)
-          <td>{{$number++}}</td>
           <td>{{$row['PO_ID']}}</td>
           <td>{{$row['keyPR']}}</td>
           <td>{{substr($row['created_at'],0,-9)}}</td>
@@ -46,7 +44,11 @@
 <script>
   $(document).ready(function() {
     $('[data-toggle=tooltip]').tooltip();
-    $('table').DataTable();
+    $('table').DataTable({
+      'columnDefs' : [{
+        'orderable' : false , 'targets' : 3
+      }]
+    });
   });
 </script>
 
