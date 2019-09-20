@@ -21,7 +21,7 @@ Route::group(['middleware' => ['123','checkAction']], function () {
     Route::post('porder/makepdf', 'purchaseorderController@makepdf');
     Route::post('prequest/makepdf', 'PuchaserequestController@makepdf');
     Route::post('pr_create/makepdf', 'pr_createController@makepdf');
-    Route::post('profile/changpassword', 'profileController@changepassword');
+    Route::post('profile/changpassword', 'profileController@changepassword')->name('changepassword');
     Route::post('usermanage/checkemail', 'UsermanageController@checkemail');
     Route::post('Product_Price/{id}', 'ProductPriceController@deletename');
     Route::delete('Product_Price/{id}', 'ProductPriceController@deleteproduct')->name('destroythis');

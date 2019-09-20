@@ -33,6 +33,7 @@ class profileController extends Controller
 
     public function changepassword(Request $request)
     {
+        return response()->json(['msg' => 'Success']);
         $request->merge(['password' => Hash::make($request->password)]);
         $input = [
             'password' => $request->password

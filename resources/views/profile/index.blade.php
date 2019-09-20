@@ -108,7 +108,7 @@
                 <h5><i style="font-size:20px" class="fas fa-key"></i>&nbsp;&nbsp;เปลี่ยนพาสเวิร์ด</h5>
                 <button data-dismiss="modal" class="close">&times;</button>
             </div>
-            <form id="changepassword_form" action="{{url('profile/changpassword')}}" method="post">
+            <form id="changepassword_form" method="post">
                 {{ csrf_field() }}
                 <div class="modal-body">
                     <div class="form-group">
@@ -126,7 +126,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-success"><i class="fas fa-check"></i>&nbsp;&nbsp;ยืนยัน</button>
+                    <button class="btn btn-success" id="confirm_changepassword"><i class="fas fa-check"></i>&nbsp;&nbsp;ยืนยัน</button>
                     <a href="#" data-dismiss="modal" class="btn btn-secondary ml-2"><i class="fas fa-times"></i>&nbsp;&nbsp;ยกเลิก</a>
                 </div>
             </form>
@@ -167,6 +167,9 @@
             penColor: "blue"
         });
 
+
+
+
         $('#confirm').click(function() {
 
             event.stopPropagation();
@@ -178,7 +181,7 @@
 
                 $.ajax({
                     url: 'profile/createSignature',
-                    type: 'post',
+                    type: 'POST',
                     data: {
                         _token: '{{csrf_token()}}',
                         image: signaturePad.toDataURL()
@@ -198,6 +201,25 @@
             }
         });
 
+
+        $('#confirm_changepassword').click(function(){
+            event.preventDefault();
+            event.stopPropagation();
+            var oldpassword = $(this).find('#oldpassword').val();
+            var newpassword = $(this).find('#password').val();
+            $.ajax({
+                url : 'changepassword',
+                type :'POST',
+                data : {
+                    _token : '{{csrf_token()}}',
+                    previous_password : oldpassword,
+                    new_password : newpassword
+                },
+                success : function(data){
+                    console.log(data.msg);
+                }
+            });
+        });
 
 
         $('#changepassword_form').validate({
@@ -234,13 +256,6 @@
             },
             submitHandler: function(form, e) {
                 console.log(form);
-/*                 $.ajax({
-                    type: 'post',
-                    data: {
-                        _token: '{{csrf_token()}}',
-                        password: 'password'
-                    }
-                }) */
                 return true;
             }
         });
