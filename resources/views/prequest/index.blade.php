@@ -104,12 +104,12 @@
           <td>
             <div class="list-group list-group-horizontal">
               @if(empty($row[7]))
-              <a href="{{action('PuchaserequestController@edit',$row[0])}}" class="list-group-item list-group-item-action"><i style="font-size:20px" class="fas fa-spell-check text-info"></i>&nbsp;&nbsp;ตรวจสอบ</a>
+              <a href="{{action('PuchaserequestController@edit',$row[0])}}" class="list-group-item list-group-item-action flex-fill"><i style="font-size:20px" class="fas fa-spell-check text-info"></i>&nbsp;&nbsp;ตรวจสอบ</a>
               @endif
               @if($row[6] != "กำลังตรวจสอบ" && $row[6] != "กำลังดำเนินการ [ 1 ]" && $row[6] != "กำลังดำเนินการ [ 2 ]")
-              <a href="{{action('PuchaserequestController@show',$row[1])}}" class="list-group-item list-group-item-action"><i style="font-size:20px" class="fas fa-file-pdf text-danger"></i>&nbsp;&nbsp;PDF</a>
+              <a href="{{action('PuchaserequestController@show',$row[1])}}" class="list-group-item list-group-item-action flex-fill"><i style="font-size:20px" class="fas fa-file-pdf text-danger"></i>&nbsp;&nbsp;PDF</a>
               @endif
-              <a class="test list-group-item list-group-item-danger list-group-item-action" href="#"><i style="font-size:20px" class="fas fa-times white"></i>&nbsp;&nbsp;ยกเลิก</a>
+              <a class="test list-group-item list-group-item-danger list-group-item-action flex-fill" href="#">ยกเลิก</a>
             </div>
             <form method="post" class="delete_form" action="{{action('PuchaserequestController@destroy',$row[1])}}">
               {{csrf_field()}}
