@@ -229,7 +229,7 @@ class ProductPriceController extends Controller
         $product_price = product_Price::where('Cat_ID',$Cat_ID)->get();
         $product_price[0]->delete();
         $product = product_Price::get();
-
+        $this->insertlog('DELETE','product_prices',['Cat_ID' => $Cat_ID]);
         if(empty($product)){
             return redirect()->route('Product_Price.show',$product_price[0]['Store'])->with('success', 'ลบข้อมูลเรียบร้อยแล้ว');
         }else{
