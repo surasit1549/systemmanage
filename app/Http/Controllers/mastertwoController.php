@@ -15,6 +15,7 @@ use App\porder;
 use App\pr_store;
 use App\Store;
 use App\log;
+use App\Product;
 use Auth;
 
 class mastertwoController extends Controller
@@ -193,7 +194,12 @@ class mastertwoController extends Controller
         $data = Authorized_person2::get()->toArray();
         $date_request = $request->get('date');
         $store = $request->get('keystore');
-        $lengtharray = sizeof($store);
+        $key_pr = $request->get('keyPR');
+        $store_name = Product::where('keyPR', $key_pr)->select('Store')
+            ->distinct()
+            ->addSelect('keyPR')
+            ->get()->toArray();
+        $lengthall = sizeof($store_name);
         if (empty($data)) {
             $date_1 = substr($date_request, 3, -5);
             $date_2 = substr($date_request, 8);
@@ -201,7 +207,10 @@ class mastertwoController extends Controller
             $keys = substr($carbon, 5);
             $num = intval($keys);
             $key_num = 0;
-            for ($i = 0; $i < $lengtharray; $i++) {
+
+            for ($i = 0; $i < $lengthall; $i++) {
+                $stores_name = Product::where('keyPR', $store_name[$i]['keyPR'])->where('Store', $store_name[$i]['Store'])->get()->toArray();
+                $lengtharray = sizeof($stores_name);
                 $num = $num + $key_num;
                 if ($num < 10) {
                     $key_num = strval($num);
@@ -224,72 +233,82 @@ class mastertwoController extends Controller
                 $porder = new porder([
                     'PO_ID'         => $PO,
                     'keyPR'         => $request->get('keyPR'),
-                    'store_ID'      => $request->get('keystore')[$i],
+                    'store_ID'      => $stores_name[$i]['Store'],
                     'status'        => "ยังไม่ได้รับของ",
                 ]);
                 $porder->save();
-
-                $pr_store = new pr_store([
-                    'PO_ID'         => $PO,
-                    'keyPR'         => $request->get('keyPR'),
-                    'Product_name'  => $request->get('Product_name')[$i],
-                    'Product_number' => $request->get('Product_number')[$i],
-                    'unit'          => $request->get('unit')[$i],
-                    'keystore'      => $request->get('keystore')[$i],
-                    'price'         => $request->get('price')[$i],
-                    'product_sum'   => $request->get('product_sum')[$i],
-                    'sumofprice'    => $request->get('sum'),
-                ]);
-                $pr_store->save();
+                for ($j = 0; $j < $lengtharray; $j++) {
+                    $pr_store = new pr_store([
+                        'PO_ID'         => $PO,
+                        'keyPR'         => $request->get('keyPR'),
+                        'Product_name'  => $stores_name[$j]['Product_name'],
+                        'Product_number' => $stores_name[$j]['Product_number'],
+                        'unit'          => $stores_name[$j]['unit'],
+                        'keystore'      => $stores_name[$j]['Store'],
+                        'price'         => $stores_name[$j]['price'],
+                        'product_sum'   => $stores_name[$j]['product_sum'],
+                        'sumofprice'    => $stores_name[$j]['sumallprice'],
+                        'status'        => "ยังไม่รับ",
+                    ]);
+                    $pr_store->save();
+                }
             }
         } else {
-            for ($i = 0; $i < $lengtharray; $i++) {
+            for ($i = 0; $i < $lengthall; $i++) {
+                $stores_name = Product::where('keyPR', $store_name[$i]['keyPR'])->where('Store', $store_name[$i]['Store'])->get()->toArray();
+                $lengtharray = sizeof($stores_name);
                 $stores = $store[$i];
                 if ($i === 0) {
                     $carbon = $this->carbon($date_request);
                     $PO     = $this->po($date_request, $stores);
-            
+
                     $master2 = new Authorized_person2([
                         'PO_ID'          => $PO,
                         'key_person'     => $carbon,
                         'keyPR'          => $request->get('keyPR'),
                     ]);
                     $master2->save();
+
                     $porder = new porder([
                         'PO_ID'         => $PO,
                         'keyPR'         => $request->get('keyPR'),
-                        'store_ID'      => $request->get('keystore')[$i],
+                        'store_ID'      => $stores_name[0]['Store'],
                         'status'        => "ยังไม่ได้รับของ",
                     ]);
                     $porder->save();
-                    $pr_store = new pr_store([
-                        'PO_ID'         => $PO,
-                        'keyPR'         => $request->get('keyPR'),
-                        'Product_name'  => $request->get('Product_name')[$i],
-                        'Product_number' => $request->get('Product_number')[$i],
-                        'unit'          => $request->get('unit')[$i],
-                        'keystore'      => $request->get('keystore')[$i],
-                        'price'         => $request->get('price')[$i],
-                        'product_sum'   => $request->get('product_sum')[$i],
-                        'sumofprice'    => $request->get('sum'),
-                    ]);
-                    $pr_store->save();
-                } else {
-                    $data1 = porder::where('keyPR', $request->get('keyPR'))->get()->toArray();
-                    
-                    if ($data1[0]['store_ID'] === $stores) {
+                    for ($j = 0; $j < $lengtharray; $j++) {
                         $pr_store = new pr_store([
-                            'PO_ID'         => $data1[0]['PO_ID'],
+                            'PO_ID'         => $PO,
                             'keyPR'         => $request->get('keyPR'),
-                            'Product_name'  => $request->get('Product_name')[$i],
-                            'Product_number' => $request->get('Product_number')[$i],
-                            'unit'          => $request->get('unit')[$i],
-                            'keystore'      => $request->get('keystore')[$i],
-                            'price'         => $request->get('price')[$i],
-                            'product_sum'   => $request->get('product_sum')[$i],
-                            'sumofprice'    => $request->get('sum'),
+                            'Product_name'  => $stores_name[$j]['Product_name'],
+                            'Product_number' => $stores_name[$j]['Product_number'],
+                            'unit'          => $stores_name[$j]['unit'],
+                            'keystore'      => $stores_name[$j]['Store'],
+                            'price'         => $stores_name[$j]['price'],
+                            'product_sum'   => $stores_name[$j]['product_sum'],
+                            'sumofprice'    => $stores_name[$j]['sumallprice'],
+                            'status'        => "ยังไม่รับ",
                         ]);
                         $pr_store->save();
+                    }
+                } else {
+                    $data1 = porder::where('keyPR', $request->get('keyPR'))->get()->toArray();
+                    if ($data1[0]['store_ID'] === $stores) {
+                        for ($j = 0; $j < $lengtharray; $j++) {
+                            $pr_store = new pr_store([
+                                'PO_ID'         => $PO,
+                                'keyPR'         => $request->get('keyPR'),
+                                'Product_name'  => $stores_name[$j]['Product_name'],
+                                'Product_number' => $stores_name[$j]['Product_number'],
+                                'unit'          => $stores_name[$j]['unit'],
+                                'keystore'      => $stores_name[$j]['Store'],
+                                'price'         => $stores_name[$j]['price'],
+                                'product_sum'   => $stores_name[$j]['product_sum'],
+                                'sumofprice'    => $stores_name[$j]['sumallprice'],
+                                'status'        => "ยังไม่รับ",
+                            ]);
+                            $pr_store->save();
+                        }
                     } else {
                         $carbon = $this->carbon($date_request);
                         $PO     = $this->po($date_request, $stores);
@@ -299,27 +318,29 @@ class mastertwoController extends Controller
                             'keyPR'          => $request->get('keyPR'),
                         ]);
                         $master2->save();
-
                         $porder = new porder([
                             'PO_ID'         => $PO,
                             'keyPR'         => $request->get('keyPR'),
-                            'store_ID'      => $request->get('keystore')[$i],
+                            'store_ID'      => $stores_name[0]['Store'],
                             'status'        => "ยังไม่ได้รับของ",
                         ]);
                         $porder->save();
+                        for ($j = 0; $j < $lengtharray; $j++) {
 
-                        $pr_store = new pr_store([
-                            'PO_ID'         => $PO,
-                            'keyPR'         => $request->get('keyPR'),
-                            'Product_name'  => $request->get('Product_name')[$i],
-                            'Product_number' => $request->get('Product_number')[$i],
-                            'unit'          => $request->get('unit')[$i],
-                            'keystore'      => $request->get('keystore')[$i],
-                            'price'         => $request->get('price')[$i],
-                            'product_sum'   => $request->get('product_sum')[$i],
-                            'sumofprice'    => $request->get('sum'),
-                        ]);
-                        $pr_store->save();
+                            $pr_store = new pr_store([
+                                'PO_ID'         => $PO,
+                                'keyPR'         => $request->get('keyPR'),
+                                'Product_name'  => $stores_name[$j]['Product_name'],
+                                'Product_number' => $stores_name[$j]['Product_number'],
+                                'unit'          => $stores_name[$j]['unit'],
+                                'keystore'      => $stores_name[$j]['Store'],
+                                'price'         => $stores_name[$j]['price'],
+                                'product_sum'   => $stores_name[$j]['product_sum'],
+                                'sumofprice'    => $stores_name[$j]['sumallprice'],
+                                'status'        => "ยังไม่รับ",
+                            ]);
+                            $pr_store->save();
+                        }
                     }
                 }
             }
@@ -330,8 +351,8 @@ class mastertwoController extends Controller
         $inputb = [
             'PO_ID' => $PO
         ];
-        $this->insertlog('CONFIRM', 'p_r_creates',$inputa);
-        $this->insertlog('CREATE','porders',$inputb);
+        $this->insertlog('CONFIRM', 'p_r_creates', $inputa);
+        $this->insertlog('CREATE', 'porders', $inputb);
         return redirect()->route('Authorized_person2.index')->with('success', 'เรียบร้อย');
     }
 
@@ -351,6 +372,4 @@ class mastertwoController extends Controller
             'username' => Auth::user()->username, 'data' => serialize($data), 'table' => $table, 'action' => $action
         ]);
     }
-
-
 }
