@@ -108,7 +108,7 @@
                 <h5><i style="font-size:20px" class="fas fa-key"></i>&nbsp;&nbsp;เปลี่ยนพาสเวิร์ด</h5>
                 <button data-dismiss="modal" class="close">&times;</button>
             </div>
-            <form id="changepassword_form" action="{{url('profile/changpassword')}}" method="post">
+            <form id="changepassword_form" method="post">
                 {{ csrf_field() }}
                 <div class="modal-body">
                     <div class="form-group">
@@ -167,6 +167,9 @@
             penColor: "blue"
         });
 
+
+
+
         $('#confirm').click(function() {
 
             event.stopPropagation();
@@ -178,7 +181,7 @@
 
                 $.ajax({
                     url: 'profile/createSignature',
-                    type: 'post',
+                    type: 'POST',
                     data: {
                         _token: '{{csrf_token()}}',
                         image: signaturePad.toDataURL()
@@ -232,27 +235,39 @@
                 $(element).addClass("is-valid").removeClass("is-invalid");
             },
             submitHandler: function(form, e) {
-                var old_pass = $('#changepassword_form').find('#oldpassword').val();
-                var new_pass = $('#changepassword_form').find('#password').val();
+                var oldpassword = $('#changepassword_form').find('#oldpassword').val();
+                var newpassword = $('#changepassword_form').find('#password').val();
                 $.ajax({
                     url: 'profile/changpassword',
-                    type: 'post',
+                    type: 'POST',
                     data: {
                         _token: '{{csrf_token()}}',
-                        old_password: old_pass,
-                        new_password: new_pass
+                        previous_password: oldpassword,
+                        new_password: newpassword
                     },
                     success: function(data) {
-                        console.log(data.auth);
-                        console.log(data.input);
-                        Swal.fire({
-                            type: 'error',
-                            title: 'ไม่สามารถดำเนินการต่อได้',
-                            text: 'โปรดกรอกรหัสเดิมให้ถูกต้อง',
-                            confirmButtonText: 'ตกลง'
-                        })
+                        if (data.msg == 'fail') {
+                            Swal.fire({
+                                type: 'error',
+                                title: 'ไม่สามารถดำเนินการต่อได้',
+                                text: 'กรอกรหัสผ่านเดิมให้ถูกต้อง',
+                                confirmButtonText: 'ตกลง'
+                            })
+                        } else {
+                            Swal.fire({
+                                type: 'success',
+                                title: 'เปลี่ยนรหัสผ่านเรียบร้อยแล้ว',
+                                text: 'สามารถเข้าสู่ระบบโดยใช้รหัสผ่านใหม่ได้ทันที',
+                                showConfirmButton: false,
+                                timer: 1500,
+                                onAfterClose: () => {
+                                    location.reload();
+                                }
+                            })
+                        }
                     }
                 });
+                return false;
             }
         });
 

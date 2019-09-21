@@ -33,15 +33,16 @@ class profileController extends Controller
 
     public function changepassword(Request $request)
     {
-        $old_password = Hash::make($request->old_password);
-        $new_password = Hash::make($request->new_password);
-        return response()->json(['auth' => Hash::make('1234'), 'input' => $old_password ]);
-        if( $old_password == Auth::user()->password ){
-            User::find(Auth::id())->update(['password' => $new_password]);
-            $this->insertlog('UPDATE','users',serialize(['password' => $new_password]));
-            return redirect()->route('profile.index')->with('msg', 'เปลี่ยนรหัสผ่านเรียนร้อยแล้ว');
+        $previous_password = $request->previous_password;
+        if( Hash::check($previous_password, Auth::user()->password) ){
+            $input = [
+                'password' => Hash::make($request->new_password)
+            ];
+            User::find(Auth::id())->update($input);
+            $this->insertlog('UPDATE','users',$input);
+            return response()->json(['msg' => 'success']);
         }
-        return response()->json(['msg' => 'Password Incorrect !']);
+        return response()->json(['msg' => 'fail']);
     }
 
     public function createSignature(Request $request)

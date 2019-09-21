@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\prequest;
 use App\transform;
 use App\store;
-use App\product;
+use App\Product;
 use vendor\autoload;
 
 use App\Create_product;
@@ -72,13 +72,13 @@ class PuchaserequestController extends Controller
         $master1 = Authorized_person1::where('keyPR', $pr_create[$i]["key"])->get()->toArray();
         $master2 = Authorized_person2::where('keyPR', $pr_create[$i]["key"])->get()->toArray();
         if (empty($check)) {
-          $status = "กำลังตรวจสอบ";
+          $status = "รอการตรวจสอบ";
         } elseif ($keypr != NULL && empty($master1) && empty($master2)) {
-          $status = "กำลังดำเนินการ [ 1 ]";
+          $status = "อยู่ระหว่างดำเนินการ";
         } elseif ($keypr != NULL && $master1 != NULL && empty($master2)) {
-          $status = "กำลังดำเนินการ [ 2 ]";
+          $status = "อยู่ระหว่างดำเนินการ";
         } elseif ($keypr != NULL && $master1 != NULL && $master2 != NULL) {
-          $status = "สำเร็จ";
+          $status = "เสร็จสมบูรณ์";
         }
         //dd($status);
         $PR_create[] = [
@@ -221,12 +221,13 @@ class PuchaserequestController extends Controller
     $lengtharray = sizeof($productdb);
     for ($i = 0; $i < $lengtharray; $i++) {
       $product_id = product_main::where('product_name', $productdb[$i])->get()->toArray();
-      $product_price = product_Price::where('Product', $product_id[0]['Product_ID'])->min('Price');
+      $product_price = product_Price::where('Product', $product_id)->min('Price');
       //  ->where('Product',$product_id[0]['Product_ID'])->min('Price');
       $product_min_price[] = product_main::where('Product_name', $productdb[$i])
         ->join('product__Prices', 'product_mains.Product_ID', 'product__Prices.Product')
         ->where('Price', $product_price)
         ->get()->toArray();
+      $length_stores = sizeof($product_min_price);
       $store_price[] = product_Price::where('Price', $product_price)->get('Store')->toArray();
       $product_number = Create_product::where('key', $pr_create['key'])->get()->toArray();
       $products_sum = [$product_price * $product_number[$i]['productnumber']];
@@ -236,13 +237,11 @@ class PuchaserequestController extends Controller
         $product_min_price[$i][0]['Product_name'],
         $product_number[$i]['productnumber'],
         $product_min_price[$i][0]['unit'],
-        $store_price[$i],
+        $product_min_price[$i],
         $product_min_price[$i][0]['Price'],
         $products_sum[0],
-        $store_price[$i][0]['Store'],
       ];
     }
-    //dd($min);
     return view('prequest.edit', compact(
       'number',
       'pr_create',
@@ -261,14 +260,30 @@ class PuchaserequestController extends Controller
    */
   public function update(Request $request, $id)
   {
+    $lengtharray = sizeof($request->get('Product_name'));
+    for ($i = 0; $i < $lengtharray; $i++) {
+      $Product_pr = new Product([
+        'keyPR'             => $request->get('keyPR'),
+        'Product_name'      => $request->get('Product_name')[$i],
+        'Product_number'    => $request->get('Product_number')[$i],
+        'unit'              => $request->get('unit')[$i],
+        'Store'             => $request->get('keystore')[$i],
+        'Price'             => $request->get('price')[$i],
+        'Product_sum'       => $request->get('product_sum')[$i],
+        'sumallprice'       => $request->get('sum'),
+
+      ]);
+      $Product_pr->save();
+    }
     $prequest = new prequest([
       'keyPR'             => $request->get('keyPR'),
       'date'              => $request->get('date'),
       'formwork'          => $request->get('formwork'),
       'prequestconvert'   => $request->get('prequestconvert'),
       'sumofprice'        => $request->get('sum'),
-      
+
     ]);
+
     $input = [
       'keyPR' => $request->get('keyPR')
     ];
@@ -286,7 +301,7 @@ class PuchaserequestController extends Controller
   public function destroy($id)
   {
     $collection = collect([1, 2, 3, 4]);
-    $prequestdb = prequest::where('keyPR',$id)->get();
+    $prequestdb = prequest::where('keyPR', $id)->get();
     //dd($prequestdb);
     $filtered = $prequestdb->reject(function ($value, $key) {
       return $value['keyPR'] > 100;

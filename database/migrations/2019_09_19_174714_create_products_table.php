@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePrStoresTable extends Migration
+class CreateProductsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,16 @@ class CreatePrStoresTable extends Migration
      */
     public function up()
     {
-        Schema::create('pr_stores', function (Blueprint $table) {
+        Schema::create('products', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('PO_ID');
             $table->string('keyPR');
             $table->string('Product_name');
             $table->integer('Product_number');
             $table->string('unit');
-            $table->string('keystore');
+            $table->string('Store');
             $table->integer('price');
-            $table->integer('product_sum');
-            $table->unsignedMediumInteger('sumofprice');
-            $table->string('status');
+            $table->unsignedMediumInteger('product_sum');
+            $table->unsignedMediumInteger('sumallprice');
             $table->timestamps();
         });
     }
@@ -36,6 +34,6 @@ class CreatePrStoresTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pr_stores');
+        Schema::dropIfExists('products');
     }
 }

@@ -42,39 +42,39 @@
     <h3><i class="far fa-file-alt"></i>&nbsp;&nbsp;ข้อมูลใบขอสั่งซื้อ</h3>
   </div>
   <div class="card-body">
-    <form method="post" action="{{action('ProductPriceController@show', $id)}}">
-      {{csrf_field()}}
-      <table id="thisone" class="table table-hover table-bordered">
-        <thead class="text-center">
-          <tr>
-            <th>ลำดับที่</th>
-            <th>รหัสสินค้า</th>
-            <th>ชื่อสินค้า</th>
-            <th>ราคาสินค้า (บาท)</th>
-            <th>จัดการ</th>
-          </tr>
-        </thead>
-        <tbody>
-          @foreach($data as $row)
-          <tr>
-            <td>{{$number++}}</td>
-            <td>{{$row['Product']}}</td>
-            <td>{{$row['Product_name']}}</td>
-            <td>{{$row['Price']}}</td>
-            <td>
-              &nbsp;&nbsp;<a href="{{action('ProductPriceController@edit',$row['Cat_ID'])}}" data-toggle="tooltip" data-placement="top" title="อัพเดท"><i style="font-size:20px" class="text-info fas fa-file-signature"></i></a>
-              &nbsp;&nbsp;<a href="{{action('ProductPriceController@deletename',$row['Cat_ID'])}}" data-toggle="tooltip" data-placement="top" title="ลบ"><i style="font-size:20px" class="btn btn-xs btn-danger"></i></a>
-              
-            </td>
-          </tr>
-          @endforeach
-        </tbody>
-      </table>
-      <br>
-      <div class="text-center">
-        <a class="btn btn-danger" href="#" onclick="window.history.back()"><i class="fas fa-undo"></i>&nbsp;&nbsp;ย้อนกลับ</a>
-      </div>
-    </form>
+    <table id="thisone" class="table table-hover table-bordered">
+      <thead class="text-center">
+        <tr>
+          <th>ลำดับที่</th>
+          <th>รหัสสินค้า</th>
+          <th>ชื่อสินค้า</th>
+          <th>ราคาสินค้า (บาท)</th>
+          <th>จัดการ</th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach($data as $row)
+        <tr>
+          <td>{{$number++}}</td>
+          <td>{{$row['Product']}}</td>
+          <td>{{$row['Product_name']}}</td>
+          <td>{{$row['Price']}}</td>
+          <td>
+            &nbsp;&nbsp;<a href="{{action('ProductPriceController@edit',$row['Cat_ID'])}}" data-toggle="tooltip" data-placement="top" title="อัพเดท"><i style="font-size:20px" class="text-info fas fa-file-signature"></i></a>
+            <a class="test" href="#" data-toggle="tooltip" data-placement="top" title="Remove"><i style="font-size:20px;" class="fas fa-trash-alt text-danger"></i></a>
+            <form method="post" class="delete_form" action="/Product_Price/deletename">
+              {{csrf_field()}}
+              <input type="hidden" name="Cat_ID" value="{{$row['Cat_ID']}}">
+            </form>
+          </td>
+        </tr>
+        @endforeach
+      </tbody>
+    </table>
+    <br>
+    <div class="text-center">
+      <a class="btn btn-danger" href="#" onclick="window.history.back()"><i class="fas fa-undo"></i>&nbsp;&nbsp;ย้อนกลับ</a>
+    </div>
   </div>
 </div>
 

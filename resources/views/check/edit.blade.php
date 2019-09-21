@@ -7,7 +7,7 @@
       <h3><i class="far fa-file-alt"></i>&nbsp;&nbsp;ข้อมูลใบขอสั่งซื้อ</h3>
     </div>
     <div class="card-body">
-    <form method="post" action="{{action('CheckController@update', $id)}}" class="needs-validation" novalidate>
+    <form method="post" action="{{action('CheckController@update', $po_id['PO_ID'])}}" class="needs-validation" novalidate>
         {{csrf_field()}}
         <div class="row">
           <div class="col-form-label col-md-6">
@@ -76,8 +76,6 @@
               <th>ชื่อสินค้า</th>
               <th>จำนวนสินค้า</th>
               <th>หน่วย</th>
-              <th>ราคา (บาท)</th>
-              <th>จำนวนเงิน</th>
             </tr>
           </thead>
           <tbody>
@@ -85,26 +83,24 @@
             <tr>
               <td class="text-center">
                 <select name="check[]">
-                  <option value="เลือก">เลือก</option>
-                  <option value="ไม่ได้รับ">ไม่ได้รับ</option>
+                  <option value="{{$row['status']}}">{{$row['status']}}</option>
                   <option value="รับ">รับ</option>
+                  <option value="ไม่ได้รับ">ไม่ได้รับ</option>
                 </select>
               </td>
-              <td class="text-center result"><input class="form-control productname border-0" value="{{$row['Product_name']}}" name="product[]" required></label>
-              <td class="text-center result"><label class="form-control productnumber border-0" value="{{$row['Product_number']}}" name="" required>{{$row['Product_number']}}</label></td>
-              <td class="text-center result"><label class="form-control unit border-0" value="{{$row['unit']}}" name="" required>{{$row['unit']}}</label>
-              <td class="text-center result"><label class="form-control price border-0" value="{{$row['price']}}" required>{{$row['price']}}</label></td>
-              <td class="text-center result"><label class="sum col-form-label border-0" value="{{$row['product_sum']}}" required>{{$row['product_sum']}}</label></td>
+              <input type="hidden" name="PO_ID[]" value="{{$row['PO_ID']}}">
+              <input type="hidden" name="keyPR[]" value="{{$row['keyPR']}}">
+              <input type="hidden" name="keystore[]" value="{{$row['keystore']}}">
+              <input type="hidden" name="price[]" value="{{$row['PO_ID']}}">
+              <input type="hidden" name="product_sum[]" value="{{$row['PO_ID']}}">
+              <input type="hidden" name="sumofprice[]" value="{{$row['PO_ID']}}">
+
+              <td class="text-center result"><label class="form-control productname border-0" value="{{$row['Product_name']}}" name="product[]" required>{{$row['Product_name']}}</label><input type="hidden" value="{{$row['Product_name']}}" name="product[]" required></td>
+              <td class="text-center result"><label class="form-control productnumber border-0" value="{{$row['Product_number']}}" required>{{$row['Product_number']}}</label> <input type="hidden" name="Product_number[]" value="{{$row['Product_number']}}"></td>
+              <td class="text-center result"><label class="form-control unit border-0" value="{{$row['unit']}}" required>{{$row['unit']}}</label> <input type="hidden" name="unit[]" value="{{$row['unit']}}"></td>
             </tr>
             @endforeach
           </tbody>
-          <tfoot>
-            <tr>
-              <th class="text-right" colspan="4">รวมเป็นเงิน</th>
-              <th class="text-center"><label class="text-danger" value="{{$data[0]['sumofprice']}}">{{$data[0]['sumofprice']}}</label></th>
-              <th class="text-center">บาท</th>
-            </tr>
-          </tfoot>
         </table>
         <br>
         <div class="form-group text-center">

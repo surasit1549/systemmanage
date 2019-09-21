@@ -190,7 +190,7 @@ class pr_createController extends Controller
             'contractor'        => $name,
             'formwork'          => $request->input('formwork'),
             'prequestconvert'   => $request->input('prequestconvert'),
-            'status'            => 'active'
+            'status'            => "active",
 
         ]);
 
