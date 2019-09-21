@@ -113,7 +113,7 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="old-password">Password</label>
-                        <input type="password" class="form-control" name="oldpassword" id="old-password">
+                        <input type="password" class="form-control" name="oldpassword" id="oldpassword">
                     </div>
                     <div class="form-group">
                         <label for="password">New Password</label>
@@ -126,7 +126,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-success"><i class="fas fa-check"></i>&nbsp;&nbsp;ยืนยัน</button>
+                    <button class="btn btn-success" id="confirm_changepassword"><i class="fas fa-check"></i>&nbsp;&nbsp;ยืนยัน</button>
                     <a href="#" data-dismiss="modal" class="btn btn-secondary ml-2"><i class="fas fa-times"></i>&nbsp;&nbsp;ยกเลิก</a>
                 </div>
             </form>
@@ -199,7 +199,6 @@
         });
 
 
-
         $('#changepassword_form').validate({
             rules: {
                 oldpassword: 'required',
@@ -233,21 +232,33 @@
                 $(element).addClass("is-valid").removeClass("is-invalid");
             },
             submitHandler: function(form, e) {
-                console.log(form);
-/*                 $.ajax({
+                var old_pass = $('#changepassword_form').find('#oldpassword').val();
+                var new_pass = $('#changepassword_form').find('#password').val();
+                $.ajax({
+                    url: 'profile/changpassword',
                     type: 'post',
                     data: {
                         _token: '{{csrf_token()}}',
-                        password: 'password'
+                        old_password: old_pass,
+                        new_password: new_pass
+                    },
+                    success: function(data) {
+                        console.log(data.auth);
+                        console.log(data.input);
+                        Swal.fire({
+                            type: 'error',
+                            title: 'ไม่สามารถดำเนินการต่อได้',
+                            text: 'โปรดกรอกรหัสเดิมให้ถูกต้อง',
+                            confirmButtonText: 'ตกลง'
+                        })
                     }
-                }) */
-                return true;
+                });
             }
         });
 
 
         $('#changepassword').on('shown.bs.modal', function() {
-            $(this).find('#old-password').focus();
+            $(this).find('#oldpassword').focus();
         }).on('hide.bs.modal', function() {
             $(this).find('input').val('');
             var $alertas = $('#changepassword_form');

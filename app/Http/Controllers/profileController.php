@@ -33,13 +33,15 @@ class profileController extends Controller
 
     public function changepassword(Request $request)
     {
-        $request->merge(['password' => Hash::make($request->password)]);
-        $input = [
-            'password' => $request->password
-        ];
-        $this->insertlog('UPDATE','users',$input);
-        User::find(Auth::id())->update($request->toArray());
-        return redirect()->route('profile.index')->with('msg', 'เปลี่ยนรหัสผ่านเรียนร้อยแล้ว');
+        $old_password = Hash::make($request->old_password);
+        $new_password = Hash::make($request->new_password);
+        return response()->json(['auth' => Hash::make('1234'), 'input' => $old_password ]);
+        if( $old_password == Auth::user()->password ){
+            User::find(Auth::id())->update(['password' => $new_password]);
+            $this->insertlog('UPDATE','users',serialize(['password' => $new_password]));
+            return redirect()->route('profile.index')->with('msg', 'เปลี่ยนรหัสผ่านเรียนร้อยแล้ว');
+        }
+        return response()->json(['msg' => 'Password Incorrect !']);
     }
 
     public function createSignature(Request $request)
@@ -123,7 +125,7 @@ class profileController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = User::find($id)->update($request->toArray());
+        User::find($id)->update($request->toArray());
         unset($request['_token'],$request['_method'],$request['save'],$request['token'],$request['id']);
         $this->insertlog('UPDATE','users',$request->toArray());
         return redirect()->route('profile.index');
