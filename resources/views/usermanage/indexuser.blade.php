@@ -21,12 +21,6 @@
             เพิ่มผู้ใช้งาน
         </a>
     </div>
-    <div class="form-group ml-2">
-        <a class="btn btn-sm btn-primary text-white" href="#">
-            <i class="fas fa-info-circle"></i>
-            รายละเอียดการใช้งาน
-        </a>
-    </div>
 </div>
 
 

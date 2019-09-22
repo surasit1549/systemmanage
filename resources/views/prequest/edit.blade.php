@@ -1,9 +1,17 @@
 @extends('Home.master')
 @section('title','ใบขอสั่งซื้อ')
+@section('tabbarcss')
+<style>
+  #prtab {
+    border-right: 5px solid rgb(41, 207, 219);
+  }
+</style>
+@stop
 @section('content')
 
 <script>
   $(document).ready(function() {
+    $('#prpo_form').click();
 
     $('#subform').click(function(e) {
       e.preventDefault();
@@ -86,11 +94,11 @@
             <td class="text-center result"><input type="number" name="Product_number[]" min="1" class="form-control productnumber border-0" value="{{$row[1]}}" name="" required></td>
             <td class="text-center result"><input type="text" name="unit[]" class="form-control unit border-0" value="{{$row[2]}}" name="" required></td>
             <td>
-                <select name="keystore[]">
-                  @foreach($row[3] as $r)
-                    <option value="{{$r['Store']}}">{{$r['Store']}}</option>
-                  @endforeach
-                </select>
+              <select name="keystore[]">
+                @foreach($row[3] as $r)
+                <option value="{{$r['Store']}}">{{$r['Store']}}</option>
+                @endforeach
+              </select>
             </td>
             <td class="text-center result"><input type="number" name="price[]" min="1" class="form-control price border-0" value="{{$row[4]}}" required></td>
             <td class="text-center result"><input type="number" name="product_sum[]" min="1" class="sum col-form-label border-0" value="{{$row[5]}}" required></td>

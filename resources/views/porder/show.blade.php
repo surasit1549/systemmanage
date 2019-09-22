@@ -1,9 +1,17 @@
 @extends('Home.master')
 @section('title','ข้อมูลใบสั่งซื้อ PO')
+@section('tabbarcss')
+<style>
+  #potab {
+    border-right: 5px solid rgb(41, 207, 219);
+  }
+</style>
+@stop
 @section('content')
 
 <script>
   $(document).ready(function() {
+    $('#prpo_form').click();
     $('#exportpdfbtn').click(function(e) {
       e.preventDefault();
       e.stopPropagation();
