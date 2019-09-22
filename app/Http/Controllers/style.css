@@ -76,7 +76,9 @@ tbody td {
 }
 /*-------------------------------------------------*/
 
-/* PDF */
+/* PDF pr */
+
+
 #store_cover_detail_table {
   top: 10px;
   text-align: center;
@@ -90,9 +92,36 @@ tbody td {
 
 #data_information {
   position: absolute;
-  top: 180px;
+  top: 190px;
+  width: 83%;
+}
+#tableexa {
+  border-collapse: collapse;
+  width: 100%;
 }
 
+#product {
+  position: absolute;
+  top: 320px;
+  width: 88%;
+  border: 1px solid black;
+}
+#table_product {
+  width: 100%;
+}
+tbody tr td{
+  text-align: center;
+}
+tbody th {
+  height: 30px;
+}
+tbody td {
+  height: 30px;
+}
+#table_product,#table_product tr,#table_product td , #table_product th {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
 
 /* pr */
 #data_intormation {

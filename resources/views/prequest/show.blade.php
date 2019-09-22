@@ -13,7 +13,7 @@
         url: 'makepdf',
         data: {
           _token: '{{csrf_token()}}',
-          keyPO: key,
+          keyPR: key,
           pdf: $('#exportpdf').html(),
           pr: $('#ponumber').text()
         },
@@ -148,13 +148,13 @@
 
 <div id="exportpdf" class="d-none">
   <div id="store_cover_detail_table">
-    <h5>{{$store_master[0]['name']}}</h5>
-    <h5>{{$store_master[0]['address']}}</h5>
-    <h5>เบอร์โทรศัทพ์ {{$store_master[0]['phone']}}</h5>
+    {{$store_master[0]['name']}} <br>
+    {{$store_master[0]['address']}} <br>
+    เบอร์โทรศัทพ์ {{$store_master[0]['phone']}}
   </div>
   <div id="pr_ID">
-    <h6>เลขที่เอกสาร <a>{{$pr_create[0]['key']}}</a></h6>
-    <h6>วันที่ขอสั่งซื้อ <a>{{$pr_create[0]['date']}}</a></h6>
+    เลขที่เอกสาร {{$pr_create[0]['key']}} <br>
+    วันที่ขอสั่งซื้อ {{$pr_create[0]['date']}}
   </div>
   <div id="data_information">
     <table id="tableexa">
@@ -176,9 +176,9 @@
       </tbody>
     </table>
   </div>
-  <div>
-    <table class="table table-hover table-bordered">
-      <thead class="text-center">
+  <div id="product">
+    <table id="table_product">
+      <thead>
         <tr>
           <th>ลำดับที่</th>
           <th>ชื่อสินค้า</th>
@@ -236,5 +236,6 @@
       </tfoot>
     </table>
   </div>
+
 </div>
 @endsection
