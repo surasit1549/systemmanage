@@ -27,7 +27,7 @@ class checkAction
         $check = permission::where('role',Auth::user()->role)
                 ->where('url',$path)->first();
         if( empty($check) ){
-            return redirect('profile');
+            return redirect()->back();
         }
         return $next($request);
     }
