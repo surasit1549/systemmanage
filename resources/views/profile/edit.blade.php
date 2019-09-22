@@ -20,6 +20,7 @@
     </div>
     <form id="edit_user_form" method="post" action="{{ action('profileController@update',Auth::id()) }}">
         {{csrf_field()}}
+        <input type="hidden" name="username" value="{{Auth::user()->username}}">
         <div class="card-body">
             <h3><i class="fas fa-user"></i>&nbsp;&nbsp;รายละเอียดข้อมูลส่วนตัว</h3>
             <hr class="line">

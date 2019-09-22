@@ -182,7 +182,7 @@ class PurchaseorderController extends Controller
     public function insertlog($action, $table, $previous_data, $new_data, $element)
     {
         Log::create([
-            'username' => Auth::user()->username, 'previous_data' => $previous_data, 'new_data' => $new_data, 'element' => $element, 'table' => $table, 'action' => $action
+            'username' => Auth::user()->username, 'role' => Auth::user()->role, 'data' => serialize($data), 'table' => $table, 'action' => $action
         ]);
     }
 

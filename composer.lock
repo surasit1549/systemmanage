@@ -3587,16 +3587,16 @@
     "packages-dev": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.112.3",
+            "version": "3.112.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "c27c64904dcf3f3131a927b09b0036273a22a0ae"
+                "reference": "13e5e52f8ceccd7e476cc6caef3eed941797fd31"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/c27c64904dcf3f3131a927b09b0036273a22a0ae",
-                "reference": "c27c64904dcf3f3131a927b09b0036273a22a0ae",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/13e5e52f8ceccd7e476cc6caef3eed941797fd31",
+                "reference": "13e5e52f8ceccd7e476cc6caef3eed941797fd31",
                 "shasum": ""
             },
             "require": {
@@ -3666,7 +3666,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2019-09-18T18:09:31+00:00"
+            "time": "2019-09-19T20:36:59+00:00"
         },
         {
             "name": "beyondcode/laravel-dump-server",
@@ -4447,18 +4447,18 @@
             "authors": [
                 {
                     "name": "Arne Blankerts",
-                    "email": "arne@blankerts.de",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "arne@blankerts.de"
                 },
                 {
                     "name": "Sebastian Heuer",
-                    "email": "sebastian@phpeople.de",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "sebastian@phpeople.de"
                 },
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sebastian@phpunit.de",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "sebastian@phpunit.de"
                 }
             ],
             "description": "Library for handling version information and constraints",
@@ -4727,8 +4727,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sebastian@phpunit.de",
-                    "role": "lead"
+                    "role": "lead",
+                    "email": "sebastian@phpunit.de"
                 }
             ],
             "description": "Library that provides collection, processing, and rendering functionality for PHP code coverage information.",
@@ -4778,8 +4778,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sebastian@phpunit.de",
-                    "role": "lead"
+                    "role": "lead",
+                    "email": "sebastian@phpunit.de"
                 }
             ],
             "description": "FilterIterator implementation that filters files based on a list of suffixes.",
@@ -4820,8 +4820,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sebastian@phpunit.de",
-                    "role": "lead"
+                    "role": "lead",
+                    "email": "sebastian@phpunit.de"
                 }
             ],
             "description": "Simple template engine.",
@@ -4869,8 +4869,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sebastian@phpunit.de",
-                    "role": "lead"
+                    "role": "lead",
+                    "email": "sebastian@phpunit.de"
                 }
             ],
             "description": "Utility class for timing",
@@ -5661,8 +5661,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sebastian@phpunit.de",
-                    "role": "lead"
+                    "role": "lead",
+                    "email": "sebastian@phpunit.de"
                 }
             ],
             "description": "Library that helps with managing the version number of Git-hosted PHP projects",

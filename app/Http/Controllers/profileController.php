@@ -126,7 +126,7 @@ class profileController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = User::find($id)->update($request->toArray());
+        User::find($id)->update($request->toArray());
         unset($request['_token'],$request['_method'],$request['save'],$request['token'],$request['id']);
         $this->insertlog('UPDATE','users',$request->toArray());
         return redirect()->route('profile.index');
@@ -147,7 +147,7 @@ class profileController extends Controller
     public function insertlog($action, $table, $data)
     {
         Log::create([
-            'username' => Auth::user()->username, 'data' => serialize($data), 'table' => $table, 'action' => $action
+            'username' => Auth::user()->username, 'role' => Auth::user()->role, 'data' => serialize($data), 'table' => $table, 'action' => $action
         ]);
     }
 
