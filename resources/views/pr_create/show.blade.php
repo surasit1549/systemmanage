@@ -177,5 +177,9 @@
         @endfor
     </tbody>
   </table>
+  <div id="signature">
+    <img id="signatureimg" src="{{Auth::user()->signature}}" alt="">
+    <h4>{{ Auth::user()->firstname }}&nbsp;&nbsp;{{ Auth::user()->lastname }}<br>{{ Auth::user()->role }}<br>วันที่ {{ date('d-m-Y') }}</h4>
+  </div>
 </div>
 @endsection
