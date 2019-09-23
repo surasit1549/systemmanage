@@ -102,7 +102,6 @@
     </div>
 </div>
 
-
 <div class="modal fade" id="passcheck">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -123,7 +122,7 @@
                 </div>
                 <div class="form-group">
                     {!! Form::label('Password') !!}
-                    {!! Form::password('password',['class' => 'form-control']) !!}
+                    {!! Form::password('password',['class' => 'form-control','id' => 'password']) !!}
                 </div>
                 <div class="text-center">
                     {!! Form::submit('บันทึก',['class' => 'btn btn-success']) !!}
@@ -349,6 +348,18 @@
             submitHandler: function(form, e) {
                 e.preventDefault();
                 e.stopPropagation();
+                var pass = $('#passcode_form').find('#password');
+                $.ajax({
+                    type: 'POST',
+                    url: '/profile/passwordcheck',
+                    data: {
+                        _token: '{{csrf_token()}}',
+                        password: pass
+                    },
+                    success: function(data) {
+                        console.log(data.status);
+                    }
+                });
             }
 
         });
