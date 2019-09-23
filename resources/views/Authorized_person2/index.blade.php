@@ -2,6 +2,15 @@
 @section('title','welcome Homepage')
 @section('tabbarcss')
 <style>
+  #manage_product_manu {
+    border-right: 5px solid rgb(41, 207, 219);
+  }
+  #searchtext:focus {
+    outline: none !important;
+    box-shadow: none;
+  }
+</style>
+<style>
   #person2 {
     border-right: 5px solid rgb(41, 207, 219);
   }
@@ -16,6 +25,9 @@
 
 <script>
   $(document).ready(function() {
+
+    $('#master_menu').click();
+  
     $('[data-toggle="tooltip"]').tooltip();
 
     $('.test').click(function() {

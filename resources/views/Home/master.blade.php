@@ -77,17 +77,31 @@
                     </ul>
                 </li>
                 @endif
-                @if( Auth::user()->role == 'ผู้มีอำนาจ1' || Auth::user()->role == 'แอดมิน' )
+                @if( Auth::user()->role == 'แอดมิน')
+                <li>
+                    <a href="#pagemenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" id="master_menu"><i style="font-size:20px" class="fas fa-list"></i>
+                        &nbsp;&nbsp;ตรวจสอบรายการขอสั่งซื้อ</a>
+                    <ul class="collapse list-unstyled" id="pagemenu">
+                        <li>
+                            <a id="product_menu" href="{{route('Authorized_person1.index')}}">ตรวจสอบรายการขอสั่งซื้อ 1</a>
+                        </li>
+                        <li>
+                            <a id="manage_product_manu" href="{{route('Authorized_person2.index')}}">ตรวจสอบรายการขอสั่งซื้อ 2</a>
+                        </li>
+                    </ul>
+                </li>
+                @endif
+                @if( Auth::user()->role == 'ผู้มีอำนาจ1')
                 <li>
                     <a href="{{route('Authorized_person1.index')}}" id="person1">
                         <i style="font-size:20px" class="fas fa-list"></i>
                         &nbsp;&nbsp;ตรวจสอบรายการขอสั่งซื้อ</a>
                 </li>
                 @endif
-                @if( Auth::user()->role == 'ผู้มีอำนาจ2' || Auth::user()->role == 'แอดมิน' )
+                @if( Auth::user()->role == 'ผู้มีอำนาจ2')
                 <li>
                     <a href="{{route('Authorized_person2.index')}}" id="person2">
-                        <i style="font-size:20px"  class="fas fa-list"></i>
+                        <i style="font-size:20px" class="fas fa-list"></i>
                         &nbsp;&nbsp;ตรวจสอบรายการขอสั่งซื้อ</a>
                 </li>
                 @endif
