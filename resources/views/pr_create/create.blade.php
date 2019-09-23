@@ -121,36 +121,13 @@
                 </tfoot>
             </table>
 
-            <div class="modal fade" id="signature">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">
-                                <i style="font-size:18px" class="fas fa-signature"></i>&nbsp;&nbsp;กรอกลายเซ็น
-                            </h5>
-                            <button class="close" data-dismiss="modal"><span>&times;</span></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="wrapper text-center">
-                                <canvas id="signature-pad" class="signature-pad" width=460 height=200 style="border: 2px dashed #888"></canvas>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button class="btn btn-secondary" id="clearsig"><i style="font-size:18px" class="fas fa-eraser"></i>&nbsp;&nbsp;ล้าง</button>
-                            <button class="btn btn-success" id="confirm"><i style="font-size:18px" class="fas fa-check"></i>&nbsp;&nbsp;ตกลง</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="form-group text-center">
                 <a class="btn btn-danger" href="#" onclick="window.history.back()"><i style="font-size:18px" class="fas fa-undo-alt"></i>&nbsp;&nbsp;ย้อนกลับ</a>
                 <button type="submit" class="btn btn-success ml-2" id="subform"><i style="font-size:18px" class="far fa-save"></i>&nbsp;&nbsp;บันทึก</button>
             </div>
         </form>
     </div>
-
-    <input type="hidden" id="signature" value="{{ Auth::user()->signature }}">
-
+    
     <script type="text/javascript">
         $(document).ready(function() {
 

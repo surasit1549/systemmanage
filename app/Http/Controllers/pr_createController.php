@@ -109,6 +109,7 @@ class pr_createController extends Controller
         $pr_create = PR_create::all('created_at')->toArray();
         $product = product_main::all()->toArray();
         $unit = product_main::select('unit')->distinct()->get();
+
         if (empty($pr_create)) {
             $date_now = Carbon::now();
             $str_date = $date_now->toDateString();
@@ -167,6 +168,20 @@ class pr_createController extends Controller
 
     public function store(Request $request)
     {
+        $this->validate(
+            $request,
+            [
+                'date'              => 'required',
+                'key'               => 'required',
+                'formwork'          => 'required',
+                'prequestconvert'   => 'required',
+                'productname'       => 'required',
+                'productnumber'     => 'required',
+                'unit'              => 'required',
+                'productnumber'     => 'required',
+            ]
+        );
+
         $num = 0;
         $key = $request->input('key');
         $ID = $request->input('prequestconvert') . '-' . $key;
@@ -198,7 +213,7 @@ class pr_createController extends Controller
             'key' => $ID
         ];
 
-        $this->insertlog('CREATE','p_r_creates',$input);
+        $this->insertlog('CREATE', 'p_r_creates', $input);
         $arr->save();
         return redirect()->route('pr_create.index')->with('success', 'บันทึกข้อมูลเรียบร้อยแล้ว');
     }
