@@ -51,17 +51,19 @@
         </tr>
       </thead>
       <tbody>
-        @foreach($data as $row)
+        @foreach($datas as $row)
         <tr>
-          <td>{{$row['keyPR']}}</td>
-          <td>{{$row['date']}}</td>
-          <td>{{$row['formwork']}}</td>
-          <td>{{$row['prequestconvert']}}</td>
+          <td>{{$row[2]}}</td>
+          <td>{{$row[3]}}</td>
+          <td>{{$row[4]}}</td>
+          <td>{{$row[5]}}</td>
           <td>
-            &nbsp;&nbsp;<a href="{{action('mastertwoController@edit',$row['keyPR'])}}" data-toggle="tooltip" data-placement="top" title="Check"><i style="font-size:20px" class="fas fa-marker"></i></a>
+            @if($row[7] === "ตรวจสอบ")
+            &nbsp;&nbsp;<a href="{{action('mastertwoController@edit',$row[2])}}" data-toggle="tooltip" data-placement="top" title="Check"><i style="font-size:20px" class="fas fa-marker"></i></a>
             &nbsp;&nbsp;
+            @endif
             <a class="test" href="#" data-toggle="tooltip" data-placement="top" title="Remove"><i style="font-size:20px;" class="fas fa-trash-alt text-danger"></i></a>
-            <form method="post" class="delete_form" action="{{action('mastertwoController@destroy',$row['id'])}}">
+            <form method="post" class="delete_form" action="{{action('mastertwoController@destroy',$row[0])}}">
               {{csrf_field()}}
               <input type="hidden" name="_method" value="DELETE" />
             </form>

@@ -28,7 +28,26 @@ class mastertwoController extends Controller
     public function index()
     {
         $data = Authorized_person1::join('prequests', 'authorized_person1s.keyPR', 'prequests.keyPR')->get()->toArray();
-        return view('Authorized_person2.index', compact('data'));
+        $lengtharray = sizeof($data);
+        for($i=0; $i<$lengtharray; $i++){
+            $master2 = Authorized_person2::where('keyPR',$data[$i]['keyPR'])->get()->toArray();
+            if(empty($master2)){
+                $check = "ตรวจสอบ";
+            }else{
+                $check = "เรียบร้อย";
+            }
+            $datas[] = [
+                $data[$i]['id'],
+                $data[$i]['key_person'],
+                $data[$i]['keyPR'],
+                $data[$i]['date'],
+                $data[$i]['formwork'],
+                $data[$i]['prequestconvert'],
+                $data[$i]['sumofprice'],
+                $check
+            ];
+        }
+        return view('Authorized_person2.index', compact('data','datas'));
     }
 
     /**
