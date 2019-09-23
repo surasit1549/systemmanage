@@ -46,7 +46,7 @@
         </div>
         <div class="row">
           <div class="col-form-label col-md-6">
-            <h4 class="d-inline shadow-sm" style="padding:10px"><label class="text-danger">&nbsp;PO <span id="po_number">{{$po_id['PO_ID']}}</span></label></h4>
+            <h4 class="d-inline shadow-sm" style="padding:10px"><label class="text-danger">&nbsp;PO <span id="po_number">{{$po_id[0]['PO_ID']}}</span></label></h4>
           </div>
         </div>
         <hr>
@@ -56,7 +56,7 @@
               <th> ผู้ขาย :</th>
               <td>
                 {{$store[0]['name']}}&nbsp;&nbsp; [ {{$store[0]['keystore']}} ]
-                <input type="hidden" name="key" value="{{$po_id['PO_ID']}}">
+                <input type="hidden" name="key" value="{{$po_id[0]['PO_ID']}}">
               </td>
               <th> วันที่เอกสาร :</th>
               <td>
@@ -156,7 +156,7 @@
   <div id="store_ID_table">
     <table>
       <th>เลขที่เอกสาร PO</th>
-      <th>{{$po_id['PO_ID']}}</th>
+      <th>{{$po_id[0]['PO_ID']}}</th>
     </table>
   </div>
   <div id="store_table">
@@ -247,7 +247,7 @@
       <tfoot>
         <tr>
           <th style="vertical-align:top" rowspan="3">หมายเหตุ</th>
-          <td style="vertical-align:top" rowspan="3" colspan="3">สำหรับ &nbsp; {{$convert[0]['prequestconvert']}}&nbsp;PR &nbsp;{{$po_id['keyPR']}} <br> ส่งสินค้า ถนนวงแหวนรอบ3 หลังอรสิริน บิสสิเนส 3 (แยกท่ารั้ว)<br>ติดต่อสั่งชื้อ {{$store_mine[0]['contect']}}&nbsp; {{$store_mine[0]['cellphone']}} </td>
+          <td style="vertical-align:top" rowspan="3" colspan="3">สำหรับ &nbsp; {{$convert[0]['prequestconvert']}}&nbsp;PR &nbsp;{{$po_id[0]['keyPR']}} <br> ส่งสินค้า ถนนวงแหวนรอบ3 หลังอรสิริน บิสสิเนส 3 (แยกท่ารั้ว)<br>ติดต่อสั่งชื้อ {{$store_mine[0]['contect']}}&nbsp; {{$store_mine[0]['cellphone']}} </td>
           <th>ราคายังไม่รวมภาษี</th>
           <td style="text-align:center">{{$sum_price}}</td>
         </tr>

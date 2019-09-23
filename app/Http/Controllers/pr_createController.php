@@ -168,19 +168,6 @@ class pr_createController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate(
-            $request,
-            [
-                'date'              => 'required',
-                'key'               => 'required',
-                'formwork'          => 'required',
-                'prequestconvert'   => 'required',
-                'productname'       => 'required',
-                'productnumber'     => 'required',
-                'unit'              => 'required',
-                'productnumber'     => 'required',
-            ]
-        );
 
         $num = 0;
         $key = $request->input('key');
@@ -198,7 +185,7 @@ class pr_createController extends Controller
             $product->save();
         }
 
-        $name = Auth::user()->firstname . ' ' . Auth::user()->lastname;
+        $name = Auth::user()->username;
         $arr = new PR_create([
             'key'               => $ID,
             'date'              => $request->input('date'),
