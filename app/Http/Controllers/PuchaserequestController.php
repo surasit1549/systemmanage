@@ -29,10 +29,10 @@ class PuchaserequestController extends Controller
     $mpdf = new \Mpdf\Mpdf([
       'mode' => 'utf-8',
       'format' => [210, 297],
-      'default_font_size' => 16,
+      'default_font_size' => 14,
       'default_font' => 'thsarabunnew'
     ]);
-    $key = $request->keyPO;
+    $key = $request->keyPR;
     $mpdf->WriteHTML($stylesheet, 1);
     $mpdf->WriteHTML($request->pdf, 2);
     $mpdf->Output("pdf/PR$key.pdf", 'F');
@@ -191,6 +191,10 @@ class PuchaserequestController extends Controller
     $letter_sumofprice = $this->bathformat($pr_store[0]['sumofprice']);
     $store_mine = Store::where('keystore', 'master')->get();
     //dd($pr_create);
+    $contrator = log::get();
+    $master1 = Auth::user()->where('role',"ผู้มีอำนาจ1")->get();
+    $master2 = Auth::user()->where('role',"ผู้มีอำนาจ2")->get();
+    dd($contrator);
     return view('prequest.show', compact(
       'number',
       'id',
@@ -201,7 +205,10 @@ class PuchaserequestController extends Controller
       'tax',
       'letter_sumofprice',
       'store_mine',
-      'pr_store'
+      'pr_store',
+      'contrator',
+      'master1',
+      'master2'
     ));
   }
 
@@ -316,7 +323,7 @@ class PuchaserequestController extends Controller
   public function insertlog($action, $table, $data)
   {
     Log::create([
-      'username' => Auth::user()->username, 'data' => serialize($data), 'table' => $table, 'action' => $action
+      'username' => Auth::user()->username, 'role' => Auth::user()->role, 'data' => serialize($data), 'table' => $table, 'action' => $action
     ]);
   }
 }

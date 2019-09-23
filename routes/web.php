@@ -13,7 +13,9 @@ use phpDocumentor\Reflection\DocBlock\Tags\Uses;
 |
 */
 
-
+Route::get('/',function(){
+    return redirect('login');
+});
 
 Route::group(['middleware' => ['123','checkAction']], function () {
     Route::get('/',function(){

@@ -1,5 +1,12 @@
 @extends('Home.master')
 @section('title','เพิ่มแปลง')
+@section('tabbarcss')
+<style>
+  #manage_store_manutab {
+    border-right: 5px solid rgb(41, 207, 219);
+  }
+</style>
+@stop
 @section('content')
 <div class="container">
   <div class="card">
@@ -69,6 +76,8 @@
 </div>
 <script type="text/javascript">
   $(document).ready(function() {
+
+    $('#checkmenu').click();
 
     $('#subform').click(function() {
       if ($('form')[0].checkValidity() == false) {

@@ -4,6 +4,8 @@
 <script>
   $(document).ready(function() {
 
+    $('#checkmenu').click();
+
     $('[data-toggle=tooltip]').tooltip();
 
     $('.test').click(function() {

@@ -202,7 +202,6 @@
         });
 
 
-
         $('#changepassword_form').validate({
             rules: {
                 oldpassword: 'required',
