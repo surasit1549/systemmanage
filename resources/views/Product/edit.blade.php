@@ -1,5 +1,12 @@
 @extends('Home.master')
 @section('title','แก้ไขแปลง')
+@section('tabbarcss')
+<style>
+  #store_menutab {
+    border-right: 5px solid rgb(41, 207, 219);
+  }
+</style>
+@stop
 @section('content')
 <div class="container">
   <div class="card" style="width:25rem;">
@@ -47,6 +54,9 @@
 
 <script>
   $(document).ready(function() {
+
+    $('#checkmenu').click();
+
     $('#subform').click(function() {
       if ($('form')[0].checkValidity() == false) {
         event.preventDefault();

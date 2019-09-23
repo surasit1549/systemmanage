@@ -36,14 +36,14 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#menu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i style="font-size:20px" class="far fa-file-alt"></i>
+                    <a href="#menu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" id="checkmenu"><i style="font-size:20px" class="far fa-file-alt"></i>
                         &nbsp;&nbsp;การจัดการสินค้า</a>
                     <ul class="collapse list-unstyled" id="menu">
                         <li>
-                            <a id="prtab" href="{{route('Product.index')}}">รายการสินค้า</a>
+                            <a id="store_menutab" href="{{route('Product.index')}}">รายการสินค้า</a>
                         </li>
                         <li>
-                            <a id="potab" href="{{route('Product_Price.index')}}">จัดการราคาสินค้า</a>
+                            <a id="manage_store_manutab" href="{{route('Product_Price.index')}}">จัดการราคาสินค้า</a>
                         </li>
                     </ul>
                 </li>
@@ -62,7 +62,7 @@
                 @endif
                 @if( Auth::user()->role != 'ผู้รับเหมา' )
                 <li>
-                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i style="font-size:20px" class="far fa-file-alt"></i>
+                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" id="prpo_form"><i style="font-size:20px" class="far fa-file-alt"></i>
                         &nbsp;&nbsp;รายละเอียดการสั่งซื้อ</a>
                     <ul class="collapse list-unstyled" id="pageSubmenu">
                         <li>

@@ -1,8 +1,13 @@
 @extends('Home.master')
 @section('title','ใบขอสั่งซื้อ')
+@section('tabbarcss')
+<style>
+  #prtab {
+    border-right: 5px solid rgb(41, 207, 219);
+  }
+</style>
+@stop
 @section('content')
-
-
 
 <div class="card">
   <div class="card-header text-white">
@@ -24,12 +29,12 @@
         <div class="form-group col-md-4">
           <label>เลขที่เอกสาร</label>
           <input type="text" name="keyPR" class="form-control" value="{{$pr_create['key']}}" autocomplete="off" required>
-          
+
         </div>
         <div class="form-group col-md-8">
           <label>ชื่อผู้รับเหมา</label>
           <input type="text" name="contractor" class="form-control" value="{{$pr_create['contractor']}}" autocomplete="off" required>
-          
+
         </div>
       </div>
 
@@ -65,18 +70,18 @@
         </thead>
         <tbody>
           @foreach($pr_products as $row)
-            <tr>
-              <td class="text-center"><label class="col-form-label">{{$number++}}</label></td>
-              <td><input type="text" class="form-control productname" value="{{$row['productname']}}" name="" required></td>
-              <td><input type="number" min="1" class="form-control productnumber" value="{{$row['productnumber']}}" name="" required></td>
-              <td><input type="text" class="form-control unit" value="{{$row['unit']}}" name="" required></td>
-              <td>
-                <input type="text" class="form-control keystore" required>
-              </td>
-              <td><input type="number" min="1" class="form-control price" name="" required></td>
-              <td class="text-center result"><label class="sum col-form-label">0</label></td>
-              <td class="text-center"><button class="btn btn-outline-danger"><i style="font-size:18px" class="far fa-trash-alt"></i></button></td>
-            </tr>
+          <tr>
+            <td class="text-center"><label class="col-form-label">{{$number++}}</label></td>
+            <td><input type="text" class="form-control productname" value="{{$row['productname']}}" name="" required></td>
+            <td><input type="number" min="1" class="form-control productnumber" value="{{$row['productnumber']}}" name="" required></td>
+            <td><input type="text" class="form-control unit" value="{{$row['unit']}}" name="" required></td>
+            <td>
+              <input type="text" class="form-control keystore" required>
+            </td>
+            <td><input type="number" min="1" class="form-control price" name="" required></td>
+            <td class="text-center result"><label class="sum col-form-label">0</label></td>
+            <td class="text-center"><button class="btn btn-outline-danger"><i style="font-size:18px" class="far fa-trash-alt"></i></button></td>
+          </tr>
           @endforeach
         </tbody>
         <tfoot>
@@ -106,6 +111,7 @@
 <!-- การเพิ่มสินค้า  -->
 <script type="text/javascript">
   $(document).ready(function() {
+    $('#prpo_form').click();
     $('input.unit').autocomplete({
       lookup: [{
           value: 'เส้น',

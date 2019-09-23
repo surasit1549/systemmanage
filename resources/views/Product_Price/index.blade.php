@@ -2,6 +2,10 @@
 @section('title','welcome Homepage')
 @section('tabbarcss')
 <style>
+  #manage_store_manutab {
+    border-right: 5px solid rgb(41, 207, 219);
+  }
+
   #searchtext:focus {
     outline: none !important;
     box-shadow: none;
@@ -12,6 +16,9 @@
 
 <script>
   $(document).ready(function() {
+
+    $('#checkmenu').click();
+
     $('[data-toggle="tooltip"]').tooltip();
 
     $('.test').click(function() {
@@ -60,12 +67,6 @@
     <a class="btn btn-sm btn-success text-white" href="{{route('Product_Price.create')}}">
       <i class="fas fa-plus"></i>
       เพิ่มข้อมูลราคา
-    </a>
-  </div>
-  <div class="form-group ml-2">
-    <a class="btn btn-sm btn-primary text-white" href="#">
-      <i class="fas fa-info-circle"></i>
-      รายละเอียดการใช้งาน
     </a>
   </div>
 </div>

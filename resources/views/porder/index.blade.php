@@ -2,9 +2,8 @@
 @section('title','ใบสังซื้อ ')
 @section('tabbarcss')
 <style>
-  #prtab {
+  #potab {
     border-right: 5px solid rgb(41, 207, 219);
-  }
   }
 </style>
 @stop
@@ -43,10 +42,12 @@
 
 <script>
   $(document).ready(function() {
+    $('#prpo_form').click();
     $('[data-toggle=tooltip]').tooltip();
     $('table').DataTable({
-      'columnDefs' : [{
-        'orderable' : false , 'targets' : 3
+      'columnDefs': [{
+        'orderable': false,
+        'targets': 3
       }]
     });
   });

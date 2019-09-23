@@ -2,6 +2,10 @@
 @section('title','welcome Homepage')
 @section('tabbarcss')
 <style>
+  #store_menutab {
+    border-right: 5px solid rgb(41, 207, 219);
+  }
+
   #searchtext:focus {
     outline: none !important;
     box-shadow: none;
@@ -12,19 +16,19 @@
 
 <script>
   $(document).ready(function() {
+    $('#checkmenu').click();
     $('[data-toggle="tooltip"]').tooltip();
-
     $('.test').click(function() {
       Swal.fire({
-        type : 'question',
-        title : 'ต้องการลบรหัสสินค้า<br>'+$(this).parents().eq(2).find('.sorting_1').text(),
-        text : 'หากลบแล้ว จะไม่สามารถนำสินค้ากลับคืนมาได้',
-        confirmButtonText : 'ตกลง',
-        showCancelButton : true,
-        cancelButtonText : 'ยกเลิก',
-        focusCancel : true
+        type: 'question',
+        title: 'ต้องการลบรหัสสินค้า<br>' + $(this).parents().eq(2).find('.sorting_1').text(),
+        text: 'หากลบแล้ว จะไม่สามารถนำสินค้ากลับคืนมาได้',
+        confirmButtonText: 'ตกลง',
+        showCancelButton: true,
+        cancelButtonText: 'ยกเลิก',
+        focusCancel: true
       }).then((result) => {
-        if( result.value ){
+        if (result.value) {
           $(this).next('form').submit();
         }
       });
@@ -32,10 +36,10 @@
 
     $('#example').DataTable({
 
-      'columnDefs' : [
-        { 'orderable' : false , 'targets' : 3 }
-      ]
-      ,
+      'columnDefs': [{
+        'orderable': false,
+        'targets': 3
+      }],
       "oLanguage": {
         "sSearch": 'ค้นหา',
         "sInfo": 'จำนวนสินค้า _TOTAL_ ชิ้น',
@@ -72,12 +76,6 @@
     <a class="btn btn-sm btn-success text-white" href="{{route('Product.create')}}">
       <i class="fas fa-plus"></i>
       เพิ่มสินค้า
-    </a>
-  </div>
-  <div class="form-group ml-2">
-    <a class="btn btn-sm btn-primary text-white" href="#">
-      <i class="fas fa-info-circle"></i>
-      รายละเอียดการใช้งาน
     </a>
   </div>
 </div>
