@@ -160,11 +160,12 @@
             $('#addrow').click(function(e) {
                 e.preventDefault();
                 e.stopPropagation();
+                console.log(index);
+                if(index < 1){
+                    index = 1;
+                }
                 if (index <= 10) {
                     
-                    $(".delete").click(function() {
-                        $(this).parents("tr").remove();
-                    });
 
                     $('#detailmenu tbody').append('<tr><td class="text-center"><label class="col-form-label">' + (index++) + '</label></td><td>' +
                         '<input type="text" list="product" name="productname[]" class="form-control productname" required>' +
@@ -172,8 +173,12 @@
                         '<td><input type="text" name="unit[]" list="unit" class="form-control unit" required></td>' +
                         '<td class="text-center"><a class="btn btn-outline-danger delete"><i style="font-size:18px" class="far fa-trash-alt"></i></a></td></tr>');
                     $('#detailmenu tbody tr:last .productname').focus();
-
+                    $(".delete").click(function() {
+                        $(this).parents("tr").remove();
+                        index--;
+                    });
                 }
+                
 
             });
         })
