@@ -96,7 +96,7 @@
             <td>
               <select name="keystore[]">
                 @foreach($row[3] as $r)
-                <option value="{{$r['Store']}}">{{$r['Store']}}</option>
+                <option value="{{$r['name']}}">{{$r['name']}}</option>
                 @endforeach
               </select>
             </td>

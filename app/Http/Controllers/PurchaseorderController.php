@@ -122,14 +122,16 @@ class PurchaseorderController extends Controller
     public function show($id)
     {
         $number = 1;
-        $po_id = porder::find($id);
-        $convert = pr_create::where('key', $po_id['keyPR'])->get();
-        $data = pr_store::where('PO_ID', $po_id['PO_ID'])->get()->toArray();
+        $po_id = porder::where('keyPR',$id)->get()->toArray();
+        $store = Store::where('name',$po_id[0]['store_ID'])->get('keystore');
+        
+        $convert = pr_create::where('key', $po_id[0]['keyPR'])->get();
+        $data = pr_store::where('PO_ID', $po_id[0]['PO_ID'])->get()->toArray();
         //dd($data[0]['sumofprice']);
         $sum_price = $this->sum_price($data[0]['sumofprice']);
         $tax = $this->tax($sum_price, $data[0]['sumofprice']);
         $letter_sumofprice = $this->bathformat($data[0]['sumofprice']);
-        $store = Store::where('keystore', $po_id['store_ID'])->get()->toArray();
+        $store = Store::where('keystore', $store[0]['keystore'])->get()->toArray();
         $store_mine = Store::where('keystore', 'master')->get();
         return view('porder.show', compact(
             'po_id',

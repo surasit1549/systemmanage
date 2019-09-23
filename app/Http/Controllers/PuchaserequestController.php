@@ -197,10 +197,10 @@ class PuchaserequestController extends Controller
     $letter_sumofprice = $this->bathformat($pr_store[0]['sumofprice']);
     $store_mine = Store::where('keystore', 'master')->get();
     //dd($pr_create);
-    $contrator = log::get();
+    $contractor = Auth::user()->where('username',$pr_create[0]['contractor'])->get();
     $master1 = Auth::user()->where('role',"ผู้มีอำนาจ1")->get();
     $master2 = Auth::user()->where('role',"ผู้มีอำนาจ2")->get();
-    dd($contrator);
+    dd($contractor);
     return view('prequest.show', compact(
       'number',
       'id',
@@ -238,9 +238,10 @@ class PuchaserequestController extends Controller
       //  ->where('Product',$product_id[0]['Product_ID'])->min('Price');
       $product_min_price[] = product_main::where('Product_name', $productdb[$i])
         ->join('product__Prices', 'product_mains.Product_ID', 'product__Prices.Product')
+        ->join('stores', 'product__Prices.Store', 'stores.keystore')
         ->where('Price', $product_price)
         ->get()->toArray();
-      $store_price[] = product_Price::where('Price', $product_min_price[0][$i])->get('Store')->toArray();
+      $store_price = product_Price::where('Price', $product_min_price[0][0]['Price'])->get('Store')->toArray();
       $product_number = Create_product::where('key', $pr_create['key'])->get()->toArray();
       $products_sum = [$product_price * $product_number[$i]['productnumber']];
       $sum = [$sum[0] + $products_sum[0]];
@@ -254,7 +255,6 @@ class PuchaserequestController extends Controller
         $products_sum[0],
       ];
     }
-    dd($product_min_price);
     return view('prequest.edit', compact(
       'number',
       'pr_create',
@@ -320,7 +320,6 @@ class PuchaserequestController extends Controller
       return $value['keyPR'] > 100;
     });
     $filtered->all();
-    dd($filtered);
     $prequestdb = prequest::find($id);
     $prequestdb->delete();
     return redirect()->route('prequest.index')->with('success', 'ลบข้อมูลเรียบร้อย');
