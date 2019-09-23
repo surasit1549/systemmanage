@@ -103,9 +103,10 @@
       </table>
     </div>
     <div class="form-group text-center">
-        <a class="btn btn-danger" href="{{route('Authorized_person1.index')}}"><i style="font-size:18px" class="fas fa-undo-alt"></i>&nbsp;&nbsp;ย้อนกลับ</a>
-        <button id="subform" type="submit" class="btn btn-success" value="Update"><i class="far fa-save"></i>&nbsp;&nbsp;บันทึก</button>
-    </div>
+    <a class="btn btn-danger" href="#" onclick="window.history.back()"><i style="font-size:18px" class="fas fa-undo-alt"></i>
+      &nbsp;&nbsp;ย้อนกลับ</a>
+    <button id="subform" type="submit" class="btn btn-success ml-2" value="Update"><i class="fas fa-save"></i>
+      &nbsp;&nbsp;ตกลง</button>    </div>
     <input type="hidden" name="_method" value="PATCH" />
   </form>
 </div>
