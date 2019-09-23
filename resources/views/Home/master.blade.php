@@ -103,7 +103,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="logout" id="exit">
+                    <a href="/logout" id="exit">
                         <i style="font-size:20px" class="fas fa-sign-out-alt"></i>
                         &nbsp;&nbsp;ออกจากระบบ
                     </a>

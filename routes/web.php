@@ -18,9 +18,6 @@ Route::get('/',function(){
 });
 
 Route::group(['middleware' => ['123','checkAction']], function () {
-    Route::get('/',function(){
-        return redirect('login');
-    });
     //Route ::resource('store','FillinformationController');
     //Route ::resource('fillinformation','StoreController');
     Route::post('porder/makepdf', 'purchaseorderController@makepdf');
