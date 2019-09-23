@@ -234,8 +234,7 @@ class PuchaserequestController extends Controller
         ->join('product__Prices', 'product_mains.Product_ID', 'product__Prices.Product')
         ->where('Price', $product_price)
         ->get()->toArray();
-      $length_stores = sizeof($product_min_price);
-      $store_price[] = product_Price::where('Price', $product_price)->get('Store')->toArray();
+      $store_price[] = product_Price::where('Price', $product_min_price[0][$i])->get('Store')->toArray();
       $product_number = Create_product::where('key', $pr_create['key'])->get()->toArray();
       $products_sum = [$product_price * $product_number[$i]['productnumber']];
       $sum = [$sum[0] + $products_sum[0]];
@@ -249,6 +248,7 @@ class PuchaserequestController extends Controller
         $products_sum[0],
       ];
     }
+    dd($product_min_price);
     return view('prequest.edit', compact(
       'number',
       'pr_create',

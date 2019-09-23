@@ -65,13 +65,13 @@ class pr_createController extends Controller
                 $master1 = Authorized_person1::where('keyPR', $pr_create[$i]["key"])->get()->toArray();
                 $master2 = Authorized_person2::where('keyPR', $pr_create[$i]["key"])->get()->toArray();
                 if (empty($keypr[$i])) {
-                    $status = "กำลังตรวจสอบ";
+                    $status = "0";
                 } elseif ($keypr != NULL && empty($master1) && empty($master2)) {
-                    $status = "กำลังดำเนินการ [ 1 ]";
+                    $status = "1";
                 } elseif ($keypr != NULL && $master1 != NULL && empty($master2)) {
-                    $status = "กำลังดำเนินการ [ 2 ]";
+                    $status = "2";
                 } elseif ($keypr != NULL && $master1 != NULL && $master2 != NULL) {
-                    $status = "สำเร็จ";
+                    $status = "3";
                 }
                 $pr_product[] = [
                     $pr_create[$i]['id'],
