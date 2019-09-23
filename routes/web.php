@@ -20,6 +20,8 @@ Route::get('/',function(){
 Route::group(['middleware' => ['123','checkAction']], function () {
     //Route ::resource('store','FillinformationController');
     //Route ::resource('fillinformation','StoreController');
+    Route::post('profile/passcode', 'profileController@passcode');
+    Route::post('prequest/closePR', 'PuchaserequestController@closePR');
     Route::post('porder/makepdf', 'purchaseorderController@makepdf');
     Route::post('prequest/makepdf', 'PuchaserequestController@makepdf');
     Route::post('pr_create/makepdf', 'pr_createController@makepdf');

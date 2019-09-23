@@ -37,6 +37,7 @@
             <div class="mb-3">
                 <a class="btn btn-success" href="{{route('profile.edit',Auth::id())}}"><i class="fas fa-user-edit"></i>&nbsp;&nbsp;แก้ไขข้อมูลส่วนตัว</a>
                 <button class="btn btn-primary text-white ml-2" data-toggle="modal" data-target="#changepassword"><i class="fas fa-key"></i>&nbsp;&nbsp;เปลี่ยนพาสเวิร์ด</button>
+                <button class="btn btn-secondary text-white ml-2" data-toggle="modal" data-target="#passcheck"><i class="fas fa-unlock-alt"></i>&nbsp;&nbsp;รหัสลับ</button>
             </div>
             <table class="table table-bordered">
                 <tr>
@@ -96,6 +97,39 @@
             </div>
             <div class="modal-footer">
                 <button data-dismiss="modal" class="btn btn-secondary">ปิด</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="passcheck">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i style="font-size:20px" class="fas fa-unlock-alt"></i>&nbsp;&nbsp;รหัสลับ</h5>
+                <button class="close" data-dismiss="modal"><span>&times;</span></button>
+            </div>
+            <div class="modal-body">
+                {!! Form::open(['url' => 'profile/passcode','id' => 'passcode_form']) !!}
+                <div class="form-group">
+                    {!! Form::label('Passcode') !!}
+                    <small class="text-danger">* รหัสลับ 4 ตัว</small>
+                    {!! Form::password('passcode',['maxlength' => '4','class' => 'form-control','id' => 'passcode']) !!}
+                </div>
+                <div class="form-group">
+                    {!! Form::label('Re Passcode') !!}
+                    {!! Form::password('repasscode',['maxlength' => '4','class' => 'form-control']) !!}
+                </div>
+                <div class="form-group">
+                    {!! Form::label('Password') !!}
+                    {!! Form::password('password',['class' => 'form-control']) !!}
+                </div>
+                <div class="text-center">
+                    {!! Form::submit('บันทึก',['class' => 'btn btn-success']) !!}
+                    <a href="#" class="btn btn-secondary ml-2" data-dismiss="modal">ยกเลิก</a>
+                </div>
+                {!! Form::close() !!}
             </div>
         </div>
     </div>
@@ -166,9 +200,6 @@
         var signaturePad = new SignaturePad(canvas, {
             penColor: "blue"
         });
-
-
-
 
         $('#confirm').click(function() {
 
@@ -271,6 +302,56 @@
             }
         });
 
+
+        $('#passcheck').on('shown.bs.modal', function() {
+            $(this).find('[name=passcode]').focus();
+        }).on('hide.bs.modal', function() {
+            var form = $('#passcode_form');
+            form.validate().resetForm();
+            form.find('input').removeClass('is-invalid is-valid');
+            form.find('input:password').val('');
+        });
+
+        $('#passcode_form').validate({
+            rules: {
+                passcode: {
+                    'required': true,
+                    'minlength': 4
+                },
+                repasscode: {
+                    'required': true,
+                    'equalTo': '#passcode'
+                },
+                password: 'required'
+            },
+            messages: {
+                passcode: {
+                    'required': 'กรอกรหัสลับ',
+                    'minlength': 'กรอกรหัสลับให้ครบ 4 ตัว'
+                },
+                repasscode: {
+                    'required': 'กรอกรหัสลับอีกครั้ง',
+                    'equalTo': 'กรอกให้ตรงกัน'
+                },
+                password: 'กรอกรหัสผ่าน'
+            },
+            errorPlacement: function(error, element) {
+                // Add the `invalid-feedback` class to the error element
+                error.addClass("invalid-feedback");
+                error.insertAfter(element);
+            },
+            highlight: function(element, errorClass, validClass) {
+                $(element).addClass("is-invalid").removeClass("is-valid");
+            },
+            unhighlight: function(element, errorClass, validClass) {
+                $(element).addClass("is-valid").removeClass("is-invalid");
+            },
+            submitHandler: function(form, e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+
+        });
 
         $('#changepassword').on('shown.bs.modal', function() {
             $(this).find('#oldpassword').focus();

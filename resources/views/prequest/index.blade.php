@@ -43,11 +43,41 @@
       $(this).next('form').submit();
     });
 
+    $('#denyprequest').click(function(e) {
+      e.stopPropagation();
+      e.preventDefault();
+      var form = $(this).parent('form');
+      var bill = $(this).parents().eq(3).find('td:first').text();
+      Swal.fire({
+        type: 'question',
+        title: 'ต้องการยกเลิกบิล<br>' + bill,
+        text: 'เมื่อบิลถูกยกเลิกแล้วจะไม่สามารถนำกลับมาได้',
+        confirmButtonText: 'ตกลง',
+        cancelButtonText: 'ยกเลิก',
+        showCancelButton: true,
+        focusCancel: true,
+      }).then((result) => {
+        if (result.value) {
+          form.submit();
+        }
+      });
+    });
+
+
   })
 </script>
 @if(\Session::has('success'))
 <div class="alert alert-success">
   <a>{{\Session::get('success')}}</a>
+</div>
+@endif
+
+@if (session('status'))
+<div class="alert alert-success">
+  <i style="font-size:20px" class="fas fa-check-circle"></i>&nbsp;&nbsp;{{ session('status') }}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
 </div>
 @endif
 
@@ -94,19 +124,23 @@
             @endif
           </td>
           <td>
-            <div class="list-group list-group-horizontal">
+            <div class="row">
               @if(empty($row[7]))
-              <a href="{{action('PuchaserequestController@edit',$row[0])}}" class="list-group-item list-group-item-action flex-fill"><i style="font-size:20px" class="fas fa-spell-check text-info"></i>&nbsp;&nbsp;ตรวจสอบ</a>
+              <a href="{{action('PuchaserequestController@edit',$row[0])}}" class="btn btn-sm btn-info ml-2"><i style="font-size:20px" class="fas fa-spell-check text-info"></i>&nbsp;&nbsp;ตรวจสอบ</a>
               @endif
               @if($row[6] === "เสร็จสมบูรณ์" )
-              <a href="{{action('PuchaserequestController@show',$row[1])}}" class="list-group-item list-group-item-action flex-fill"><i style="font-size:20px" class="fas fa-file-pdf text-danger"></i>&nbsp;&nbsp;PDF</a>
+              <a href="{{action('PuchaserequestController@show',$row[1])}}" class="btn btn-sm btn-danger ml-2"><i style="font-size:20px" class="fas fa-file-pdf"></i>&nbsp;&nbsp;PDF</a>
               @endif
-              <a class="test list-group-item list-group-item-danger list-group-item-action flex-fill" href="#">ยกเลิก</a>
+              <form action="prequest/closePR" method="post">
+                @csrf
+                <input type="hidden" name="pr" value="{{$row[1]}}">
+                <button class="test btn btn-sm btn-secondary ml-2" id="denyprequest" href="#"><i style="font-size:20px" class="fas fa-window-close"></i>&nbsp;&nbsp;ยกเลิก</button>
+              </form>
+              <form method="post" class="delete_form" action="{{action('PuchaserequestController@destroy',$row[1])}}">
+                {{csrf_field()}}
+                <input type="hidden" name="_method" value="DELETE" />
+              </form>
             </div>
-            <form method="post" class="delete_form" action="{{action('PuchaserequestController@destroy',$row[1])}}">
-              {{csrf_field()}}
-              <input type="hidden" name="_method" value="DELETE" />
-            </form>
           </td>
         </tr>
         @endforeach

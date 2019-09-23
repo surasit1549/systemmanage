@@ -23,6 +23,13 @@ use Barryvdh\DomPDF\PDF;
 class PuchaserequestController extends Controller
 {
 
+
+  public function closePR(Request $request){
+    PR_create::where('key',$request->pr)
+              ->update(['status' => 'Rejected']);
+    return redirect()->route('prequest.index')->with('status','ยกเลิกใบขอสั่งซื้อเรียบร้อยแล้ว');
+  }
+
   public function makepdf(Request $request)
   {
     $stylesheet = file_get_contents(__DIR__ . '\style.css');
@@ -90,7 +97,6 @@ class PuchaserequestController extends Controller
           $pr_create[$i]['prequestconvert'],
           $status,
           $check
-
         ];
       }
       //dd($PR_create);

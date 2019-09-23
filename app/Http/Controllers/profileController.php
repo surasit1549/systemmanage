@@ -17,6 +17,11 @@ class profileController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+    public function passcheck(){
+        dd(123);
+    }
+
+
     public function checkpassword(Request $request)
     {
         if (Auth::user()->password == Hash::make($request->oldpassword)) {
