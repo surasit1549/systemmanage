@@ -17,16 +17,17 @@ class profileController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function passcheck()
+    public function insertpass(Request $request)
     {
-        dd(123);
+        User::find(Auth::id())->update(['passcode' => $request->passcode]);
+        return redirect()->route('profile.index')->with('msg','เปลี่ยนรหัสลับเรียบร้อยแล้ว');
     }
 
     public function passwordcheck(Request $request)
-    {
-        $password = Hash::make($request->password);
-        if (Hash::check(Auth::user()->password, $password)) {
-            return response()->json(['status' => true]);
+    {   
+        $password = $request->password;
+        if( Hash::check($password,Auth::user()->password)){
+            return response()->json(['status' =>  true ]);        
         }
         return response()->json(['status' => false]);
     }

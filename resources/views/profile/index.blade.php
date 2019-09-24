@@ -21,12 +21,14 @@
 
 @if(\Session::has('msg'))
 <div class="alert alert-success alert-dismissible fade show" role="alert">
-    <strong><i style="font-size:20px" class="fas fa-check-circle"></i>&nbsp;&nbsp;เปลี่ยนรหัสผ่านสำเร็จ ! </strong>สามารถเข้าระบบครั้งต่อไปโดยใช้รหัสผ่านใหม่ได้ทันที
+    <strong><i style="font-size:20px" class="fas fa-check-circle"></i>&nbsp;&nbsp;เปลี่ยนรหัสผ่านลับสำเร็จ ! </strong>สามารถกรอกรหัสลับเมื่อยืนยันรายการครั้งต่อไปได้ทันที
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
 </div>
 @endif
+
+
 
 <div class="card">
     <div class="card-header">
@@ -122,7 +124,7 @@
                 </div>
                 <div class="form-group">
                     {!! Form::label('Password') !!}
-                    {!! Form::password('password',['class' => 'form-control','id' => 'password']) !!}
+                    {!! Form::password('passwordcheck',['class' => 'form-control','id' => 'passwordcheck']) !!}
                 </div>
                 <div class="text-center">
                     {!! Form::submit('บันทึก',['class' => 'btn btn-success']) !!}
@@ -346,9 +348,7 @@
                 $(element).addClass("is-valid").removeClass("is-invalid");
             },
             submitHandler: function(form, e) {
-                e.preventDefault();
-                e.stopPropagation();
-                var pass = $('#passcode_form').find('#password');
+                var pass = $('#passcode_form').find('[name=passwordcheck]').val();
                 $.ajax({
                     type: 'POST',
                     url: '/profile/passwordcheck',
@@ -357,7 +357,16 @@
                         password: pass
                     },
                     success: function(data) {
-                        console.log(data.status);
+                        if (data.status) {
+                            form.submit();
+                        } else {
+                            Swal.fire({
+                                type: 'error',
+                                title: 'ไม่สามารถดำเนินการต่อได้',
+                                text: 'ใส่รหัสผ่านให้ถูกต้อง',
+                                confirmButtonText: 'ตกลง'
+                            })
+                        }
                     }
                 });
             }
