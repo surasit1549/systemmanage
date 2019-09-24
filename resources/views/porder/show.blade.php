@@ -144,10 +144,10 @@
   </div>
 </div>
 
+<div id="logo_po">
+  <img src="{{asset('pic/logo1.png')}}" style="width:128px;height:128px;">
+</div>
 <div id="exportpdf" class="d-none">
-  <div id="logo_po">
-    <img src="{{asset('pic/logo1.png')}}" alt="">
-  </div>
   <div id="cover_detail_table">
     {{$store_mine[0]['name']}} <br>
     {{$store_mine[0]['address']}} <br>

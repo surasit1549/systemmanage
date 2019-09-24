@@ -5,6 +5,7 @@
   #manage_product_manu {
     border-right: 5px solid rgb(41, 207, 219);
   }
+
   #searchtext:focus {
     outline: none !important;
     box-shadow: none;
@@ -27,7 +28,7 @@
   $(document).ready(function() {
 
     $('#master_menu').click();
-  
+
     $('[data-toggle="tooltip"]').tooltip();
 
     $('.test').click(function() {
@@ -63,6 +64,8 @@
         </tr>
       </thead>
       <tbody>
+        @if(empty($data))
+        @else
         @foreach($datas as $row)
         <tr>
           <td>{{$row[2]}}</td>
@@ -81,6 +84,7 @@
             </form>
         </tr>
         @endforeach
+        @endif
       </tbody>
     </table>
   </div>

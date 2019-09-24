@@ -62,6 +62,8 @@
         </tr>
       </thead>
       <tbody>
+        @if(empty($master))
+        @else
         @foreach($datas as $row)
         <tr>
           <td>{{$row[1]}}</td>
@@ -80,6 +82,7 @@
             </form>
         </tr>
         @endforeach
+        @endif
       </tbody>
     </table>
   </div>

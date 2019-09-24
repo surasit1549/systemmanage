@@ -1,6 +1,10 @@
 /*    PO     */ 
 
-
+#logo_po {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
 
 #cover_detail_table {
   top: 10px;

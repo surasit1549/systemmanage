@@ -135,6 +135,7 @@ class PurchaseorderController extends Controller
         $contractor = Auth::user()->where('username', $convert[0]['contractor'])->get();
         $master1 = Auth::user()->where('role', "ผู้มีอำนาจ1")->get();
         $master2 = Auth::user()->where('role', "ผู้มีอำนาจ2")->get();
+        
         return view('porder.show', compact(
             'po_id',
             'data',
