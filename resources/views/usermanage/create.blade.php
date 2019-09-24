@@ -21,6 +21,7 @@
     <form id="create_user_form" method="post" action="{{ action('UsermanageController@store') }}">
         {{csrf_field()}}
         <div class="card-body">
+            <input type="hidden" name="passcode" value="-">
             <h3><i class="fas fa-user"></i>&nbsp;&nbsp;รายละเอียดข้อมูลส่วนตัว</h3>
             <hr class="line">
             <br>

@@ -126,7 +126,7 @@
           <td>
             <div class="row">
               @if(empty($row[7]))
-              <a href="{{action('PuchaserequestController@edit',$row[0])}}" class="btn btn-sm btn-info ml-2"><i style="font-size:20px" class="fas fa-spell-check text-info"></i>&nbsp;&nbsp;ตรวจสอบ</a>
+              <a href="{{action('PuchaserequestController@edit',$row[0])}}" class="btn btn-sm btn-info ml-2"><i style="font-size:20px" class="fas fa-spell-check text-white"></i>&nbsp;&nbsp;ตรวจสอบ</a>
               @endif
               @if($row[6] === "เสร็จสมบูรณ์" )
               <a href="{{action('PuchaserequestController@show',$row[1])}}" class="btn btn-sm btn-danger ml-2"><i style="font-size:20px" class="fas fa-file-pdf"></i>&nbsp;&nbsp;PDF</a>

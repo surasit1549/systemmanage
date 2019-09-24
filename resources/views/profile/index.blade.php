@@ -21,7 +21,7 @@
 
 @if(\Session::has('msg'))
 <div class="alert alert-success alert-dismissible fade show" role="alert">
-    <strong><i style="font-size:20px" class="fas fa-check-circle"></i>&nbsp;&nbsp;เปลี่ยนรหัสผ่านลับสำเร็จ ! </strong>สามารถกรอกรหัสลับเมื่อยืนยันรายการครั้งต่อไปได้ทันที
+    <strong><i style="font-size:20px" class="fas fa-check-circle"></i>&nbsp;&nbsp;เปลี่ยนรหัสลับสำเร็จ ! </strong>สามารถกรอกรหัสลับเมื่อยืนยันรายการครั้งต่อไปได้ทันที
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>

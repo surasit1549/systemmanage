@@ -28,7 +28,7 @@
   $(document).ready(function() {
 
     $('#master_menu').click();
-    
+
     $('[data-toggle="tooltip"]').tooltip();
 
     $('.test').click(function() {
@@ -70,8 +70,8 @@
           <td>{{$row[4]}}</td>
           <td>
             @if($row[6] === "ตรวจสอบ")
-              &nbsp;&nbsp;<a href="{{action('masteroneController@edit',$row[1])}}" data-toggle="tooltip" data-placement="top" title="Edit"><i style="font-size:20px;" class="fas fa-edit text-warning"></i></a>
-              &nbsp;&nbsp;
+            &nbsp;&nbsp;<a href="{{action('masteroneController@edit',$row[1])}}" data-toggle="tooltip" data-placement="top" title="Check"><i style="font-size:20px" class="fas fa-pen-alt"></i></a>
+            &nbsp;&nbsp;
             @endif
             <a class="test" href="#" data-toggle="tooltip" data-placement="top" title="Remove"><i style="font-size:20px;" class="fas fa-trash-alt text-danger"></i></a>
             <form method="post" class="delete_form" action="{{action('masteroneController@destroy',$row[0])}}">

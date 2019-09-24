@@ -20,6 +20,10 @@ Route::get('/',function(){
 Route::group(['middleware' => ['123','checkAction']], function () {
     //Route ::resource('store','FillinformationController');
     //Route ::resource('fillinformation','StoreController');
+    Route::post('pr_create/checkpasscode', 'checkpasscodeController@checkcode');
+    Route::post('prequest/{id}/checkpasscode', 'checkpasscodeController@checkcode');
+    Route::post('Authorized_person1/{id}/checkpasscode', 'checkpasscodeController@checkcode');
+    Route::post('Authorized_person2/{id}/checkpasscode', 'checkpasscodeController@checkcode');
     Route::post('profile/passwordcheck', 'profileController@passwordcheck');
     Route::post('profile/passcode', 'profileController@insertpass');
     Route::post('prequest/closePR', 'PuchaserequestController@closePR');
