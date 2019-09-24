@@ -20,6 +20,8 @@ use App\log;
 use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\PDF;
 
+use function GuzzleHttp\Psr7\str;
+
 class PuchaserequestController extends Controller
 {
 
@@ -184,6 +186,11 @@ class PuchaserequestController extends Controller
     return $result;
   }
 
+  function time_master1($id){
+    $date = Authorized_person1::where('keyPR',$id)->get('created_at');
+    $datetime = substr($date[0]['created_at'],0,-9);
+  }
+
   public function show($id)
   {
     $number = 1;
@@ -196,11 +203,11 @@ class PuchaserequestController extends Controller
     $tax = $this->tax($sum_price, $pr_store[0]['sumofprice']);
     $letter_sumofprice = $this->bathformat($pr_store[0]['sumofprice']);
     $store_mine = Store::where('keystore', 'master')->get();
+    $date_master1 = $this->time_master1($pr_create[0]['key']);
     //dd($pr_create);
     $contractor = Auth::user()->where('username',$pr_create[0]['contractor'])->get();
     $master1 = Auth::user()->where('role',"ผู้มีอำนาจ1")->get();
     $master2 = Auth::user()->where('role',"ผู้มีอำนาจ2")->get();
-    dd($contractor);
     return view('prequest.show', compact(
       'number',
       'id',
@@ -212,7 +219,7 @@ class PuchaserequestController extends Controller
       'letter_sumofprice',
       'store_mine',
       'pr_store',
-      'contrator',
+      'contractor',
       'master1',
       'master2'
     ));

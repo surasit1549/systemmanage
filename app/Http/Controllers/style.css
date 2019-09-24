@@ -1,3 +1,10 @@
+/*    PO     */ 
+
+#logo_po {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
 
 #cover_detail_table {
   top: 10px;
@@ -74,6 +81,42 @@ tbody td {
   left: 40px;
   bottom: 20px;
 }
+
+#signature_contractor_po_img {
+  width: 232px;
+  height: 102px;
+}
+
+#signature_contractor_PO {
+  text-align: center;
+  position: absolute;
+  left: 40px;
+  bottom: 20px;
+}
+
+#signature_master1_po_img {
+  width: 232px;
+  height: 102px;
+}
+
+#signature_master1_PO {
+  text-align: center;
+  position: absolute;
+  right: 280px;
+  bottom: 20px;
+}
+
+#signature_master2_po_img {
+  width: 232px;
+  height: 102px;
+}
+
+#signature_master2_PO {
+  text-align: center;
+  position: absolute;
+  right: 40px;
+  bottom: 20px;
+}
 /*-------------------------------------------------*/
 
 /* PDF pr */
@@ -121,6 +164,42 @@ tbody td {
 #table_product,#table_product tr,#table_product td , #table_product th {
   border: 1px solid black;
   border-collapse: collapse;
+}
+
+#signature_contractor_pr_img {
+  width: 232px;
+  height: 102px;
+}
+
+#signature_contractor_PR {
+  text-align: center;
+  position: absolute;
+  left: 40px;
+  bottom: 20px;
+}
+
+#signature_master1_pr_img {
+  width: 232px;
+  height: 102px;
+}
+
+#signature_master1_PR {
+  text-align: center;
+  position: absolute;
+  right: 280px;
+  bottom: 20px;
+}
+
+#signature_master2_pr_img {
+  width: 232px;
+  height: 102px;
+}
+
+#signature_master2_PR {
+  text-align: center;
+  position: absolute;
+  right: 40px;
+  bottom: 20px;
 }
 
 /* pr */

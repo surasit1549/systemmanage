@@ -22,29 +22,35 @@ class masteroneController extends Controller
      */
     public function index()
     {
-        $prequest = prequest::get()->toArray();
-        $pr_create = PR_create::get()->toArray();
         $master = Authorized_person1::get()->toArray();
-        $lengtharray = sizeof($prequest);
-        for($i=0; $i<$lengtharray; $i++){
-            $data = Authorized_person1::where('keyPR',$pr_create[$i]['key'])->get()->toArray();
-            
-            if(empty($data)){
-                $check = "ตรวจสอบ";
-            }else{
-                $check = "เรียบร้อย";
+        
+        if(empty($master)){
+            $datas = '';
+            $pr_create = '';
+        }else{
+            $prequest = prequest::get()->toArray();
+            $pr_create = PR_create::get()->toArray();
+            $lengtharray = sizeof($prequest);
+            for($i=0; $i<$lengtharray; $i++){
+                $data = Authorized_person1::where('keyPR',$pr_create[$i]['key'])->get()->toArray();
+                
+                if(empty($data)){
+                    $check = "ตรวจสอบ";
+                }else{
+                    $check = "เรียบร้อย";
+                }
+                $datas[] = [
+                    $prequest[$i]['id'],
+                    $prequest[$i]['keyPR'],
+                    $prequest[$i]['date'],
+                    $prequest[$i]['formwork'],
+                    $prequest[$i]['prequestconvert'],
+                    $prequest[$i]['sumofprice'],
+                    $check
+                ];
             }
-            $datas[] = [
-                $prequest[$i]['id'],
-                $prequest[$i]['keyPR'],
-                $prequest[$i]['date'],
-                $prequest[$i]['formwork'],
-                $prequest[$i]['prequestconvert'],
-                $prequest[$i]['sumofprice'],
-                $check
-            ];
         }
-        return view('Authorized_person1.index',compact('datas','pr_create'));
+        return view('Authorized_person1.index',compact('datas','pr_create','master'));
     }
 
     /**

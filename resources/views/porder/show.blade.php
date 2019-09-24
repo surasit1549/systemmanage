@@ -144,6 +144,9 @@
   </div>
 </div>
 
+<div id="logo_po">
+  <img src="{{asset('pic/logo1.png')}}" style="width:128px;height:128px;">
+</div>
 <div id="exportpdf" class="d-none">
   <div id="cover_detail_table">
     {{$store_mine[0]['name']}} <br>
@@ -267,6 +270,20 @@
         </tr>
       </tfoot>
     </table>
+  </div>
+  <div id="signature_contractor_PO">
+    <img id="signature_contractor_po_img" src="{{$contractor[0]->signature}}" alt="">
+    <h4>{{ $contractor[0]->firstname }}&nbsp;&nbsp;{{ $contractor[0]->lastname }}<br>{{ $contractor[0]->role }}<br>วันที่ {{ $convert[0]['date'] }}</h4>
+  </div>
+
+  <div id="signature_master1_PO">
+    <img id="signature_master1_po_img" src="{{$master1[0]->signature}}" alt="">
+    <h4>{{ $master1[0]->firstname }}&nbsp;&nbsp;{{ $master1[0]->lastname }}<br>{{ $master1[0]->role }}<br>วันที่ {{ $convert[0]['date']  }}</h4>
+  </div>
+
+  <div id="signature_master2_PO">
+    <img id="signature_master2_po_img" src="{{$master2[0]->signature}}" alt="">
+    <h4>{{ $master2[0]->firstname }}&nbsp;&nbsp;{{ $master2[0]->lastname }}<br>{{ $master2[0]->role }}<br>วันที่ {{ $convert[0]['date'] }}</h4>
   </div>
 </div>
 

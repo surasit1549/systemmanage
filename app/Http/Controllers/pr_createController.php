@@ -168,6 +168,18 @@ class pr_createController extends Controller
 
     public function store(Request $request)
     {
+        $this->validate(
+            $request,
+            [
+                'key'               => 'required',
+                'formwork'          => 'required',
+                'prequestconvert'   => 'required',
+                'productname'       => 'required',
+                'productnumber'     => 'required',
+                'unit'              => 'required',
+
+            ]
+        );
 
         $num = 0;
         $key = $request->input('key');
