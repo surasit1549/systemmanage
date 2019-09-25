@@ -18,6 +18,8 @@ Route::get('/',function(){
 });
 
 Route::group(['middleware' => ['123','checkAction']], function () {
+    Route::get('upload_img','uploadController@index')->name('upload_img');
+    Route::post('upload_img','uploadController@store');
     //Route ::resource('store','FillinformationController');
     //Route ::resource('fillinformation','StoreController');
     Route::post('pr_create/checkpasscode', 'checkpasscodeController@checkcode');

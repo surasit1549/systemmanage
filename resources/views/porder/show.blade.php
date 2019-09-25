@@ -148,7 +148,7 @@
 
 
 <div id="exportpdf" class="d-none">
-    <img src="http://qnimate.com/wp-content/uploads/2014/03/images2.jpg" alt="123">
+  <img src="https://s3.ap-southeast-1.amazonaws.com/document-flow-s3/image/BIvmEHY90liloV3kTZLoqXHxmxCh6XXeRaeO8GBP.png" alt="test">
   <div id="cover_detail_table">
     {{$store_mine[0]['name']}} <br>
     {{$store_mine[0]['address']}} <br>
