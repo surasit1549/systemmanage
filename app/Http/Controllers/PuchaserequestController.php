@@ -204,10 +204,10 @@ class PuchaserequestController extends Controller
     $letter_sumofprice = $this->bathformat($pr_store[0]['sumofprice']);
     $store_mine = Store::where('keystore', 'master')->get();
     $date_master1 = $this->time_master1($pr_create[0]['key']);
-    //dd($pr_create);
     $contractor = Auth::user()->where('username',$pr_create[0]['contractor'])->get();
     $master1 = Auth::user()->where('role',"ผู้มีอำนาจ1")->get();
     $master2 = Auth::user()->where('role',"ผู้มีอำนาจ2")->get();
+    //dd($master1);
     return view('prequest.show', compact(
       'number',
       'id',

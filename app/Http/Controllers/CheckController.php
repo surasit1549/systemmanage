@@ -74,7 +74,7 @@ class CheckController extends Controller
         $number = 1;
         $po_id = porder::find($id);
         $data = pr_store::where('PO_ID',$po_id['PO_ID'])->get()->toArray();
-        $store = Store::where('keystore',$po_id['store_ID'])->get()->toArray();
+        $store = Store::where('name',$po_id['store_ID'])->get()->toArray();
         return view('check.edit', compact(
                                     'po_id',
                                     'data',

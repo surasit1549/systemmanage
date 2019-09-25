@@ -110,7 +110,7 @@
             <td class="text-center result"><input type="number" name="Product_number[]" min="1" class="form-control productnumber border-0" value="{{$row[1]}}" name="" required></td>
             <td class="text-center result"><input type="text" name="unit[]" class="form-control unit border-0" value="{{$row[2]}}" name="" required></td>
             <td>
-              <select name="keystore[]">
+              <select class="custom-select" name="keystore[]">
                 @foreach($row[3] as $r)
                 <option value="{{$r['name']}}">{{$r['name']}}</option>
                 @endforeach

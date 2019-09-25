@@ -87,18 +87,18 @@
           <thead class="text-center">
             <tr>
               <th style="width:10%">ลำดับ</th>
-              <th style="width:35%">ชื่อสินค้า</th>
-              <th style="width:30%">จำนวนสินค้า</th>
+              <th style="width:50%">ชื่อสินค้า</th>
+              <th style="width:20%">จำนวนสินค้า</th>
               <th style="width:20%">หน่วย</th>
             </tr>
           </thead>
           <tbody>
             @foreach($pr_products as $row)
             <tr>
-              <td>{{$number++}}</td>
+              <td class="text-center">{{$number++}}</td>
               <td>{{$row['productname']}}</td>
-              <td>{{$row['productnumber']}}</td>
-              <td>{{$row['unit']}}</td>
+              <td class="text-center">{{$row['productnumber']}}</td>
+              <td class="text-center">{{$row['unit']}}</td>
             </tr>
             @endforeach
           </tbody>
