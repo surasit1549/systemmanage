@@ -148,10 +148,16 @@
 
 
 <div id="exportpdf" class="d-none">
-  <img src="https://s3.ap-southeast-1.amazonaws.com/document-flow-s3/image/BIvmEHY90liloV3kTZLoqXHxmxCh6XXeRaeO8GBP.png" alt="test">
-  <div id="cover_detail_table">
-    {{$store_mine[0]['name']}} <br>
-    {{$store_mine[0]['address']}} <br>
+  <div id="img_po">
+    <img src="https://s3.ap-southeast-1.amazonaws.com/document-flow-s3/image/BIvmEHY90liloV3kTZLoqXHxmxCh6XXeRaeO8GBP.png" alt="test" >
+  </div>
+  <div id="cover_detail1_table">
+    {{$store_mine[0]['name']}}
+  </div>
+  <div id="cover_detail2_table">
+    {{$store_mine[0]['address']}}
+  </div>
+  <div id="cover_detail3_table">
     เบอร์โทรศัทพ์ {{$store_mine[0]['phone']}}
   </div>
   <div id="title_table">

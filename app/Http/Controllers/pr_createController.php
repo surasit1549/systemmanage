@@ -228,9 +228,9 @@ class pr_createController extends Controller
         $number = 1;
         $pr_product = Create_product::all()->toArray();
         $pr_create = PR_create::find($id);
-        dd($pr_create);
+        $contractor = Auth::user()->where('username', $pr_create['contractor'])->get();
         $pr_products = Create_product::where('key', '=', $pr_create['key'])->get();
-        return view('pr_create.show', compact('pr_create', 'pr_products', 'number', 'id'));
+        return view('pr_create.show', compact('pr_create', 'pr_products', 'number', 'contractor', 'id'));
     }
 
     /**
