@@ -148,7 +148,7 @@
 
 
 <div id="exportpdf" class="d-none">
-    <img src="http://qnimate.com/wp-content/uploads/2014/03/images2.jpg" alt="123">
+    <img src="/pic/logo1.png" alt="123" width="20px" height="20px">
   <div id="cover_detail_table">
     {{$store_mine[0]['name']}} <br>
     {{$store_mine[0]['address']}} <br>

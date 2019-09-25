@@ -125,21 +125,23 @@
           </td>
           <td>
             <div class="row">
+              @if($row[8][0]['status'] != "Rejected")
               @if(empty($row[7]))
               <a href="{{action('PuchaserequestController@edit',$row[0])}}" class="btn btn-sm btn-info ml-2 text-white"><i style="font-size:20px" class="fas fa-spell-check"></i>&nbsp;&nbsp;ตรวจสอบ</a>
               @endif
               @if($row[6] === "เสร็จสมบูรณ์" )
               <a href="{{action('PuchaserequestController@show',$row[1])}}" class="btn btn-sm btn-danger ml-2"><i style="font-size:20px" class="fas fa-file-pdf"></i>&nbsp;&nbsp;PDF</a>
               @endif
+              @if($row[6] != "เสร็จสมบูรณ์")
               <form action="prequest/closePR" method="post">
                 @csrf
                 <input type="hidden" name="pr" value="{{$row[1]}}">
                 <button class="denyprequest test btn btn-sm btn-secondary ml-2" href="#"><i style="font-size:20px" class="fas fa-window-close"></i>&nbsp;&nbsp;ยกเลิก</button>
               </form>
-              <form method="post" class="delete_form" action="{{action('PuchaserequestController@destroy',$row[1])}}">
-                {{csrf_field()}}
-                <input type="hidden" name="_method" value="DELETE" />
-              </form>
+              @endif
+              @else
+              <a href="{{action('PuchaserequestController@edit',$row[0])}}" class="btn btn-sm btn-danger ml-2"><i style="font-size:20px" class="fas fa-file-pdf"></i>&nbsp;&nbsp;ข้อมูล</a>
+              @endif
             </div>
           </td>
         </tr>
