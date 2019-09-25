@@ -252,12 +252,12 @@
 
   <div id="signature_master1_PR">
     <img id="signature_master1_pr_img" src="{{$master1[0]->signature}}" alt="">
-    <h4>{{ $master1[0]->firstname }}&nbsp;&nbsp;{{ $master1[0]->lastname }}<br>{{ $master1[0]->role }}<br>วันที่ {{ $pr_create[0]['date']  }}</h4>
+    <h4>{{ $master1[0]->firstname }}&nbsp;&nbsp;{{ $master1[0]->lastname }}<br>{{ $master1[0]->role }}<br>วันที่ {{$date_master1}}</h4>
   </div>
 
   <div id="signature_master2_PR">
     <img id="signature_master2_pr_img" src="{{$master2[0]->signature}}" alt="">
-    <h4>{{ $master2[0]->firstname }}&nbsp;&nbsp;{{ $master2[0]->lastname }}<br>{{ $master2[0]->role }}<br>วันที่ {{ $pr_create[0]['date'] }}</h4>
+    <h4>{{ $master2[0]->firstname }}&nbsp;&nbsp;{{ $master2[0]->lastname }}<br>{{ $master2[0]->role }}<br>วันที่ {{$date_master2}}</h4>
   </div>
 
 </div>

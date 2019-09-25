@@ -9,6 +9,7 @@ use App\Store;
 use App\transform;
 use App\prequest;
 use App\checkkeystore;
+use App\Authorized_person1;
 use App\Authorized_person2;
 use App\pr_store;
 use vendor\autoload;
@@ -33,10 +34,12 @@ class PurchaseorderController extends Controller
             'default_font_size' => 14,
             'default_font' => 'thsarabunnew'
         ]);
+        
         $key = $request->keyPO;
         $mpdf->WriteHTML($stylesheet, 1);
+        $mpdf->Image("C:/xampp/htdocs/laravel/systemmanage/public/pic/logo1.png", 0, 0, 210, 297, 'png', '', true, false);
         $mpdf->WriteHTML($request->pdf, 2);
-        $mpdf->Output("pdf/PR$key.pdf", 'F');
+        $mpdf->Output("pdf/PO$key.pdf", 'F');
         return response()->json(['msg' => 'Successful']);
     }
 
@@ -119,6 +122,28 @@ class PurchaseorderController extends Controller
         return $result;
     }
 
+    function time_master1($id)
+    {
+        $master1 = Authorized_person1::where('keyPR', $id)->get('created_at');
+        $datetime = substr($master1[0]['created_at'], 0, -9);
+        $date = substr($datetime, 8);
+        $mouth = substr($datetime, 5, -3);
+        $year = substr($datetime, 0, -6);
+        $date_master1 = $date . '-' . $mouth . '-' . $year;
+        return $date_master1;
+    }
+
+    function time_master2($id)
+    {
+        $master2 = Authorized_person2::where('keyPR', $id)->get('created_at');
+        $datetime = substr($master2[0]['created_at'], 0, -9);
+        $date = substr($datetime, 8);
+        $mouth = substr($datetime, 5, -3);
+        $year = substr($datetime, 0, -6);
+        $date_master2 = $date . '-' . $mouth . '-' . $year;
+        return $date_master2;
+    }
+
     public function show($id)
     {
         $number = 1;
@@ -126,16 +151,17 @@ class PurchaseorderController extends Controller
         $store = Store::where('name', $po_id[0]['store_ID'])->get('keystore');
         $convert = pr_create::where('key', $po_id[0]['keyPR'])->get();
         $data = pr_store::where('PO_ID', $po_id[0]['PO_ID'])->get()->toArray();
-        //dd($data[0]['sumofprice']);
         $sum_price = $this->sum_price($data[0]['sumofprice']);
         $tax = $this->tax($sum_price, $data[0]['sumofprice']);
         $letter_sumofprice = $this->bathformat($data[0]['sumofprice']);
         $store = Store::where('keystore', $store[0]['keystore'])->get()->toArray();
         $store_mine = Store::where('keystore', 'master')->get();
+        $date_master1 = $this->time_master1($convert[0]['key']);
+        $date_master2 = $this->time_master2($convert[0]['key']);
         $contractor = Auth::user()->where('username', $convert[0]['contractor'])->get();
         $master1 = Auth::user()->where('role', "ผู้มีอำนาจ1")->get();
         $master2 = Auth::user()->where('role', "ผู้มีอำนาจ2")->get();
-        
+        $logo = asset('pic/logo1.png');
         return view('porder.show', compact(
             'po_id',
             'data',
@@ -149,6 +175,9 @@ class PurchaseorderController extends Controller
             'contractor',
             'master1',
             'master2',
+            'logo',
+            'date_master1',
+            'date_master2',
             'id'
         ));
     }
