@@ -22,10 +22,12 @@
         data: {
           _token: '{{csrf_token()}}',
           keyPO: key,
+          img: $('#logo_po').html(),
           pdf: $('#exportpdf').html(),
           po: $('#ponumber').text()
         },
         success: function(data) {
+          alert("ดาวห์โหลด PDF สำเร็จ");
           console.log(data.msg);
         }
       })
@@ -147,6 +149,7 @@
 <div id="logo_po">
   <img src="{{asset('pic/logo1.png')}}" style="width:128px;height:128px;">
 </div>
+
 <div id="exportpdf" class="d-none">
   <div id="cover_detail_table">
     {{$store_mine[0]['name']}} <br>

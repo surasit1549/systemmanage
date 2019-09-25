@@ -26,10 +26,11 @@ class PuchaserequestController extends Controller
 {
 
 
-  public function closePR(Request $request){
-    PR_create::where('key',$request->pr)
-              ->update(['status' => 'Rejected']);
-    return redirect()->route('prequest.index')->with('status','ยกเลิกใบขอสั่งซื้อเรียบร้อยแล้ว');
+  public function closePR(Request $request)
+  {
+    PR_create::where('key', $request->pr)
+      ->update(['status' => 'Rejected']);
+    return redirect()->route('prequest.index')->with('status', 'ยกเลิกใบขอสั่งซื้อเรียบร้อยแล้ว');
   }
 
   public function makepdf(Request $request)
@@ -75,21 +76,25 @@ class PuchaserequestController extends Controller
     } else {
       $lengtharray = sizeof($pr_create);
       for ($i = 0; $i < $lengtharray; $i++) {
-
         $check = prequest::where('keyPR', $pr_create[$i]['key'])->get()->toArray();
 
+        $Rejected = pr_create::where('key',$pr_create[$i]['key'])->get('status')->toArray();
         $master1 = Authorized_person1::where('keyPR', $pr_create[$i]["key"])->get()->toArray();
         $master2 = Authorized_person2::where('keyPR', $pr_create[$i]["key"])->get()->toArray();
-        if (empty($check)) {
-          $status = "รอการตรวจสอบ";
-        } elseif ($keypr != NULL && empty($master1) && empty($master2)) {
-          $status = "อยู่ระหว่างดำเนินการ";
-        } elseif ($keypr != NULL && $master1 != NULL && empty($master2)) {
-          $status = "อยู่ระหว่างดำเนินการ";
-        } elseif ($keypr != NULL && $master1 != NULL && $master2 != NULL) {
-          $status = "เสร็จสมบูรณ์";
+        if($Rejected[0]['status'] === "active"){
+          if (empty($check)) {
+            $status = "รอการตรวจสอบ";
+          } elseif ($keypr != NULL && empty($master1) && empty($master2)) {
+            $status = "อยู่ระหว่างดำเนินการ";
+          } elseif ($keypr != NULL && $master1 != NULL && empty($master2)) {
+            $status = "อยู่ระหว่างดำเนินการ";
+          } elseif ($keypr != NULL && $master1 != NULL && $master2 != NULL) {
+            $status = "เสร็จสมบูรณ์";
+          }
+        }else{
+          $status = "ถูกยกเลิก";
         }
-        //dd($status);
+        
         $PR_create[] = [
           $pr_create[$i]['id'],
           $pr_create[$i]['key'],
@@ -101,7 +106,6 @@ class PuchaserequestController extends Controller
           $check
         ];
       }
-      //dd($PR_create);
       $pr_num = sizeof($pr_create);
       for ($i = $pr_num - 1; $i >= 0; $i--) {
         $PR_creates[] = $PR_create[$i];
@@ -186,9 +190,26 @@ class PuchaserequestController extends Controller
     return $result;
   }
 
-  function time_master1($id){
-    $date = Authorized_person1::where('keyPR',$id)->get('created_at');
-    $datetime = substr($date[0]['created_at'],0,-9);
+  function time_master1($id)
+  {
+    $master1 = Authorized_person1::where('keyPR', $id)->get('created_at');
+    $datetime = substr($master1[0]['created_at'], 0, -9);
+    $date = substr($datetime, 8);
+    $mouth = substr($datetime, 5, -3);
+    $year = substr($datetime, 0, -6);
+    $date_master1 = $date . '-' . $mouth . '-' . $year;
+    return $date_master1;
+  }
+
+  function time_master2($id)
+  {
+    $master2 = Authorized_person2::where('keyPR', $id)->get('created_at');
+    $datetime = substr($master2[0]['created_at'], 0, -9);
+    $date = substr($datetime, 8);
+    $mouth = substr($datetime, 5, -3);
+    $year = substr($datetime, 0, -6);
+    $date_master2 = $date . '-' . $mouth . '-' . $year;
+    return $date_master2;
   }
 
   public function show($id)
@@ -204,10 +225,10 @@ class PuchaserequestController extends Controller
     $letter_sumofprice = $this->bathformat($pr_store[0]['sumofprice']);
     $store_mine = Store::where('keystore', 'master')->get();
     $date_master1 = $this->time_master1($pr_create[0]['key']);
-    //dd($pr_create);
-    $contractor = Auth::user()->where('username',$pr_create[0]['contractor'])->get();
-    $master1 = Auth::user()->where('role',"ผู้มีอำนาจ1")->get();
-    $master2 = Auth::user()->where('role',"ผู้มีอำนาจ2")->get();
+    $date_master2 = $this->time_master2($pr_create[0]['key']);
+    $contractor = Auth::user()->where('username', $pr_create[0]['contractor'])->get();
+    $master1 = Auth::user()->where('role', "ผู้มีอำนาจ1")->get();
+    $master2 = Auth::user()->where('role', "ผู้มีอำนาจ2")->get();
     return view('prequest.show', compact(
       'number',
       'id',
@@ -221,7 +242,9 @@ class PuchaserequestController extends Controller
       'pr_store',
       'contractor',
       'master1',
-      'master2'
+      'master2',
+      'date_master1',
+      'date_master2'
     ));
   }
 
