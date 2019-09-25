@@ -37,7 +37,6 @@ class PurchaseorderController extends Controller
         
         $key = $request->keyPO;
         $mpdf->WriteHTML($stylesheet, 1);
-        $mpdf->Image("C:/xampp/htdocs/laravel/systemmanage/public/pic/logo1.png", 0, 0, 210, 297, 'png', '', true, false);
         $mpdf->WriteHTML($request->pdf, 2);
         $mpdf->Output("pdf/PO$key.pdf", 'F');
         return response()->json(['msg' => 'Successful']);
