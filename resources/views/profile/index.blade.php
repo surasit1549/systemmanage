@@ -28,7 +28,17 @@
 </div>
 @endif
 
+@if( Auth::user()->signature == '-' )
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong><i style="font-size:20px" class="fas fa-exclamation-circle"></i>&nbsp;&nbsp;ยังไม่มีลายเซ็น</strong>&nbsp;กรุณาเซ็นรายเซ็นเพื่อดำเนินการต่อ
+</div>
+@endif
 
+@if( Auth::user()->passcode == '-' )
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong><i style="font-size:20px" class="fas fa-exclamation-circle"></i></i>&nbsp;&nbsp;ยังไม่มีรหัสลับ</strong>&nbsp;กรอกรหัสลับเพื่อดำเนินการต่อ
+</div>
+@endif
 
 <div class="card">
     <div class="card-header">
