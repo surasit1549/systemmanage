@@ -103,7 +103,8 @@ class PuchaserequestController extends Controller
           $pr_create[$i]['formwork'],
           $pr_create[$i]['prequestconvert'],
           $status,
-          $check
+          $check,
+          $Rejected
         ];
       }
       $pr_num = sizeof($pr_create);
