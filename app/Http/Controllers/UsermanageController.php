@@ -89,10 +89,14 @@ class UsermanageController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+    public function changepass($id){
+        return view('usermanage.changepass',compact('id'));
+    }
+
     public function changepassword(Request $request){
         $password = Hash::make($request->password);
         User::find($request->id)->update(['password' => $password]);
-        return redirect()->route('usermanage.index');
+        return redirect()->route('usermanage.index')->with('msg','สามารถเข้าสู่ระบบครั้งต่อไปด้วยรหัสผ่านใหม่ได้ทันที');
     }
 
 
@@ -101,7 +105,7 @@ class UsermanageController extends Controller
         User::find($id)->update($request->toArray());
         unset($request['token'], $request['_token'], $request['_method'], $request['save']);
         $this->insertlog('UPDATE','users',$request->toArray());
-        return redirect()->route('usermanage.index');
+        return redirect()->route('usermanage.index')->with('update','บันทึกข้อมูลใหม่เรียบร้อยแล้ว');
     }
 
     /**

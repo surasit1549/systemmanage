@@ -19,6 +19,7 @@ Route::get('/',function(){
 
 Route::group(['middleware' => ['123','checkAction','checkstatus']], function () {
     Route::post('/usermanage/changepassword','UsermanageController@changepassword');
+    Route::get('/usermanage/{id}/changepass','UsermanageController@changepass');
     Route::get('upload_img','uploadController@index')->name('upload_img');
     Route::post('upload_img','uploadController@store');
     //Route ::resource('store','FillinformationController');
