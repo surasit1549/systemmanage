@@ -84,6 +84,8 @@ class UsermanageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+
     public function update(Request $request, $id)
     {
         User::find($id)->update($request->toArray());
@@ -98,14 +100,28 @@ class UsermanageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    public function activeUser(Request $request)
+    {
+        $user = User::find($request->id);
+        $input = [
+            'username' => $user->username,
+            'status' => 'Active'
+        ];
+        $this->insertlog('UPDATE', 'users', $input);
+        $user->update(['status' => 'Active']);
+        return redirect()->route('usermanage.index');
+     }
+
     public function destroy($id)
     {
         $user = User::find($id);
         $input = [
-            'username' => $user->username
+            'username' => $user->username,
+            'status' => 'Banned'
         ];
-        $this->insertlog('DELETE','users',$input);
-        $user->delete();
+        $this->insertlog('UPDATE','users',$input);
+        $user->update(['status' => 'banned']);
         return redirect()->route('usermanage.index');
     }
 
