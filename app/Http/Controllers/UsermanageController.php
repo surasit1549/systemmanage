@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use App\User;
 use App\log;
 Use Illuminate\Support\Facades\Auth;
+use App\role;
 
 class UsermanageController extends Controller
 {
@@ -35,7 +36,8 @@ class UsermanageController extends Controller
      */
     public function create()
     {
-        return view('usermanage.create');
+        $role = role::get();
+        return view('usermanage.create',compact('role'));
     }
 
     /**
@@ -74,7 +76,8 @@ class UsermanageController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        return view('usermanage.edit',compact('user'));
+        $role = role::get();
+        return view('usermanage.edit',compact('user','role'));
     }
 
     /**
