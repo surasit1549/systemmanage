@@ -25,8 +25,9 @@ class UsermanageController extends Controller
 
     public function index()
     {
-        $user = User::all()->toArray();
+        $user = User::select('*','roles.name_role as name_role')->join('roles','users.role','roles.id_role')->get()->toArray();
         return view('usermanage.indexuser',compact('user'));
+        
     }
 
     /**

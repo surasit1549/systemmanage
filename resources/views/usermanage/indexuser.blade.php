@@ -51,7 +51,7 @@
                     <td class="text-nowrap">{{$users['firstname']}}</td>
                     <td class="text-nowrap">{{$users['lastname']}}</td>
                     <td class="text-nowrap">{{$users['username']}}</td>
-                    <td class="text-nowrap">{{$users['role']}}</td>
+                    <td class="text-nowrap">{{$users['name_role']}}</td>
                     <td class="text-nowrap">
                         @if( $users['status'] == 'Active' )
                         <button class="btn btn-sm btn-success">Active</button>
