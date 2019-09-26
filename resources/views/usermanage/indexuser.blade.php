@@ -50,7 +50,7 @@
                     <td class="text-nowrap">{{$users['firstname']}}</td>
                     <td class="text-nowrap">{{$users['lastname']}}</td>
                     <td class="text-nowrap">{{$users['username']}}</td>
-                    <td class="text-nowrap">{{$users['role']}}</td>
+                    <td class="text-nowrap checkrole">{{$users['role']}}</td>
                     <td class="text-nowrap">
                         <a href="{{action('UsermanageController@edit',$users['id'])}}" data-toggle="tooltip" data-placement="top" title="Edit"><i style="font-size:20px;" class="fas fa-edit text-warning"></i></a>
                         &nbsp;&nbsp;
@@ -135,6 +135,7 @@
             });
 
             $('.delete_user').click(function() {
+                var check = $(this).parent().prev().text();
                 Swal.fire({
                     title: 'ต้องการลบผู้ใช้งานหรือไม่',
                     text: 'เมื่อลบผู้ใช้งานแล้วจะไม่สามารถกู้กลับมาได้',
@@ -145,15 +146,44 @@
                     focusCancel: true
                 }).then((result) => {
                     if (result.value) {
-                        Swal.fire({
-                            title: 'ลบข้อมูลเรียบร้อยแล้ว',
-                            type: 'success',
-                            timer: 1500,
-                            showConfirmButton: false,
-                            onAfterClose: () => {
-                                $(this).next('form').submit();
+                        if (check == 'แอดมิน') {
+                            var n = 0;
+                            $('.checkrole').each(function() {
+                                if ($(this).text() == 'แอดมิน') {
+                                    if (++n > 1) {
+                                        return false;
+                                    }
+                                }
+                            });
+                            if (n <= 1) {
+                                Swal.fire({
+                                    type: 'error',
+                                    title: 'ไม่สามารถลบได้',
+                                    text: 'ต้องมีแอดมินในระบบอย่างน้อยหนึ่งคน',
+                                    confirmButtonText: 'ตกลง'
+                                })
+                            } else {
+                                Swal.fire({
+                                    title: 'ลบข้อมูลเรียบร้อยแล้ว',
+                                    type: 'success',
+                                    timer: 1500,
+                                    showConfirmButton: false,
+                                    onAfterClose: () => {
+                                        $(this).next('form').submit();
+                                    }
+                                })
                             }
-                        })
+                        } else {
+                            Swal.fire({
+                                title: 'ลบข้อมูลเรียบร้อยแล้ว',
+                                type: 'success',
+                                timer: 1500,
+                                showConfirmButton: false,
+                                onAfterClose: () => {
+                                    $(this).next('form').submit();
+                                }
+                            })
+                        }
                     }
                 })
             });
