@@ -58,7 +58,6 @@
         <input type="hidden" name="id" value="{{$user['id']}}">
         <input type="hidden" name="_method" value="PATCH">
         <input type="hidden" name="token" value="{{csrf_token()}}">
-        <input type="hidden" name="signature" value="-">
     </form>
 
     <script>

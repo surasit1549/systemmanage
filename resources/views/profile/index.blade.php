@@ -333,7 +333,7 @@
                     'required': true,
                     'equalTo': '#passcode'
                 },
-                password: 'required'
+                passwordcheck: 'required'
             },
             messages: {
                 passcode: {
@@ -344,7 +344,7 @@
                     'required': 'กรอกรหัสลับอีกครั้ง',
                     'equalTo': 'กรอกให้ตรงกัน'
                 },
-                password: 'กรอกรหัสผ่าน'
+                passwordcheck: 'กรอกรหัสผ่าน'
             },
             errorPlacement: function(error, element) {
                 // Add the `invalid-feedback` class to the error element
