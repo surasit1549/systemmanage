@@ -37,6 +37,7 @@
                     <th class="text-nowrap">นามสกุล</th>
                     <th class="text-nowrap">Username</th>
                     <th class="text-nowrap">ตำแหน่ง</th>
+                    <th class="text-nowrap">สถานะ</th>
                     <th class="text-nowrap">จัดการ</th>
                 </tr>
             </thead>
@@ -50,16 +51,31 @@
                     <td class="text-nowrap">{{$users['firstname']}}</td>
                     <td class="text-nowrap">{{$users['lastname']}}</td>
                     <td class="text-nowrap">{{$users['username']}}</td>
-                    <td class="text-nowrap checkrole">{{$users['role']}}</td>
+                    <td class="text-nowrap">{{$users['role']}}</td>
+                    <td class="text-nowrap">
+                        @if( $users['status'] == 'Active' )
+                        <button class="btn btn-sm btn-success">Active</button>
+                        @else
+                        <button class="btn btn-sm btn-secondary">Banned</button>
+                        @endif
+                    </td>
                     <td class="text-nowrap">
                         <a href="{{action('UsermanageController@edit',$users['id'])}}" data-toggle="tooltip" data-placement="top" title="Edit"><i style="font-size:20px;" class="fas fa-edit text-warning"></i></a>
                         &nbsp;&nbsp;
-                        <a class="delete_user" data-toggle="tooltip" data-placement="top" title="Remove"><i style="font-size:20px;" class="fas fa-trash-alt text-danger"></i></a>
-                        <form method="post" class="delete_form" action="{{action('UsermanageController@destroy',$users['id'])}}">
+                        @if( $users['status'] == 'Active' )
+                        <a class="delete_user" data-toggle="tooltip" data-placement="top" title="Ban"><i style="font-size:20px" class="fas fa-ban text-danger"></i></a>
+                        <form method="post" action="{{action('UsermanageController@destroy',$users['id'])}}">
                             @csrf
                             <input type="hidden" name="username" value="{{$users['username']}}">
                             <input type="hidden" name="_method" value="DELETE" />
                         </form>
+                        @else
+                        <a class="active_user" data-toggle="tooltip" data-placement="top" title="Active"><i style="font-size:20px" class="fas fa-check-circle text-success"></i></a>
+                        <form method="post" action="/usermanage/activeUser">
+                            @csrf
+                            <input type="hidden" name="id" value="{{$users['id']}}">
+                        </form>
+                        @endif
                     </td>
                 </tr>
                 @endforeach
@@ -78,6 +94,7 @@
                         'orderable': false,
                         'width': '5%'
                     },
+                    null,
                     null,
                     null,
                     null,
@@ -134,11 +151,29 @@
                 }
             });
 
-            $('.delete_user').click(function() {
-                var check = $(this).parent().prev().text();
+
+            $('.active_user').click(function() {
+                var check = $(this).parent().prev().prev().prev().text();
                 Swal.fire({
-                    title: 'ต้องการลบผู้ใช้งานหรือไม่',
-                    text: 'เมื่อลบผู้ใช้งานแล้วจะไม่สามารถกู้กลับมาได้',
+                    title: 'ต้องการปลดแบนผู้ใช้งาน<br>' + check,
+                    text: 'เมื่อปลดแบนแล้วผู้ใช้งานจะสามารถเข้าสู่ระบบได้ปกติ',
+                    type: 'question',
+                    confirmButtonText: 'ตกลง',
+                    showCancelButton: true,
+                    cancelButtonText: 'ยกเลิก',
+                    focusCancel: true
+                }).then((result) => {
+                    if (result.value) {
+                        $(this).next().submit();
+                    }
+                })
+            });
+
+            $('.delete_user').click(function() {
+                var check = $(this).parent().prev().prev().prev().text();
+                Swal.fire({
+                    title: 'ต้องการแบนผู้ใช้งาน<br>' + check,
+                    text: 'เมื่อแบนแล้วผู้ใช้งานนี้จะไม่สามารถเข้าสู่ระบบได้',
                     type: 'warning',
                     confirmButtonText: 'ตกลง',
                     showCancelButton: true,
@@ -146,44 +181,7 @@
                     focusCancel: true
                 }).then((result) => {
                     if (result.value) {
-                        if (check == 'แอดมิน') {
-                            var n = 0;
-                            $('.checkrole').each(function() {
-                                if ($(this).text() == 'แอดมิน') {
-                                    if (++n > 1) {
-                                        return false;
-                                    }
-                                }
-                            });
-                            if (n <= 1) {
-                                Swal.fire({
-                                    type: 'error',
-                                    title: 'ไม่สามารถลบได้',
-                                    text: 'ต้องมีแอดมินในระบบอย่างน้อยหนึ่งคน',
-                                    confirmButtonText: 'ตกลง'
-                                })
-                            } else {
-                                Swal.fire({
-                                    title: 'ลบข้อมูลเรียบร้อยแล้ว',
-                                    type: 'success',
-                                    timer: 1500,
-                                    showConfirmButton: false,
-                                    onAfterClose: () => {
-                                        $(this).next('form').submit();
-                                    }
-                                })
-                            }
-                        } else {
-                            Swal.fire({
-                                title: 'ลบข้อมูลเรียบร้อยแล้ว',
-                                type: 'success',
-                                timer: 1500,
-                                showConfirmButton: false,
-                                onAfterClose: () => {
-                                    $(this).next('form').submit();
-                                }
-                            })
-                        }
+                        $(this).next().submit();
                     }
                 })
             });

@@ -107,6 +107,7 @@ class PuchaserequestController extends Controller
           $Rejected
         ];
       }
+      
       $pr_num = sizeof($pr_create);
       for ($i = $pr_num - 1; $i >= 0; $i--) {
         $PR_creates[] = $PR_create[$i];
@@ -227,9 +228,11 @@ class PuchaserequestController extends Controller
     $store_mine = Store::where('keystore', 'master')->get();
     $date_master1 = $this->time_master1($pr_create[0]['key']);
     $date_master2 = $this->time_master2($pr_create[0]['key']);
+    
     $contractor = Auth::user()->where('username', $pr_create[0]['contractor'])->get();
     $master1 = Auth::user()->where('role', "ผู้มีอำนาจ1")->get();
     $master2 = Auth::user()->where('role', "ผู้มีอำนาจ2")->get();
+    dd($pr_create[0]['contractor']);
     return view('prequest.show', compact(
       'number',
       'id',

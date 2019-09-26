@@ -17,11 +17,12 @@ Route::get('/',function(){
     return redirect('login');
 });
 
-Route::group(['middleware' => ['123','checkAction']], function () {
+Route::group(['middleware' => ['123','checkAction','checkstatus']], function () {
     Route::get('upload_img','uploadController@index')->name('upload_img');
     Route::post('upload_img','uploadController@store');
     //Route ::resource('store','FillinformationController');
     //Route ::resource('fillinformation','StoreController');
+    Route::post('usermanage/activeUser','usermanageController@activeUser');
     Route::post('pr_create/checkpasscode', 'checkpasscodeController@checkcode');
     Route::post('prequest/{id}/checkpasscode', 'checkpasscodeController@checkcode');
     Route::post('Authorized_person1/{id}/checkpasscode', 'checkpasscodeController@checkcode');
