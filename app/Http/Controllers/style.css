@@ -9,19 +9,19 @@
 }
 
 #cover_detail1_table {
-  top: 20px;
+  top: 30px;
   right: 327px;
   font-size: 20px;
   position: absolute;
 }
 #cover_detail2_table {
-  top: 50px;
+  top: 60px;
   right: 240px;
   font-size: 20px;
   position: absolute;
 }
 #cover_detail3_table {
-  top: 80px;
+  top: 90px;
   right: 320px;
   font-size: 20px;
   position: absolute;
@@ -146,19 +146,19 @@ tbody td {
 }
 
 #store_detail1_table {
-  top: 20px;
+  top: 35px;
   right: 327px;
   font-size: 20px;
   position: absolute;
 }
 #store_detail2_table {
-  top: 50px;
+  top: 65px;
   right: 240px;
   font-size: 20px;
   position: absolute;
 }
 #store_detail3_table {
-  top: 80px;
+  top: 95px;
   right: 320px;
   font-size: 20px;
   position: absolute;

@@ -20,10 +20,26 @@
     outline: none !important;
     box-shadow: none;
   }
+
+  #master {
+    padding: 1%;
+  }
+
+  #a {
+    position: absolute;
+    color: white;
+    background: steelblue;
+    padding: 1%;
+    left: 20px;
+  }
+
+  #h5 {
+    position: absolute;
+    right: 500px;
+  }
 </style>
 @stop
 @section('content')
-
 <script>
   $(document).ready(function() {
 
@@ -50,6 +66,12 @@
   <div class="card-header">
     <h3 class="text-white"><i style="font-size:20px" class="fas fa-list"></i>&nbsp;&nbsp;ตรวจสอบรายการใบขอสั่งซื้อ</h3>
   </div>
+  @if( Auth::user()->role == 'แอดมิน')
+  <div id="master">
+    <p><b><a id="a" href="{{route('Authorized_person2.index')}}">ผู้มีอำนาจคนที่ 2</a></b></p>
+    <h5 id="h5"> ผู้มีอำนาจคนที่ 1 </h5>
+  </div><br>
+  @endif
   <div class="card-body">
     <table class="table table-bordered display responsive nowrap" cellspacing="0" width="100%" id="example">
       <thead>
