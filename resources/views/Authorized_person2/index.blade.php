@@ -25,17 +25,28 @@
     padding: 1%;
   }
 
-  #a {
+  #a1 {
     position: absolute;
     color: white;
-    background: steelblue;
+    border: 1px solid black;
+    background: #4A708B;
+    width: 150px;
+    height: 50px;
     padding: 1%;
     left: 20px;
+    text-align: center;
   }
 
-  #h5 {
+  #a2 {
     position: absolute;
-    right: 500px;
+    color: black;
+    border: 1px solid black;
+    top: 73px;
+    width: 150px;
+    height: 50px;
+    padding: 1%;
+    left: 170px;
+    text-align: center;
   }
 </style>
 @stop
@@ -52,7 +63,6 @@
       $(this).next('form').submit();
     });
   });
-  
 </script>
 
 @if(\Session::has('success'))
@@ -63,16 +73,14 @@
   </button>
 </div>
 @endif
-
-
 <div class="card">
   <div class="card-header">
     <h3 class="text-white"><i style="font-size:20px" class="fas fa-list"></i>&nbsp;&nbsp;ตรวจสอบรายการใบขอสั่งซื้อ</h3>
   </div>
   @if( Auth::user()->role == 'แอดมิน')
   <div id="master">
-    <p><b><a id="a" href="{{route('Authorized_person1.index')}}">ผู้มีอำนาจคนที่ 1</a></b></p>
-    <h5 id="h5"> ผู้มีอำนาจคนที่ 2 </h5>
+    <p><b><a id="a1" href="{{route('Authorized_person1.index')}}">ผู้มีอำนาจคนที่ 1</a></b></p>
+    <p><b><a id="a2" href="{{route('Authorized_person2.index')}}">ผู้มีอำนาจคนที่ 2</a></b></p>
   </div><br>
   @endif
   <div class="card-body">

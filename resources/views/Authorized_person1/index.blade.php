@@ -25,17 +25,28 @@
     padding: 1%;
   }
 
-  #a {
+  #a1 {
     position: absolute;
-    color: white;
-    background: steelblue;
+    color: black;
+    border: 1px solid black;
+    width: 150px;
+    height: 50px;
     padding: 1%;
     left: 20px;
+    text-align: center;
   }
 
-  #h5 {
+  #a2 {
     position: absolute;
-    right: 500px;
+    color: white;
+    border: 1px solid black;
+    background: #4A708B;
+    top: 73px;
+    width: 150px;
+    height: 50px;
+    padding: 1%;
+    left: 170px;
+    text-align: center;
   }
 </style>
 @stop
@@ -68,8 +79,8 @@
   </div>
   @if( Auth::user()->role == 'แอดมิน')
   <div id="master">
-    <p><b><a id="a" href="{{route('Authorized_person2.index')}}">ผู้มีอำนาจคนที่ 2</a></b></p>
-    <h5 id="h5"> ผู้มีอำนาจคนที่ 1 </h5>
+    <p><b><a id="a1" href="{{route('Authorized_person1.index')}}">ผู้มีอำนาจคนที่ 1</a></b></p>
+    <p><b><a id="a2" href="{{route('Authorized_person2.index')}}">ผู้มีอำนาจคนที่ 2</a></b></p>
   </div><br>
   @endif
   <div class="card-body">
