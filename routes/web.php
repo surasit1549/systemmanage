@@ -17,29 +17,41 @@ Route::get('/',function(){
     return redirect('login');
 });
 
-Route::group(['middleware' => ['123','checkAction']], function () {
+Route::group(['middleware' => ['123','checkAction','checkstatus']], function () {
+    Route::post('/usermanage/changepassword','UsermanageController@changepassword');
+    Route::get('upload_img','uploadController@index')->name('upload_img');
+    Route::post('upload_img','uploadController@store');
     //Route ::resource('store','FillinformationController');
     //Route ::resource('fillinformation','StoreController');
+    Route::post('usermanage/activeUser','usermanageController@activeUser');
+    Route::post('pr_create/checkpasscode', 'checkpasscodeController@checkcode');
+    Route::post('prequest/{id}/checkpasscode', 'checkpasscodeController@checkcode');
+    Route::post('Authorized_person1/{id}/checkpasscode', 'checkpasscodeController@checkcode');
+    Route::post('Authorized_person2/{id}/checkpasscode', 'checkpasscodeController@checkcode');
+    Route::post('profile/passwordcheck', 'profileController@passwordcheck');
+    Route::post('profile/passcode', 'profileController@insertpass');
+    Route::post('prequest/closePR', 'PuchaserequestController@closePR');
     Route::post('porder/makepdf', 'purchaseorderController@makepdf');
     Route::post('prequest/makepdf', 'PuchaserequestController@makepdf');
     Route::post('pr_create/makepdf', 'pr_createController@makepdf');
     Route::post('profile/changpassword', 'profileController@changepassword');
     Route::post('usermanage/checkemail', 'UsermanageController@checkemail');
     Route::post('Product_Price/deletename', 'ProductPriceController@deletename');
-    Route::resources([
-        'store' => 'StoreController',
-        'transform' => 'TransformController',
-        'prequest' => 'PuchaserequestController',
-        'porder' => 'PurchaseorderController',
-        'check' => 'CheckController',
-        'usermanage' => 'UsermanageController',
-        'pr_create' => 'pr_createController',
-        'Product' => 'ProductController',
-        'Product_Price' => 'ProductPriceController',
-        'profile' => 'profileController',
-        'Authorized_person1' => 'masteroneController',
-        'Authorized_person2' => 'mastertwoController'
-    ]);
+    Route::group(['middleware' => 'checkstart'],function(){
+        Route::resource('store', 'StoreController');
+        Route::resource('transform', 'TransformController');
+        Route::resource('prequest', 'PuchaserequestController');
+        Route::resource('porder', 'PurchaseorderController');
+        Route::resource('check', 'CheckController');
+        Route::resource('pr_create', 'pr_createController');
+        Route::resource('Product', 'ProductController');
+        Route::resource('Product_Price', 'ProductPriceController');
+        Route::resource('Authorized_person1', 'masteroneController');
+        Route::resource('Authorized_person2', 'mastertwoController');
+        Route::resource('usermanage', 'UsermanageController');
+    });
+    Route::resource('profile', 'profileController');
+
     // Sent by Ajax
     Route::post('profile/viewSignature', 'profileController@viewSignature');
     Route::post('profile/createSignature', 'profileController@createSignature');

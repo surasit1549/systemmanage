@@ -1,7 +1,30 @@
+/*    PO     */ 
 
-#cover_detail_table {
-  top: 10px;
-  text-align: center;
+#img_po {
+  position: absolute;
+  top: 15px;
+  left: 40px;
+  width:250px;
+  height:250px;
+}
+
+#cover_detail1_table {
+  top: 30px;
+  right: 327px;
+  font-size: 20px;
+  position: absolute;
+}
+#cover_detail2_table {
+  top: 60px;
+  right: 240px;
+  font-size: 20px;
+  position: absolute;
+}
+#cover_detail3_table {
+  top: 90px;
+  right: 320px;
+  font-size: 20px;
+  position: absolute;
 }
 
 #title_table {
@@ -74,14 +97,71 @@ tbody td {
   left: 40px;
   bottom: 20px;
 }
+
+#signature_contractor_po_img {
+  width: 232px;
+  height: 102px;
+}
+
+#signature_contractor_PO {
+  text-align: center;
+  position: absolute;
+  left: 40px;
+  bottom: 20px;
+}
+
+#signature_master1_po_img {
+  width: 232px;
+  height: 102px;
+}
+
+#signature_master1_PO {
+  text-align: center;
+  position: absolute;
+  right: 280px;
+  bottom: 20px;
+}
+
+#signature_master2_po_img {
+  width: 232px;
+  height: 102px;
+}
+
+#signature_master2_PO {
+  text-align: center;
+  position: absolute;
+  right: 40px;
+  bottom: 20px;
+}
 /*-------------------------------------------------*/
 
 /* PDF pr */
 
+#img_pr {
+  position: absolute;
+  top: 15px;
+  left: 40px;
+  width:250px;
+  height:250px;
+}
 
-#store_cover_detail_table {
-  top: 10px;
-  text-align: center;
+#store_detail1_table {
+  top: 35px;
+  right: 327px;
+  font-size: 20px;
+  position: absolute;
+}
+#store_detail2_table {
+  top: 65px;
+  right: 240px;
+  font-size: 20px;
+  position: absolute;
+}
+#store_detail3_table {
+  top: 95px;
+  right: 320px;
+  font-size: 20px;
+  position: absolute;
 }
 
 #pr_ID {
@@ -94,18 +174,14 @@ tbody td {
   position: absolute;
   top: 190px;
   width: 83%;
+  left: 10px;
 }
 #tableexa {
   border-collapse: collapse;
   width: 100%;
+  left: 10px;
 }
 
-#product {
-  position: absolute;
-  top: 320px;
-  width: 88%;
-  border: 1px solid black;
-}
 #table_product {
   width: 100%;
 }
@@ -118,9 +194,51 @@ tbody th {
 tbody td {
   height: 30px;
 }
+
+#product {
+  position: absolute;
+  top: 320px;
+  width: 88%;
+}
 #table_product,#table_product tr,#table_product td , #table_product th {
   border: 1px solid black;
   border-collapse: collapse;
+}
+
+#signature_contractor_pr_img {
+  width: 232px;
+  height: 102px;
+}
+
+#signature_contractor_PR {
+  text-align: center;
+  position: absolute;
+  left: 40px;
+  bottom: 20px;
+}
+
+#signature_master1_pr_img {
+  width: 232px;
+  height: 102px;
+}
+
+#signature_master1_PR {
+  text-align: center;
+  position: absolute;
+  right: 280px;
+  bottom: 20px;
+}
+
+#signature_master2_pr_img {
+  width: 232px;
+  height: 102px;
+}
+
+#signature_master2_PR {
+  text-align: center;
+  position: absolute;
+  right: 40px;
+  bottom: 20px;
 }
 
 /* pr */
@@ -139,19 +257,8 @@ tbody td {
   text-align: left !important;
 }
 
-/* Signature */
-
-#signature {
-  text-align: center;
-  position: absolute;
-  right: 40px;
-  bottom: 20px;
-}
-
-#signatureimg {
-  width: 232px;
-  height: 102px;
-}
+/*----- contractor pdf -------*/
+/*   information   */
 
 #heading {
   position: relative;
@@ -162,41 +269,35 @@ tbody td {
 #tabletop {
   position: absolute;
   right: 0;
-  top: 0;
+  top: 20px;
   padding-top: 130px;
   padding-right: 40px;
 }
 
-/* TOP DETAIL */
-
-#exporta {
-  text-align: right !important;
-  width: 100%;
-  padding: 15px;
-  left: 0;
-  font-size: 18px;
+#exporta_contractor {
+  position: absolute;
+  left: 50px;
+  top: 100px;
+  padding-top: 130px;
+  padding-right: 40px;
 }
-
-#exporta tr,
-#exporta th,
-#exporta td,
-#exporta table {
-  text-align: left !important;
-}
-
-#tableexa tr,
-#tableexa td,
-#tableexa th {
-  padding: 10px 5px;
+#tableexa_contractor {
+  position: absolute;
+  width: 90%;
 }
 
 /*   MENU DETAIL    */
-
+#table_imformation_contractor {
+  position: absolute;
+  top: 340px;
+  left: 80px;
+}
 #exportb {
-  width: 100%;
+  position: absolute;
+  width: 95%;
 }
 #no_exb {
-  width: 10%;
+  width: 5%;
 }
 #detail_exb {
   width: 60%;
@@ -216,4 +317,19 @@ tbody td {
   border: 1px solid black;
   border-collapse: collapse;
   padding: 10px 5px;
+}
+
+/* signature contractor */
+/* Signature */
+
+#signature_contractor {
+  position: absolute;
+  text-align: center;
+  right: 40px;
+  bottom: 20px;
+}
+
+#signatureimg_contractor {
+  width: 232px;
+  height: 102px;
 }

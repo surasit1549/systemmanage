@@ -45,11 +45,9 @@
             <div class="form-group">
                 <label for="">ตำแหน่ง</label>
                 <select name="role" class="custom-select" id="role">
-                    <option value="ผู้รับเหมา" {{ $user['role'] == 'ผู้รับเหมา' ? 'selected' : '' }}>ผู้รับเหมา</option>
-                    <option value="ฝ่ายจัดซื้อ" {{ $user['role'] == 'ฝ่ายจัดซื้อ' ? 'selected' : '' }}>ฝ่ายจัดซื้อ</option>
-                    <option value="ผู้มีอำนาจ1" {{ $user['role'] == 'ผู้มีอำนาจ1' ? 'selected' : '' }}>ผู้มีอำนาจคนที่ 1</option>
-                    <option value="ผู้มีอำนาจ2" {{ $user['role'] == 'ผู้มีอำนาจ2' ? 'selected' : '' }}>ผู้มีอำนาจคนที่ 2</option>
-                    <option value="แอดมิน" {{ $user['role'] == 'แอดมิน' ? 'selected' : '' }}>แอดมิน</option>
+                    @foreach( $role as $roles )
+                    <option value="{{$roles->id_role}}" @if( $user['role']== $roles->id_role ) selected @endif  >{{$roles->name_role}}</option>
+                    @endforeach
                 </select>
             </div>
         </div>

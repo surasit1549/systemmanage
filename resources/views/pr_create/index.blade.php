@@ -46,7 +46,6 @@
 </div>
 @endif
 
-
 <div class="form-row col-md-12">
   <div class="form-group">
     <a class="btn btn-sm btn-success text-white" href="{{route('pr_create.create')}}">
@@ -72,13 +71,12 @@
           <th style="width:15%">วันที่ขอซื้อ</th>
           <th style="width:25%">แบบงาน</th>
           <th style="width:15%">แปลง</th>
-          <th style="width:15%">สถานะ</th>
+          <th style="width:15%">กำลังดำเนินการ</th>
           <th style="width:15%">จัดการ</th>
         </tr>
       </thead>
       <tbody>
         @if(empty($pr_create))
-
         @else
         @foreach($pr_products as $row)
         <tr>
@@ -86,7 +84,17 @@
           <td>{{$row[1]}}</td>
           <td>{{$row[3]}}</td>
           <td>{{$row[4]}}</td>
-          <td>{{$row[6]}}</td>
+          <td>
+            @if( $row[6] == '0' )
+            <button class="btn btn-sm btn-primary">ฝ่ายจัดซื้อ</button>
+            @elseif( $row[6] == '1' )
+            <button class="btn btn-sm btn-warning">ผู้มีอำนาจ 1</button>
+            @elseif( $row[6] == '2' )
+            <button class="btn btn-sm btn-danger">ผู้มีอำนาจ 2</button>
+            @elseif( $row[6] == '3' )
+            <button class="btn btn-sm btn-success">เสร็จสมบูรณ์</button>
+            @endif
+          </td>
           <td>
             <a class="btn btn-sm btn-info text-white" href="{{action('pr_createController@show',$row[0])}}" data-placement="top">ข้อมูลเพิ่มเติม</a>
           </td>

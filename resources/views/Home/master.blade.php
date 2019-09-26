@@ -28,7 +28,7 @@
         <nav id="sidebar">
             <img class="siderbar-header" style="width:250px" src="{{asset('pic/logo1.png')}}" alt="">
             <ul class="list-unstyled components">
-                @if( Auth::user()->role != 'ผู้รับเหมา' )
+                @if( Auth::user()->role != 2 )
                 <li>
                     <a href="{{route('store.index')}}" id="storetab">
                         <i style="font-size:20px" class="fas fa-store-alt"></i>&nbsp;&nbsp;
@@ -53,14 +53,14 @@
                         &nbsp;&nbsp;แปลง</a>
                 </li>
                 @endif
-                @if( Auth::user()->role == 'ผู้รับเหมา' || Auth::user()->role == 'แอดมิน' )
+                @if( Auth::user()->role == 2 || Auth::user()->role == 5 )
                 <li>
                     <a href="{{route('pr_create.index')}}" id="constructtab">
                         <i style="font-size:20px" class="far fa-file-alt"></i>
                         &nbsp;&nbsp;ใบขอสั่งซื้อ</a>
                 </li>
                 @endif
-                @if( Auth::user()->role != 'ผู้รับเหมา' )
+                @if( Auth::user()->role != 2 )
                 <li>
                     <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" id="prpo_form"><i style="font-size:20px" class="far fa-file-alt"></i>
                         &nbsp;&nbsp;รายละเอียดการสั่งซื้อ</a>
@@ -77,21 +77,28 @@
                     </ul>
                 </li>
                 @endif
-                @if( Auth::user()->role == 'ผู้มีอำนาจ1' || Auth::user()->role == 'แอดมิน' )
+                @if( Auth::user()->role == 5)
                 <li>
                     <a href="{{route('Authorized_person1.index')}}" id="person1">
                         <i style="font-size:20px" class="fas fa-list"></i>
                         &nbsp;&nbsp;ตรวจสอบรายการขอสั่งซื้อ</a>
                 </li>
                 @endif
-                @if( Auth::user()->role == 'ผู้มีอำนาจ2' || Auth::user()->role == 'แอดมิน' )
+                @if( Auth::user()->role == 3)
                 <li>
-                    <a href="{{route('Authorized_person2.index')}}" id="person2">
-                        <i style="font-size:20px"  class="fas fa-list"></i>
+                    <a href="{{route('Authorized_person1.index')}}" id="person1">
+                        <i style="font-size:20px" class="fas fa-list"></i>
                         &nbsp;&nbsp;ตรวจสอบรายการขอสั่งซื้อ</a>
                 </li>
                 @endif
-                @if( Auth::user()->role == 'แอดมิน' )
+                @if( Auth::user()->role == 4)
+                <li>
+                    <a href="{{route('Authorized_person2.index')}}" id="person2">
+                        <i style="font-size:20px" class="fas fa-list"></i>
+                        &nbsp;&nbsp;ตรวจสอบรายการขอสั่งซื้อ</a>
+                </li>
+                @endif
+                @if( Auth::user()->role == 5 )
                 <li>
                     <a href="{{route('usermanage.index')}}" id="usertab"><i style="font-size:20px" class="far fa-user"></i>&nbsp;&nbsp;จัดการผู้ใช้งาน</a>
                 </li>
@@ -103,7 +110,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="logout" id="exit">
+                    <a href="/logout" id="exit">
                         <i style="font-size:20px" class="fas fa-sign-out-alt"></i>
                         &nbsp;&nbsp;ออกจากระบบ
                     </a>

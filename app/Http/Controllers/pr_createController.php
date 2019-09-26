@@ -65,13 +65,13 @@ class pr_createController extends Controller
                 $master1 = Authorized_person1::where('keyPR', $pr_create[$i]["key"])->get()->toArray();
                 $master2 = Authorized_person2::where('keyPR', $pr_create[$i]["key"])->get()->toArray();
                 if (empty($keypr[$i])) {
-                    $status = "กำลังตรวจสอบ";
+                    $status = "0";
                 } elseif ($keypr != NULL && empty($master1) && empty($master2)) {
-                    $status = "กำลังดำเนินการ [ 1 ]";
+                    $status = "1";
                 } elseif ($keypr != NULL && $master1 != NULL && empty($master2)) {
-                    $status = "กำลังดำเนินการ [ 2 ]";
+                    $status = "2";
                 } elseif ($keypr != NULL && $master1 != NULL && $master2 != NULL) {
-                    $status = "สำเร็จ";
+                    $status = "3";
                 }
                 $pr_product[] = [
                     $pr_create[$i]['id'],
@@ -109,6 +109,7 @@ class pr_createController extends Controller
         $pr_create = PR_create::all('created_at')->toArray();
         $product = product_main::all()->toArray();
         $unit = product_main::select('unit')->distinct()->get();
+
         if (empty($pr_create)) {
             $date_now = Carbon::now();
             $str_date = $date_now->toDateString();
@@ -167,6 +168,19 @@ class pr_createController extends Controller
 
     public function store(Request $request)
     {
+        $this->validate(
+            $request,
+            [
+                'key'               => 'required',
+                'formwork'          => 'required',
+                'prequestconvert'   => 'required',
+                'productname'       => 'required',
+                'productnumber'     => 'required',
+                'unit'              => 'required',
+
+            ]
+        );
+
         $num = 0;
         $key = $request->input('key');
         $ID = $request->input('prequestconvert') . '-' . $key;
@@ -183,7 +197,7 @@ class pr_createController extends Controller
             $product->save();
         }
 
-        $name = Auth::user()->firstname . ' ' . Auth::user()->lastname;
+        $name = Auth::user()->username;
         $arr = new PR_create([
             'key'               => $ID,
             'date'              => $request->input('date'),
@@ -198,7 +212,7 @@ class pr_createController extends Controller
             'key' => $ID
         ];
 
-        $this->insertlog('CREATE','p_r_creates',$input);
+        $this->insertlog('CREATE', 'p_r_creates', $input);
         $arr->save();
         return redirect()->route('pr_create.index')->with('success', 'บันทึกข้อมูลเรียบร้อยแล้ว');
     }
@@ -214,10 +228,9 @@ class pr_createController extends Controller
         $number = 1;
         $pr_product = Create_product::all()->toArray();
         $pr_create = PR_create::find($id);
-        //dd($pr_create['contractor']);
+        $contractor = Auth::user()->where('username', $pr_create['contractor'])->get();
         $pr_products = Create_product::where('key', '=', $pr_create['key'])->get();
-        //dd($pr_products);
-        return view('pr_create.show', compact('pr_create', 'pr_products', 'number', 'id'));
+        return view('pr_create.show', compact('pr_create', 'pr_products', 'number', 'contractor', 'id'));
     }
 
     /**

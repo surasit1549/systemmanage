@@ -2,7 +2,7 @@
 @section('title','welcome Homepage')
 @section('tabbarcss')
 <style>
-  #person2 {
+  #manage_product_manu {
     border-right: 5px solid rgb(41, 207, 219);
   }
 
@@ -11,11 +11,52 @@
     box-shadow: none;
   }
 </style>
+<style>
+  #person2 {
+    border-right: 5px solid rgb(41, 207, 219);
+  }
+
+  #searchtext:focus {
+    outline: none !important;
+    box-shadow: none;
+  }
+
+  #master {
+    padding: 1%;
+  }
+
+  #a1 {
+    position: absolute;
+    color: white;
+    border: 1px solid black;
+    background: #4A708B;
+    width: 150px;
+    height: 50px;
+    padding: 1%;
+    left: 20px;
+    text-align: center;
+  }
+
+  #a2 {
+    position: absolute;
+    color: black;
+    border: 1px solid black;
+    top: 73px;
+    width: 150px;
+    height: 50px;
+    padding: 1%;
+    left: 170px;
+    text-align: center;
+  }
+</style>
 @stop
 @section('content')
 
 <script>
   $(document).ready(function() {
+
+    $('#master_menu').click();
+
     $('[data-toggle="tooltip"]').tooltip();
 
     $('.test').click(function() {
@@ -32,14 +73,17 @@
   </button>
 </div>
 @endif
-
-
 <div class="card">
   <div class="card-header">
     <h3 class="text-white"><i style="font-size:20px" class="fas fa-list"></i>&nbsp;&nbsp;ตรวจสอบรายการใบขอสั่งซื้อ</h3>
   </div>
+  @if( Auth::user()->role == 'แอดมิน')
+  <div id="master">
+    <p><b><a id="a1" href="{{route('Authorized_person1.index')}}">ผู้มีอำนาจคนที่ 1</a></b></p>
+    <p><b><a id="a2" href="{{route('Authorized_person2.index')}}">ผู้มีอำนาจคนที่ 2</a></b></p>
+  </div><br>
+  @endif
   <div class="card-body">
-
     <table class="table table-bordered" id="example">
       <thead>
         <tr>
@@ -51,22 +95,27 @@
         </tr>
       </thead>
       <tbody>
-        @foreach($data as $row)
+        @if(empty($data))
+        @else
+        @foreach($datas as $row)
         <tr>
-          <td>{{$row['keyPR']}}</td>
-          <td>{{$row['date']}}</td>
-          <td>{{$row['formwork']}}</td>
-          <td>{{$row['prequestconvert']}}</td>
+          <td>{{$row[2]}}</td>
+          <td>{{$row[3]}}</td>
+          <td>{{$row[4]}}</td>
+          <td>{{$row[5]}}</td>
           <td>
-            &nbsp;&nbsp;<a href="{{action('mastertwoController@edit',$row['keyPR'])}}" data-toggle="tooltip" data-placement="top" title="Edit"><i style="font-size:20px;" class="fas fa-edit text-warning"></i></a>
+            @if($row[7] === "ตรวจสอบ")
+            &nbsp;&nbsp;<a href="{{action('mastertwoController@edit',$row[2])}}" data-toggle="tooltip" data-placement="top" title="Check"><i style="font-size:20px" class="fas fa-marker"></i></a>
             &nbsp;&nbsp;
-            <a class="test" href="#" data-toggle="tooltip" data-placement="top" title="Remove"><i style="font-size:20px;" class="fas fa-trash-alt text-danger"></i></a>
-            <form method="post" class="delete_form" action="{{action('mastertwoController@destroy',$row['id'])}}">
+            @endif
+            <a class="test" href="#" data-toggle="tooltip" data-placement="top" title="Rejected"><i style="font-size:20px" class="fas fa-ban text-danger"></i></a>
+            <form method="post" class="delete_form" action="{{action('mastertwoController@destroy',$row[0])}}">
               {{csrf_field()}}
               <input type="hidden" name="_method" value="DELETE" />
             </form>
         </tr>
         @endforeach
+        @endif
       </tbody>
     </table>
   </div>

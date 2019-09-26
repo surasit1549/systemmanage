@@ -27,6 +27,7 @@
           pr: $('#ponumber').text()
         },
         success: function(data) {
+          alert("ดาวห์โหลด PDF สำเร็จ");
           console.log(data.msg);
         }
       })
@@ -156,10 +157,17 @@
 </div>
 
 <div id="exportpdf" class="d-none">
-  <div id="store_cover_detail_table">
-    {{$store_master[0]['name']}} <br>
-    {{$store_master[0]['address']}} <br>
-    เบอร์โทรศัทพ์ {{$store_master[0]['phone']}}
+  <div id="img_pr">
+    <img src="https://s3.ap-southeast-1.amazonaws.com/document-flow-s3/image/BIvmEHY90liloV3kTZLoqXHxmxCh6XXeRaeO8GBP.png" alt="test">
+  </div>
+  <div id="store_detail1_table">
+    {{$store_mine[0]['name']}}
+  </div>
+  <div id="store_detail2_table">
+    {{$store_mine[0]['address']}}
+  </div>
+  <div id="store_detail3_table">
+    เบอร์โทรศัทพ์ {{$store_mine[0]['phone']}}
   </div>
   <div id="pr_ID">
     เลขที่เอกสาร {{$pr_create[0]['key']}} <br>
@@ -174,13 +182,13 @@
         </tr>
         <tr>
           <th>ชื่อผู้รับเหมา</th>
-          <td id="name_ex">{{$pr_create[0]['contractor']}}</td>
-          <th style="padding-left:30px">แปลง</th>
-          <td id="transform_ex">{{$pr_create[0]['prequestconvert']}}</td>
+          <td style="width:30%;text-align: left;">{{ $contractor[0]->firstname }}&nbsp;&nbsp;&nbsp;{{ $contractor[0]->lastname }}</td>
+          <th >แปลง</th>
+          <td style="width:30%;text-align: left;">{{$pr_create[0]['prequestconvert']}}</td>
         </tr>
         <tr>
           <th>แบบงาน</th>
-          <td id="work_ex">{{$pr_create[0]['formwork']}}</td>
+          <td style="width:30%;text-align: left;">{{$pr_create[0]['formwork']}}</td>
         </tr>
       </tbody>
     </table>
@@ -189,13 +197,13 @@
     <table id="table_product">
       <thead>
         <tr>
-          <th>ลำดับที่</th>
-          <th>ชื่อสินค้า</th>
-          <th>จำนวนสินค้า</th>
-          <th>หน่วย</th>
-          <th>ร้านค้า</th>
-          <th>ราคา (บาท)</th>
-          <th>จำนวนเงิน</th>
+          <th style="width: 5%">ลำดับที่</th>
+          <th style="width: 25%">ชื่อสินค้า</th>
+          <th style="width: 10%">จำนวนสินค้า</th>
+          <th style="width: 10%">หน่วย</th>
+          <th style="width: 15%">ร้านค้า</th>
+          <th style="width: 10%">ราคา (บาท)</th>
+          <th style="width: 10%">จำนวนเงิน</th>
         </tr>
       </thead>
       <tbody>
@@ -207,17 +215,17 @@
           <td style="width: 10%"><label value="{{$row['unit']}}" required>{{$row['unit']}}</label></td>
           <td style="width: 10%"><label value="{{$row['keystore']}}" required>{{$row['keystore']}}</label></td>
           <td style="width: 10%"><label value="{{$row['price']}}" required>{{$row['price']}}</label></td>
-          <td style="width: 15%"><label value="{{$row['product_sum']}}" required>{{$row['product_sum']}}</label></td>
+          <td style="width: 10%"><label value="{{$row['product_sum']}}" required>{{$row['product_sum']}}</label></td>
         </tr>
         @endforeach
         @for($i = $number ; $i <= 10 ; $i++) <tr>
-          <td style="padding:10px 0px">&nbsp;</td>
-          <td style="padding:10px 0px"></td>
-          <td style="padding:10px 0px"></td>
-          <td style="padding:10px 0px"></td>
-          <td style="padding:10px 0px"></td>
-          <td style="padding:10px 0px"></td>
-          <td style="padding:10px 0px"></td>
+          <td>&nbsp;</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
           </tr>
           @endfor
       </tbody>
@@ -244,6 +252,20 @@
         </tr>
       </tfoot>
     </table>
+  </div>
+  <div id="signature_contractor_PR">
+    <img id="signature_contractor_pr_img" src="{{$contractor[0]->signature}}" alt="">
+    <h4>{{ $contractor[0]->firstname }}&nbsp;&nbsp;{{ $contractor[0]->lastname }}<br>{{ $contractor[0]->role }}<br>วันที่ {{ $pr_create[0]['date'] }}</h4>
+  </div>
+
+  <div id="signature_master1_PR">
+    <img id="signature_master1_pr_img" src="{{$master1[0]->signature}}" alt="">
+    <h4>{{ $master1[0]->firstname }}&nbsp;&nbsp;{{ $master1[0]->lastname }}<br>{{ $master1[0]->role }}<br>วันที่ {{$date_master1}}</h4>
+  </div>
+
+  <div id="signature_master2_PR">
+    <img id="signature_master2_pr_img" src="{{$master2[0]->signature}}" alt="">
+    <h4>{{ $master2[0]->firstname }}&nbsp;&nbsp;{{ $master2[0]->lastname }}<br>{{ $master2[0]->role }}<br>วันที่ {{$date_master2}}</h4>
   </div>
 
 </div>

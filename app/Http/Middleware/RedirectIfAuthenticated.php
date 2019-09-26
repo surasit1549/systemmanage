@@ -18,7 +18,11 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            return redirect('/store');
+            if( Auth::user()->role == 'ผู้รับเหมา' ){
+                return redirect('/pr_create');
+            }else{
+                return redirect('/store');
+            }
         }
 
         return $next($request);

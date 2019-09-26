@@ -174,6 +174,7 @@ class StoreController extends Controller
     return redirect()->route('store.index')->with('success', 'ลบข้อมูลเรียบร้อย');
   }
 
+
   public function insertlog($action, $table, $data)
   {
     Log::create([

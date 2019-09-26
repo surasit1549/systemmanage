@@ -17,6 +17,21 @@ class profileController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+    public function insertpass(Request $request)
+    {
+        User::find(Auth::id())->update(['passcode' => $request->passcode]);
+        return redirect()->route('profile.index')->with('msg','เปลี่ยนรหัสลับเรียบร้อยแล้ว');
+    }
+
+    public function passwordcheck(Request $request)
+    {   
+        $password = $request->password;
+        if( Hash::check($password,Auth::user()->password)){
+            return response()->json(['status' =>  true ]);        
+        }
+        return response()->json(['status' => false]);
+    }
+
     public function checkpassword(Request $request)
     {
         if (Auth::user()->password == Hash::make($request->oldpassword)) {
@@ -34,12 +49,12 @@ class profileController extends Controller
     public function changepassword(Request $request)
     {
         $previous_password = $request->previous_password;
-        if( Hash::check($previous_password, Auth::user()->password) ){
+        if (Hash::check($previous_password, Auth::user()->password)) {
             $input = [
                 'password' => Hash::make($request->new_password)
             ];
             User::find(Auth::id())->update($input);
-            $this->insertlog('UPDATE','users',$input);
+            $this->insertlog('UPDATE', 'users', $input);
             return response()->json(['msg' => 'success']);
         }
         return response()->json(['msg' => 'fail']);
@@ -57,16 +72,12 @@ class profileController extends Controller
 
         // SENT SIGNATURE TO S3
         $img_path = 'https://s3.' . env('AWS_DEFAULT_REGION') . '.amazonaws.com/' . env('AWS_BUCKET') . '/signature/' . Auth::user()->email;
-        $path = "C:/xampp/htdocs/laravel/systemmanage/public/";
-        
+        $path = "C:/xampp/htdocs/laravel/systemmanage/public/signature/test.png";
+
         $s3 = Storage::disk('s3');
-        
-        $s3->delete($img_path);
-        
-        $s3->put('signature/' . Auth::user()->email, file_get_contents($path . 'signature/test.png'), 'public');
-        
-        $arr = array("signature" => $img_path);
-        $this->insertlog('UPDATE','users',['signature' => $img_path]);
+        $s3->put('signature/' . Auth::user()->email, file_get_contents($path), 'public');
+        $arr = ["signature" => $img_path];
+        $this->insertlog('UPDATE', 'users', ['signature' => $img_path]);
         User::find(Auth::id())->update($arr);
         return response()->json(['msg' => $img_path]);
     }
@@ -127,8 +138,8 @@ class profileController extends Controller
     public function update(Request $request, $id)
     {
         User::find($id)->update($request->toArray());
-        unset($request['_token'],$request['_method'],$request['save'],$request['token'],$request['id']);
-        $this->insertlog('UPDATE','users',$request->toArray());
+        unset($request['_token'], $request['_method'], $request['save'], $request['token'], $request['id']);
+        $this->insertlog('UPDATE', 'users', $request->toArray());
         return redirect()->route('profile.index');
     }
 
@@ -150,6 +161,4 @@ class profileController extends Controller
             'username' => Auth::user()->username, 'role' => Auth::user()->role, 'data' => serialize($data), 'table' => $table, 'action' => $action
         ]);
     }
-
-
 }

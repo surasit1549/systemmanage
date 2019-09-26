@@ -18,6 +18,7 @@
           po: $('#ponumber').text()
         },
         success: function(data) {
+          alert("ดาวห์โหลด PDF สำเร็จ");
           console.log(data.msg);
         }
       })
@@ -87,18 +88,18 @@
           <thead class="text-center">
             <tr>
               <th style="width:10%">ลำดับ</th>
-              <th style="width:35%">ชื่อสินค้า</th>
-              <th style="width:30%">จำนวนสินค้า</th>
+              <th style="width:50%">ชื่อสินค้า</th>
+              <th style="width:20%">จำนวนสินค้า</th>
               <th style="width:20%">หน่วย</th>
             </tr>
           </thead>
           <tbody>
             @foreach($pr_products as $row)
             <tr>
-              <td>{{$number++}}</td>
+              <td class="text-center">{{$number++}}</td>
               <td>{{$row['productname']}}</td>
-              <td>{{$row['productnumber']}}</td>
-              <td>{{$row['unit']}}</td>
+              <td class="text-center">{{$row['productnumber']}}</td>
+              <td class="text-center">{{$row['unit']}}</td>
             </tr>
             @endforeach
           </tbody>
@@ -128,58 +129,60 @@
       </tr>
     </table>
   </div>
-  <div id="exporta">
-    <table id="tableexa">
+  <div id="exporta_contractor">
+    <table id="tableexa_contractor">
       <tbody>
         <tr>
           <th>TO :</th>
-          <td>THERA ASSET CO.,LTD</td>
-          <th style="padding-left:30px">งวดงานที่</th>
-          <td>...............</td>
+          <td style="width:30%;text-align: left;">THERA ASSET CO.,LTD</td>
+          <th >งวดงานที่</th>
+          <td style="width:30%;text-align: left;">...............</td>
         </tr>
         <tr>
           <th>ชื่อผู้รับเหมา</th>
-          <td id="name_ex">{{$pr_create['contractor']}}</td>
-          <th style="padding-left:30px">แปลง</th>
-          <td id="transform_ex">{{$pr_create['formwork']}}</td>
+          <td style="width:30%;text-align: left;">{{ $contractor[0]->firstname }}&nbsp;&nbsp;{{ $contractor[0]->lastname }}</td>
+          <th >แปลง</th>
+          <td style="width:30%;text-align: left;">{{$pr_create['formwork']}}</td>
         </tr>
         <tr>
           <th>แบบงาน</th>
-          <td id="work_ex">{{$pr_create['prequestconvert']}}</td>
+          <td style="width:30%;text-align: left;">{{$pr_create['prequestconvert']}}</td>
         </tr>
       </tbody>
     </table>
   </div>
-  <table id="exportb">
-    <thead>
-      <tr>
-        <th id="no_exb">ลำดับ</th>
-        <th id="detail_exb">รายการสินค้า</th>
-        <th id="num_exb">จำนวน</th>
-        <th id="unit_exb">หน่วย</th>
-      </tr>
-    </thead>
-    <tbody>
-      @foreach($pr_products as $num=>$row)
-      <tr>
-        <td>{{$num + 1}}</td>
-        <td>{{$row['productname']}}</td>
-        <td>{{$row['productnumber']}}</td>
-        <td>{{$row['unit']}}</td>
-      </tr>
-      @endforeach
-      @for($i = $number ; $i <= 10 ; $i++) <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+  <div id="table_imformation_contractor">
+    <table id="exportb">
+      <thead>
+        <tr>
+          <th id="no_exb">ลำดับ</th>
+          <th id="detail_exb">รายการสินค้า</th>
+          <th id="num_exb">จำนวน</th>
+          <th id="unit_exb">หน่วย</th>
         </tr>
-        @endfor
-    </tbody>
-  </table>
-  <div id="signature">
-    <img id="signatureimg" src="{{Auth::user()->signature}}" alt="">
-    <h4>{{ Auth::user()->firstname }}&nbsp;&nbsp;{{ Auth::user()->lastname }}<br>{{ Auth::user()->role }}<br>วันที่ {{ date('d-m-Y') }}</h4>
+      </thead>
+      <tbody>
+        @foreach($pr_products as $num=>$row)
+        <tr>
+          <td style="width:5%">{{$num + 1}}</td>
+          <td style="width:60%">{{$row['productname']}}</td>
+          <td style="width:15%">{{$row['productnumber']}}</td>
+          <td style="width:15%">{{$row['unit']}}</td>
+        </tr>
+        @endforeach
+        @for($i = $number ; $i <= 10 ; $i++) <tr>
+          <td>&nbsp;</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          </tr>
+          @endfor
+      </tbody>
+    </table>
+  </div>
+  <div id="signature_contractor">
+    <img id="signatureimg_contractor" src="{{$contractor[0]->signature}}" alt="">
+    <h4>{{ $contractor[0]->firstname }}&nbsp;&nbsp;{{ $contractor[0]->lastname }}<br>{{ $contractor[0]->role }}<br>วันที่ {{ $pr_create['date'] }}</h4>
   </div>
 </div>
 @endsection

@@ -22,10 +22,12 @@
         data: {
           _token: '{{csrf_token()}}',
           keyPO: key,
+          img: $('#logo_po').html(),
           pdf: $('#exportpdf').html(),
           po: $('#ponumber').text()
         },
         success: function(data) {
+          alert("ดาวห์โหลด PDF สำเร็จ");
           console.log(data.msg);
         }
       })
@@ -46,7 +48,7 @@
         </div>
         <div class="row">
           <div class="col-form-label col-md-6">
-            <h4 class="d-inline shadow-sm" style="padding:10px"><label class="text-danger">&nbsp;PO <span id="po_number">{{$po_id['PO_ID']}}</span></label></h4>
+            <h4 class="d-inline shadow-sm" style="padding:10px"><label class="text-danger">&nbsp;PO <span id="po_number">{{$po_id[0]['PO_ID']}}</span></label></h4>
           </div>
         </div>
         <hr>
@@ -56,7 +58,7 @@
               <th> ผู้ขาย :</th>
               <td>
                 {{$store[0]['name']}}&nbsp;&nbsp; [ {{$store[0]['keystore']}} ]
-                <input type="hidden" name="key" value="{{$po_id['PO_ID']}}">
+                <input type="hidden" name="key" value="{{$po_id[0]['PO_ID']}}">
               </td>
               <th> วันที่เอกสาร :</th>
               <td>
@@ -126,12 +128,36 @@
               <td class="text-center result"><label class="sum col-form-label border-0" value="{{$row['product_sum']}}" required>{{$row['product_sum']}}</label></td>
             </tr>
             @endforeach
+            @for($i = $number ; $i <= 10 ; $i++) <tr>
+              <td>&nbsp;</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              </tr>
+              @endfor
           </tbody>
           <tfoot>
             <tr>
-              <th class="text-right" colspan="4">รวมเป็นเงิน</th>
-              <th class="text-center"><label class="text-danger" value="{{$data[0]['sumofprice']}}">{{$data[0]['sumofprice']}}</label></th>
-              <th class="text-center">บาท</th>
+              <th style="vertical-align:top" rowspan="3">หมายเหตุ</th>
+              <td style="vertical-align:top" rowspan="3" colspan="3">สำหรับ &nbsp; {{$convert[0]['prequestconvert']}}&nbsp;PR &nbsp;{{$po_id[0]['keyPR']}} <br> ส่งสินค้า ถนนวงแหวนรอบ3 หลังอรสิริน บิสสิเนส 3 (แยกท่ารั้ว)<br>ติดต่อสั่งชื้อ {{$store_mine[0]['contect']}}&nbsp; {{$store_mine[0]['cellphone']}} </td>
+              <th>ราคายังไม่รวมภาษี</th>
+              <td style="text-align:center">{{$sum_price}}</td>
+            </tr>
+            <tr>
+              <th>ส่วนลด</th>
+              <td></td>
+            </tr>
+            <tr>
+              <th>ภาษีมูลค่าเพิ่ม 7%</th>
+              <td style="text-align:center">{{$tax}}</td>
+            </tr>
+            <tr>
+              <th>ตัวอักษร</th>
+              <td colspan="3">&nbsp;&nbsp;{{$letter_sumofprice}}</td>
+              <th>รวมทั้งสิ้น</th>
+              <td style="text-align:center">{{$data[0]['sumofprice']}}</td>
             </tr>
           </tfoot>
         </table>
@@ -144,10 +170,18 @@
   </div>
 </div>
 
+
 <div id="exportpdf" class="d-none">
-  <div id="cover_detail_table">
-    {{$store_mine[0]['name']}} <br>
-    {{$store_mine[0]['address']}} <br>
+  <div id="img_po">
+    <img src="https://s3.ap-southeast-1.amazonaws.com/document-flow-s3/image/BIvmEHY90liloV3kTZLoqXHxmxCh6XXeRaeO8GBP.png" alt="test">
+  </div>
+  <div id="cover_detail1_table">
+    {{$store_mine[0]['name']}}
+  </div>
+  <div id="cover_detail2_table">
+    {{$store_mine[0]['address']}}
+  </div>
+  <div id="cover_detail3_table">
     เบอร์โทรศัทพ์ {{$store_mine[0]['phone']}}
   </div>
   <div id="title_table">
@@ -156,7 +190,7 @@
   <div id="store_ID_table">
     <table>
       <th>เลขที่เอกสาร PO</th>
-      <th>{{$po_id['PO_ID']}}</th>
+      <th>{{$po_id[0]['PO_ID']}}</th>
     </table>
   </div>
   <div id="store_table">
@@ -247,7 +281,7 @@
       <tfoot>
         <tr>
           <th style="vertical-align:top" rowspan="3">หมายเหตุ</th>
-          <td style="vertical-align:top" rowspan="3" colspan="3">สำหรับ &nbsp; {{$convert[0]['prequestconvert']}}&nbsp;PR &nbsp;{{$po_id['keyPR']}} <br> ส่งสินค้า ถนนวงแหวนรอบ3 หลังอรสิริน บิสสิเนส 3 (แยกท่ารั้ว)<br>ติดต่อสั่งชื้อ {{$store_mine[0]['contect']}}&nbsp; {{$store_mine[0]['cellphone']}} </td>
+          <td style="vertical-align:top" rowspan="3" colspan="3">สำหรับ &nbsp; {{$convert[0]['prequestconvert']}}&nbsp;PR &nbsp;{{$po_id[0]['keyPR']}} <br> ส่งสินค้า ถนนวงแหวนรอบ3 หลังอรสิริน บิสสิเนส 3 (แยกท่ารั้ว)<br>ติดต่อสั่งชื้อ {{$store_mine[0]['contect']}}&nbsp; {{$store_mine[0]['cellphone']}} </td>
           <th>ราคายังไม่รวมภาษี</th>
           <td style="text-align:center">{{$sum_price}}</td>
         </tr>
@@ -267,6 +301,20 @@
         </tr>
       </tfoot>
     </table>
+  </div>
+  <div id="signature_contractor_PO">
+    <img id="signature_contractor_po_img" src="{{$contractor[0]->signature}}" alt="">
+    <h4>{{ $contractor[0]->firstname }}&nbsp;&nbsp;{{ $contractor[0]->lastname }}<br>{{ $contractor[0]->role }}<br>วันที่ {{ $convert[0]['date'] }}</h4>
+  </div>
+
+  <div id="signature_master1_PO">
+    <img id="signature_master1_po_img" src="{{$master1[0]->signature}}" alt="">
+    <h4>{{ $master1[0]->firstname }}&nbsp;&nbsp;{{ $master1[0]->lastname }}<br>{{ $master1[0]->role }}<br>วันที่ {{ $convert[0]['date']  }}</h4>
+  </div>
+
+  <div id="signature_master2_PO">
+    <img id="signature_master2_po_img" src="{{$master2[0]->signature}}" alt="">
+    <h4>{{ $master2[0]->firstname }}&nbsp;&nbsp;{{ $master2[0]->lastname }}<br>{{ $master2[0]->role }}<br>วันที่ {{ $convert[0]['date'] }}</h4>
   </div>
 </div>
 

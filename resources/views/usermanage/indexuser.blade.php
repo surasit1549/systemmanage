@@ -37,6 +37,7 @@
                     <th class="text-nowrap">นามสกุล</th>
                     <th class="text-nowrap">Username</th>
                     <th class="text-nowrap">ตำแหน่ง</th>
+                    <th class="text-nowrap">สถานะ</th>
                     <th class="text-nowrap">จัดการ</th>
                 </tr>
             </thead>
@@ -50,16 +51,62 @@
                     <td class="text-nowrap">{{$users['firstname']}}</td>
                     <td class="text-nowrap">{{$users['lastname']}}</td>
                     <td class="text-nowrap">{{$users['username']}}</td>
-                    <td class="text-nowrap">{{$users['role']}}</td>
+                    <td class="text-nowrap">{{$users['name_role']}}</td>
                     <td class="text-nowrap">
-                        <a href="{{action('UsermanageController@edit',$users['id'])}}" data-toggle="tooltip" data-placement="top" title="Edit"><i style="font-size:20px;" class="fas fa-edit text-warning"></i></a>
+                        @if( $users['status'] == 'Active' )
+                        <button class="btn btn-sm btn-success">Active</button>
+                        @else
+                        <button class="btn btn-sm btn-secondary">Banned</button>
+                        @endif
+                    </td>
+                    <td class="text-nowrap">
+                        <a href="{{action('UsermanageController@edit',$users['id'])}}" data-toggle="tooltip" data-placement="top" title="แก้ไขข้อมูล"><i style="font-size:20px;" class="fas fa-edit text-warning"></i></a>
                         &nbsp;&nbsp;
-                        <a class="delete_user" data-toggle="tooltip" data-placement="top" title="Remove"><i style="font-size:20px;" class="fas fa-trash-alt text-danger"></i></a>
-                        <form method="post" class="delete_form" action="{{action('UsermanageController@destroy',$users['id'])}}">
+                        <span data-toggle="modal" data-target="#changepassword{{$users['id']}}">
+                            <a style="font-size:20px" data-toggle="tooltip" data-placement="top" title="เปลี่ยนรหัสผ่าน" href="#"><i class="fas fa-key text-info"></i></a>
+                        </span>
+                        <div class="modal fade" id="changepassword{{$users['id']}}">
+                            <div class="modal-dialog-centered modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5><i style="font-size:20px" class="fas fa-key"></i>&nbsp;&nbsp;เปลี่ยนรหัสผ่าน</h5>
+                                        <button class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                                    {!! Form::open(['class' => 'changepass','url' => '/usermanage/changepassword']) !!}
+                                    {!! Form::hidden('id',$users['id']) !!}
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            {!! Form::label('Password') !!}
+                                            {!! Form::password('password',['class' => 'form-control']) !!}
+                                        </div>
+                                        <div class="form-group">
+                                            {!! Form::label('Re-Password') !!}
+                                            {!! Form::password('repassword',['class' => 'form-control']) !!}
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        {!! Form::submit('ตกลง',['class' => 'btn btn-success']) !!}
+                                        <a data-dismiss="modal" href="#" class="btn btn-secondary ml-2">ยกเลิก</a>
+                                    </div>
+                                    {!! Form::close() !!}
+                                </div>
+                            </div>
+                        </div>
+                        &nbsp;&nbsp;
+                        @if( $users['status'] == 'Active' )
+                        <a class="delete_user" data-toggle="tooltip" data-placement="top" title="แบนผู้ใช้งาน"><i style="font-size:20px" class="fas fa-ban text-danger"></i></a>
+                        <form method="post" action="{{action('UsermanageController@destroy',$users['id'])}}">
                             @csrf
                             <input type="hidden" name="username" value="{{$users['username']}}">
                             <input type="hidden" name="_method" value="DELETE" />
                         </form>
+                        @else
+                        <a class="active_user" data-toggle="tooltip" data-placement="top" title="ปลดแบน"><i style="font-size:20px" class="fas fa-check-circle text-success"></i></a>
+                        <form method="post" action="/usermanage/activeUser">
+                            @csrf
+                            <input type="hidden" name="id" value="{{$users['id']}}">
+                        </form>
+                        @endif
                     </td>
                 </tr>
                 @endforeach
@@ -67,8 +114,47 @@
         </table>
     </div>
 
+
     <script>
         $(document).ready(function() {
+
+            $('.modal form').validate({
+                rules: {
+                    password: 'required',
+                    repassword: {
+                        'required': true,
+                        'equalTo': '.password'
+                    }
+                },
+                messages: {
+                    password: {
+                        'required': 'กรอกรหัสผ่านใหม่'
+                    },
+                    repassword: {
+                        'required': 'กรอกรหัสผ่านใหม่อีกครั้ง',
+                        'equalTo': 'กรอกรหัสผ่านให้ตรงกัน'
+                    }
+                },
+                errorPlacement: function(error, element) {
+                    // Add the `invalid-feedback` class to the error element
+                    error.addClass("invalid-feedback");
+                    error.insertAfter(element);
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-invalid").removeClass("is-valid");
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-valid").removeClass("is-invalid");
+                }
+            });
+
+
+            $('.modal').on('shown.bs.modal', function() {
+                $(this).find('input[name=password]').focus();
+            }).on('hidden.bs.modal', function() {
+                $(this).find('input[type=password]').val('');
+            });
+
             var table = $('#user_table').DataTable({
                 'scrollX': true,
                 order: [
@@ -78,6 +164,7 @@
                         'orderable': false,
                         'width': '5%'
                     },
+                    null,
                     null,
                     null,
                     null,
@@ -134,10 +221,29 @@
                 }
             });
 
-            $('.delete_user').click(function() {
+
+            $('.active_user').click(function() {
+                var check = $(this).parent().prev().prev().prev().text();
                 Swal.fire({
-                    title: 'ต้องการลบผู้ใช้งานหรือไม่',
-                    text: 'เมื่อลบผู้ใช้งานแล้วจะไม่สามารถกู้กลับมาได้',
+                    title: 'ต้องการปลดแบนผู้ใช้งาน<br>' + check,
+                    text: 'เมื่อปลดแบนแล้วผู้ใช้งานจะสามารถเข้าสู่ระบบได้ปกติ',
+                    type: 'question',
+                    confirmButtonText: 'ตกลง',
+                    showCancelButton: true,
+                    cancelButtonText: 'ยกเลิก',
+                    focusCancel: true
+                }).then((result) => {
+                    if (result.value) {
+                        $(this).next().submit();
+                    }
+                })
+            });
+
+            $('.delete_user').click(function() {
+                var check = $(this).parent().prev().prev().prev().text();
+                Swal.fire({
+                    title: 'ต้องการแบนผู้ใช้งาน<br>' + check,
+                    text: 'เมื่อแบนแล้วผู้ใช้งานนี้จะไม่สามารถเข้าสู่ระบบได้',
                     type: 'warning',
                     confirmButtonText: 'ตกลง',
                     showCancelButton: true,
@@ -145,15 +251,7 @@
                     focusCancel: true
                 }).then((result) => {
                     if (result.value) {
-                        Swal.fire({
-                            title: 'ลบข้อมูลเรียบร้อยแล้ว',
-                            type: 'success',
-                            timer: 1500,
-                            showConfirmButton: false,
-                            onAfterClose: () => {
-                                $(this).next('form').submit();
-                            }
-                        })
+                        $(this).next().submit();
                     }
                 })
             });

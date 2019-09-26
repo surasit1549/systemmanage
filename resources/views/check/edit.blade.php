@@ -13,6 +13,10 @@
 </script>
 @stop
 @section('content')
+
+
+
+
 <div class="container">
   <div class="card">
     <div class="card-header text-white">
@@ -94,7 +98,7 @@
             @foreach($data as $row)
             <tr>
               <td class="text-center">
-                <select name="check[]">
+                <select name="check[]" class="custom-select">
                   <option value="{{$row['status']}}">{{$row['status']}}</option>
                   <option value="รับ">รับ</option>
                   <option value="ไม่ได้รับ">ไม่ได้รับ</option>
