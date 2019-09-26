@@ -60,17 +60,48 @@
                         @endif
                     </td>
                     <td class="text-nowrap">
-                        <a href="{{action('UsermanageController@edit',$users['id'])}}" data-toggle="tooltip" data-placement="top" title="Edit"><i style="font-size:20px;" class="fas fa-edit text-warning"></i></a>
+                        <a href="{{action('UsermanageController@edit',$users['id'])}}" data-toggle="tooltip" data-placement="top" title="แก้ไขข้อมูล"><i style="font-size:20px;" class="fas fa-edit text-warning"></i></a>
+                        &nbsp;&nbsp;
+                        <span data-toggle="modal" data-target="#changepassword{{$users['id']}}">
+                            <a style="font-size:20px" data-toggle="tooltip" data-placement="top" title="เปลี่ยนรหัสผ่าน" href="#"><i class="fas fa-key text-info"></i></a>
+                        </span>
+                        <div class="modal fade" id="changepassword{{$users['id']}}">
+                            <div class="modal-dialog-centered modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5><i style="font-size:20px" class="fas fa-key"></i>&nbsp;&nbsp;เปลี่ยนรหัสผ่าน</h5>
+                                        <button class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                                    {!! Form::open(['class' => 'changepass','url' => '/usermanage/changepassword']) !!}
+                                    {!! Form::hidden('id',$users['id']) !!}
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            {!! Form::label('Password') !!}
+                                            {!! Form::password('password',['class' => 'form-control']) !!}
+                                        </div>
+                                        <div class="form-group">
+                                            {!! Form::label('Re-Password') !!}
+                                            {!! Form::password('repassword',['class' => 'form-control']) !!}
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        {!! Form::submit('ตกลง',['class' => 'btn btn-success']) !!}
+                                        <a data-dismiss="modal" href="#" class="btn btn-secondary ml-2">ยกเลิก</a>
+                                    </div>
+                                    {!! Form::close() !!}
+                                </div>
+                            </div>
+                        </div>
                         &nbsp;&nbsp;
                         @if( $users['status'] == 'Active' )
-                        <a class="delete_user" data-toggle="tooltip" data-placement="top" title="Ban"><i style="font-size:20px" class="fas fa-ban text-danger"></i></a>
+                        <a class="delete_user" data-toggle="tooltip" data-placement="top" title="แบนผู้ใช้งาน"><i style="font-size:20px" class="fas fa-ban text-danger"></i></a>
                         <form method="post" action="{{action('UsermanageController@destroy',$users['id'])}}">
                             @csrf
                             <input type="hidden" name="username" value="{{$users['username']}}">
                             <input type="hidden" name="_method" value="DELETE" />
                         </form>
                         @else
-                        <a class="active_user" data-toggle="tooltip" data-placement="top" title="Active"><i style="font-size:20px" class="fas fa-check-circle text-success"></i></a>
+                        <a class="active_user" data-toggle="tooltip" data-placement="top" title="ปลดแบน"><i style="font-size:20px" class="fas fa-check-circle text-success"></i></a>
                         <form method="post" action="/usermanage/activeUser">
                             @csrf
                             <input type="hidden" name="id" value="{{$users['id']}}">
@@ -83,8 +114,47 @@
         </table>
     </div>
 
+
     <script>
         $(document).ready(function() {
+
+            $('.modal form').validate({
+                rules: {
+                    password: 'required',
+                    repassword: {
+                        'required': true,
+                        'equalTo': '.password'
+                    }
+                },
+                messages: {
+                    password: {
+                        'required': 'กรอกรหัสผ่านใหม่'
+                    },
+                    repassword: {
+                        'required': 'กรอกรหัสผ่านใหม่อีกครั้ง',
+                        'equalTo': 'กรอกรหัสผ่านให้ตรงกัน'
+                    }
+                },
+                errorPlacement: function(error, element) {
+                    // Add the `invalid-feedback` class to the error element
+                    error.addClass("invalid-feedback");
+                    error.insertAfter(element);
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-invalid").removeClass("is-valid");
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-valid").removeClass("is-invalid");
+                }
+            });
+
+
+            $('.modal').on('shown.bs.modal', function() {
+                $(this).find('input[name=password]').focus();
+            }).on('hidden.bs.modal', function() {
+                $(this).find('input[type=password]').val('');
+            });
+
             var table = $('#user_table').DataTable({
                 'scrollX': true,
                 order: [

@@ -89,6 +89,12 @@ class UsermanageController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+    public function changepassword(Request $request){
+        $password = Hash::make($request->password);
+        User::find($request->id)->update(['password' => $password]);
+        return redirect()->route('usermanage.index');
+    }
+
 
     public function update(Request $request, $id)
     {
