@@ -24,8 +24,11 @@ Route::group(['middleware' => ['123','checkAction','checkstatus']], function () 
     Route::post('upload_img','uploadController@store');
     //Route ::resource('store','FillinformationController');
     //Route ::resource('fillinformation','StoreController');
+    Route::post('transform/{id}/checkpasscode', 'checkpasscodeController@checkcode');
+    Route::post('Product/{id}/checkpasscode', 'checkpasscodeController@checkcode');
+    Route::post('Product_Price/{id}/checkpasscode', 'checkpasscodeController@checkcode');
+    Route::post('store/{id}/checkpasscode', 'checkpasscodeController@checkcode');
     Route::post('usermanage/activeUser','usermanageController@activeUser');
-    Route::post('pr_create/checkpasscode', 'checkpasscodeController@checkcode');
     Route::post('prequest/{id}/checkpasscode', 'checkpasscodeController@checkcode');
     Route::post('Authorized_person1/{id}/checkpasscode', 'checkpasscodeController@checkcode');
     Route::post('Authorized_person2/{id}/checkpasscode', 'checkpasscodeController@checkcode');

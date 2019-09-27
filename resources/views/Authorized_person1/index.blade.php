@@ -82,10 +82,11 @@
     <h3 class="text-white"><i style="font-size:20px" class="fas fa-list"></i>&nbsp;&nbsp;ตรวจสอบรายการใบขอสั่งซื้อ</h3>
   </div>
   @if( Auth::user()->role == '5')
-  <div id="master">
-    <p><b><a id="a1">ผู้มีอำนาจคนที่ 1</a></b></p>
-    <p><b><a id="a2" href="{{route('Authorized_person2.index')}}">ผู้มีอำนาจคนที่ 2</a></b></p>
-  </div><br>
+  <div class="list-group list-group-horizontal">
+    <a class="list-group-item list-group-item-action text-danger text-center" href="#"><h3>ผู้มีอำนาจคนที่ 1</h3></a>
+    <a class="list-group-item list-group-item-action text-center" href="{{route('Authorized_person2.index')}}"><h3>ผู้มีอำนาจคนที่ 2</h3></a>
+  </div>
+
   @endif
   <div class="card-body">
     <table class="table table-bordered display responsive nowrap" cellspacing="0" width="100%" id="example">

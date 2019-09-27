@@ -16,7 +16,7 @@
 
 @if(session('msg'))
 <div class="alert alert-success alert-dismissible fade show">
-    <h5 class="alert-heading"><i class="fas fa-check-circle"></i>&nbsp;&nbsp;เปลี่ยนรหัสผ่านเรียบร้อยแล้ว</h5>
+    <h5 class="alert-heading"><i class="fas fa-check-circle"></i>&nbsp;&nbsp;กระบวนการสำเร็จ</h5>
     <hr>
     <p>{{ session('msg') }}</p>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -106,7 +106,6 @@
             </tbody>
         </table>
     </div>
-
 
     <script>
         $(document).ready(function() {

@@ -106,7 +106,6 @@
   </table>
 </div>
 
-
 @foreach( $store as $row )
 <div class="modal fade" id="test{{$row->id}}" role="dialog">
   <div class="modal-dialog modal-dialog-centered modal-lg">

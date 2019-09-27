@@ -1,5 +1,12 @@
 @extends('Home.master')
 @section('title','ข้อมูลรายการผู้รับเหมา')
+@section('tabbarcss')
+<style>
+  #constructtab {
+    border-right: 5px solid rgb(41, 207, 219);
+  }
+</style>
+@stop
 @section('content')
 
 <script>
@@ -135,13 +142,13 @@
         <tr>
           <th>TO :</th>
           <td style="width:30%;text-align: left;">THERA ASSET CO.,LTD</td>
-          <th >งวดงานที่</th>
+          <th>งวดงานที่</th>
           <td style="width:30%;text-align: left;">...............</td>
         </tr>
         <tr>
           <th>ชื่อผู้รับเหมา</th>
           <td style="width:30%;text-align: left;">{{ $contractor[0]->firstname }}&nbsp;&nbsp;{{ $contractor[0]->lastname }}</td>
-          <th >แปลง</th>
+          <th>แปลง</th>
           <td style="width:30%;text-align: left;">{{$pr_create['formwork']}}</td>
         </tr>
         <tr>

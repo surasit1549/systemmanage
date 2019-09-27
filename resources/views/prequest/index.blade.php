@@ -50,7 +50,7 @@
       var bill = $(this).parents().eq(3).find('td:first').text();
       Swal.fire({
         type: 'question',
-        title: 'ต้องการยกเลิกบิล<br>' + bill,
+        title: 'ต้องการยกเลิกใบขอสั่งซื้อ<br>' + bill,
         text: 'เมื่อบิลถูกยกเลิกแล้วจะไม่สามารถนำกลับมาได้',
         confirmButtonText: 'ตกลง',
         cancelButtonText: 'ยกเลิก',
