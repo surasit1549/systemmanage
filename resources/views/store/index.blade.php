@@ -45,44 +45,8 @@
       $(this).next('form').submit();
     });
 
-    $('.savetopdf').click(function() {
-      var html = $('#sumall').html();
-      $.ajax({
-        url: 'store/posttopdf',
-        type: 'post',
-        data: {
-          "_token": '{{csrf_token()}}',
-          html: html
-        }
-      });
-    });
   });
 </script>
-
-<div id="sumall">
-  <!--mpdf
-  <div class="thisone">
-    <table>
-      <tr>
-        <th>รหัสร้านค้า</th>
-        <th>..</th>
-        <th>ชื่อร้านค้า</th>
-        <th>...</th>
-      </tr>
-      <tr>
-        <th>เบอร์โทรศัพท์</th>
-        <th>...</th>
-        <th>โทรสาร</th>
-        <th>...</th>
-      </tr>
-      <tr>
-        <th>ที่อยู่</th>
-        <th>...</th>
-      </tr>
-    </table>
-  </div>
-  mpdf-->
-</div>
 
 
 @if(\Session::has('success'))
@@ -157,9 +121,6 @@
         <div class="row">
           <div class="col-md-6 col-form-label">
             <h5 class="modal-title"><i style="font-size:20px" class="far fa-file-alt"></i>&nbsp;&nbsp;ข้อมูลร้านค้า</h5>
-          </div>
-          <div class="col-md-6 text-right">
-            <button class="btn btn-danger savetopdf"><i style="font-size:18px" class="far fa-file-pdf"></i>&nbsp;&nbsp;PDF</button>
           </div>
         </div>
         <hr class="line">

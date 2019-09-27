@@ -53,7 +53,7 @@ class UsermanageController extends Controller
         User::create($request->toArray());
         unset($request['repassword'], $request['_token']);
         $this->insertlog('CREATE','users',$request->toArray());
-        return redirect()->route('usermanage.index')->with('msg','Success !');
+        return redirect()->route('usermanage.index')->with('msg','สามารถเข้าสู่ระบบครั้งต่อไปด้วยรหัสผ่านใหม่');
     }
 
     /**
