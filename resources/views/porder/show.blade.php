@@ -189,35 +189,35 @@
   </div>
   <div id="store_ID_table">
     <table>
-      <th>เลขที่เอกสาร PO</th>
-      <th>{{$po_id[0]['PO_ID']}}</th>
+      <th style="font-size: 22px;">เลขที่เอกสาร PO</th>
+      <th style="font-size: 22px;">{{$po_id[0]['PO_ID']}}</th>
     </table>
   </div>
   <div id="store_table">
     <table id="table_store">
       <tr>
         <th> ผู้ขาย :</th>
-        <td>
+        <td style="text-align:left;">
           {{$store[0]['name']}}&nbsp;&nbsp; [ {{$store[0]['keystore']}} ]
         </td>
         <th> วันที่เอกสาร :</th>
-        <td>
+        <td style="text-align:left;">
           {{substr($data[0]['created_at'],0,-9)}}
         </td>
       </tr>
       <tr>
         <th> ที่อยู่ :</td>
-        <td>
+        <td style="text-align:left;">
           {{$store[0]['address']}}
         </td>
         <th> ผู้ติดต่อ : </th>
-        <td>
+        <td style="text-align:left;">
           {{$store[0]['contect']}} &nbsp;&nbsp; {{$store[0]['cellphone']}}
         </td>
       </tr>
       <tr>
         <th> โทรศัพท์ :</th>
-        <td>
+        <td style="text-align:left;">
           {{$store[0]['phone']}}
         </td>
         <th> วันที่กำหนดส่ง : </th>
@@ -227,7 +227,7 @@
       </tr>
       <tr>
         <th> โทรสาร : </th>
-        <td>
+        <td style="text-align:left;">
           {{$store[0]['fax']}}
         </td>
         <th> จำนวนเครดิต : </th>
@@ -249,12 +249,12 @@
     <table id="table_product">
       <thead>
         <tr>
-          <th>ลำดับที่</th>
-          <th>ชื่อสินค้า</th>
-          <th>จำนวนสินค้า</th>
-          <th>หน่วย</th>
-          <th>ราคา (บาท)</th>
-          <th>จำนวนเงิน</th>
+          <th style="height: 50px;">ลำดับที่</th>
+          <th style="height: 50px;">ชื่อสินค้า</th>
+          <th style="height: 50px;">จำนวนสินค้า</th>
+          <th style="height: 50px;">หน่วย</th>
+          <th style="height: 50px;">ราคา (บาท)</th>
+          <th style="height: 50px;">จำนวนเงิน</th>
         </tr>
       </thead>
       <tbody>
