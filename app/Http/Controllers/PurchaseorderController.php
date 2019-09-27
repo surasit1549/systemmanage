@@ -78,6 +78,15 @@ class PurchaseorderController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+    function product_sum($id){
+        $length = sizeof($id);
+        $sum = 0;
+        for($i=0; $i<$length; $i++){
+            $sum = [$sum[0] + $id[$i]['product_sum']];
+        }
+        return $sum;
+    }
+
     function sum_price($sumofprice)
     {
         $sum = number_format(($sumofprice * (100 / 107)), 2, '.', '');
@@ -146,21 +155,21 @@ class PurchaseorderController extends Controller
     public function show($id)
     {
         $number = 1;
-        $po_id = porder::where('keyPR', $id)->get()->toArray();
+        $po_id = porder::where('PO_ID', $id)->get()->toArray();
         $store = Store::where('name', $po_id[0]['store_ID'])->get('keystore');
         $convert = pr_create::where('key', $po_id[0]['keyPR'])->get();
         $data = pr_store::where('PO_ID', $po_id[0]['PO_ID'])->get()->toArray();
-        $sum_price = $this->sum_price($data[0]['sumofprice']);
-        $tax = $this->tax($sum_price, $data[0]['sumofprice']);
-        $letter_sumofprice = $this->bathformat($data[0]['sumofprice']);
+        $product_sum = $this->product_sum($data);
+        $sum_price = $this->sum_price($product_sum[0]);
+        $tax = $this->tax($sum_price, $product_sum[0]);
+        $letter_sumofprice = $this->bathformat($product_sum[0]);
         $store = Store::where('keystore', $store[0]['keystore'])->get()->toArray();
         $store_mine = Store::where('keystore', 'master')->get();
         $date_master1 = $this->time_master1($convert[0]['key']);
         $date_master2 = $this->time_master2($convert[0]['key']);
         $contractor = Auth::user()->where('username', $convert[0]['contractor'])->get();
-        $master1 = Auth::user()->where('role', "ผู้มีอำนาจ1")->get();
-        $master2 = Auth::user()->where('role', "ผู้มีอำนาจ2")->get();
-        $logo = asset('pic/logo1.png');
+        $master1 = Auth::user()->where('role', '3')->get();
+        $master2 = Auth::user()->where('role', '4')->get();
         return view('porder.show', compact(
             'po_id',
             'data',

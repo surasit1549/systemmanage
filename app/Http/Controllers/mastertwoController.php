@@ -28,16 +28,16 @@ class mastertwoController extends Controller
     public function index()
     {
         $data = Authorized_person1::join('prequests', 'authorized_person1s.keyPR', 'prequests.keyPR')->get()->toArray();
-        if(empty($data)){
+        if (empty($data)) {
             $data = '';
             $datas = '';
-        }else{
+        } else {
             $lengtharray = sizeof($data);
-            for($i=0; $i<$lengtharray; $i++){
-                $master2 = Authorized_person2::where('keyPR',$data[$i]['keyPR'])->get()->toArray();
-                if(empty($master2)){
+            for ($i = 0; $i < $lengtharray; $i++) {
+                $master2 = Authorized_person2::where('keyPR', $data[$i]['keyPR'])->get()->toArray();
+                if (empty($master2)) {
                     $check = "ตรวจสอบ";
-                }else{
+                } else {
                     $check = "เรียบร้อย";
                 }
                 $datas[] = [
@@ -52,7 +52,7 @@ class mastertwoController extends Controller
                 ];
             }
         }
-        return view('Authorized_person2.index', compact('data','datas'));
+        return view('Authorized_person2.index', compact('data', 'datas'));
     }
 
     /**
@@ -101,36 +101,11 @@ class mastertwoController extends Controller
         $pr_create = PR_create::where('key', $id)->get()->toArray();
         $productdb = Create_product::where('key', $pr_create[0]['key'])->get('productname')->toArray();
         $data = Authorized_person2::get()->toArray();
-        $lengtharray = sizeof($productdb);
-        for ($i = 0; $i < $lengtharray; $i++) {
-            $product_id = product_main::where('product_name', $productdb[$i])->get()->toArray();
-            $product_price = product_Price::where('Product', $product_id[0]['Product_ID'])->min('Price');
-            //  ->where('Product',$product_id[0]['Product_ID'])->min('Price');
-            $product_min_price[] = product_main::where('product_name', $productdb[$i])
-                ->join('product__Prices', 'product_mains.Product_ID', 'product__Prices.Product')
-                ->where('Price', $product_price)
-                ->get()->toArray();
-            $product_number = Create_product::where('key', $pr_create[0]['key'])->get()->toArray();
-            //dd($product_min_price[0][0]);   
-            $products_sum = [$product_price * $product_number[$i]['productnumber']];
-            $sum = [$sum[0] + $products_sum[0]];
-            $product_name = product_main::where('Product_ID', $product_min_price[$i][0]['Product_ID'])->get()->toArray();
-            $min[] = [
-                $product_name[0]['Product_name'],
-                $product_number[$i]['productnumber'],
-                $product_min_price[$i][0]['unit'],
-                $product_min_price[$i][0]['Store'],
-                $product_min_price[$i][0]['Price'],
-                $products_sum[0],
-            ];
-            $stores[] = Store::where('keystore', $product_min_price[$i][0]['Store'])->get()->toArray();
-        }
+        $data_master2 = Product::where('keyPR', $id)->get()->toArray();
         return view('Authorized_person2.edit', compact(
             'number',
             'pr_create',
-            'min',
-            'sum',
-            'stores',
+            'data_master2',
             'id'
         ));
     }
@@ -231,7 +206,6 @@ class mastertwoController extends Controller
             $keys = substr($carbon, 5);
             $num = intval($keys);
             $key_num = 0;
-
             for ($i = 0; $i < $lengthall; $i++) {
                 $stores_name = Product::where('keyPR', $store_name[$i]['keyPR'])->where('Store', $store_name[$i]['Store'])->get()->toArray();
                 $lengtharray = sizeof($stores_name);
@@ -257,7 +231,7 @@ class mastertwoController extends Controller
                 $porder = new porder([
                     'PO_ID'         => $PO,
                     'keyPR'         => $request->get('keyPR'),
-                    'store_ID'      => $stores_name[$i]['Store'],
+                    'store_ID'      => $stores_name[0]['Store'],
                     'status'        => "ยังไม่ได้รับของ",
                 ]);
                 $porder->save();

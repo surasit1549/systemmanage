@@ -279,7 +279,6 @@ class PuchaserequestController extends Controller
       $product_number = Create_product::where('key', $pr_create['key'])->get()->toArray();
       $products_sum = [$product_price * $product_number[$i]['productnumber']];
       $sum = [$sum[0] + $products_sum[0]];
-      $length_store[] = sizeof($store_price[$i]);
       $min[] = [
         $product_min_price[$i][0]['Product_name'],
         $product_number[$i]['productnumber'],

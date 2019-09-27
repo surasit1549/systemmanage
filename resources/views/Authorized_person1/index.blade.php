@@ -99,7 +99,7 @@
         </tr>
       </thead>
       <tbody>
-        @if(empty($master))
+        @if(empty($prequest))
         @else
         @foreach($datas as $row)
         <tr>

@@ -24,12 +24,12 @@ class masteroneController extends Controller
     public function index()
     {
         $master = Authorized_person1::get()->toArray();
-        
-        if(empty($master)){
+        $prequest = prequest::get()->toArray();
+        if(empty($prequest)){
+            dd(123);
             $datas = '';
             $pr_create = '';
         }else{
-            $prequest = prequest::get()->toArray();
             $pr_create = PR_create::get()->toArray();
             $lengtharray = sizeof($prequest);
             for($i=0; $i<$lengtharray; $i++){
@@ -51,7 +51,7 @@ class masteroneController extends Controller
                 ];
             }
         }
-        return view('Authorized_person1.index',compact('datas','pr_create','master'));
+        return view('Authorized_person1.index',compact('datas','pr_create','prequest'));
     }
 
     /**
@@ -100,35 +100,10 @@ class masteroneController extends Controller
         //dd($pr_create[0]['key']);
         $productdb = Create_product::where('key',$pr_create[0]['key'])->get('productname')->toArray();
         $lengtharray = sizeof($productdb);
-        //dd($id);
-        for($i=0; $i<$lengtharray; $i++){
-          $product_id = product_main::where('product_name',$productdb[$i])->get()->toArray();
-          $product_price = product_Price::where('Product',$product_id[0]['Product_ID'])->min('Price');
-                                        //  ->where('Product',$product_id[0]['Product_ID'])->min('Price');
-          $product_min_price[] = product_main::where('product_name',$productdb[$i])
-                                           ->join('product__Prices','product_mains.Product_ID','product__Prices.Product')
-                                           ->where('Price',$product_price)
-                                           ->get()->toArray();
-          $product_number = Create_product::where('key',$pr_create[0]['key'])->get()->toArray();  
-          dd($product_min_price);
-          $store_name = Product::where('keystore',$product_min_price);
-          //dd($product_min_price[0][0]);   
-          $products_sum = [$product_price*$product_number[$i]['productnumber']];
-          $sum = [$sum[0]+$products_sum[0]];
-          $product_name = product_main::where('Product_ID',$product_min_price[$i][0]['Product_ID'])->get()->toArray();
-         
-          $min[] = [
-                    $product_name[0]['Product_name'],
-                    $product_number[$i]['productnumber'],
-                    $product_min_price[$i][0]['unit'],
-                    $product_min_price[$i][0]['Store'],
-                    $product_min_price[$i][0]['Price'],
-                    $products_sum[0],
-                    ];  
-        }
-        dd($min);
+        $data = Product::where('keyPR',$id)->get()->toArray();
         return view('Authorized_person1.edit', compact(
                                               'number',
+                                              'data',
                                               'pr_create',
                                               'min',
                                               'sum',

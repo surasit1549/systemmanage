@@ -30,8 +30,7 @@
           <td>{{$row['keyPR']}}</td>
           <td>{{substr($row['created_at'],0,-9)}}</td>
           <td>
-            <a href="{{action('PurchaseorderController@show',$row['keyPR'])}}" data-toggle="tooltip" data-placement="top" title="View"><i style="font-size:20px" class="fas fa-eye text-primary"></i></a>
-            <a class="ml-2" href="{{action('PurchaseorderController@show',$row['keyPR'])}}" data-toggle="tooltip" data-placement="top" title="PDF"><i style="font-size:20px" class="text-danger fas fa-file-pdf"></i></a>
+            <a class="ml-2" href="{{action('PurchaseorderController@show',$row['PO_ID'])}}" data-toggle="tooltip" data-placement="top" title="PDF"><i style="font-size:20px" class="text-danger fas fa-file-pdf"></i></a>
           </td>
         </tr>
         @endforeach
