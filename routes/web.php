@@ -24,6 +24,8 @@ Route::group(['middleware' => ['123','checkAction','checkstatus']], function () 
     Route::post('upload_img','uploadController@store');
     //Route ::resource('store','FillinformationController');
     //Route ::resource('fillinformation','StoreController');
+    Route::post('usermanage/{id}/checkpasscode', 'checkpasscodeController@checkcode');
+    Route::post('pr_create/checkpasscode', 'checkpasscodeController@checkcode');
     Route::post('transform/{id}/checkpasscode', 'checkpasscodeController@checkcode');
     Route::post('Product/{id}/checkpasscode', 'checkpasscodeController@checkcode');
     Route::post('Product_Price/{id}/checkpasscode', 'checkpasscodeController@checkcode');

@@ -41,9 +41,6 @@
           '</select> รายการ'
       }
     });
-    $('.test').click(function() {
-      $(this).next('form').submit();
-    });
 
   });
 </script>
@@ -88,11 +85,15 @@
           <td>{{$row->name}}</td>
           <td>{{ substr($row->phone,0,3).'-'.substr($row->phone,3) }}</td>
           <td>
-            <a data-toggle="modal" data-target="#test{{$row->id}}" data-placement="top" title="View"><i style="font-size:20px;;" class="fas fa-eye text-primary"></i></a>
+            <span data-toggle="tooltip" data-placement="top" title="ข้อมูล">
+              <a data-toggle="modal" data-target="#test{{$row->id}}"><i style="font-size:20px;;" class="fas fa-eye text-primary"></i></a>
+            </span>
             &nbsp;&nbsp;
-            <a href="{{action('StoreController@edit',$row->id)}}" data-toggle="tooltip" data-placement="top" title="Edit"><i style="font-size:20px;" class="fas fa-edit text-warning"></i></a>
+            <a href="{{action('StoreController@edit',$row->id)}}" data-toggle="tooltip" data-placement="top" title="แก้ไข"><i style="font-size:20px;" class="fas fa-edit text-warning"></i></a>
             &nbsp;&nbsp;
-            <a class="test" href="#" data-toggle="tooltip" data-placement="top" title="Remove"><i style="font-size:20px;" class="fas fa-trash-alt text-danger"></i></a>
+            <span data-toggle="tooltip" data-placement="top" title="ลบ">
+              <a class="test" data-id="{{$row['id']}}" data-toggle="modal" data-target="#passcode_confirm" href="#"><i style="font-size:20px;" class="fas fa-trash-alt text-danger"></i></a>
+            </span>
             <form method="post" class="delete_form" action="{{action('StoreController@destroy',$row->id)}}">
               {{csrf_field()}}
               <input type="hidden" name="keystore" value="{{$row->keystore}}">
@@ -105,6 +106,7 @@
   </tbody>
   </table>
 </div>
+
 
 @foreach( $store as $row )
 <div class="modal fade" id="test{{$row->id}}" role="dialog">
@@ -165,5 +167,6 @@
   </div>
 </div>
 @endforeach
+
 
 @stop

@@ -10,8 +10,6 @@
     outline: none !important;
     box-shadow: none;
   }
-</style>
-<style>
   #person1 {
     border-right: 5px solid rgb(41, 207, 219);
   }
