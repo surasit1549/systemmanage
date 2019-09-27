@@ -28,24 +28,28 @@
   #a1 {
     position: absolute;
     color: black;
-    border: 1px solid black;
-    width: 150px;
+    text-shadow: 2px 2px 4px #000000;
+    font-size: 25px;
+    top: 73px;
+    width: 200px;
     height: 50px;
     padding: 1%;
-    left: 20px;
+    left: 15px;
     text-align: center;
   }
 
   #a2 {
     position: absolute;
     color: white;
-    border: 1px solid black;
+    border: 0.5px solid black;
     background: #4A708B;
-    top: 73px;
+    text-shadow: 2px 2px 4px #000000;
+    font-size: 18px;
     width: 150px;
     height: 50px;
     padding: 1%;
-    left: 170px;
+    right: 0px;
+    top: 63px;
     text-align: center;
   }
 </style>
@@ -79,7 +83,7 @@
   </div>
   @if( Auth::user()->role == 'แอดมิน')
   <div id="master">
-    <p><b><a id="a1" href="{{route('Authorized_person1.index')}}">ผู้มีอำนาจคนที่ 1</a></b></p>
+    <p><b><a id="a1">ผู้มีอำนาจคนที่ 1</a></b></p>
     <p><b><a id="a2" href="{{route('Authorized_person2.index')}}">ผู้มีอำนาจคนที่ 2</a></b></p>
   </div><br>
   @endif

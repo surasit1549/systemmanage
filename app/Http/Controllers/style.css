@@ -147,20 +147,20 @@ tbody td {
 
 #store_detail1_table {
   top: 35px;
-  right: 327px;
-  font-size: 20px;
+  right: 315px;
+  font-size: 25px;
   position: absolute;
 }
 #store_detail2_table {
   top: 65px;
-  right: 240px;
-  font-size: 20px;
+  right: 200px;
+  font-size: 22px;
   position: absolute;
 }
 #store_detail3_table {
   top: 95px;
   right: 320px;
-  font-size: 20px;
+  font-size: 22px;
   position: absolute;
 }
 

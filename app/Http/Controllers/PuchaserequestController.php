@@ -232,7 +232,7 @@ class PuchaserequestController extends Controller
     $contractor = Auth::user()->where('username', $pr_create[0]['contractor'])->get();
     $master1 = Auth::user()->where('role', "ผู้มีอำนาจ1")->get();
     $master2 = Auth::user()->where('role', "ผู้มีอำนาจ2")->get();
-    dd($pr_create[0]['contractor']);
+   
     return view('prequest.show', compact(
       'number',
       'id',
