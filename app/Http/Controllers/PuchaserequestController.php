@@ -228,10 +228,9 @@ class PuchaserequestController extends Controller
     $store_mine = Store::where('keystore', 'master')->get();
     $date_master1 = $this->time_master1($pr_create[0]['key']);
     $date_master2 = $this->time_master2($pr_create[0]['key']);
-    
     $contractor = Auth::user()->where('username', $pr_create[0]['contractor'])->get();
-    $master1 = Auth::user()->where('role', "ผู้มีอำนาจ1")->get();
-    $master2 = Auth::user()->where('role', "ผู้มีอำนาจ2")->get();
+    $master1 = Auth::user()->where('role', '3')->get();
+    $master2 = Auth::user()->where('role', '4')->get();
    
     return view('prequest.show', compact(
       'number',

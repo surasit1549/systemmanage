@@ -178,7 +178,7 @@
       <tbody>
         <tr>
           <th>TO :</th>
-          <td>THERA ASSET CO.,LTD</td>
+          <td style="text-align: left;">THERA ASSET CO.,LTD</td>
         </tr>
         <tr>
           <th>ชื่อผู้รับเหมา</th>
@@ -197,13 +197,13 @@
     <table id="table_product">
       <thead>
         <tr>
-          <th style="width: 5%">ลำดับที่</th>
-          <th style="width: 25%">ชื่อสินค้า</th>
-          <th style="width: 10%">จำนวนสินค้า</th>
-          <th style="width: 10%">หน่วย</th>
-          <th style="width: 15%">ร้านค้า</th>
-          <th style="width: 10%">ราคา (บาท)</th>
-          <th style="width: 10%">จำนวนเงิน</th>
+          <th style="width: 5%;height: 50px;">ลำดับที่</th>
+          <th style="width: 25%;height: 50px;">ชื่อสินค้า</th>
+          <th style="width: 10%;height: 50px;">จำนวนสินค้า</th>
+          <th style="width: 10%;height: 50px;">หน่วย</th>
+          <th style="width: 15%;height: 50px;">ร้านค้า</th>
+          <th style="width: 10%;height: 50px;">ราคา (บาท)</th>
+          <th style="width: 10%;height: 50px;">จำนวนเงิน</th>
         </tr>
       </thead>
       <tbody>
@@ -213,7 +213,7 @@
           <td style="width: 25%"><label value="{{$row['Product_name']}}" required>{{$row['Product_name']}}</label>
           <td style="width: 10%"><label value="{{$row['Product_number']}}" required>{{$row['Product_number']}}</label></td>
           <td style="width: 10%"><label value="{{$row['unit']}}" required>{{$row['unit']}}</label></td>
-          <td style="width: 10%"><label value="{{$row['keystore']}}" required>{{$row['keystore']}}</label></td>
+          <td style="width: 15%"><label value="{{$row['keystore']}}" required>{{$row['keystore']}}</label></td>
           <td style="width: 10%"><label value="{{$row['price']}}" required>{{$row['price']}}</label></td>
           <td style="width: 10%"><label value="{{$row['product_sum']}}" required>{{$row['product_sum']}}</label></td>
         </tr>
