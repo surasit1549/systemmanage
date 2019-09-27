@@ -66,7 +66,7 @@
                 </tr>
                 <tr>
                     <th>ตำแหน่ง</th>
-                    <td>{{ Auth::user()->role }}</td>
+                    <td>{{ $role }}</td>
                 </tr>
                 <tr>
                     <th>E-mail</th>

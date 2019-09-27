@@ -8,6 +8,7 @@ use Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
 use App\log;
+use App\role;
 
 class profileController extends Controller
 {
@@ -84,7 +85,8 @@ class profileController extends Controller
 
     public function index()
     {
-        return view('profile.index');
+        $role = role::where('id_role',Auth::user()->role)->get()[0]->name_role;
+        return view('profile.index',compact('role'));
     }
 
     /**
