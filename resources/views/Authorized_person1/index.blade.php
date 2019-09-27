@@ -81,7 +81,7 @@
   <div class="card-header">
     <h3 class="text-white"><i style="font-size:20px" class="fas fa-list"></i>&nbsp;&nbsp;ตรวจสอบรายการใบขอสั่งซื้อ</h3>
   </div>
-  @if( Auth::user()->role == 'แอดมิน')
+  @if( Auth::user()->role == '5')
   <div id="master">
     <p><b><a id="a1">ผู้มีอำนาจคนที่ 1</a></b></p>
     <p><b><a id="a2" href="{{route('Authorized_person2.index')}}">ผู้มีอำนาจคนที่ 2</a></b></p>
