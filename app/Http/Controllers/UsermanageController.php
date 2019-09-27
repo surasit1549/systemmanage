@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use App\User;
 use App\log;
 Use Illuminate\Support\Facades\Auth;
+use App\role;
 
 class UsermanageController extends Controller
 {
@@ -24,8 +25,9 @@ class UsermanageController extends Controller
 
     public function index()
     {
-        $user = User::all()->toArray();
+        $user = User::select('*','roles.name_role as name_role')->join('roles','users.role','roles.id_role')->get()->toArray();
         return view('usermanage.indexuser',compact('user'));
+        
     }
 
     /**
@@ -35,7 +37,8 @@ class UsermanageController extends Controller
      */
     public function create()
     {
-        return view('usermanage.create');
+        $role = role::get();
+        return view('usermanage.create',compact('role'));
     }
 
     /**
@@ -74,7 +77,8 @@ class UsermanageController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        return view('usermanage.edit',compact('user'));
+        $role = role::get();
+        return view('usermanage.edit',compact('user','role'));
     }
 
     /**
@@ -85,13 +89,23 @@ class UsermanageController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+    public function changepass($id){
+        return view('usermanage.changepass',compact('id'));
+    }
+
+    public function changepassword(Request $request){
+        $password = Hash::make($request->password);
+        User::find($request->id)->update(['password' => $password]);
+        return redirect()->route('usermanage.index')->with('msg','สามารถเข้าสู่ระบบครั้งต่อไปด้วยรหัสผ่านใหม่ได้ทันที');
+    }
+
 
     public function update(Request $request, $id)
     {
         User::find($id)->update($request->toArray());
         unset($request['token'], $request['_token'], $request['_method'], $request['save']);
         $this->insertlog('UPDATE','users',$request->toArray());
-        return redirect()->route('usermanage.index');
+        return redirect()->route('usermanage.index')->with('update','บันทึกข้อมูลใหม่เรียบร้อยแล้ว');
     }
 
     /**

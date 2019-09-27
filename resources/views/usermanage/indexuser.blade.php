@@ -14,6 +14,29 @@
 @stop
 @section('content')
 
+@if(session('msg'))
+<div class="alert alert-success alert-dismissible fade show">
+    <h5 class="alert-heading"><i class="fas fa-check-circle"></i>&nbsp;&nbsp;เปลี่ยนรหัสผ่านเรียบร้อยแล้ว</h5>
+    <hr>
+    <p>{{ session('msg') }}</p>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+@endif
+
+@if(session('update'))
+<div class="alert alert-success alert-dismissible fade show">
+    <h5 class="alert-heading"><i class="fas fa-check-circle"></i>&nbsp;&nbsp;แก้ไขข้อมูลสำเร็จ</h5>
+    <hr>
+    <p>{{ session('update') }}</p>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+@endif
+
+
 <div class="form-row col-md-12">
     <div class="form-group">
         <a class="btn btn-sm btn-success text-white" href="{{action('UsermanageController@create')}}">
@@ -22,7 +45,6 @@
         </a>
     </div>
 </div>
-
 
 <div class="card">
     <div class="card-header">
@@ -51,7 +73,7 @@
                     <td class="text-nowrap">{{$users['firstname']}}</td>
                     <td class="text-nowrap">{{$users['lastname']}}</td>
                     <td class="text-nowrap">{{$users['username']}}</td>
-                    <td class="text-nowrap">{{$users['role']}}</td>
+                    <td class="text-nowrap">{{$users['name_role']}}</td>
                     <td class="text-nowrap">
                         @if( $users['status'] == 'Active' )
                         <button class="btn btn-sm btn-success">Active</button>
@@ -60,17 +82,19 @@
                         @endif
                     </td>
                     <td class="text-nowrap">
-                        <a href="{{action('UsermanageController@edit',$users['id'])}}" data-toggle="tooltip" data-placement="top" title="Edit"><i style="font-size:20px;" class="fas fa-edit text-warning"></i></a>
+                        <a href="{{action('UsermanageController@edit',$users['id'])}}" data-toggle="tooltip" data-placement="top" title="แก้ไขข้อมูล"><i style="font-size:20px;" class="fas fa-edit text-warning"></i></a>
+                        &nbsp;&nbsp;
+                        <a style="font-size:20px" data-toggle="tooltip" data-placement="top" title="เปลี่ยนรหัสผ่าน" href="/usermanage/{{$users['id']}}/changepass"><i class="fas fa-key text-info"></i></a>
                         &nbsp;&nbsp;
                         @if( $users['status'] == 'Active' )
-                        <a class="delete_user" data-toggle="tooltip" data-placement="top" title="Ban"><i style="font-size:20px" class="fas fa-ban text-danger"></i></a>
+                        <a class="delete_user" data-toggle="tooltip" data-placement="top" title="แบนผู้ใช้งาน"><i style="font-size:20px" class="fas fa-ban text-danger"></i></a>
                         <form method="post" action="{{action('UsermanageController@destroy',$users['id'])}}">
                             @csrf
                             <input type="hidden" name="username" value="{{$users['username']}}">
                             <input type="hidden" name="_method" value="DELETE" />
                         </form>
                         @else
-                        <a class="active_user" data-toggle="tooltip" data-placement="top" title="Active"><i style="font-size:20px" class="fas fa-check-circle text-success"></i></a>
+                        <a class="active_user" data-toggle="tooltip" data-placement="top" title="ปลดแบน"><i style="font-size:20px" class="fas fa-check-circle text-success"></i></a>
                         <form method="post" action="/usermanage/activeUser">
                             @csrf
                             <input type="hidden" name="id" value="{{$users['id']}}">
@@ -83,8 +107,10 @@
         </table>
     </div>
 
+
     <script>
         $(document).ready(function() {
+
             var table = $('#user_table').DataTable({
                 'scrollX': true,
                 order: [

@@ -18,6 +18,8 @@ Route::get('/',function(){
 });
 
 Route::group(['middleware' => ['123','checkAction','checkstatus']], function () {
+    Route::post('/usermanage/changepassword','UsermanageController@changepassword');
+    Route::get('/usermanage/{id}/changepass','UsermanageController@changepass');
     Route::get('upload_img','uploadController@index')->name('upload_img');
     Route::post('upload_img','uploadController@store');
     //Route ::resource('store','FillinformationController');
@@ -47,8 +49,8 @@ Route::group(['middleware' => ['123','checkAction','checkstatus']], function () 
         Route::resource('Product_Price', 'ProductPriceController');
         Route::resource('Authorized_person1', 'masteroneController');
         Route::resource('Authorized_person2', 'mastertwoController');
+        Route::resource('usermanage', 'UsermanageController');
     });
-    Route::resource('usermanage', 'UsermanageController');
     Route::resource('profile', 'profileController');
 
     // Sent by Ajax

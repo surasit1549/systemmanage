@@ -68,11 +68,9 @@
                 <label for="">ตำแหน่ง</label>
                 <select name="role" class="custom-select" id="role">
                     <option value="" selected disabled>เลือกตำแหน่ง</option>
-                    <option value="ผู้รับเหมา">ผู้รับเหมา</option>
-                    <option value="ฝ่ายจัดซื้อ">ฝ่ายจัดซื้อ</option>
-                    <option value="ผู้มีอำนาจ1">ผู้มีอำนาจคนที่ 1</option>
-                    <option value="ผู้มีอำนาจ2">ผู้มีอำนาจคนที่ 2</option>
-                    <option value="แอดมิน">admin</option>
+                    @foreach( $role as $roles )
+                    <option value='{{$roles->id_role}}'>{{$roles->name_role}}</option>
+                    @endforeach
                 </select>
             </div>
         </div>
