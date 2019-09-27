@@ -26,7 +26,6 @@ class masteroneController extends Controller
         $master = Authorized_person1::get()->toArray();
         $prequest = prequest::get()->toArray();
         if(empty($prequest)){
-            dd(123);
             $datas = '';
             $pr_create = '';
         }else{

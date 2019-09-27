@@ -17,7 +17,7 @@
   $(document).ready(function() {
     $('[data-toggle="tooltip"]').tooltip();
     $('#main').DataTable({
-    'responsive' : true,
+      'responsive': true,
       'columnDefs': [{
         'orderable': false,
         'targets': 3
