@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\prequest;
 use App\PR_create;
+use App\Product;
 use App\Create_product;
 use App\product_main;
 use App\product_Price;
@@ -109,6 +110,8 @@ class masteroneController extends Controller
                                            ->where('Price',$product_price)
                                            ->get()->toArray();
           $product_number = Create_product::where('key',$pr_create[0]['key'])->get()->toArray();  
+          dd($product_min_price);
+          $store_name = Product::where('keystore',$product_min_price);
           //dd($product_min_price[0][0]);   
           $products_sum = [$product_price*$product_number[$i]['productnumber']];
           $sum = [$sum[0]+$products_sum[0]];
@@ -123,7 +126,7 @@ class masteroneController extends Controller
                     $products_sum[0],
                     ];  
         }
-        //dd($min);
+        dd($min);
         return view('Authorized_person1.edit', compact(
                                               'number',
                                               'pr_create',
