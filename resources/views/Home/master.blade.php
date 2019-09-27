@@ -28,7 +28,7 @@
         <nav id="sidebar">
             <img class="siderbar-header" style="width:250px" src="{{asset('pic/logo1.png')}}" alt="">
             <ul class="list-unstyled components">
-                @if( Auth::user()->role != 2 )
+                @if( Auth::user()->role != 1 )
                 <li>
                     <a href="{{route('store.index')}}" id="storetab">
                         <i style="font-size:20px" class="fas fa-store-alt"></i>&nbsp;&nbsp;
@@ -53,14 +53,14 @@
                         &nbsp;&nbsp;แปลง</a>
                 </li>
                 @endif
-                @if( Auth::user()->role == 2 || Auth::user()->role == 5 )
+                @if( Auth::user()->role == 1 || Auth::user()->role == 5 )
                 <li>
                     <a href="{{route('pr_create.index')}}" id="constructtab">
                         <i style="font-size:20px" class="far fa-file-alt"></i>
                         &nbsp;&nbsp;ใบขอสั่งซื้อ</a>
                 </li>
                 @endif
-                @if( Auth::user()->role != 2 )
+                @if( Auth::user()->role != 1 )
                 <li>
                     <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" id="prpo_form"><i style="font-size:20px" class="far fa-file-alt"></i>
                         &nbsp;&nbsp;รายละเอียดการสั่งซื้อ</a>
