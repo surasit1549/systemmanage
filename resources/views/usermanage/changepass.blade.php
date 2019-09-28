@@ -61,7 +61,7 @@
 
 <script>
     $('document').ready(function() {
-        $('form').validate({
+        $('#forminput').validate({
             rules: {
                 password: {
                     'required': true,
@@ -97,6 +97,33 @@
             },
             submitHandler: function(form) {
                 $('#passcode_confirm').modal('show');
+                $('#sub_confirm').click(function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    $.ajax({
+                        type: 'POST',
+                        url: 'checkpasscode',
+                        data: {
+                            _token: '{{csrf_token()}}',
+                            passkey: $('input[name=passkey]').val()
+                        },
+                        success: function(data) {
+                            if (data.msg) {
+                                form.submit();
+                            } else {
+                                Swal.fire({
+                                    type: 'error',
+                                    title: 'รหัสลับไม่ถูกต้อง',
+                                    text: 'กรอกรหัสลับอีกครั้ง',
+                                    confirmButtonText: 'ตกลง',
+                                    onAfterClose: () => {
+                                        $('input[name=passkey]').val('').focus();
+                                    }
+                                })
+                            }
+                        }
+                    });
+                });
             }
         });
 
@@ -107,33 +134,7 @@
             $(this).find('input[name=passkey]').val('');
         });
 
-        $('#sub_confirm').click(function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            $.ajax({
-                type: 'POST',
-                url: 'checkpasscode',
-                data: {
-                    _token: '{{csrf_token()}}',
-                    passkey: $('input[name=passkey]').val()
-                },
-                success: function(data) {
-                    if (data.msg) {
-                        $('#forminput').submit();
-                    } else {
-                        Swal.fire({
-                            type: 'error',
-                            title: 'รหัสลับไม่ถูกต้อง',
-                            text: 'กรอกรหัสลับอีกครั้ง',
-                            confirmButtonText: 'ตกลง',
-                            onAfterClose: () => {
-                                $('input[name=passkey]').val('').focus();
-                            }
-                        })
-                    }
-                }
-            });
-        });
+
 
     });
 </script>
