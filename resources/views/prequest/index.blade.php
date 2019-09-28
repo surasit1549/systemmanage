@@ -13,7 +13,7 @@
 
     $('#prpo_form').click();
 
-    $('#prtable').DataTable({
+    $('#main_table').DataTable({
 
       'columnDefs': [{
         'orderable': false,
@@ -39,30 +39,46 @@
       }
     });
 
+
     $('.test').click(function() {
-      $(this).next('form').submit();
+      $('#passcode_confirm').find('#trythis').val($(this).data('id'));
     });
 
-    $('.denyprequest').click(function(e) {
-      e.stopPropagation();
+
+    $('#passcode_confirm').on('shown.bs.modal', function() {
+      $(this).find('input[name=passkey]').focus();
+    }).on('hidden.bs.modal', function() {
+      $(this).find('input[name=passkey]').val();
+    });
+
+    $('#sub_confirm').click(function(e) {
       e.preventDefault();
-      var form = $(this).parent('form');
-      var bill = $(this).parents().eq(3).find('td:first').text();
-      Swal.fire({
-        type: 'question',
-        title: 'ต้องการยกเลิกใบขอสั่งซื้อ<br>' + bill,
-        text: 'เมื่อบิลถูกยกเลิกแล้วจะไม่สามารถนำกลับมาได้',
-        confirmButtonText: 'ตกลง',
-        cancelButtonText: 'ยกเลิก',
-        showCancelButton: true,
-        focusCancel: true,
-      }).then((result) => {
-        if (result.value) {
-          form.submit();
+      e.stopPropagation();
+      var id = $(this).prev('input[type=hidden]').val();
+      $.ajax({
+        type: 'POST',
+        url: 'Product/checkpasscode',
+        data: {
+          _token: '{{csrf_token()}}',
+          passkey: $('input[name=passkey]').val()
+        },
+        success: function(data) {
+          if (data.msg) {
+            $('#main_table').find('a[data-id=' + id + ']').parent().next('form').submit();
+          } else {
+            Swal.fire({
+              type: 'error',
+              title: 'รหัสลับไม่ถูกต้อง',
+              text: 'กรอกรหัสลับอีกครั้ง',
+              confirmButtonText: 'ตกลง',
+              onAfterClose: () => {
+                $('input[name=passkey]').val('').focus();
+              }
+            })
+          }
         }
       });
     });
-
 
   })
 </script>
@@ -90,7 +106,7 @@
     </div>
   </div>
   <div class="card-body">
-    <table cellspacing="0" width="100%" class="table table-bordered display responsive nowrap" id="prtable">
+    <table cellspacing="0" width="100%" class="table table-bordered display responsive nowrap" id="main_table">
       <thead>
         <tr>
           <th>&nbsp;&nbsp;เลขที่เอกสาร</th>
@@ -133,10 +149,12 @@
               <a href="{{action('PuchaserequestController@show',$row[1])}}" class="btn btn-sm btn-danger ml-2"><i style="font-size:20px" class="fas fa-file-pdf"></i>&nbsp;&nbsp;PDF</a>
               @endif
               @if($row[6] != "เสร็จสมบูรณ์")
+              <span data-toggle="tooltip" data-placement="top" title="ยกเลิก">
+                <a class="test btn btn-secondary ml-2" href="#" data-id="{{$row[0]}}" data-toggle="modal" data-target="#passcode_confirm"><i class="fas fa-times"></i>&nbsp;&nbsp;ยกเลิก</a>
+              </span>
               <form action="prequest/closePR" method="post">
                 @csrf
                 <input type="hidden" name="pr" value="{{$row[1]}}">
-                <button class="denyprequest test btn btn-sm btn-secondary ml-2" href="#"><i style="font-size:20px" class="fas fa-window-close"></i>&nbsp;&nbsp;ยกเลิก</button>
               </form>
               @endif
               @else
@@ -151,4 +169,30 @@
     </table>
   </div>
 </div>
+
+<div class="modal fade" id="passcode_confirm">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5><i style="font-size:20px" class="fas fa-key mr-2 text-danger"></i>กรอกรหัสลับ</h5>
+        <button data-dismiss="modal" class="close">&times;</button>
+      </div>
+      <div class="modal-body">
+        {!! Form::open(['url' => 'checkpasscode']) !!}
+        <div class="form-group">
+          {!! Form::label('รหัสลับ') !!}
+          {!! Form::password('passkey',['class' => 'form-control','maxlength' => 4]) !!}
+        </div>
+      </div>
+      <div class="modal-footer">
+        <input type="hidden" id="trythis">
+        {!! Form::submit('ยืนยัน',['class' => 'btn btn-success','id' => 'sub_confirm']) !!}
+        <a class="btn btn-secondary" data-dismiss="modal" href="#">ยกเลิก</a>
+        {!! Form::close() !!}
+      </div>
+    </div>
+  </div>
+</div>
+
+
 @stop

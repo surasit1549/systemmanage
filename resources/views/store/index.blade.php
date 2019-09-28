@@ -16,7 +16,7 @@
 <script>
   $(document).ready(function() {
     $('[data-toggle="tooltip"]').tooltip();
-    $('#main').DataTable({
+    $('#main_table').DataTable({
       'responsive': true,
       'columnDefs': [{
         'orderable': false,
@@ -40,6 +40,47 @@
           '<option value="-1">ทั้งหมด</option>' +
           '</select> รายการ'
       }
+    });
+
+
+    $('.test').click(function() {
+      $('#passcode_confirm').find('#trythis').val($(this).data('id'));
+    });
+
+
+    $('#passcode_confirm').on('shown.bs.modal', function() {
+      $(this).find('input[name=passkey]').focus();
+    }).on('hidden.bs.modal', function() {
+      $(this).find('input[name=passkey]').val();
+    });
+
+    $('#sub_confirm').click(function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      var id = $(this).prev('input[type=hidden]').val();
+      $.ajax({
+        type: 'POST',
+        url: 'Product/checkpasscode',
+        data: {
+          _token: '{{csrf_token()}}',
+          passkey: $('input[name=passkey]').val()
+        },
+        success: function(data) {
+          if (data.msg) {
+            $('#main_table').find('a[data-id=' + id + ']').parent().next('form').submit();
+          } else {
+            Swal.fire({
+              type: 'error',
+              title: 'รหัสลับไม่ถูกต้อง',
+              text: 'กรอกรหัสลับอีกครั้ง',
+              confirmButtonText: 'ตกลง',
+              onAfterClose: () => {
+                $('input[name=passkey]').val('').focus();
+              }
+            })
+          }
+        }
+      });
     });
 
   });
@@ -69,7 +110,7 @@
     <h3 class="text-white"><i class="fas fa-store"></i>&nbsp;&nbsp;STORES</h3>
   </div>
   <div class="card-body">
-    <table class="table table-bordered" width="100%" id="main">
+    <table class="table table-bordered" width="100%" id="main_table">
       <thead>
         <tr>
           <th class="text-nowrap">รหัสร้านค้า</th>
@@ -106,6 +147,7 @@
   </tbody>
   </table>
 </div>
+
 
 
 @foreach( $store as $row )
@@ -169,6 +211,28 @@
 @endforeach
 
 
-
+<div class="modal fade" id="passcode_confirm">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5><i style="font-size:20px" class="fas fa-key mr-2 text-danger"></i>กรอกรหัสลับ</h5>
+        <button data-dismiss="modal" class="close">&times;</button>
+      </div>
+      <div class="modal-body">
+        {!! Form::open(['url' => 'checkpasscode']) !!}
+        <div class="form-group">
+          {!! Form::label('รหัสลับ') !!}
+          {!! Form::password('passkey',['class' => 'form-control','maxlength' => 4]) !!}
+        </div>
+      </div>
+      <div class="modal-footer">
+        <input type="hidden" id="trythis">
+        {!! Form::submit('ยืนยัน',['class' => 'btn btn-success','id' => 'sub_confirm']) !!}
+        <a class="btn btn-secondary" data-dismiss="modal" href="#">ยกเลิก</a>
+        {!! Form::close() !!}
+      </div>
+    </div>
+  </div>
+</div>
 
 @stop
