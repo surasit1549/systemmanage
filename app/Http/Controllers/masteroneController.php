@@ -104,8 +104,6 @@ class masteroneController extends Controller
                                               'number',
                                               'data',
                                               'pr_create',
-                                              'min',
-                                              'sum',
                                               'id'));
     }
 

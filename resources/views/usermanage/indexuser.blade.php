@@ -16,7 +16,7 @@
 
 @if(session('msg'))
 <div class="alert alert-success alert-dismissible fade show">
-    <h5 class="alert-heading"><i class="fas fa-check-circle"></i>&nbsp;&nbsp;เปลี่ยนรหัสผ่านเรียบร้อยแล้ว</h5>
+    <h5 class="alert-heading"><i class="fas fa-check-circle"></i>&nbsp;&nbsp;กระบวนการสำเร็จ</h5>
     <hr>
     <p>{{ session('msg') }}</p>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -51,7 +51,7 @@
         <h3 class="text-white card-title"><i class="fas fa-users"></i>&nbsp;&nbsp;จัดการข้อมูลผู้ใช้งาน</h3>
     </div>
     <div class="card-body">
-        <table class="table table-bordered" id="user_table" width="100%">
+        <table class="table table-bordered" id="main_table" width="100%">
             <thead>
                 <tr>
                     <th class="text-nowrap">#</th>
@@ -87,14 +87,18 @@
                         <a style="font-size:20px" data-toggle="tooltip" data-placement="top" title="เปลี่ยนรหัสผ่าน" href="/usermanage/{{$users['id']}}/changepass"><i class="fas fa-key text-info"></i></a>
                         &nbsp;&nbsp;
                         @if( $users['status'] == 'Active' )
-                        <a class="delete_user" data-toggle="tooltip" data-placement="top" title="แบนผู้ใช้งาน"><i style="font-size:20px" class="fas fa-ban text-danger"></i></a>
+                        <span data-toggle="tooltip" data-placement="top" title="ปลดแบน">
+                            <a class="test" data-id="{{$users['id']}}" data-toggle="modal" data-target="#passcode_confirm"><i style="font-size:20px" class="fas fa-ban text-danger"></i></a>
+                        </span>
                         <form method="post" action="{{action('UsermanageController@destroy',$users['id'])}}">
                             @csrf
                             <input type="hidden" name="username" value="{{$users['username']}}">
                             <input type="hidden" name="_method" value="DELETE" />
                         </form>
                         @else
-                        <a class="active_user" data-toggle="tooltip" data-placement="top" title="ปลดแบน"><i style="font-size:20px" class="fas fa-check-circle text-success"></i></a>
+                        <span data-toggle="tooltip" data-placement="top" title="แบนผู้ใช้งาน">
+                            <a class="test" data-id="{{$users['id']}}" data-toggle="modal" data-target="#passcode_confirm"><i style="font-size:20px" class="fas fa-check-circle text-success"></i></a>
+                        </span>
                         <form method="post" action="/usermanage/activeUser">
                             @csrf
                             <input type="hidden" name="id" value="{{$users['id']}}">
@@ -108,10 +112,35 @@
     </div>
 
 
+    <div class="modal fade" id="passcode_confirm">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5><i style="font-size:20px" class="fas fa-key mr-2 text-danger"></i>กรอกรหัสลับ</h5>
+                    <button data-dismiss="modal" class="close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    {!! Form::open(['url' => 'checkpasscode']) !!}
+                    <div class="form-group">
+                        {!! Form::label('รหัสลับ') !!}
+                        {!! Form::password('passkey',['class' => 'form-control','maxlength' => 4]) !!}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" id="trythis">
+                    {!! Form::submit('ยืนยัน',['class' => 'btn btn-success','id' => 'sub_confirm']) !!}
+                    <a class="btn btn-secondary" data-dismiss="modal" href="#">ยกเลิก</a>
+                    {!! Form::close() !!}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <script>
         $(document).ready(function() {
 
-            var table = $('#user_table').DataTable({
+            var table = $('#main_table').DataTable({
                 'scrollX': true,
                 order: [
                     [1, 'desc']
@@ -155,7 +184,7 @@
                 return '<table class="table table-light"><tr><th>อีเมล</th><td>' + email + '</td><th>เบอร์โทรศัพท์</th><td>' + phone + '</td></tr><tr><th>ที่อยู่</th><td>' + address + '</td></tr></table>';
             }
 
-            $('#user_table tbody').on('click', 'td.details-control', function() {
+            $('#main_table tbody').on('click', 'td.details-control', function() {
                 var tr = $(this).closest('tr');
                 var tdi = tr.find('i.fa');
                 var row = table.row(tr);
@@ -178,39 +207,47 @@
             });
 
 
-            $('.active_user').click(function() {
-                var check = $(this).parent().prev().prev().prev().text();
-                Swal.fire({
-                    title: 'ต้องการปลดแบนผู้ใช้งาน<br>' + check,
-                    text: 'เมื่อปลดแบนแล้วผู้ใช้งานจะสามารถเข้าสู่ระบบได้ปกติ',
-                    type: 'question',
-                    confirmButtonText: 'ตกลง',
-                    showCancelButton: true,
-                    cancelButtonText: 'ยกเลิก',
-                    focusCancel: true
-                }).then((result) => {
-                    if (result.value) {
-                        $(this).next().submit();
-                    }
-                })
+
+            $('.test').click(function() {
+                $('#passcode_confirm').find('#trythis').val($(this).data('id'));
             });
 
-            $('.delete_user').click(function() {
-                var check = $(this).parent().prev().prev().prev().text();
-                Swal.fire({
-                    title: 'ต้องการแบนผู้ใช้งาน<br>' + check,
-                    text: 'เมื่อแบนแล้วผู้ใช้งานนี้จะไม่สามารถเข้าสู่ระบบได้',
-                    type: 'warning',
-                    confirmButtonText: 'ตกลง',
-                    showCancelButton: true,
-                    cancelButtonText: 'ยกเลิก',
-                    focusCancel: true
-                }).then((result) => {
-                    if (result.value) {
-                        $(this).next().submit();
-                    }
-                })
+
+            $('#passcode_confirm').on('shown.bs.modal', function() {
+                $(this).find('input[name=passkey]').focus();
+            }).on('hidden.bs.modal', function() {
+                $(this).find('input[name=passkey]').val();
             });
+
+            $('#sub_confirm').click(function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                var id = $(this).prev('input[type=hidden]').val();
+                $.ajax({
+                    type: 'POST',
+                    url: 'Product/checkpasscode',
+                    data: {
+                        _token: '{{csrf_token()}}',
+                        passkey: $('input[name=passkey]').val()
+                    },
+                    success: function(data) {
+                        if (data.msg) {
+                            $('#main_table').find('a[data-id=' + id + ']').parent().next('form').submit();
+                        } else {
+                            Swal.fire({
+                                type: 'error',
+                                title: 'รหัสลับไม่ถูกต้อง',
+                                text: 'กรอกรหัสลับอีกครั้ง',
+                                confirmButtonText: 'ตกลง',
+                                onAfterClose: () => {
+                                    $('input[name=passkey]').val('').focus();
+                                }
+                            })
+                        }
+                    }
+                });
+            });
+
 
         });
     </script>

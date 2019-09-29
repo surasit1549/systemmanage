@@ -10,8 +10,7 @@
     outline: none !important;
     box-shadow: none;
   }
-</style>
-<style>
+
   #person2 {
     border-right: 5px solid rgb(41, 207, 219);
   }
@@ -64,8 +63,46 @@
     $('[data-toggle="tooltip"]').tooltip();
 
     $('.test').click(function() {
-      $(this).next('form').submit();
+      $('#passcode_confirm').find('#trythis').val($(this).data('id'));
     });
+
+    $('#passcode_confirm').on('shown.bs.modal', function() {
+      $(this).find('input[name=passkey]').focus();
+    }).on('hidden.bs.modal', function() {
+      $(this).find('input[name=passkey]').val();
+    });
+
+    $('#sub_confirm').click(function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      var id = $(this).prev('input[type=hidden]').val();
+      $.ajax({
+        type: 'POST',
+        url: 'Product/checkpasscode',
+        data: {
+          _token: '{{csrf_token()}}',
+          passkey: $('input[name=passkey]').val()
+        },
+        success: function(data) {
+          if (data.msg) {
+            $('#main_table').find('a[data-id=' + id + ']').parent().next('form').submit();
+          } else {
+            Swal.fire({
+              type: 'error',
+              title: 'รหัสลับไม่ถูกต้อง',
+              text: 'กรอกรหัสลับอีกครั้ง',
+              confirmButtonText: 'ตกลง',
+              onAfterClose: () => {
+                $('input[name=passkey]').val('').focus();
+              }
+            })
+          }
+        }
+      });
+    });
+
+
+
   });
 </script>
 
@@ -82,13 +119,18 @@
     <h3 class="text-white"><i style="font-size:20px" class="fas fa-list"></i>&nbsp;&nbsp;ตรวจสอบรายการใบขอสั่งซื้อ</h3>
   </div>
   @if( Auth::user()->role == '5')
-  <div id="master">
-    <p><b><a id="a1" href="{{route('Authorized_person1.index')}}">ผู้มีอำนาจคนที่ 1</a></b></p>
-    <p><b><a id="a2">ผู้มีอำนาจคนที่ 2</a></b></p>
-  </div><br>
+  <div class="list-group list-group-horizontal">
+    <a class="list-group-item list-group-item-action text-center" href="{{route('Authorized_person1.index')}}">
+      <h3>ผู้มีอำนาจคนที่ 1</h3>
+    </a>
+    <a class="list-group-item list-group-item-action text-danger text-center" href="#">
+      <h3>ผู้มีอำนาจคนที่ 2</h3>
+    </a>
+  </div>
+
   @endif
   <div class="card-body">
-    <table class="table table-bordered" id="example">
+    <table class="table table-bordered" id="main_table">
       <thead>
         <tr>
           <th style="width:20%;">เลขที่ใบขอสั่งซื้อ</th>
@@ -112,7 +154,9 @@
             &nbsp;&nbsp;<a href="{{action('mastertwoController@edit',$row[2])}}" data-toggle="tooltip" data-placement="top" title="Check"><i style="font-size:20px" class="fas fa-marker"></i></a>
             &nbsp;&nbsp;
             @endif
-            <a class="test" href="#" data-toggle="tooltip" data-placement="top" title="Rejected"><i style="font-size:20px" class="fas fa-ban text-danger"></i></a>
+            <span data-toggle="tooltip" data-placement="top" title="Rejected">
+              <a class="test" href="#" data-id="{{$row[0]}}" data-toggle="modal" data-target="#passcode_confirm"><i style="font-size:20px" class="fas fa-ban text-danger"></i></a>
+            </span>
             <form method="post" class="delete_form" action="{{action('mastertwoController@destroy',$row[0])}}">
               {{csrf_field()}}
               <input type="hidden" name="_method" value="DELETE" />
@@ -124,9 +168,36 @@
     </table>
   </div>
 
+
+  <div class="modal fade" id="passcode_confirm">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5><i style="font-size:20px" class="fas fa-key mr-2 text-danger"></i>กรอกรหัสลับ</h5>
+          <button data-dismiss="modal" class="close">&times;</button>
+        </div>
+        <div class="modal-body">
+          {!! Form::open(['url' => 'checkpasscode']) !!}
+          <div class="form-group">
+            {!! Form::label('รหัสลับ') !!}
+            {!! Form::password('passkey',['class' => 'form-control','maxlength' => 4]) !!}
+          </div>
+        </div>
+        <div class="modal-footer">
+          <input type="hidden" id="trythis">
+          {!! Form::submit('ยืนยัน',['class' => 'btn btn-success','id' => 'sub_confirm']) !!}
+          <a class="btn btn-secondary" data-dismiss="modal" href="#">ยกเลิก</a>
+          {!! Form::close() !!}
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
   <script>
     $(document).ready(function() {
-      $('#example').DataTable({
+      $('#main_table').DataTable({
         'columnDefs': [{
           'orderable': false,
           'targets': 4
@@ -152,4 +223,8 @@
       });
     });
   </script>
+
+
+
+
   @stop

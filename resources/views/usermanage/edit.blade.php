@@ -46,7 +46,7 @@
                 <label for="">ตำแหน่ง</label>
                 <select name="role" class="custom-select" id="role">
                     @foreach( $role as $roles )
-                    <option value="{{$roles->id_role}}" @if( $user['role']== $roles->id_role ) selected @endif  >{{$roles->name_role}}</option>
+                    <option value="{{$roles->id_role}}" @if( $user['role']==$roles->id_role ) selected @endif >{{$roles->name_role}}</option>
                     @endforeach
                 </select>
             </div>
@@ -60,12 +60,37 @@
         <input type="hidden" name="token" value="{{csrf_token()}}">
     </form>
 
+
+    <div class="modal fade" id="passcode_confirm">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5><i style="font-size:20px" class="fas fa-key mr-2 text-danger"></i>กรอกรหัสลับ</h5>
+                    <button data-dismiss="modal" class="close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    {!! Form::open(['url' => '/checkpasscode']) !!}
+                    <div class="form-group">
+                        {!! Form::label('รหัสลับ') !!}
+                        {!! Form::password('passkey',['class' => 'form-control','maxlength' => 4]) !!}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    {!! Form::submit('ยืนยัน',['class' => 'btn btn-success','id' => 'sub_confirm']) !!}
+                    <a class="btn btn-secondary" data-dismiss="modal" href="#">ยกเลิก</a>
+                    {!! Form::close() !!}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <script>
         $(document).ready(function() {
             $('#create_user_form').validate({
                 rules: {
-                    first_name: "required",
-                    last_name: "required",
+                    firstname: "required",
+                    lastname: "required",
                     role: "required",
                     phone: {
                         required: true,
@@ -99,7 +124,44 @@
                 },
                 unhighlight: function(element, errorClass, validClass) {
                     $(element).addClass("is-valid").removeClass("is-invalid");
+                },
+                submitHandler: function(form) {
+                    $('#passcode_confirm').modal('show');
+                    $('#sub_confirm').click(function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        $.ajax({
+                            type: 'POST',
+                            url: 'checkpasscode',
+                            data: {
+                                _token: '{{csrf_token()}}',
+                                passkey: $('input[name=passkey]').val()
+                            },
+                            success: function(data) {
+                                if (data.msg) {
+                                    form.submit();
+                                } else {
+                                    Swal.fire({
+                                        type: 'error',
+                                        title: 'รหัสลับไม่ถูกต้อง',
+                                        text: 'กรอกรหัสลับอีกครั้ง',
+                                        confirmButtonText: 'ตกลง',
+                                        onAfterClose: () => {
+                                            $('input[name=passkey]').val('').focus();
+                                        }
+                                    })
+                                }
+                            }
+                        });
+                    });
                 }
+            });
+
+
+            $('#passcode_confirm').on('shown.bs.modal', function() {
+                $(this).find('input[name=passkey]').focus();
+            }).on('hidden.bs.modal', function() {
+                $(this).find('input[name=passkey]').val('');
             });
 
             $('#deny').click(function() {
