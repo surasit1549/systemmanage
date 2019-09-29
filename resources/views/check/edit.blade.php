@@ -23,12 +23,12 @@
       <h3><i class="far fa-file-alt"></i>&nbsp;&nbsp;ข้อมูลใบขอสั่งซื้อ</h3>
     </div>
     <div class="card-body">
-      <form method="post" action="{{action('CheckController@update', $po_id['PO_ID'])}}" class="needs-validation" novalidate>
+      <form method="post" action="{{action('CheckController@update', $po_id[0]['PO_ID'])}}" class="needs-validation" novalidate>
         {{csrf_field()}}
         <div class="row">
           <div class="col-form-label col-md-6">
-            <h4 class="d-inline shadow-sm" style="padding:10px"><label class="text-danger">&nbsp;PO {{$po_id['PO_ID']}}</label></h4>
-            <input type="hidden" name="PO_ID" value="{{$po_id['PO_ID']}}">
+            <h4 class="d-inline shadow-sm" style="padding:10px"><label class="text-danger">&nbsp;PO {{$po_id[0]['PO_ID']}}</label></h4>
+            <input type="hidden" name="PO_ID" value="{{$po_id[0]['PO_ID']}}">
           </div>
         </div>
         <hr>
@@ -41,7 +41,7 @@
               </td>
               <th> วันที่เอกสาร :</th>
               <td>
-                {{substr($data[0]['created_at'],0,-9)}}
+                {{substr($pr_store[0]['created_at'],0,-9)}}
               </td>
             </tr>
             <tr>
@@ -88,21 +88,25 @@
         <table class="table table-hover table-bordered">
           <thead>
             <tr>
-              <th>ลำดับที่</th>
+              <th style="width:15%;">เช็กสินค้า</th>
+              <th style="width:10%;">เหลือ</th>
+              <th style="width:15%;">จำนวนสินค้าที่รับ</th>
               <th>ชื่อสินค้า</th>
-              <th>จำนวนสินค้า</th>
-              <th>หน่วย</th>
+              <th style="width:15%;">จำนวนสินค้า</th>
+              <th style="width:10%;">หน่วย</th>
             </tr>
           </thead>
           <tbody>
+            @if(empty($check_po))
             @foreach($data as $row)
             <tr>
               <td class="text-center">
-                <select name="check[]" class="custom-select">
-                  <option value="{{$row['status']}}">{{$row['status']}}</option>
-                  <option value="รับ">รับ</option>
-                  <option value="ไม่ได้รับ">ไม่ได้รับ</option>
-                </select>
+                <label class="form-control check border-0" >{{$row['status']}}</label>
+                <input type="hidden" name="check[]" value="{{$row['status']}}">
+              </td>
+              <td>
+                <label class="form-control surplus border-0" >{{$row['Product_number']}}</label>
+                <input type="hidden" name="surplus[]" value="0">
               </td>
               <input type="hidden" name="PO_ID[]" value="{{$row['PO_ID']}}">
               <input type="hidden" name="keyPR[]" value="{{$row['keyPR']}}">
@@ -110,12 +114,33 @@
               <input type="hidden" name="price[]" value="{{$row['PO_ID']}}">
               <input type="hidden" name="product_sum[]" value="{{$row['PO_ID']}}">
               <input type="hidden" name="sumofprice[]" value="{{$row['PO_ID']}}">
-
-              <td class="text-center result"><label class="form-control productname border-0" value="{{$row['Product_name']}}" name="product[]" required>{{$row['Product_name']}}</label><input type="hidden" value="{{$row['Product_name']}}" name="product[]" required></td>
-              <td class="text-center result"><label class="form-control productnumber border-0" value="{{$row['Product_number']}}" required>{{$row['Product_number']}}</label> <input type="hidden" name="Product_number[]" value="{{$row['Product_number']}}"></td>
-              <td class="text-center result"><label class="form-control unit border-0" value="{{$row['unit']}}" required>{{$row['unit']}}</label> <input type="hidden" name="unit[]" value="{{$row['unit']}}"></td>
+              <td><input type="number" name="receive[]" class="form-control productname border-0" ></td>
+              <td class="text-center result"><label class="form-control productname border-0" value="{{$row['Product_name']}}" name="product[]" >{{$row['Product_name']}}</label><input type="hidden" value="{{$row['Product_name']}}" name="product[]" ></td>
+              <td class="text-center result"><label class="form-control productnumber border-0" value="{{$row['Product_number']}}" >{{$row['Product_number']}}</label> <input type="hidden" name="Product_number[]" value="{{$row['Product_number']}}"></td>
+              <td class="text-center result"><label class="form-control unit border-0" value="{{$row['unit']}}" >{{$row['unit']}}</label> <input type="hidden" name="unit[]" value="{{$row['unit']}}"></td>
             </tr>
             @endforeach
+            @else
+            @foreach($data as $row)
+            <tr>
+              <td class="text-center">
+                <label class="form-control check border-0" require>{{$row[9]}}</label>
+                <input type="hidden" name="check[]" value="{{$row[9]}}">
+              </td>
+              <td>
+                <label class="form-control surplus border-0" require>{{$row[10]}}</label>
+                <input type="hidden" name="surplus[]" value="{{$row[10]}}">
+              </td>
+              <input type="hidden" name="PO_ID[]" value="{{$row[0]}}">
+              <input type="hidden" name="keyPR[]" value="{{$row[1]}}">
+              <input type="hidden" name="keystore[]" value="{{$row[5]}}">
+              <td><input type="number" name="receive[]" class="form-control productname border-0" ></td>
+              <td class="text-center result"><label class="form-control productname border-0" >{{$row[2]}}</label><input type="hidden" value="{{$row[2]}}" name="product[]" ></td>
+              <td class="text-center result"><label class="form-control productnumber border-0" >{{$row[3]}}</label> <input type="hidden" name="Product_number[]" value="{{$row[3]}}"></td>
+              <td class="text-center result"><label class="form-control unit border-0" >{{$row[4]}}</label> <input type="hidden" name="unit[]" value="{{$row[4]}}"></td>
+            </tr>
+            @endforeach
+            @endif
           </tbody>
         </table>
         <br>

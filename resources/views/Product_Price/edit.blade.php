@@ -20,7 +20,7 @@
                 @csrf
                 <div class="form-group">
                     <label for="">ร้านค้า</label>
-                    <input type="text" name="store_name" class="form-control" value="{{$data[0]->name}}" autocomplete="off" required>
+                    <input type="text" name="store_name" class="form-control" value="{{$data[0]->name}}" autocomplete="off" disabled required>
                     <input type="hidden" name="Cat_ID" value="{{$data[0]->Cat_ID}}" required>
                     <input type="hidden" name="store_id" value="{{$data[0]->Store}}" required>
                 </div>
@@ -35,11 +35,11 @@
                     <tbody>
                         <tr>
                             <td>
-                                <input type="text" name="product" class="form-control productname" value="{{$data[0]->Product_name}}" required>
+                                <input type="text" name="product" class="form-control productname" value="{{$data[0]->Product_name}}" disabled required>
                                 <input type="hidden" name="product_id" value="{{$data[0]->Product}}" required>
                             </td>
                             <td>
-                                <input type="text" class="form-control unit" name="unit" value="{{$data[0]->unit}}" required>
+                                <input type="text" class="form-control unit" name="unit" value="{{$data[0]->unit}}" disabled required>
                             </td>
                             <td><input type="text" class="form-control price" name="Price" value="{{$data[0]->Price}}" required></td>
                         </tr>

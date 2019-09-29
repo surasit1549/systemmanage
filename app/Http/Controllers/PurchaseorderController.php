@@ -11,6 +11,7 @@ use App\prequest;
 use App\checkkeystore;
 use App\Authorized_person1;
 use App\Authorized_person2;
+use App\Check;
 use App\pr_store;
 use vendor\autoload;
 use App\pr_create;
@@ -34,7 +35,7 @@ class PurchaseorderController extends Controller
             'default_font_size' => 14,
             'default_font' => 'thsarabunnew'
         ]);
-        
+
         $key = $request->keyPO;
         $mpdf->WriteHTML($stylesheet, 1);
         $mpdf->WriteHTML($request->pdf, 2);
@@ -78,10 +79,11 @@ class PurchaseorderController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    function product_sum($id){
+    function product_sum($id)
+    {
         $length = sizeof($id);
         $sum = 0;
-        for($i=0; $i<$length; $i++){
+        for ($i = 0; $i < $length; $i++) {
             $sum = [$sum[0] + $id[$i]['product_sum']];
         }
         return $sum;
