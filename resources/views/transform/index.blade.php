@@ -150,7 +150,7 @@
 
   <script>
     $(document).ready(function() {
-      $('main_table').DataTable({
+      $('#main_table').DataTable({
         'columnDefs': [{
           'orderable': false,
           'targets': 2
