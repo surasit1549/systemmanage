@@ -140,7 +140,7 @@
         <tr>
           <th style="width:20%;">เลขที่ใบขอสั่งซื้อ</th>
           <th style="width:20%;">วัน/เดือน/ปี</th>
-          <th style="width:30%;">แบบงาน</th>
+          <th style="width:15%;">แบบงาน</th>
           <th style="width:15%;">แปลง</th>
           <th style="width:15%;">จัดการ</th>
         </tr>
@@ -148,24 +148,25 @@
       <tbody>
         @if(empty($prequest))
         @else
-        @foreach($datas as $row)
+        @foreach($datas as $index=>$row)
         <tr>
           <td>{{$row[1]}}</td>
           <td>{{$row[2]}}</td>
           <td>{{$row[3]}}</td>
           <td>{{$row[4]}}</td>
           <td>
+            <a class="btn btn-info btn-sm text-white" href="{{action('masteroneController@show',$row[1])}}" data-toggle="tooltip" data-placement="top" title="show">แสดงข้อมูล</a>
             @if($row[6] === "ตรวจสอบ")
             &nbsp;&nbsp;<a href="{{action('masteroneController@edit',$row[1])}}" data-toggle="tooltip" data-placement="top" title="Check"><i style="font-size:20px" class="fas fa-pen-alt"></i></a>
             &nbsp;&nbsp;
-            @endif
             <span data-toggle="tooltip" data-placement="top" title="Rejected">
               <a class="test" href="#" data-id="{{$row[1]}}" data-toggle="modal" data-target="#passcode_confirm"><i style="font-size:20px" class="fas fa-ban text-danger"></i></a>
             </span>
-            <form method="post" class="delete_form" action="{{action('masteroneController@destroy',$row[0])}}">
-              {{csrf_field()}}
+            <form method="post" class="delete_form" action="{{action('masteroneController@destroy',$row[2])}}">
+              @csrf
               <input type="hidden" name="_method" value="DELETE" />
             </form>
+            @endif
         </tr>
         @endforeach
         @endif

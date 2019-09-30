@@ -10,6 +10,7 @@ use App\Create_product;
 use App\product_main;
 use App\product_Price;
 use App\Authorized_person1;
+use App\Authorized_person2;
 use Carbon\Carbon;
 use App\log;
 use Illuminate\Support\Facades\Auth;
@@ -23,6 +24,7 @@ class masteroneController extends Controller
      */
     public function index()
     {
+        // $status = Authorized_person1::join('p_r_creates','p_r_creates.key','authorized_person1s.keyPR')->get('status');
         $master = Authorized_person1::get()->toArray();
         $prequest = prequest::get()->toArray();
         if(empty($prequest)){
@@ -32,7 +34,7 @@ class masteroneController extends Controller
             $pr_create = PR_create::get()->toArray();
             $lengtharray = sizeof($prequest);
             for($i=0; $i<$lengtharray; $i++){
-                $data = Authorized_person1::where('keyPR',$pr_create[$i]['key'])->get()->toArray();
+                $data = Authorized_person1::where('keyPR', $prequest[$i]['keyPR'])->get()->toArray();
                 if(empty($data)){
                     $check = "ตรวจสอบ";
                 }else{
@@ -81,7 +83,20 @@ class masteroneController extends Controller
      */
     public function show($id)
     {
-        //
+
+        $number = 1;
+        $sum = 0;
+        $pr_create = PR_create::where('key', $id)->get()->toArray();
+        //dd($pr_create[0]['key']);
+        $productdb = Create_product::where('key', $pr_create[0]['key'])->get('productname')->toArray();
+        $lengtharray = sizeof($productdb);
+        $data = Product::where('keyPR', $id)->get()->toArray();
+        return view('Authorized_person1.show', compact(
+            'number',
+            'data',
+            'pr_create',
+            'id'
+        ));
     }
 
     /**
@@ -186,7 +201,8 @@ class masteroneController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $pr = PR_create::where('key', $id)->get()[0]->update(['status' => 'Rejected']);
+        return redirect()->route('Authorized_person2.index');
     }
 
     public function insertlog($action, $table, $data)

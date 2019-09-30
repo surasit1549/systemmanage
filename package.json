@@ -24,6 +24,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "chosen-js": "^1.8.7",
         "datatables.net": "^1.10.19",
         "datatables.net-autofill-bs4": "^2.3.3",
         "datatables.net-bs4": "^1.10.19",

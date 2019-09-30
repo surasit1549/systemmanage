@@ -185,7 +185,6 @@ class PurchaseorderController extends Controller
             'contractor',
             'master1',
             'master2',
-            'logo',
             'date_master1',
             'date_master2',
             'id'

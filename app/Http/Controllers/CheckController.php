@@ -105,7 +105,6 @@ class CheckController extends Controller
             'data',
             'store',
             'number',
-            'check',
             'check_po',
             'pr_store',
             'id'
@@ -181,11 +180,13 @@ class CheckController extends Controller
                     } else {
                         $status[] = "ไม่ครบ";
                     }
-                    $data[$i]->PO_ID         = $pr_store[$i]['PO_ID'];
-                    $data[$i]->keyPR         = $pr_store[$i]['keyPR'];
-                    $data[$i]->product_name  = $pr_store[$i]['Product_name'];
-                    $data[$i]->number_product = $receive[$i];
-                    $data[$i]->status        = $status[$i];
+
+                    $data[$i]['PO_ID']         = $pr_store[$i]['PO_ID'];
+                    $data[$i]['keyPR']         = $pr_store[$i]['keyPR'];
+                    $data[$i]['Product_name']  = $pr_store[$i]['Product_name'];
+                    $data[$i]['surplus']       = $sum[$i];
+                    $data[$i]['number_product'] = $receive[$i];
+                    $data[$i]['status']        = $status[$i];
                     $data[$i]->save();
                 }
             }
@@ -201,9 +202,11 @@ class CheckController extends Controller
             $pr_stores[$j]['price']            = $pr_store[$j]['price'];
             $pr_stores[$j]['product_sum']      = $pr_store[$j]['product_sum'];
             $pr_stores[$j]['sumofprice']       = $pr_store[$j]['sumofprice'];
-            $pr_stores[$j]['status']           = $check[$j];
+            $pr_stores[$j]['status']           = $status[$j];
             $pr_stores[$j]->save();
         }
+
+
         for ($i = 0; $i < $length; $i++) {
             if ($sum[$i] === 0) {
                 $status =  "ครบ";
@@ -212,6 +215,8 @@ class CheckController extends Controller
                 break;
             }
         }
+
+
         $porder = porder::where('PO_ID', $id)->get();
         $porder[0]->PO_ID           = $porder_old[0]['PO_ID'];
         $porder[0]->keyPR           = $porder_old[0]['keyPR'];
