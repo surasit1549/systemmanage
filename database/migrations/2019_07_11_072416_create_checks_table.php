@@ -15,6 +15,12 @@ class CreateChecksTable extends Migration
     {
         Schema::create('checks', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('PO_ID');
+            $table->string('keyPR');
+            $table->string('Product_name');
+            $table->string('surplus');
+            $table->string('number_product');
+            $table->string('status');
             $table->timestamps();
         });
     }

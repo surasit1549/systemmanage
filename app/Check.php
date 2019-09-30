@@ -9,6 +9,9 @@ class Check extends Model
     protected $fillable=[
         'PO_ID',
         'keyPR',
-        'store_ID'
+        'Product_name',
+        'surplus',
+        'number_product',
+        'status'
     ];
 }

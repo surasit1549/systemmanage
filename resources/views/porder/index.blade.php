@@ -19,6 +19,7 @@
           <th>ชื่อเลขที่เอกสาร PO</th>
           <th>ชื่อเลขที่เอกสาร PR</th>
           <th>วันที่ใบสั่งซื้อ</th>
+          <th>สถานะ</th>
           <th>จัดการ</th>
         </tr>
       </thead>
@@ -29,6 +30,7 @@
           <td>{{$row['PO_ID']}}</td>
           <td>{{$row['keyPR']}}</td>
           <td>{{substr($row['created_at'],0,-9)}}</td>
+          <td>{{$row['status']}}</td>
           <td>
             <a class="ml-2" href="{{action('PurchaseorderController@show',$row['PO_ID'])}}" data-toggle="tooltip" data-placement="top" title="PDF"><i style="font-size:20px" class="text-danger fas fa-file-pdf"></i></a>
           </td>

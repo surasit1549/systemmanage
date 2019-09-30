@@ -231,7 +231,6 @@ class PuchaserequestController extends Controller
     $contractor = Auth::user()->where('username', $pr_create[0]['contractor'])->get();
     $master1 = Auth::user()->where('role', '3')->get();
     $master2 = Auth::user()->where('role', '4')->get();
-   
     return view('prequest.show', compact(
       'number',
       'id',
