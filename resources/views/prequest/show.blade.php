@@ -255,17 +255,17 @@
   </div>
   <div id="signature_contractor_PR">
     <img id="signature_contractor_pr_img" src="{{$contractor[0]->signature}}" alt="">
-    <h4>{{ $contractor[0]->firstname }}&nbsp;&nbsp;{{ $contractor[0]->lastname }}<br>{{ $contractor[0]->role }}<br>วันที่ {{ $pr_create[0]['date'] }}</h4>
+    <h4>ผู้ขอซื้อ&nbsp;&nbsp;{{ $contractor[0]->firstname }}&nbsp;&nbsp;{{ $contractor[0]->lastname }}<br>( ควบคุมงาน บ. )</h4>
   </div>
 
   <div id="signature_master1_PR">
     <img id="signature_master1_pr_img" src="{{$master1[0]->signature}}" alt="">
-    <h4>{{ $master1[0]->firstname }}&nbsp;&nbsp;{{ $master1[0]->lastname }}<br>{{ $master1[0]->role }}<br>วันที่ {{$date_master1}}</h4>
+    <h4>ผู้อนุมัติการสั่งซื้อ&nbsp;&nbsp;{{ $master1[0]->firstname }}&nbsp;&nbsp;{{ $master1[0]->lastname }}<br>( กรรมการ/ผู้จัดการโครงการ )</h4>
   </div>
 
   <div id="signature_master2_PR">
-    <img id="signature_master2_pr_img" src="{{$master2[0]->signature}}" alt="">
-    <h4>{{ $master2[0]->firstname }}&nbsp;&nbsp;{{ $master2[0]->lastname }}<br>{{ $master2[0]->role }}<br>วันที่ {{$date_master2}}</h4>
+    <img id="signature_master2_pr_img" src="{{$Purchasing[0]->signature}}" alt="">
+    <h4>{{ $role_purchasing[0]['name_role'] }}&nbsp;&nbsp;{{ $Purchasing[0]->firstname }}&nbsp;&nbsp;{{ $Purchasing[0]->lastname }}<br>วันที่ {{$date_master2}}</h4>
   </div>
 
 </div>

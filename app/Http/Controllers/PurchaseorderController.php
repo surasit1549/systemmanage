@@ -16,6 +16,7 @@ use App\pr_store;
 use vendor\autoload;
 use App\pr_create;
 use App\log;
+use App\role;
 use Illuminate\Support\Facades\Auth;
 
 class PurchaseorderController extends Controller

@@ -79,11 +79,16 @@ class StoreController extends Controller
       'contect'   => 'required',
       'cellphone' => 'required'
     ]);
-
+    
+    if($request->get('keystore') === 'mas'){
+      $keystore = "master";
+    }else{
+      $keystore = $request->get('keystore');
+    }
     
 
     $input =       [
-      'keystore'  => $request->get('keystore'),
+      'keystore'  => $keystore,
       'name'      => $request->get('name'),
       'address'   => $request->get('address'),
       'phone'     => $request->get('phone'),
@@ -141,7 +146,7 @@ class StoreController extends Controller
         'cellphone' => 'required'
       ]
     );
-
+    
     $input = [
       'keystore' => $request->get('keystore'),
       'name' => $request->get('name'),

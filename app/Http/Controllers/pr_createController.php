@@ -154,7 +154,6 @@ class pr_createController extends Controller
                 $key = "$str_dates-001";
             }
         }
-        //hidden
         return view('pr_create.create', compact('prequestconvert', 'key', 'product', 'unit', 'number'));
     }
 
@@ -176,7 +175,6 @@ class pr_createController extends Controller
                 'prequestconvert'   => 'required',
                 'productname'       => 'required',
                 'productnumber'     => 'required',
-                'unit'              => 'required',
 
             ]
         );
@@ -184,14 +182,16 @@ class pr_createController extends Controller
         $key = $request->input('key');
         $ID = $request->input('prequestconvert') . '-' . $key;
         $lengtharray = sizeof($request->input('productname'));
-
-
+        
+        $data = $request->productname;
         for ($i = 0; $i < $lengtharray; $i++) {
+            $product_name = Create_product::where('id',$data[$i])->get();
+            //dd($request->input('productnumber')[$i]);
             $product = new Create_product([
                 'key'               => $ID,
-                'productname'       => $request->input('productname')[$i],
+                'productname'       => $product_name[0]['productname'],
                 'productnumber'     => $request->input('productnumber')[$i],
-                'unit'              => $request->input('unit')[$i]
+                'unit'              => $product_name[0]['unit']
             ]);
             $product->save();
         }
