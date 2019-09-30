@@ -154,7 +154,6 @@ class pr_createController extends Controller
                 $key = "$str_dates-001";
             }
         }
-        //hidden
         return view('pr_create.create', compact('prequestconvert', 'key', 'product', 'unit', 'number'));
     }
 
@@ -168,6 +167,7 @@ class pr_createController extends Controller
 
     public function store(Request $request)
     {
+        dd($request->productname);
         $this->validate(
             $request,
             [
@@ -180,6 +180,7 @@ class pr_createController extends Controller
 
             ]
         );
+
 
         $num = 0;
         $key = $request->input('key');

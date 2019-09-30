@@ -85,9 +85,8 @@
                 <thead>
                     <tr class="text-center">
                         <th style="width:5%;">ลำดับ</th>
-                        <th style="width:20%;">รายการสินค้า</th>
+                        <th style="width:30%;">รายการสินค้า</th>
                         <th style="width:10%;">จำนวน</th>
-                        <th style="width:10%;">หน่วย</th>
                         <th style="width:10%;">ลบ</th>
                     </tr>
                 </thead>
@@ -95,22 +94,18 @@
                     <tr>
                         <td class="text-center"><label class="col-form-label">1</label></td>
                         <td>
-                            <input type="text" list="product" name="productname[]" class="form-control productname" required>
-                            <datalist id="product">
-                                @foreach($product as $row)
-                                <option value="{{$row['Product_name']}}">{{$row['Product_name']}}</option>
-                                @endforeach
-                            </datalist>
+                            <div class="item_auto">
+                                <select name="productname[]" class="choseitems" data-placeholder="เลือกสินค้า..">
+                                    <option value=""></option>
+                                    @foreach( $product as $products )
+                                    <option value="{{$products['id']}}">
+                                        <div class="text-right">{{$products['Product_ID']}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$products['Product_name']}}&nbsp;/&nbsp;{{$products['unit']}}</div>
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </td>
                         <td><input type="number" name="productnumber[]" min="1" class="form-control productnumber" required></td>
-                        <td>
-                            <input type="text" name="unit[]" list="unit" class="form-control unit" required>
-                            <datalist id="unit">
-                                @foreach($unit as $row)
-                                <option value="{{$row['unit']}}">{{$row['unit']}}</option>
-                                @endforeach
-                            </datalist>
-                        </td>
                         <td class="text-center"><a class="btn btn-outline-danger delete"><i style="font-size:18px" class="far fa-trash-alt"></i></a></td>
                     </tr>
                 </tbody>
@@ -156,9 +151,15 @@
     <script type="text/javascript">
         $(document).ready(function() {
 
+            $('.choseitems').chosen({
+                no_results_text: 'ไม่พบรายการสินค้า',
+                placeholder_text_single: 'เลือก..',
+                width: "95%"
+            });
+
             $('#passcode_confirm').on('shown.bs.modal', function() {
                 $(this).find('input[name=passkey]').focus();
-            }).on('hidden.bs.modal',function(){
+            }).on('hidden.bs.modal', function() {
                 $(this).find('input[name=passkey]').val('');
             });
 
@@ -175,13 +176,13 @@
                     success: function(data) {
                         if (data.msg) {
                             $('#forminput').submit();
-                        }else{
+                        } else {
                             Swal.fire({
-                                type : 'error',
-                                title : 'รหัสลับไม่ถูกต้อง',
-                                text : 'กรอกรหัสลับอีกครั้ง',
-                                confirmButtonText : 'ตกลง',
-                                onAfterClose : () => {
+                                type: 'error',
+                                title: 'รหัสลับไม่ถูกต้อง',
+                                text: 'กรอกรหัสลับอีกครั้ง',
+                                confirmButtonText: 'ตกลง',
+                                onAfterClose: () => {
                                     $('input[name=passkey]').val('').focus();
                                 }
                             })
@@ -200,12 +201,17 @@
                     index = 1;
                 }
                 if (index <= 10) {
+                    var txt = '<select name="productname[]" class="choseitems" data-placeholder="เลือกสินค้า..">' + $('.item_auto select').html() + '</div>';
                     $('#detailmenu tbody').append('<tr><td class="text-center"><label class="col-form-label">' + (index++) + '</label></td><td>' +
-                        '<input type="text" list="product" name="productname[]" class="form-control productname" required>' +
+                        txt +
                         '<td><input type="number" name="productnumber[]" min="1"class="form-control productnumber" required></td>' +
-                        '<td><input type="text" name="unit[]" list="unit" class="form-control unit" required></td>' +
                         '<td class="text-center"><a class="btn btn-outline-danger delete"><i style="font-size:18px" class="far fa-trash-alt"></i></a></td></tr>');
                     $('#detailmenu tbody tr:last .productname').focus();
+                    $('.choseitems').chosen({
+                        no_results_text: 'ไม่พบรายการสินค้า',
+                        placeholder_text_single: 'เลือก..',
+                        width: "95%"
+                    });
                     $(".delete").click(function() {
                         $(this).parents("tr").remove();
                         index--;
