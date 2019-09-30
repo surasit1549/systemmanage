@@ -96,6 +96,11 @@ class ProductPriceController extends Controller
 
     public function store(Request $request)
     {
+        dd($request->store_name);
+        dd($request->productname);
+        // store_name ชื่อร้านค้า
+        // productname ชื่อสินค้าแต่ละชิ้น ( รับเป็น Array )
+
         $lengtharray = sizeof($request->get('product'));
         $Cat_ID = product_Price::get()->toArray();
         $data = '';
