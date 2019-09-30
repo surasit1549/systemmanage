@@ -180,7 +180,6 @@ class pr_createController extends Controller
 
             ]
         );
-
         $num = 0;
         $key = $request->input('key');
         $ID = $request->input('prequestconvert') . '-' . $key;

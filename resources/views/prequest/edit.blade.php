@@ -65,22 +65,26 @@
       <div class="form-row">
         <div class="form-group col-md-4">
           <label>เลขที่เอกสาร</label>
-          <input type="text" name="keyPR" class="form-control" value="{{$pr_create['key']}}" autocomplete="off">
+          <input type="text" name="keyPR" class="form-control" value="{{$pr_create['key']}}" autocomplete="off" disabled>
+          <input type="hidden" name="keyPR" class="form-control" value="{{$pr_create['key']}}" autocomplete="off">
         </div>
         <div class="form-group col-md-8">
           <label>ชื่อผู้รับเหมา</label>
-          <input type="text" name="contractor" class="form-control" value="{{$pr_create['contractor']}}" autocomplete="off">
+          <input type="text" name="contractor" class="form-control" value="{{$pr_create['contractor']}}" autocomplete="off" disabled>
+          <input type="hidden" name="contractor" class="form-control" value="{{$pr_create['contractor']}}" autocomplete="off">
         </div>
       </div>
 
       <div class="form-row">
         <div class="form-group col-md-6">
           <label>แบบงาน</label>
-          <input type="text" name="formwork" class="form-control" value="{{$pr_create['formwork']}}">
+          <input type="text" name="formwork" class="form-control" value="{{$pr_create['formwork']}}" disabled>
+          <input type="hidden" name="formwork" class="form-control" value="{{$pr_create['formwork']}}">
         </div>
         <div class="form-group col-md-6">
           <label>แปลง</label>
-          <input type="text" name="prequestconvert" class="form-control" value="{{$pr_create['prequestconvert']}}">
+          <input type="text" name="prequestconvert" class="form-control" value="{{$pr_create['prequestconvert']}}" disabled>
+          <input type="hidden" name="prequestconvert" class="form-control" value="{{$pr_create['prequestconvert']}}">
         </div>
       </div>
       <!-- สินค้าที่ขอสั่งซื้อ -->
@@ -105,10 +109,16 @@
         <tbody>
           @foreach($min as $row)
           <tr>
+            <input type="hidden" name="Product_name[]" class="form-control productname border-0" value="{{$row[0]}}" name="" required>
+            <input type="hidden" name="Product_number[]" min="1" class="form-control productnumber border-0" value="{{$row[1]}}" name="" required>
+            <input type="hidden" name="unit[]" class="form-control unit border-0" value="{{$row[2]}}" name="" required>
+            <input type="hidden" name="price[]" min="1" class="form-control price border-0" value="{{$row[4]}}" required>
+            <input type="hidden" name="product_sum[]" min="1" class="sum col-form-label border-0" value="{{$row[5]}}" required>
+            <input type="hidden" name="sum" id="sumofprice" class="text-danger" value="{{$sum[0]}}">
             <td class="text-center"><label class="col-form-label">{{$number++}}</label></td>
-            <td class="text-center result"><input type="text" name="Product_name[]" class="form-control productname border-0" value="{{$row[0]}}" name="" required></td>
-            <td class="text-center result"><input type="number" name="Product_number[]" min="1" class="form-control productnumber border-0" value="{{$row[1]}}" name="" required></td>
-            <td class="text-center result"><input type="text" name="unit[]" class="form-control unit border-0" value="{{$row[2]}}" name="" required></td>
+            <td class="text-center result"><label class="form-control productname border-0" >{{$row[0]}}</label></td>
+            <td class="text-center result"><label min="1" class="form-control productnumber border-0">{{$row[1]}}</label></td>
+            <td class="text-center result"><label class="form-control unit border-0">{{$row[2]}}</label></td>
             <td>
               <select class="custom-select" name="keystore[]">
                 @foreach($row[3] as $r)
@@ -116,8 +126,8 @@
                 @endforeach
               </select>
             </td>
-            <td class="text-center result"><input type="number" name="price[]" min="1" class="form-control price border-0" value="{{$row[4]}}" required></td>
-            <td class="text-center result"><input type="number" name="product_sum[]" min="1" class="sum col-form-label border-0" value="{{$row[5]}}" required></td>
+            <td class="text-center result"><label min="1" class="form-control price border-0">{{$row[4]}}</label></td>
+            <td class="text-center result"><label min="1" class="sum col-form-label border-0">{{$row[5]}}</label></td>
           </tr>
           @endforeach
         </tbody>
@@ -125,7 +135,7 @@
           <tr>
             <th></th>
             <th class="text-right" colspan="4">รวมเป็นเงิน</th>
-            <th class="text-center"><input type="number" name="sum" id="sumofprice" class="text-danger" value="{{$sum[0]}}"></th>
+            <th class="text-center"><label id="sumofprice" class="text-danger">{{$sum[0]}}</th>
             <th class="text-center">บาท</th>
           </tr>
         </tfoot>
@@ -197,7 +207,7 @@
         </div>
         <div class="form-group col-md-6">
           <label>แปลง</label>
-          <label class="form-control" >{{$pr_create['prequestconvert']}}</label>
+          <label class="form-control">{{$pr_create['prequestconvert']}}</label>
         </div>
       </div>
       <!-- สินค้าที่ขอสั่งซื้อ -->
@@ -223,9 +233,9 @@
           @foreach($min as $row)
           <tr>
             <td class="text-center"><label class="col-form-label">{{$number++}}</label></td>
-            <td class="text-center result"><label  class="form-control productname border-0" required>{{$row[0]}}</label></td>
-            <td class="text-center result"><label  min="1" class="form-control productnumber border-0" required>{{$row[1]}}</label></td>
-            <td class="text-center result"><label  class="form-control unit border-0" value="{{$row[2]}}" required>{{$row[2]}}</label></td>
+            <td class="text-center result"><label class="form-control productname border-0" required>{{$row[0]}}</label></td>
+            <td class="text-center result"><label min="1" class="form-control productnumber border-0" required>{{$row[1]}}</label></td>
+            <td class="text-center result"><label class="form-control unit border-0" value="{{$row[2]}}" required>{{$row[2]}}</label></td>
             <td>
               <select class="custom-select" name="keystore[]">
                 @foreach($row[3] as $r)
@@ -233,8 +243,8 @@
                 @endforeach
               </select>
             </td>
-            <td class="text-center result"><label  min="1" class="form-control price border-0" required>{{$row[4]}}</label></td>
-            <td class="text-center result"><label  min="1" class="sum col-form-label border-0" required>{{$row[5]}}</label></td>
+            <td class="text-center result"><label min="1" class="form-control price border-0" required>{{$row[4]}}</label></td>
+            <td class="text-center result"><label min="1" class="sum col-form-label border-0" required>{{$row[5]}}</label></td>
           </tr>
           @endforeach
         </tbody>
