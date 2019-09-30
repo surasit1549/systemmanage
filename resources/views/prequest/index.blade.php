@@ -15,6 +15,10 @@
 
     $('#main_table').DataTable({
 
+      'order' : [
+        [1,'desc']
+      ],
+
       'columnDefs': [{
         'orderable': false,
         'targets': 6
@@ -143,14 +147,14 @@
             <div class="row">
               @if($row[8][0]['status'] != "Rejected")
               @if(empty($row[7]))
-              <a href="{{action('PuchaserequestController@edit',$row[0])}}" class="btn btn-sm btn-info ml-2 text-white"><i style="font-size:20px" class="fas fa-spell-check"></i>&nbsp;&nbsp;ตรวจสอบ</a>
+              <a href="{{action('PuchaserequestController@edit',$row[0])}}" class="btn btn-sm btn-info ml-2 text-white"><i class="fas fa-spell-check"></i>&nbsp;&nbsp;ตรวจสอบ</a>
               @endif
               @if($row[6] === "เสร็จสมบูรณ์" )
               <a href="{{action('PuchaserequestController@show',$row[1])}}" class="btn btn-sm btn-danger ml-2"><i style="font-size:20px" class="fas fa-file-pdf"></i>&nbsp;&nbsp;PDF</a>
               @endif
               @if($row[6] != "เสร็จสมบูรณ์")
               <span data-toggle="tooltip" data-placement="top" title="ยกเลิก">
-                <a class="test btn btn-secondary ml-2" href="#" data-id="{{$row[0]}}" data-toggle="modal" data-target="#passcode_confirm"><i class="fas fa-times"></i>&nbsp;&nbsp;ยกเลิก</a>
+                <a class="test btn btn-sm btn-secondary ml-2" href="#" data-id="{{$row[0]}}" data-toggle="modal" data-target="#passcode_confirm"><i class="fas fa-times"></i>&nbsp;&nbsp;ยกเลิก</a>
               </span>
               <form action="prequest/closePR" method="post">
                 @csrf

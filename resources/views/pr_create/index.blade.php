@@ -11,6 +11,9 @@
 <script>
   $(document).ready(function() {
     $('#prtable').DataTable({
+      'order': [
+        [1, 'desc']
+      ],
       'columnDefs': [{
         'targets': 5,
         'orderable': false
