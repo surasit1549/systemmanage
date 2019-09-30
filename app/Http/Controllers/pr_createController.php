@@ -182,20 +182,18 @@ class pr_createController extends Controller
         $key = $request->input('key');
         $ID = $request->input('prequestconvert') . '-' . $key;
         $lengtharray = sizeof($request->input('productname'));
-        
+        //dd($request->input('productname'));
         $data = $request->productname;
         for ($i = 0; $i < $lengtharray; $i++) {
-            $product_name = Create_product::where('id',$data[$i])->get();
-            //dd($request->input('productnumber')[$i]);
+            $product_name = product_main::where('id',$data[$i])->get();
             $product = new Create_product([
                 'key'               => $ID,
-                'productname'       => $product_name[0]['productname'],
+                'productname'       => $product_name[0]['Product_name'],
                 'productnumber'     => $request->input('productnumber')[$i],
                 'unit'              => $product_name[0]['unit']
             ]);
             $product->save();
         }
-
         $name = Auth::user()->username;
         $arr = new PR_create([
             'key'               => $ID,
