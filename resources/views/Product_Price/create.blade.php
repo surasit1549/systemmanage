@@ -42,7 +42,7 @@
                   <select name="productname[]" class="choseitems" data-placeholder="เลือกสินค้า..">
                     <option value=""></option>
                     @foreach( $product as $products )
-                    <option value="{{$products['id']}}">
+                    <option value="{{$products['Product_ID']}}">
                       <div class="text-right">{{$products['Product_ID']}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$products['Product_name']}}&nbsp;/&nbsp;{{$products['unit']}}</div>
                     </option>
                     @endforeach
