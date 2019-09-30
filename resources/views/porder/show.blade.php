@@ -304,17 +304,17 @@
   </div>
   <div id="signature_contractor_PO">
     <img id="signature_contractor_po_img" src="{{$contractor[0]->signature}}" alt="">
-    <h4>{{ $contractor[0]->firstname }}&nbsp;&nbsp;{{ $contractor[0]->lastname }}<br>{{ $contractor[0]->role }}<br>วันที่ {{ $convert[0]['date'] }}</h4>
+    <h4>{{ $contractor[0]->firstname }}&nbsp;&nbsp;{{ $contractor[0]->lastname }}<br>ผู้จัดทำ<br>วันที่ {{ $convert[0]['date'] }}</h4>
   </div>
 
   <div id="signature_master1_PO">
     <img id="signature_master1_po_img" src="{{$master1[0]->signature}}" alt="">
-    <h4>{{ $master1[0]->firstname }}&nbsp;&nbsp;{{ $master1[0]->lastname }}<br>{{ $master1[0]->role }}<br>วันที่ {{ $convert[0]['date']  }}</h4>
+    <h4>{{ $master1[0]->firstname }}&nbsp;&nbsp;{{ $master1[0]->lastname }}<br>ผู้ตรวจสอบ<br>วันที่ {{ $convert[0]['date']  }}</h4>
   </div>
 
   <div id="signature_master2_PO">
     <img id="signature_master2_po_img" src="{{$master2[0]->signature}}" alt="">
-    <h4>{{ $master2[0]->firstname }}&nbsp;&nbsp;{{ $master2[0]->lastname }}<br>{{ $master2[0]->role }}<br>วันที่ {{ $convert[0]['date'] }}</h4>
+    <h4>{{ $master2[0]->firstname }}&nbsp;&nbsp;{{ $master2[0]->lastname }}<br>ผู้อนุมัติ<br>วันที่ {{ $convert[0]['date'] }}</h4>
   </div>
 </div>
 

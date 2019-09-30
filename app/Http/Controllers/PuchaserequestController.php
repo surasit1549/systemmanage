@@ -18,6 +18,7 @@ use App\Authorized_person1;
 use App\Authorized_person2;
 use App\log;
 use Illuminate\Support\Facades\Auth;
+use App\role;
 use Barryvdh\DomPDF\PDF;
 
 use function GuzzleHttp\Psr7\str;
@@ -230,7 +231,11 @@ class PuchaserequestController extends Controller
     $date_master2 = $this->time_master2($pr_create[0]['key']);
     $contractor = Auth::user()->where('username', $pr_create[0]['contractor'])->get();
     $master1 = Auth::user()->where('role', '3')->get();
-    $master2 = Auth::user()->where('role', '4')->get();
+    $Purchasing = Auth::user()->where('role', '2')->get();
+    $role_purchasing = role::where('id_role',$Purchasing[0]['role'])->get();
+    $role_master1 = role::where('id_role',$master1[0]['role'])->get();
+    $role_contractor = role::where('id_role',$contractor[0]['role'])->get();
+ //dd($role_contractor[0]['name_role']);
     return view('prequest.show', compact(
       'number',
       'id',
@@ -244,9 +249,12 @@ class PuchaserequestController extends Controller
       'pr_store',
       'contractor',
       'master1',
-      'master2',
+      'Purchasing',
       'date_master1',
-      'date_master2'
+      'date_master2',
+      'role_purchasing',
+      'role_master1',
+      'role_contractor'
     ));
   }
 

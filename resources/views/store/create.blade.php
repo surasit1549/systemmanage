@@ -24,7 +24,7 @@
             <br>
             <div class="form-row">
               <div class='form-group col-md-3'>
-                <input type="text" name="keystore" class="form-control" placeholder="รหัสร้านค้า" autocomplete="off" required>
+                <input type="text" name="keystore" class="form-control" placeholder="รหัสร้านค้า" autocomplete="off" maxlength="3" required>
                 <label class="invalid-feedback">กรอกรหัสร้านค้า</label>
               </div>
               <div class="form-group col-md-9">

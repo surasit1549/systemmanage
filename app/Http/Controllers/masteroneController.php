@@ -33,6 +33,7 @@ class masteroneController extends Controller
             $lengtharray = sizeof($prequest);
             for($i=0; $i<$lengtharray; $i++){
                 $data = Authorized_person1::where('keyPR',$pr_create[$i]['key'])->get()->toArray();
+                
                 if(empty($data)){
                     $check = "ตรวจสอบ";
                 }else{

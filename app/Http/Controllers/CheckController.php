@@ -201,7 +201,7 @@ class CheckController extends Controller
             $pr_stores[$j]['price']            = $pr_store[$j]['price'];
             $pr_stores[$j]['product_sum']      = $pr_store[$j]['product_sum'];
             $pr_stores[$j]['sumofprice']       = $pr_store[$j]['sumofprice'];
-            $pr_stores[$j]['status']           = $check[$j];
+            $pr_stores[$j]['status']           = $status[$j];
             $pr_stores[$j]->save();
         }
         for ($i = 0; $i < $length; $i++) {
