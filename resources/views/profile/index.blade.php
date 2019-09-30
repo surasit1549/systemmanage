@@ -49,7 +49,7 @@
             <div class="mb-3">
                 <a class="btn btn-success" href="{{route('profile.edit',Auth::id())}}"><i class="fas fa-user-edit"></i>&nbsp;&nbsp;แก้ไขข้อมูลส่วนตัว</a>
                 <button class="btn btn-primary text-white ml-2" data-toggle="modal" data-target="#changepassword"><i class="fas fa-key"></i>&nbsp;&nbsp;เปลี่ยนพาสเวิร์ด</button>
-                <button class="btn btn-secondary text-white ml-2" data-toggle="modal" data-target="#passcheck"><i class="fas fa-unlock-alt"></i>&nbsp;&nbsp;รหัสลับ</button>
+                <button class="btn btn-secondary mt-2 mt-sm-0 text-white ml-2" data-toggle="modal" data-target="#passcheck"><i class="fas fa-unlock-alt"></i>&nbsp;&nbsp;รหัสลับ</button>
             </div>
             <table class="table table-bordered">
                 <tr>

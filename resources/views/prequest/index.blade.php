@@ -152,7 +152,7 @@
               @if($row[6] === "เสร็จสมบูรณ์" )
               <a href="{{action('PuchaserequestController@show',$row[1])}}" class="btn btn-sm btn-danger ml-2"><i style="font-size:20px" class="fas fa-file-pdf"></i>&nbsp;&nbsp;PDF</a>
               @endif
-              @if($row[6] != "เสร็จสมบูรณ์")
+              @if($row[6] == 'รอการตรวจสอบ')
               <span data-toggle="tooltip" data-placement="top" title="ยกเลิก">
                 <a class="test btn btn-sm btn-secondary ml-2" href="#" data-id="{{$row[0]}}" data-toggle="modal" data-target="#passcode_confirm"><i class="fas fa-times"></i>&nbsp;&nbsp;ยกเลิก</a>
               </span>
@@ -162,7 +162,7 @@
               </form>
               @endif
               @else
-              <a href="{{action('PuchaserequestController@edit',$row[0])}}" class="btn btn-sm btn-danger ml-2"><i style="font-size:20px" class="fas fa-file-pdf"></i>&nbsp;&nbsp;ข้อมูล</a>
+              <a href="{{action('PuchaserequestController@edit',$row[0])}}" class="btn btn-sm btn-danger ml-2"><i style="font-size:20px" class="fas fa-file-pdf"></i>&nbsp;&nbsp;PDF</a>
               @endif
             </div>
           </td>

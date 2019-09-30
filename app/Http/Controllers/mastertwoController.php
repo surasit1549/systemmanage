@@ -27,6 +27,7 @@ class mastertwoController extends Controller
      */
     public function index()
     {
+        // $status = Authorized_person1::join('p_r_creates', 'p_r_creates.key', 'authorized_person1s.keyPR')->get('status');
         $data = Authorized_person1::join('prequests', 'authorized_person1s.keyPR', 'prequests.keyPR')->get()->toArray();
         if (empty($data)) {
             $data = '';
@@ -84,7 +85,18 @@ class mastertwoController extends Controller
      */
     public function show($id)
     {
-        //
+        $number = 1;
+        $sum = 0;
+        $pr_create = PR_create::where('key', $id)->get()->toArray();
+        $productdb = Create_product::where('key', $pr_create[0]['key'])->get('productname')->toArray();
+        $data = Authorized_person2::get()->toArray();
+        $data_master2 = Product::where('keyPR', $id)->get()->toArray();
+        return view('Authorized_person2.show', compact(
+            'number',
+            'pr_create',
+            'data_master2',
+            'id'
+        ));
     }
 
     /**
@@ -362,7 +374,8 @@ class mastertwoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $pr = PR_create::where('key',$id)->get()[0]->update(['status' => 'Rejected']);
+        return redirect()->route('Authorized_person2.index');
     }
     public function insertlog($action, $table, $data)
     {
