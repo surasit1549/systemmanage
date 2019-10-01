@@ -25,7 +25,8 @@
             <div class="form-row">
               <div class="form-group col-md-3">
                 <label>รหัสร้านค้า</label>
-                <input type="text" name="keystore" class="form-control" value="{{$store->keystore}}" required>
+                <input class="form-control" value="{{$store->keystore}}" disabled required>
+                <input type="hidden" name="keystore" value="{{$store->keystore}}">
                 <label class="invalid-feedback">กรอกรหัสร้านค้า</label>
               </div>
 
