@@ -96,22 +96,22 @@ class ProductPriceController extends Controller
 
     public function store(Request $request)
     {
-        dd($request->productname);
+        //dd($request->productname);
         // store_name ชื่อร้านค้า
         // productname ชื่อสินค้าแต่ละชิ้น ( รับเป็น Array )
 
-        $lengtharray = sizeof($request->get('product'));
+        $lengtharray = sizeof($request->get('productname'));
         $Cat_ID = product_Price::get()->toArray();
         $data = '';
         $input = '';
         $store_id = store::where('name', $request->get('store_name'))->addSelect('keystore')->get()->toArray();
+        
         if (empty($Cat_ID)) {
             for ($i = 0; $i < $lengtharray; $i++) {
-                $product_id = product_main::where('Product_name', $request->get('Product_name')[$i])->addSelect('Product_ID')->get();
                 $ID = $this->cat_ID_New($i);
                 $CatID = $ID;
                 //dd($ID,$CatID);
-                $product_id = product_main::where('Product_name', $request->get('product')[$i])->addSelect('Product_ID')->get()->toArray();
+                $product_id = product_main::where('Product_ID', $request->get('productname')[$i])->addSelect('Product_ID')->get()->toArray();
                 $Cat_ID = $store_id[0]['keystore'] . '-' . $product_id[0]['Product_ID'] . '-' . $ID;
                 $input = [
                         'Cat_ID'            => $Cat_ID,
@@ -127,8 +127,8 @@ class ProductPriceController extends Controller
         } else {
             for ($i = 0; $i < $lengtharray; $i++) {
                 $id = product_Price::get('Cat_ID')->toArray();
-                $product_id = product_main::where('Product_name', $request->get('product')[$i])->addSelect('Product_ID')->get()->toArray();
-
+                $product_id = product_main::where('Product_ID', $request->get('productname')[$i])->addSelect('Product_ID')->get()->toArray();
+                
                 $catid = product_Price::get()->toArray();
                 $ID = $this->cat_ID($id);
                 $cat = $store_id[0]['keystore'] . '-' . $product_id[0]['Product_ID'] . '-' . $ID;

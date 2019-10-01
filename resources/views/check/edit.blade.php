@@ -129,7 +129,11 @@
               <input type="hidden" name="PO_ID[]" value="{{$row[0]}}">
               <input type="hidden" name="keyPR[]" value="{{$row[1]}}">
               <input type="hidden" name="keystore[]" value="{{$row[5]}}">
+              @if($row[9] == 'ครบ')
+              <td><input type="number" name="receive[]" class="form-control productname border-0" value="{{$row[10]}}"></td>
+              @else
               <td><input type="number" name="receive[]" class="form-control productname border-0"></td>
+              @endif
               <td class="text-center result"><label class="form-control productname border-0">{{$row[2]}}</label><input type="hidden" value="{{$row[2]}}" name="product[]"></td>
               <td class="text-center result"><label class="form-control productnumber border-0">{{$row[3]}}</label> <input type="hidden" name="Product_number[]" value="{{$row[3]}}"></td>
               <td class="text-center result"><label class="form-control unit border-0">{{$row[4]}}</label> <input type="hidden" name="unit[]" value="{{$row[4]}}"></td>
@@ -154,7 +158,7 @@
     $('#prpo_form').click();
     var ch = false;
     $('.check').each(function() {
-      if ($(this).text() == 'ยังไม่รับ')
+      if ($(this).text() == 'ยังไม่รับ' || $(this).text() == 'ไม่ครบ')
         ch = true;
     });
 

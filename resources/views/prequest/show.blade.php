@@ -197,25 +197,25 @@
     <table id="table_product">
       <thead>
         <tr>
-          <th style="width: 5%;height: 50px;">ลำดับที่</th>
-          <th style="width: 25%;height: 50px;">ชื่อสินค้า</th>
-          <th style="width: 10%;height: 50px;">จำนวนสินค้า</th>
-          <th style="width: 10%;height: 50px;">หน่วย</th>
-          <th style="width: 15%;height: 50px;">ร้านค้า</th>
-          <th style="width: 10%;height: 50px;">ราคา (บาท)</th>
-          <th style="width: 10%;height: 50px;">จำนวนเงิน</th>
+          <th style="width: 2px;height: 50px;">ลำดับที่</th>
+          <th style="width: 25px;height: 50px;">ชื่อสินค้า</th>
+          <th style="width: 5px;height: 50px;">จำนวนสินค้า</th>
+          <th style="width: 10px;height: 50px;">หน่วย</th>
+          <th style="width: 15px;height: 50px;">ร้านค้า</th>
+          <th style="width: 10px;height: 50px;">ราคา (บาท)</th>
+          <th style="width: 10px;height: 50px;">จำนวนเงิน</th>
         </tr>
       </thead>
       <tbody>
         @foreach($pr_store as $num=>$row)
         <tr>
-          <td style="width: 5%"><label>{{$num+1}}</label></td>
-          <td style="width: 25%"><label value="{{$row['Product_name']}}" required>{{$row['Product_name']}}</label>
-          <td style="width: 10%"><label value="{{$row['Product_number']}}" required>{{$row['Product_number']}}</label></td>
-          <td style="width: 10%"><label value="{{$row['unit']}}" required>{{$row['unit']}}</label></td>
-          <td style="width: 15%"><label value="{{$row['keystore']}}" required>{{$row['keystore']}}</label></td>
-          <td style="width: 10%"><label value="{{$row['price']}}" required>{{$row['price']}}</label></td>
-          <td style="width: 10%"><label value="{{$row['product_sum']}}" required>{{$row['product_sum']}}</label></td>
+          <td style="width: 2px"><label>{{$num+1}}</label></td>
+          <td style="width: 25px"><label value="{{$row['Product_name']}}" required>{{$row['Product_name']}}</label>
+          <td style="width: 5px"><label value="{{$row['Product_number']}}" required>{{$row['Product_number']}}</label></td>
+          <td style="width: 10px"><label value="{{$row['unit']}}" required>{{$row['unit']}}</label></td>
+          <td style="width: 15px"><label value="{{$row['keystore']}}" required>{{$row['keystore']}}</label></td>
+          <td style="width: 10px"><label value="{{$row['price']}}" required>{{$row['price']}}</label></td>
+          <td style="width: 10px"><label value="{{$row['product_sum']}}" required>{{$row['product_sum']}}</label></td>
         </tr>
         @endforeach
         @for($i = $number ; $i <= 10 ; $i++) <tr>

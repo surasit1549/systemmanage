@@ -155,6 +155,7 @@ class CheckController extends Controller
             if (empty($check_data)) {
                 for ($i = 0; $i < $length; $i++) {
                     $sum[] = $pr_store[$i]['Product_number'] - $receive[$i];
+                    $sum_receive = (string) $sum[$i];
                     if ($sum[$i] === 0) {
                         $status[] = "ครบ";
                     } else {
@@ -164,7 +165,7 @@ class CheckController extends Controller
                         'PO_ID'         => $pr_store[$i]['PO_ID'],
                         'keyPR'         => $pr_store[$i]['keyPR'],
                         'Product_name'  => $pr_store[$i]['Product_name'],
-                        'surplus'       => $sum[$i],
+                        'surplus'       => $sum_receive,
                         'number_product' => $receive[$i],
                         'status'        => $status[$i]
                     ]);
@@ -175,6 +176,7 @@ class CheckController extends Controller
                 $length = sizeof($data);
                 for ($i = 0; $i < $length; $i++) {
                     $sum[] = $data[$i]['surplus'] - $receive[$i];
+                    $sum_receive = (string) $sum[$i];
                     if ($sum[$i] === 0) {
                         $status[] = "ครบ";
                     } else {
@@ -184,7 +186,7 @@ class CheckController extends Controller
                     $data[$i]['PO_ID']         = $pr_store[$i]['PO_ID'];
                     $data[$i]['keyPR']         = $pr_store[$i]['keyPR'];
                     $data[$i]['Product_name']  = $pr_store[$i]['Product_name'];
-                    $data[$i]['surplus']       = $sum[$i];
+                    $data[$i]['surplus']       = $sum_receive;
                     $data[$i]['number_product'] = $receive[$i];
                     $data[$i]['status']        = $status[$i];
                     $data[$i]->save();
