@@ -249,27 +249,27 @@
     <table id="table_product">
       <thead>
         <tr>
-          <th style="height: 50px;">ลำดับที่</th>
-          <th style="height: 50px;">ชื่อสินค้า</th>
-          <th style="height: 50px;">จำนวนสินค้า</th>
-          <th style="height: 50px;">หน่วย</th>
-          <th style="height: 50px;">ราคา (บาท)</th>
-          <th style="height: 50px;">จำนวนเงิน</th>
+          <th style="width: 5%;height: 50px;">ลำดับที่</th>
+          <th style="width: 35%;height: 50px;">ชื่อสินค้า</th>
+          <th style="width: 15%;height: 50px;">จำนวนสินค้า</th>
+          <th style="width: 10%;height: 50px;">หน่วย</th>
+          <th style="width: 5%;height: 50px;">ราคา (บาท)</th>
+          <th style="width: 15%;height: 50px;">จำนวนเงิน</th>
         </tr>
       </thead>
       <tbody>
         @foreach($data as $num=>$row)
         <tr>
-          <td style="width: 5%"><label>{{$num+1}}</label></td>
-          <td style="width: 25%"><label value="{{$row['Product_name']}}" name="" required>{{$row['Product_name']}}</label>
-          <td style="width: 10%"><label value="{{$row['Product_number']}}" name="" required>{{$row['Product_number']}}</label></td>
-          <td style="width: 10%"><label value="{{$row['unit']}}" name="" required>{{$row['unit']}}</label>
-          <td style="width: 10%"><label value="{{$row['price']}}" required>{{$row['price']}}</label></td>
-          <td style="width: 15%"><label value="{{$row['product_sum']}}" required>{{$row['product_sum']}}</label></td>
+          <td ><label>{{$num+1}}</label></td>
+          <td ><label value="{{$row['Product_name']}}" name="" required>{{$row['Product_name']}}</label>
+          <td ><label value="{{$row['Product_number']}}" name="" required>{{$row['Product_number']}}</label></td>
+          <td ><label value="{{$row['unit']}}" name="" required>{{$row['unit']}}</label>
+          <td ><label value="{{$row['price']}}" required>{{$row['price']}}.00</label></td>
+          <td ><label value="{{$row['product_sum']}}" required>{{$row['product_sum']}}.00</label></td>
         </tr>
         @endforeach
         @for($i = $number ; $i <= 10 ; $i++) <tr>
-          <td></td>
+          <td>&nbsp;</td>
           <td></td>
           <td></td>
           <td></td>
@@ -281,7 +281,7 @@
       <tfoot>
         <tr>
           <th style="vertical-align:top" rowspan="3">หมายเหตุ</th>
-          <td style="vertical-align:top" rowspan="3" colspan="3">สำหรับ &nbsp; {{$convert[0]['prequestconvert']}}&nbsp;PR &nbsp;{{$po_id[0]['keyPR']}} <br> ส่งสินค้า ถนนวงแหวนรอบ3 หลังอรสิริน บิสสิเนส 3 (แยกท่ารั้ว)<br>ติดต่อสั่งชื้อ {{$store_mine[0]['contect']}}&nbsp; {{$store_mine[0]['cellphone']}} </td>
+          <td style="vertical-align:top" rowspan="3" colspan="3">&nbsp;สำหรับ &nbsp; {{$convert[0]['prequestconvert']}}&nbsp;PR &nbsp;{{$po_id[0]['keyPR']}} <br>&nbsp;ส่งสินค้า ถนนวงแหวนรอบ3 หลังอรสิริน บิสสิเนส 3 (แยกท่ารั้ว)<br>&nbsp;ติดต่อสั่งชื้อ {{$store_mine[0]['contect']}}&nbsp; {{$store_mine[0]['cellphone']}} </td>
           <th>ราคายังไม่รวมภาษี</th>
           <td style="text-align:center">{{$sum_price}}</td>
         </tr>
@@ -297,7 +297,7 @@
           <th>ตัวอักษร</th>
           <td colspan="3">&nbsp;&nbsp;{{$letter_sumofprice}}</td>
           <th>รวมทั้งสิ้น</th>
-          <td style="text-align:center">{{$data[0]['sumofprice']}}</td>
+          <td style="text-align:center">{{$data[0]['sumofprice']}}.00</td>
         </tr>
       </tfoot>
     </table>

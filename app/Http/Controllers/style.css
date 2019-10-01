@@ -4,13 +4,13 @@
   position: absolute;
   top: 15px;
   left: 40px;
-  width:250px;
-  height:250px;
+  width:240px;
+  height:240px;
 }
 
 #cover_detail1_table {
   top: 30px;
-  right: 315px;
+  right: 300px;
   font-size: 25px;
   position: absolute;
 }
@@ -22,7 +22,7 @@
 }
 #cover_detail3_table {
   top: 90px;
-  right: 320px;
+  right: 300px;
   font-size: 22px;
   position: absolute;
 }
@@ -43,9 +43,10 @@
 #store_table {
   position: absolute;
   top: 190px;
-  width: 83%;
   border: 1px solid black;
   padding: 20px;
+  left: 20px;
+  right: 20px;
 }
 #table_store {
   border-collapse: collapse;
@@ -55,7 +56,8 @@
 #product_table {
   position: absolute;
   top: 400px;
-  width: 88%;
+  left: 20px;
+  right: 20px;
 }
 #table_product {
   width: 100%;
@@ -139,13 +141,13 @@ tbody td {
   position: absolute;
   top: 15px;
   left: 40px;
-  width:250px;
-  height:250px;
+  width:240px;
+  height:240px;
 }
 
 #store_detail1_table {
   top: 35px;
-  right: 315px;
+  right: 300px;
   font-size: 25px;
   position: absolute;
 }
@@ -157,7 +159,7 @@ tbody td {
 }
 #store_detail3_table {
   top: 95px;
-  right: 320px;
+  right: 305px;
   font-size: 22px;
   position: absolute;
 }
@@ -180,23 +182,12 @@ tbody td {
   left: 10px;
 }
 
-#table_product {
-  width: 100%;
-}
-tbody tr td{
-  text-align: center;
-}
-tbody th {
-  height: 30px;
-}
-tbody td {
-  height: 30px;
-}
 
 #product {
   position: absolute;
   top: 320px;
-  width: 88%;
+  left: 20px;
+  right: 20px;
 }
 #table_product,#table_product tr,#table_product td , #table_product th {
   border: 1px solid black;
