@@ -196,41 +196,41 @@
   <div id="store_table">
     <table id="table_store">
       <tr>
-        <th> ผู้ขาย :</th>
+        <th style="text-align:left"> ผู้ขาย :</th>
         <td style="text-align:left;">
           {{$store[0]['name']}}&nbsp;&nbsp; [ {{$store[0]['keystore']}} ]
         </td>
-        <th> วันที่เอกสาร :</th>
+        <th style="text-align:left"> วันที่เอกสาร :</th>
         <td style="text-align:left;">
           {{substr($data[0]['created_at'],0,-9)}}
         </td>
       </tr>
       <tr>
-        <th> ที่อยู่ :</td>
+        <th style="text-align:left"> ที่อยู่ :</td>
         <td style="text-align:left;">
           {{$store[0]['address']}}
         </td>
-        <th> ผู้ติดต่อ : </th>
+        <th style="text-align:left"> ผู้ติดต่อ : </th>
         <td style="text-align:left;">
           {{$store[0]['contect']}} &nbsp;&nbsp; {{$store[0]['cellphone']}}
         </td>
       </tr>
       <tr>
-        <th> โทรศัพท์ :</th>
+        <th style="text-align:left"> โทรศัพท์ :</th>
         <td style="text-align:left;">
           {{$store[0]['phone']}}
         </td>
-        <th> วันที่กำหนดส่ง : </th>
+        <th style="text-align:left"> วันที่กำหนดส่ง : </th>
         <td>
 
         </td>
       </tr>
       <tr>
-        <th> โทรสาร : </th>
+        <th style="text-align:left"> โทรสาร : </th>
         <td style="text-align:left;">
           {{$store[0]['fax']}}
         </td>
-        <th> จำนวนเครดิต : </th>
+        <th style="text-align:left"> จำนวนเครดิต : </th>
         <td>
 
         </td>
@@ -238,7 +238,7 @@
       <tr>
         <th> </th>
         <td> </td>
-        <th> เงื่อนไขการชำระ : </th>
+        <th style="text-align:left"> เงื่อนไขการชำระ : </th>
         <td>
 
         </td>

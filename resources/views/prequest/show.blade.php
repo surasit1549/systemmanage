@@ -177,17 +177,17 @@
     <table id="tableexa">
       <tbody>
         <tr>
-          <th>TO :</th>
+          <th style="text-align:left">TO :</th>
           <td style="text-align: left;">THERA ASSET CO.,LTD</td>
         </tr>
         <tr>
-          <th>ชื่อผู้รับเหมา</th>
+          <th style="text-align:left">ชื่อผู้รับเหมา</th>
           <td style="width:30%;text-align: left;">{{ $contractor[0]->firstname }}&nbsp;&nbsp;&nbsp;{{ $contractor[0]->lastname }}</td>
-          <th >แปลง</th>
+          <th style="text-align:left">แปลง</th>
           <td style="width:30%;text-align: left;">{{$pr_create[0]['prequestconvert']}}</td>
         </tr>
         <tr>
-          <th>แบบงาน</th>
+          <th style="text-align:left">แบบงาน</th>
           <td style="width:30%;text-align: left;">{{$pr_create[0]['formwork']}}</td>
         </tr>
       </tbody>
