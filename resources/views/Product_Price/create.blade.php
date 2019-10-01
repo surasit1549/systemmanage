@@ -106,7 +106,6 @@
         width: "95%"
       });
       $(".delete").click(function() {
-        console.log(321);
         $(this).parents("tr").remove();
       });
     });
