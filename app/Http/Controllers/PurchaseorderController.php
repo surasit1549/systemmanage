@@ -170,7 +170,7 @@ class PurchaseorderController extends Controller
         $store_mine = Store::where('keystore', 'master')->get();
         $date_master1 = $this->time_master1($convert[0]['key']);
         $date_master2 = $this->time_master2($convert[0]['key']);
-        $contractor = Auth::user()->where('username', $convert[0]['contractor'])->get();
+        $contractor = Auth::user()->where('role','2')->get();
         $master1 = Auth::user()->where('role', '3')->get();
         $master2 = Auth::user()->where('role', '4')->get();
         return view('porder.show', compact(
