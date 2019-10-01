@@ -9,6 +9,8 @@
     @include('sweetalert::alert')
     @yield('tabbarcss')
     <title>HOME</title>
+    <!-- ICON TITLE -->
+    <link rel="icon" type="image/png" href="http://example.com/myicon.png">
     <!-- Bootstrap -->
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
     <link rel="stylesheet" href="{{ asset('css/chosen.min.css') }}">
