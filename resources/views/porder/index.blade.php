@@ -30,7 +30,13 @@
           <td>{{$row['PO_ID']}}</td>
           <td>{{$row['keyPR']}}</td>
           <td>{{substr($row['created_at'],0,-9)}}</td>
-          <td>{{$row['status']}}</td>
+          <td>
+            @if( $row['status'] == 'ครบ' )
+            <button class="btn btn-sm btn-success"><i class="fas fa-check"></i>&nbsp;&nbsp;{{$row['status']}}</button>
+            @else
+            <button class="btn btn-sm btn-danger"><i class="fas fa-times"></i>&nbsp;&nbsp;{{$row['status']}}</button>
+            @endif
+          </td>
           <td>
             <a class="ml-2" href="{{action('PurchaseorderController@show',$row['PO_ID'])}}" data-toggle="tooltip" data-placement="top" title="PDF"><i style="font-size:20px" class="text-danger fas fa-file-pdf"></i></a>
           </td>
@@ -48,7 +54,7 @@
     $('table').DataTable({
       'columnDefs': [{
         'orderable': false,
-        'targets': 3
+        'targets': 4
       }]
     });
   });

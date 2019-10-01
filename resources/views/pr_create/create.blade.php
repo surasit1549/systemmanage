@@ -92,7 +92,7 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="text-center"><label class="col-form-label">1</label></td>
+                        <td class="text-center"><label class="index col-form-label">1</label></td>
                         <td>
                             <div class="item_auto">
                                 <select name="productname[]" class="choseitems" data-placeholder="เลือกสินค้า..">
@@ -191,32 +191,50 @@
                 });
             });
 
+
+            function changeIndex() {
+                $('.index').each(function(index) {
+                    $(this).text(index + 1);
+                });
+            }
+
+
             var index = 2,
                 array = [];
             $('#addrow').click(function(e) {
                 e.preventDefault();
                 e.stopPropagation();
+
                 if (index < 1) {
                     index = 1;
                 }
                 if (index <= 10) {
                     var txt = '<select name="productname[]" class="choseitems" data-placeholder="เลือกสินค้า..">' + $('.item_auto select').html() + '</div>';
-                    $('#detailmenu tbody').append('<tr><td class="text-center"><label class="col-form-label">' + (index++) + '</label></td><td>' +
+                    $('#detailmenu tbody').append('<tr><td class="text-center"><label class="col-form-label index">' + (index++) + '</label></td><td>' +
                         txt +
                         '<td><input type="number" name="productnumber[]" min="1"class="form-control productnumber" required></td>' +
                         '<td class="text-center"><a class="btn btn-outline-danger delete"><i style="font-size:18px" class="far fa-trash-alt"></i></a></td></tr>');
                     $('#detailmenu tbody tr:last .productname').focus();
+                    changeIndex();
                     $('.choseitems').chosen({
                         no_results_text: 'ไม่พบรายการสินค้า',
                         placeholder_text_single: 'เลือก..',
                         width: "95%"
                     });
                     $(".delete").click(function() {
-                        console.log(index);
-                        if (index != 1) {
+                        var count = $(this).parents('tr').find('.index').text();
+                        if (count == 1) {
+                            Swal.fire({
+                                type: 'error',
+                                title: 'ไม่สามารถลบข้อมูลแรกได้',
+                                text : 'ลบข้อมูลแรกไม่ได้และต้องเหลืออย่างน้อยหนึ่งรายการ' ,
+                                confirmButtonText : 'ตกลง'
+                            });
+                        } else {
                             $(this).parents("tr").remove();
+                            index--;
+                            changeIndex();
                         }
-                        index--;
                     });
                 }
 

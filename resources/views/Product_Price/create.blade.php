@@ -49,7 +49,7 @@
                   </select>
                 </div>
               </td>
-              <td><input type="text" class="form-control price" name="Price[]" required></td>
+              <td><input type="number" class="form-control price" name="Price[]" autocomplete="off" required></td>
               <td class="text-center"><a class="btn btn-outline-danger delete"><i style="font-size:18px" class="far fa-trash-alt"></i></a></td>
             </tr>
           </tbody>
@@ -97,7 +97,7 @@
       e.stopPropagation();
       var txt = '<select name="productname[]" class="choseitems" data-placeholder="เลือกสินค้า..">' + $('.item_auto select').html() + '</div>';
       $('#detailmenu tbody').append('<tr></label></td><td>' + txt +
-        '<td><input type="text" class="form-control price" name="Price[]" required></td>' +
+        '<td><input type="number" class="form-control price" name="Price[]" autocomplete="off" required></td>' +
         '<td class="text-center"><a class="btn btn-outline-danger delete"><i style="font-size:18px" class="far fa-trash-alt"></i></a></td></tr>');
       $('#detailmenu tbody tr:last .productname').focus();
       $('.choseitems').chosen({
@@ -106,7 +106,7 @@
         width: "95%"
       });
       $(".delete").click(function() {
-        $(this).parents("tr").remove();
+          $(this).parents("tr").remove();
       });
     });
   })
