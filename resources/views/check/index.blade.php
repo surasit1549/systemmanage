@@ -46,6 +46,7 @@
     $('#prpo_form').click();
     $('[data-toggle=tooltip]').tooltip();
     $('table').DataTable({
+      'order' : [[0,'desc']],
       'columnDefs': [{
         'targets': 4,
         'orderable': false

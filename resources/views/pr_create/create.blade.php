@@ -196,7 +196,6 @@
             $('#addrow').click(function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-                console.log(index);
                 if (index < 1) {
                     index = 1;
                 }
@@ -213,7 +212,10 @@
                         width: "95%"
                     });
                     $(".delete").click(function() {
-                        $(this).parents("tr").remove();
+                        console.log(index);
+                        if (index != 1) {
+                            $(this).parents("tr").remove();
+                        }
                         index--;
                     });
                 }
