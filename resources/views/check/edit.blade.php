@@ -144,7 +144,7 @@
         </table>
         <br>
         <div class="form-group text-center">
-          <a class="btn btn-danger" href="{{route('check.index')}}"><i style="font-size:18px" class="fas fa-undo-alt"></i>&nbsp;&nbsp;ย้อนกลับ</a>
+          <a class="btn btn-danger" href="#" onclick="window.history.back()"><i style="font-size:18px" class="fas fa-undo-alt"></i>&nbsp;&nbsp;ย้อนกลับ</a>
           <button id="subform" type="submit" class="btn btn-success" value="Update"><i class="far fa-save"></i>&nbsp;&nbsp;บันทึก</button>
         </div>
         <input type="hidden" name="_method" value="PATCH" />

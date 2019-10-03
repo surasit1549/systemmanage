@@ -31,6 +31,14 @@
         <nav id="sidebar">
             <img class="siderbar-header" style="width:250px" src="{{asset('pic/logo1.png')}}" alt="">
             <ul class="list-unstyled components">
+                @if( Auth::user()->role >= 3 && Auth::user()->role <= 5 )
+                <li>
+                    <a href="{{route('mycompany.index')}}" id="teratab">
+                        <i style="font-size:20px" class="fas fa-home"></i>&nbsp;&nbsp;
+                        บริษัท ธีร่า แอสเสท
+                    </a>
+                </li>
+                @endif
                 @if( Auth::user()->role != 1 )
                 <li>
                     <a href="{{route('store.index')}}" id="storetab">
@@ -75,7 +83,7 @@
                             <a id="potab" href="{{route('porder.index')}}">ใบสั่งซื้อสินค้า ( PO )</a>
                         </li>
                         <li>
-                            <a id="checktab" href="{{route('check.index')}}">รายการตรวจสอบสินค้า </a>
+                            <a id="checktab" href="{{route('check.index')}}">ตรวจสอบรายการสินค้า </a>
                         </li>
                     </ul>
                 </li>

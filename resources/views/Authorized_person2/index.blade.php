@@ -11,7 +11,7 @@
     box-shadow: none;
   }
 
-  #person2 {
+  #person1 {
     border-right: 5px solid rgb(41, 207, 219);
   }
 
@@ -151,8 +151,7 @@
           <td>{{$row[5]}}</td>
 
           <td>
-            <a class="btn btn-info btn-sm text-white" href="{{action('mastertwoController@show',$row[2])}}" data-toggle="tooltip" data-placement="top" title="show">แสดงข้อมูล</a>
-
+            <a class="text-info" href="{{action('mastertwoController@show',$row[2])}}" data-toggle="tooltip" data-placement="top" title="show"><i style="font-size:20px" class="fas fa-eye"></i></a>
             @if($row[7] === "ตรวจสอบ")
             &nbsp;&nbsp;<a href="{{action('mastertwoController@edit',$row[2])}}" data-toggle="tooltip" data-placement="top" title="Check"><i style="font-size:20px" class="fas fa-marker"></i></a>
             &nbsp;&nbsp;

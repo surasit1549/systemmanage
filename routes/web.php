@@ -45,6 +45,7 @@ Route::group(['middleware' => ['123','checkAction','checkstatus']], function () 
     Route::post('usermanage/checkemail', 'UsermanageController@checkemail');
     Route::post('Product_Price/deletename', 'ProductPriceController@deletename');
     Route::group(['middleware' => 'checkstart'],function(){
+        Route::resource('mycompany','mycontroller');
         Route::resource('store', 'StoreController');
         Route::resource('transform', 'TransformController');
         Route::resource('prequest', 'PuchaserequestController');
@@ -56,6 +57,7 @@ Route::group(['middleware' => ['123','checkAction','checkstatus']], function () 
         Route::resource('Authorized_person1', 'masteroneController');
         Route::resource('Authorized_person2', 'mastertwoController');
         Route::resource('usermanage', 'UsermanageController');
+        Route::resource('mycompany','mycompanyController');
     });
     Route::resource('profile', 'profileController');
 

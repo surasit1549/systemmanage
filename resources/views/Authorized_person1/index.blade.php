@@ -155,7 +155,7 @@
           <td>{{$row[3]}}</td>
           <td>{{$row[4]}}</td>
           <td>
-            <a class="btn btn-info btn-sm text-white" href="{{action('masteroneController@show',$row[1])}}" data-toggle="tooltip" data-placement="top" title="show">แสดงข้อมูล</a>
+            <a class="text-info" href="{{action('masteroneController@show',$row[1])}}" data-toggle="tooltip" data-placement="top" title="show"><i style="font-size:20px" class="fas fa-eye"></i></a>
             @if($row[6] === "ตรวจสอบ")
             &nbsp;&nbsp;<a href="{{action('masteroneController@edit',$row[1])}}" data-toggle="tooltip" data-placement="top" title="Check"><i style="font-size:20px" class="fas fa-pen-alt"></i></a>
             &nbsp;&nbsp;
