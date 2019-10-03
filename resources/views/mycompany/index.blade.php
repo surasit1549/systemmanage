@@ -9,6 +9,15 @@
 @stop
 @section('content')
 
+@if( session('msg') )
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong><i class="fas fa-check-circle"></i>&nbsp;&nbsp;{{session('msg')}}</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+@endif
+
 <a href="/mycompany/1/edit" class="btn btn-sm btn-success mb-2"><i class="fas fa-edit"></i>&nbsp;&nbsp;แก้ไขข้อมูล</a>
 
 <div class="card">

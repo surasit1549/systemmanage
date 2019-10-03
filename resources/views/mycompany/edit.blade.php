@@ -60,70 +60,67 @@
 
 <script>
     $(document).ready(function() {
-        $('#confirm').click(function() {
-            $(this).html('<div class="spinner-border spinner-border-sm" role="status"><span class = "sr-only">Loading...< /span></div>&nbsp;&nbsp;กำลังประมวลผล');
-        });
-
+       
         $('form').validate({
-                rules: {
-                    'name': {
-                        'required': true,
-                        'minlength': 5
-                    },
-                    'address': {
-                        'required': true,
-                        'minlength': 10
-                    },
-                    'phone': {
-                        'required': true,
-                        'minlength': 10
-                    },
-                    'fax': {
-                        'required': true,
-                        'minlength': 9
-                    },
-                    'contact_name': 'required',
-                    'contact_phone': {
-                        'required': true,
-                        'minlength': 10
-                    }
+            rules: {
+                'name': {
+                    'required': true,
+                    'minlength': 5
                 },
-                messages: {
-                    'name': {
-                        'required': 'กรอกชื่อบริษัท',
-                        'minlength': 'กรอกอย่างน้อย 5 ตัวอักษร'
-                    },
-                    'address': {
-                        'required': 'กรอกที่อยู่บริษัท',
-                        'minlength': 'กรอกอย่างน้อย 10 ตัวอักษร'
-                    },
-                    'phone': {
-                        'required': 'กรอกเบอร์บริษัท',
-                        'minlength': 'กรอกอย่างน้อย 10 ตัวอักษร'
-                    },
-                    'fax': {
-                        'required': 'กรอกหมายเลข Fax',
-                        'minlength': 'กรอกอย่างน้อย 9 ตัวอักษร'
-                    },
-                    'contact_name': 'กรอกชื่อผู้ติดต่อ',
-                    'contact_phone': {
-                        'required': 'กรอกเบอร์โทรศัพท์',
-                        'minlength': 'กรอกอย่างน้อย 10 ตัวอักษร'
-                    }
+                'address': {
+                    'required': true,
+                    'minlength': 10
                 },
-                errorPlacement: function(error, element) {
-                    // Add the `invalid-feedback` class to the error element
-                    error.addClass("invalid-feedback");
-                    error.insertAfter(element);
+                'phone': {
+                    'required': true,
+                    'minlength': 10
                 },
-                highlight: function(element, errorClass, validClass) {
-                    $(element).addClass("is-invalid").removeClass("is-valid");
+                'fax': {
+                    'required': true,
+                    'minlength': 9
                 },
-                unhighlight: function(element, errorClass, validClass) {
-                    $(element).addClass("is-valid").removeClass("is-invalid");
+                'contact_name': 'required',
+                'contact_phone': {
+                    'required': true,
+                    'minlength': 10
                 }
+            },
+            messages: {
+                'name': {
+                    'required': 'กรอกชื่อบริษัท',
+                    'minlength': 'กรอกอย่างน้อย 5 ตัวอักษร'
+                },
+                'address': {
+                    'required': 'กรอกที่อยู่บริษัท',
+                    'minlength': 'กรอกอย่างน้อย 10 ตัวอักษร'
+                },
+                'phone': {
+                    'required': 'กรอกเบอร์บริษัท',
+                    'minlength': 'กรอกอย่างน้อย 10 ตัวอักษร'
+                },
+                'fax': {
+                    'required': 'กรอกหมายเลข Fax',
+                    'minlength': 'กรอกอย่างน้อย 9 ตัวอักษร'
+                },
+                'contact_name': 'กรอกชื่อผู้ติดต่อ',
+                'contact_phone': {
+                    'required': 'กรอกเบอร์โทรศัพท์',
+                    'minlength': 'กรอกอย่างน้อย 10 ตัวอักษร'
+                }
+            },
+            errorPlacement: function(error, element) {
+                // Add the `invalid-feedback` class to the error element
+                error.addClass("invalid-feedback");
+                error.insertAfter(element);
+            },
+            highlight: function(element, errorClass, validClass) {
+                $(element).addClass("is-invalid").removeClass("is-valid");
+            },
+            unhighlight: function(element, errorClass, validClass) {
+                $(element).addClass("is-valid").removeClass("is-invalid");
+            }
 
-            });
+        });
     });
 </script>
 

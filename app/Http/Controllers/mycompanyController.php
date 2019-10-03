@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\mycompany;
+use Auth;
+use App\log;
 
 class mycompanyController extends Controller
 {
@@ -71,7 +73,9 @@ class mycompanyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        mycompany::find($id)->update($request->toArray());
+        $input = $request->toArray();
+        mycompany::find($id)->update($input);
+        $this->insertlog('UPDATE', 'mycompanies', $input);
         return redirect()->route('mycompany.index')->with('msg','แก้ไขข้อมูลเรียบร้อยแล้ว');
     }
 
@@ -85,4 +89,12 @@ class mycompanyController extends Controller
     {
         //
     }
+
+    public function insertlog($action, $table, $data)
+    {
+        Log::create([
+            'username' => Auth::user()->username, 'role' => Auth::user()->role, 'data' => serialize($data), 'table' => $table, 'action' => $action
+        ]);
+    }
+
 }
