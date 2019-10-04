@@ -64,6 +64,7 @@
                 <table class="table table-hover table-bordered border-dark table-border-dark" id="detailmenu">
                     <thead>
                         <tr class="text-center">
+                            <th style="width:20%;">รหัสสินค้า</th>
                             <th style="width:20%;">รายการสินค้า</th>
                             <th style="width:10%;">หน่วย</th>
                             <th style="width:10%;">ราคา</th>
@@ -72,8 +73,11 @@
                     <tbody>
                         <tr>
                             <td>
+                                <input class="form-control" type="text" value="{{$data[0]->Product}}" disabled required>
+                                <input type="hidden" name="product_id" value="{{$data[0]->Product}}">
+                            </td>
+                            <td>
                                 <input type="text" name="product" class="form-control productname" value="{{$data[0]->Product_name}}" disabled required>
-                                <input type="hidden" name="product_id" value="{{$data[0]->Product}}" required>
                             </td>
                             <td>
                                 <input type="text" class="form-control unit" name="unit" value="{{$data[0]->unit}}" disabled required>
