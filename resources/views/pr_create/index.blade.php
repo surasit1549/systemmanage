@@ -10,6 +10,8 @@
 @section('content')
 <script>
   $(document).ready(function() {
+
+
     $('#prtable').DataTable({
       'order': [
         [1, 'desc']
