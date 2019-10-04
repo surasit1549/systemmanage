@@ -101,9 +101,7 @@
             <th style="width:20%;">รายการสินค้า</th>
             <th style="width:10%;">จำนวน</th>
             <th style="width:10%;">หน่วย</th>
-            <th style="width:20%;">ร้านค้า</th>
-            <th style="width:10%;">ราคาต่อหน่วย</th>
-            <th style="width:15%;">รวม</th>
+            <th style="width:100%;">ร้านค้า / ราคาต่อหน่วย / ราคา</th>
           </tr>
         </thead>
         <tbody>
@@ -113,8 +111,8 @@
             <input type="hidden" name="Product_number[]" min="1" class="form-control productnumber border-0" value="{{$row[1]}}" name="" required>
             <input type="hidden" name="unit[]" class="form-control unit border-0" value="{{$row[2]}}" name="" required>
             <input type="hidden" name="price[]" min="1" class="form-control price border-0" value="{{$row[4]}}" required>
-            <input type="hidden" name="product_sum[]" min="1" class="sum col-form-label border-0" value="{{$row[5]}}" required>
-            <input type="hidden" name="sum" id="sumofprice" class="text-danger" value="{{$sum[0]}}">
+            <input type="hidden" name="product_sum[]" min="1" class="sum col-form-label border-0" value="" required>
+            <input type="hidden" name="sum" id="sumofprice" class="text-danger" value="">
             <td class="text-center"><label class="col-form-label">{{$number++}}</label></td>
             <td class="text-center result"><label class="form-control productname border-0" >{{$row[0]}}</label></td>
             <td class="text-center result"><label min="1" class="form-control productnumber border-0">{{$row[1]}}</label></td>
@@ -122,21 +120,17 @@
             <td>
               <select class="custom-select" name="keystore[]">
                 @foreach($row[3] as $r)
-                <option value="{{$r['name']}}">{{$r['name']}}</option>
+                <option value="{{$r['name'] }}"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$r['name']}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$r['Price']}}/{{$r['unit']}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{$r['Price']*$row[1]}}&nbsp;บาท</option>
                 @endforeach
               </select>
             </td>
-            <td class="text-center result"><label min="1" class="form-control price border-0">{{$row[4]}}</label></td>
-            <td class="text-center result"><label min="1" class="sum col-form-label border-0">{{$row[5]}}</label></td>
           </tr>
           @endforeach
         </tbody>
         <tfoot>
           <tr>
-            <th></th>
             <th class="text-right" colspan="4">รวมเป็นเงิน</th>
-            <th class="text-center"><label id="sumofprice" class="text-danger">{{$sum[0]}}</th>
-            <th class="text-center">บาท</th>
+            <th class="text-center"><label id="sumofprice" class="text-danger"> บาท</th>
           </tr>
         </tfoot>
       </table>
@@ -244,7 +238,7 @@
               </select>
             </td>
             <td class="text-center result"><label min="1" class="form-control price border-0" required>{{$row[4]}}</label></td>
-            <td class="text-center result"><label min="1" class="sum col-form-label border-0" required>{{$row[5]}}</label></td>
+            <td class="text-center result"><label min="1" class="sum col-form-label border-0" required></label></td>
           </tr>
           @endforeach
         </tbody>
@@ -252,7 +246,7 @@
           <tr>
             <th></th>
             <th class="text-right" colspan="4">รวมเป็นเงิน</th>
-            <th class="text-center"><label id="sumofprice" class="text-danger">{{$sum[0]}}</label></th>
+            <th class="text-center"><label id="sumofprice" class="text-danger"></label></th>
             <th class="text-center">บาท</th>
           </tr>
         </tfoot>

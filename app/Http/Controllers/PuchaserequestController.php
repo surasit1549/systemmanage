@@ -80,10 +80,10 @@ class PuchaserequestController extends Controller
       for ($i = 0; $i < $lengtharray; $i++) {
         $check = prequest::where('keyPR', $pr_create[$i]['key'])->get()->toArray();
 
-        $Rejected = pr_create::where('key',$pr_create[$i]['key'])->get('status')->toArray();
+        $Rejected = pr_create::where('key', $pr_create[$i]['key'])->get('status')->toArray();
         $master1 = Authorized_person1::where('keyPR', $pr_create[$i]["key"])->get()->toArray();
         $master2 = Authorized_person2::where('keyPR', $pr_create[$i]["key"])->get()->toArray();
-        if($Rejected[0]['status'] === "active"){
+        if ($Rejected[0]['status'] === "active") {
           if (empty($check)) {
             $status = "รอการตรวจสอบ";
           } elseif ($keypr != NULL && empty($master1) && empty($master2)) {
@@ -93,10 +93,10 @@ class PuchaserequestController extends Controller
           } elseif ($keypr != NULL && $master1 != NULL && $master2 != NULL) {
             $status = "เสร็จสมบูรณ์";
           }
-        }else{
+        } else {
           $status = "ถูกยกเลิก";
         }
-        
+
         $PR_create[] = [
           $pr_create[$i]['id'],
           $pr_create[$i]['key'],
@@ -109,7 +109,7 @@ class PuchaserequestController extends Controller
           $Rejected
         ];
       }
-      
+
       $pr_num = sizeof($pr_create);
       for ($i = $pr_num - 1; $i >= 0; $i--) {
         $PR_creates[] = $PR_create[$i];
@@ -233,9 +233,9 @@ class PuchaserequestController extends Controller
     $contractor = Auth::user()->where('username', $pr_create[0]['contractor'])->get();
     $master1 = Auth::user()->where('role', '3')->get();
     $Purchasing = Auth::user()->where('role', '2')->get();
-    $role_purchasing = role::where('id_role',$Purchasing[0]['role'])->get();
-    $role_master1 = role::where('id_role',$master1[0]['role'])->get();
-    $role_contractor = role::where('id_role',$contractor[0]['role'])->get();
+    $role_purchasing = role::where('id_role', $Purchasing[0]['role'])->get();
+    $role_master1 = role::where('id_role', $master1[0]['role'])->get();
+    $role_contractor = role::where('id_role', $contractor[0]['role'])->get();
     return view('prequest.show', compact(
       'number',
       'id',
@@ -269,37 +269,28 @@ class PuchaserequestController extends Controller
     $number = 1;
     $sum = 0;
     $pr_create = PR_create::find($id)->toArray();
-    //dd($pr_create['key']);
     $productdb = Create_product::where('key', $pr_create['key'])->get('productname')->toArray();
     $lengtharray = sizeof($productdb);
+    $product_number = Create_product::where('key', $pr_create['key'])->get()->toArray();
     for ($i = 0; $i < $lengtharray; $i++) {
       $product_id = product_main::where('product_name', $productdb[$i])->get()->toArray();
-      $product_price = product_Price::where('Product', $product_id[0]['Product_ID'])->min('Price');
-      //  ->where('Product',$product_id[0]['Product_ID'])->min('Price');
       $product_min_price[] = product_main::where('Product_name', $productdb[$i])
-        ->join('product__Prices', 'product_mains.Product_ID', 'product__Prices.Product')
-        ->join('stores', 'product__Prices.Store', 'stores.keystore')
-        ->where('Price', $product_price)
-        ->get()->toArray();
-        //dd($product_min_price);
-      $store_price = product_Price::where('Price', $product_min_price[0][0]['Price'])->get('Store')->toArray();
-      $product_number = Create_product::where('key', $pr_create['key'])->get()->toArray();
-      $products_sum = [$product_price * $product_number[$i]['productnumber']];
-      $sum = [$sum[0] + $products_sum[0]];
+      ->join('product__Prices', 'product_mains.Product_ID', 'product__Prices.Product')
+      ->join('stores', 'product__Prices.Store', 'stores.keystore')
+      ->get()->toArray();
+      $length = sizeof($product_min_price[0]);
       $min[] = [
         $product_min_price[$i][0]['Product_name'],
         $product_number[$i]['productnumber'],
         $product_min_price[$i][0]['unit'],
         $product_min_price[$i],
         $product_min_price[$i][0]['Price'],
-        $products_sum[0],
       ];
     }
     return view('prequest.edit', compact(
       'number',
       'pr_create',
       'min',
-      'sum',
       'id'
     ));
   }
@@ -313,6 +304,7 @@ class PuchaserequestController extends Controller
    */
   public function update(Request $request, $id)
   {
+    dd($request->keystore);
     $lengtharray = sizeof($request->get('Product_name'));
     for ($i = 0; $i < $lengtharray; $i++) {
       $Product_pr = new Product([
