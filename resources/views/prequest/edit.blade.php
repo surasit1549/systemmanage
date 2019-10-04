@@ -11,6 +11,22 @@
 
 <script>
   $(document).ready(function() {
+
+    function changeprice() {
+      var sum = 0;
+      $('.select_store').each(function() {
+        sum += parseInt($(this).val().split(':')[2]);
+      });
+      $('.ax_sum').text(sum);
+    }
+
+    changeprice();
+
+    $('.select_store').change(function() {
+      changeprice();
+    });
+
+
     $('#prpo_form').click();
     $('#passcode_confirm').on('shown.bs.modal', function() {
       $(this).find('input[name=passkey]').focus();
@@ -112,15 +128,15 @@
             <input type="hidden" name="unit[]" class="form-control unit border-0" value="{{$row[2]}}" name="" required>
             <input type="hidden" name="price[]" min="1" class="form-control price border-0" value="{{$row[4]}}" required>
             <input type="hidden" name="product_sum[]" min="1" class="sum col-form-label border-0" value="" required>
-            <input type="hidden" name="sum" id="sumofprice" class="text-danger" value="">
+            <input type="hidden" name="sum" id="sumofprice" class="ax_sum text-danger" value="">
             <td class="text-center"><label class="col-form-label">{{$number++}}</label></td>
-            <td class="text-center result"><label class="form-control productname border-0" >{{$row[0]}}</label></td>
+            <td class="text-center result"><label class="form-control productname border-0">{{$row[0]}}</label></td>
             <td class="text-center result"><label min="1" class="form-control productnumber border-0">{{$row[1]}}</label></td>
             <td class="text-center result"><label class="form-control unit border-0">{{$row[2]}}</label></td>
             <td>
-              <select class="custom-select" name="keystore[]">
+              <select class="custom-select select_store" name="keystore[]">
                 @foreach($row[3] as $r)
-                <option value="{{$r['name']}} {{$r['Price']}}/{{$r['unit']}} {{$r['Price']*$row[1]}}"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$r['name']}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$r['Price']}}/{{$r['unit']}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{$r['Price']*$row[1]}}&nbsp;บาท</option>
+                <option value="{{$r['name']}}:{{$r['Price']}}/{{$r['unit']}}:{{$r['Price']*$row[1]}}"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$r['name']}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$r['Price']}}/{{$r['unit']}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{$r['Price']*$row[1]}}&nbsp;บาท</option>
                 @endforeach
               </select>
             </td>
@@ -130,7 +146,7 @@
         <tfoot>
           <tr>
             <th class="text-right" colspan="4">รวมเป็นเงิน</th>
-            <th class="text-center"><label id="sumofprice" class="text-danger"> บาท</th>
+            <th class="text-center"><label id="sumofprice" class="ax_sum text-danger"></label> บาท</th>
           </tr>
         </tfoot>
       </table>
@@ -246,7 +262,7 @@
           <tr>
             <th></th>
             <th class="text-right" colspan="4">รวมเป็นเงิน</th>
-            <th class="text-center"><label id="sumofprice" class="text-danger"></label></th>
+            <th class="text-center"><label id="sumofprice" class="ax_sum text-danger"></label></th>
             <th class="text-center">บาท</th>
           </tr>
         </tfoot>
