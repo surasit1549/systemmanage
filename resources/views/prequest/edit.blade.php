@@ -145,7 +145,7 @@
         <tfoot>
           <tr>
             <th class="text-right" colspan="4">รวมเป็นเงิน</th>
-            <th class="text-center"><input id="sumofprice" class="ax_sum text-danger border-0">บาท</th>
+            <th class="text-center"><input name="sumofprice" id="sumofprice" class="ax_sum text-danger border-0">บาท</th>
           </tr>
         </tfoot>
       </table>
