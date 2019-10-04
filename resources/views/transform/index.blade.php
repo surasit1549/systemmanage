@@ -94,7 +94,7 @@
       <thead>
         <tr>
           <th style="width:30%;">ชื่อแปลง</th>
-          <th style="width:40%;">ขนาด ( ตารางวา )</th>
+          <th style="width:40%;">ประเภทบ้าน</th>
           <th style="width:30%;">จัดการ</th>
         </tr>
       </thead>

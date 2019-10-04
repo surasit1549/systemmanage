@@ -24,10 +24,10 @@
           </label>
         </div>
         <div class="form-group">
-          <label for="">ขนาด</label>
+          <label for="">ประเภทบ้าน</label>
           <input type="text" name="size" class="form-control" autocomplete="off" required>
           <label for="" class="invalid-feedback">
-            กรอกชื่อขนาดแปลง
+            กรอกประเภทบ้าน
           </label>
         </div>
     </div>

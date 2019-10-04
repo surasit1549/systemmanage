@@ -17,17 +17,18 @@
       {{csrf_field()}}
       <div class="form-group">
         <label for="">รหัสสินค้า</label><br>
-        <input style="background-color:#f1f1f1;cursor:no-drop" type="text" name="Product_ID1" maxlength="3"> -
-        <input style="background-color:#f1f1f1;cursor:no-drop" type="text" name="Product_ID2" maxlength="3"> - 
-        <input style="background-color:#f1f1f1;cursor:no-drop" type="text" name="Product_ID3" value="{{$key}}">
-        
+        <div class="row col-md-12 text-center">
+          <input class="mr-auto col-md-3 form-control" id="product1" type="text" name="Product_ID1" maxlength="3">&nbsp;<span class="col-form-label">-</span>&nbsp;
+          <input class="mx-auto col-md-3 form-control" id="product2" type="text" name="Product_ID2" maxlength="3">&nbsp;<span class="col-form-label">-</span>&nbsp;
+          <input class="ml-auto col-md-3 form-control" type="text" name="Product_ID3" disabled value="{{$key}}">
+        </div>
         <label for="" class="invalid-feedback">
           กรอกชื่อรหัสสินค้า
         </label>
       </div>
       <div class="form-group">
         <label for="">ชื่อสินค้า</label>
-        <input type="text" name="Product_name" class="form-control" autocomplete="off" required>
+        <input type="text" name="Product_name" class="form-control p_name" autocomplete="off" required>
       </div>
       <div class="form-group">
         <label for="">หน่วยสินค้า</label>
@@ -51,6 +52,20 @@
 
 <script>
   $(document).ready(function() {
+
+    $('#product1').focus();
+
+    $('#product1').keyup(function() {
+      if ($(this).val().length == 3) {
+        $('#product2').focus();
+      }
+    });
+
+    $('#product2').keyup(function() {
+      if ($(this).val().length == 3) {
+        $('.p_name').focus();
+      }
+    });
 
     $('#checkmenu').click();
 
