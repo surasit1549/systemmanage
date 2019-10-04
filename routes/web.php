@@ -13,11 +13,11 @@ use phpDocumentor\Reflection\DocBlock\Tags\Uses;
 |
 */
 
-Route::get('/',function(){
-    return redirect('login');
-});
 
 Route::group(['middleware' => ['123','checkAction','checkstatus']], function () {
+    Route::get('/',function(){
+        return redirect('login');
+    });
     Route::post('/usermanage/changepassword','UsermanageController@changepassword');
     Route::get('/usermanage/{id}/changepass','UsermanageController@changepass');
     Route::get('upload_img','uploadController@index')->name('upload_img');
