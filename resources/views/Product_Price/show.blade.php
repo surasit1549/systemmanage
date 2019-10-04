@@ -1,5 +1,17 @@
 @extends('Home.master')
 @section('title','ข้อมูลใบขอสั่งซื้อ PR')
+@section('tabbarcss')
+<style>
+  #manage_store_manutab {
+    border-right: 5px solid rgb(41, 207, 219);
+  }
+
+  #searchtext:focus {
+    outline: none !important;
+    box-shadow: none;
+  }
+</style>
+@stop
 @section('content')
 <script>
   $(document).ready(function() {

@@ -149,11 +149,11 @@
           <th>ชื่อผู้รับเหมา</th>
           <td style="width:30%;text-align: left;">{{ $contractor[0]->firstname }}&nbsp;&nbsp;{{ $contractor[0]->lastname }}</td>
           <th>แปลง</th>
-          <td style="width:30%;text-align: left;">{{$pr_create['formwork']}}</td>
+          <td style="width:30%;text-align: left;">{{$pr_create['prequestconvert']}}</td>
         </tr>
         <tr>
           <th>แบบงาน</th>
-          <td style="width:30%;text-align: left;">{{$pr_create['prequestconvert']}}</td>
+          <td style="width:30%;text-align: left;">{{$pr_create['formwork']}}</td>
         </tr>
       </tbody>
     </table>
@@ -189,7 +189,7 @@
   </div>
   <div id="signature_contractor">
     <img id="signatureimg_contractor" src="{{$contractor[0]->signature}}" alt="">
-    <h4>{{ $contractor[0]->firstname }}&nbsp;&nbsp;{{ $contractor[0]->lastname }}<br>{{ $contractor[0]->role }}<br>วันที่ {{ $pr_create['date'] }}</h4>
+    <h4>{{ $contractor[0]->firstname }}&nbsp;&nbsp;{{ $contractor[0]->lastname }}<br>ผู้รับเหมา<br>วันที่ {{ $pr_create['date'] }}</h4>
   </div>
 </div>
 @endsection

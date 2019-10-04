@@ -59,6 +59,8 @@ Route::group(['middleware' => ['123','checkAction','checkstatus']], function () 
         Route::resource('usermanage', 'UsermanageController');
         Route::resource('mycompany','mycompanyController');
     });
+    
+    Route::get('/info/{id}','PuchaserequestController@info');
     Route::resource('profile', 'profileController');
 
     // Sent by Ajax

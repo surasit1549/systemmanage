@@ -345,6 +345,45 @@ class PuchaserequestController extends Controller
     return redirect()->route('prequest.index')->with('success', 'เรียบร้อยแล้ว');
   }
 
+  public function info($id){
+    $number = 1;
+    $sum = 0;
+    $pr_create = PR_create::find($id)->toArray();
+    //dd($pr_create['key']);
+    $productdb = Create_product::where('key', $pr_create['key'])->get('productname')->toArray();
+    $lengtharray = sizeof($productdb);
+    for ($i = 0; $i < $lengtharray; $i++) {
+      $product_id = product_main::where('product_name', $productdb[$i])->get()->toArray();
+      $product_price = product_Price::where('Product', $product_id[0]['Product_ID'])->min('Price');
+      //  ->where('Product',$product_id[0]['Product_ID'])->min('Price');
+      $product_min_price[] = product_main::where('Product_name', $productdb[$i])
+        ->join('product__Prices', 'product_mains.Product_ID', 'product__Prices.Product')
+        ->join('stores', 'product__Prices.Store', 'stores.keystore')
+        ->where('Price', $product_price)
+        ->get()->toArray();
+      //dd($product_min_price);
+      $store_price = product_Price::where('Price', $product_min_price[0][0]['Price'])->get('Store')->toArray();
+      $product_number = Create_product::where('key', $pr_create['key'])->get()->toArray();
+      $products_sum = [$product_price * $product_number[$i]['productnumber']];
+      $sum = [$sum[0] + $products_sum[0]];
+      $min[] = [
+        $product_min_price[$i][0]['Product_name'],
+        $product_number[$i]['productnumber'],
+        $product_min_price[$i][0]['unit'],
+        $product_min_price[$i],
+        $product_min_price[$i][0]['Price'],
+        $products_sum[0],
+      ];
+    }
+    return view('prequest.viewinfo', compact(
+      'number',
+      'pr_create',
+      'min',
+      'sum',
+      'id'
+    ));
+  }
+
   /**
    * Remove the specified resource from storage.
    *

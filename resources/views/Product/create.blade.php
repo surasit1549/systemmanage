@@ -18,9 +18,8 @@
       <div class="form-group">
         <label for="">รหัสสินค้า</label><br>
         <div class="row col-md-12 text-center">
-          <input class="mr-auto col-md-3 form-control" id="product1" type="text" name="Product_ID1" maxlength="3">&nbsp;<span class="col-form-label">-</span>&nbsp;
-          <input class="mx-auto col-md-3 form-control" id="product2" type="text" name="Product_ID2" maxlength="3">&nbsp;<span class="col-form-label">-</span>&nbsp;
-          <input class="ml-auto col-md-3 form-control" type="text" name="Product_ID3" disabled value="{{$key}}">
+          <input class="col-md-3 form-control" id="product1" type="text" name="Product_ID1" maxlength="3" placeholder="หมู่หลัก">&nbsp;&nbsp;<span class="col-form-label">-</span>&nbsp;&nbsp;
+          <input class="col-md-3 form-control" id="product2" type="text" name="Product_ID2" maxlength="3" placeholder="หมู่ย่อย">
         </div>
         <label for="" class="invalid-feedback">
           กรอกชื่อรหัสสินค้า

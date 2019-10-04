@@ -41,6 +41,27 @@ class ProductController extends Controller
      */
     public function create()
     {
+
+        return view('Product.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $this->validate($request, [
+            'Product_ID1'        => 'required',
+            'Product_ID2'        => 'required',
+            'Product_name'       => 'required',
+            'unit'               => 'required'
+        ]);
+
+        //------ KEY ------------//
+
         $product = product_main::all()->toArray();
         $ID = product_main::select('Product_ID')->distinct()->get();
         foreach ($ID as $row) {
@@ -49,7 +70,7 @@ class ProductController extends Controller
         if (empty($product)) {
             $key = "0001";
         } else {
-            $number = intval($product_id);
+            $number = intval(explode('-',$product_id)[2]);
             $number++;
             if ($number < 10) {
                 $key_num = strval($number);
@@ -66,26 +87,8 @@ class ProductController extends Controller
             }
         }
 
-
-        return view('Product.create', compact('product', 'key'));
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $this->validate($request, [
-            'Product_ID1'        => 'required',
-            'Product_ID2'        => 'required',
-            'Product_ID3'        => 'required',
-            'Product_name'       => 'required',
-            'unit'               => 'required'
-        ]);
-        $product_id = $request->Product_ID1.'-'.$request->Product_ID2.'-'.$request->Product_ID3;
+        // ------------------- //
+        $product_id = $request->Product_ID1 . '-' . $request->Product_ID2 . '-' . $key;
         $product = new product_main(
             [
                 'Product_ID'        => $product_id,
@@ -100,7 +103,7 @@ class ProductController extends Controller
             'Product_name' => $request->Product_name,
             'unit' => $request->unit
         ];
-        $this->insertlog('CREATE','product_mains',$data);
+        $this->insertlog('CREATE', 'product_mains', $data);
         return redirect()->route('Product.index')->with('success', 'เพิ่มข้อมูลเรียบร้อยแล้ว');
     }
 
@@ -155,7 +158,7 @@ class ProductController extends Controller
             'unit'            => $request->get('unit')
         ];
         $product->update($input);
-        $this->insertlog('UPDATE','product_mains',$input);
+        $this->insertlog('UPDATE', 'product_mains', $input);
         return redirect()->route('Product.index')->with('success', 'อัพเดทข้อมูลเรียบร้อยแล้ว');
     }
 
@@ -171,7 +174,7 @@ class ProductController extends Controller
         $input = [
             'Product_ID' => $product->Product_ID
         ];
-        $this->insertlog('DELETE','product_mains',$input);
+        $this->insertlog('DELETE', 'product_mains', $input);
         $product->delete();
         return redirect()->route('Product.index')->with('success', 'ลบข้อมูลเรียบร้อยแล้ว');
     }
