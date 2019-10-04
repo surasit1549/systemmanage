@@ -17,7 +17,7 @@
       $('.select_store').each(function() {
         sum += parseInt($(this).val().split(':')[2]);
       });
-      $('.ax_sum').text(sum);
+      $('.ax_sum').val(sum);
     }
 
     changeprice();
@@ -128,7 +128,6 @@
             <input type="hidden" name="unit[]" class="form-control unit border-0" value="{{$row[2]}}" name="" required>
             <input type="hidden" name="price[]" min="1" class="form-control price border-0" value="{{$row[4]}}" required>
             <input type="hidden" name="product_sum[]" min="1" class="sum col-form-label border-0" value="" required>
-            <input type="hidden" name="sum" id="sumofprice" class="ax_sum text-danger" value="">
             <td class="text-center"><label class="col-form-label">{{$number++}}</label></td>
             <td class="text-center result"><label class="form-control productname border-0">{{$row[0]}}</label></td>
             <td class="text-center result"><label min="1" class="form-control productnumber border-0">{{$row[1]}}</label></td>
@@ -146,7 +145,7 @@
         <tfoot>
           <tr>
             <th class="text-right" colspan="4">รวมเป็นเงิน</th>
-            <th class="text-center"><label id="sumofprice" class="ax_sum text-danger"></label> บาท</th>
+            <th class="text-center"><input id="sumofprice" class="ax_sum text-danger border-0">บาท</th>
           </tr>
         </tfoot>
       </table>
@@ -262,7 +261,9 @@
           <tr>
             <th></th>
             <th class="text-right" colspan="4">รวมเป็นเงิน</th>
-            <th class="text-center"><label id="sumofprice" class="ax_sum text-danger"></label></th>
+            <th class="text-center">
+              <input id="sumofprice" class="ax_sum text-danger border-0">
+            </th>
             <th class="text-center">บาท</th>
           </tr>
         </tfoot>
