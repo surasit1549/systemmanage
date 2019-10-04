@@ -141,7 +141,7 @@
           <tfoot>
             <tr>
               <th style="vertical-align:top" rowspan="3">หมายเหตุ</th>
-              <td style="vertical-align:top" rowspan="3" colspan="3">สำหรับ &nbsp; {{$convert[0]['prequestconvert']}}&nbsp;PR &nbsp;{{$po_id[0]['keyPR']}} <br> ส่งสินค้า ถนนวงแหวนรอบ3 หลังอรสิริน บิสสิเนส 3 (แยกท่ารั้ว)<br>ติดต่อสั่งชื้อ {{$store_mine[0]['contect']}}&nbsp; {{$store_mine[0]['cellphone']}} </td>
+              <td style="vertical-align:top" rowspan="3" colspan="3">สำหรับ &nbsp; {{$convert[0]['prequestconvert']}}&nbsp;PR &nbsp;{{$po_id[0]['keyPR']}} <br> ส่งสินค้า ถนนวงแหวนรอบ3 หลังอรสิริน บิสสิเนส 3 (แยกท่ารั้ว)<br>ติดต่อสั่งชื้อ {{$store_mine[0]['contact_name']}}&nbsp; {{$store_mine[0]['contact_phone']}} </td>
               <th>ราคายังไม่รวมภาษี</th>
               <td style="text-align:center">{{$sum_price}}</td>
             </tr>
@@ -281,7 +281,7 @@
       <tfoot>
         <tr>
           <th style="vertical-align:top" rowspan="3">หมายเหตุ</th>
-          <td style="vertical-align:top" rowspan="3" colspan="3">&nbsp;สำหรับ &nbsp; {{$convert[0]['prequestconvert']}}&nbsp;PR &nbsp;{{$po_id[0]['keyPR']}} <br>&nbsp;ส่งสินค้า ถนนวงแหวนรอบ3 หลังอรสิริน บิสสิเนส 3 (แยกท่ารั้ว)<br>&nbsp;ติดต่อสั่งชื้อ {{$store_mine[0]['contect']}}&nbsp; {{$store_mine[0]['cellphone']}} </td>
+          <td style="vertical-align:top" rowspan="3" colspan="3">&nbsp;สำหรับ &nbsp; {{$convert[0]['prequestconvert']}}&nbsp;PR &nbsp;{{$po_id[0]['keyPR']}} <br>&nbsp;ส่งสินค้า ถนนวงแหวนรอบ3 หลังอรสิริน บิสสิเนส 3 (แยกท่ารั้ว)<br>&nbsp;ติดต่อสั่งชื้อ {{$store_mine[0]['contact_name']}}&nbsp; {{$store_mine[0]['contact_phone']}} <br><br><br><br><br> </td>
           <th>ราคายังไม่รวมภาษี</th>
           <td style="text-align:center">{{$sum_price}}</td>
         </tr>
