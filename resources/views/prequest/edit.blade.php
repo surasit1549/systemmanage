@@ -15,7 +15,7 @@
     function changeprice() {
       var sum = 0;
       $('.select_store').each(function() {
-        sum += parseInt($(this).val().split(':')[2]);
+        sum += parseInt($(this).val().split(':')[3]);
       });
       $('.ax_sum').val(sum);
     }

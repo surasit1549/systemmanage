@@ -304,12 +304,10 @@ class PuchaserequestController extends Controller
    */
   public function update(Request $request, $id)
   {
-    //dd($request->keystore);
     $store = $request->keystore;
     $lengtharray = sizeof($request->get('Product_name'));
     for ($i = 0; $i < $lengtharray; $i++) {
       $data = explode(":",$store[$i]);
-      dd($data[0]);
       $Product_pr = new Product([
         'keyPR'             => $request->get('keyPR'),
         'Product_name'      => $request->get('Product_name')[$i],
@@ -318,7 +316,7 @@ class PuchaserequestController extends Controller
         'Store'             => $data[0],
         'Price'             => $data[1],
         'Product_sum'       => $data[3],
-        'sumallprice'       => $request->get('sum'),
+        'sumallprice'       => $request->sumofprice,
 
       ]);
       $Product_pr->save();
@@ -328,7 +326,7 @@ class PuchaserequestController extends Controller
       'date'              => $request->get('date'),
       'formwork'          => $request->get('formwork'),
       'prequestconvert'   => $request->get('prequestconvert'),
-      'sumofprice'        => $request->get('sum'),
+      'sumofprice'        => $request->sumofprice,
 
     ]);
 
