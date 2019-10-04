@@ -304,6 +304,7 @@ class PuchaserequestController extends Controller
    */
   public function update(Request $request, $id)
   {
+    dd($request->kenglnw);
     //dd($request->keystore);
     $store = $request->keystore;
     $lengtharray = sizeof($request->get('Product_name'));
