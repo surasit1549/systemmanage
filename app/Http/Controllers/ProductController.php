@@ -54,18 +54,15 @@ class ProductController extends Controller
             if ($number < 10) {
                 $key_num = strval($number);
                 $key = "000$key_num";
-                //dd($key);
             } elseif ($number < 100) {
                 $key_num = strval($number);
                 $key = "00$key_num";
-                //dd($key);
             } elseif ($number < 1000) {
                 $key_num = strval($number);
                 $key = "0$key_num";
             } else {
                 $key_num = strval($number);
                 $key = "$key_num";
-                //dd($key);
             }
         }
 
@@ -82,13 +79,16 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'Product_ID'        => 'required',
-            'Product_name'      => 'required',
-            'unit'              => 'required'
+            'Product_ID1'        => 'required',
+            'Product_ID2'        => 'required',
+            'Product_ID3'        => 'required',
+            'Product_name'       => 'required',
+            'unit'               => 'required'
         ]);
+        $product_id = $request->Product_ID1.'-'.$request->Product_ID2.'-'.$request->Product_ID3;
         $product = new product_main(
             [
-                'Product_ID'        => $request->get('Product_ID'),
+                'Product_ID'        => $product_id,
                 'Product_name'      => $request->get('Product_name'),
                 'unit'              => $request->get('unit')
             ]

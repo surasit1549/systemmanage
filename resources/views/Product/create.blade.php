@@ -16,8 +16,11 @@
     <form method="post" action="{{url('Product')}}" class="needs-validation" novalidate>
       {{csrf_field()}}
       <div class="form-group">
-        <label for="">รหัสสินค้า</label>
-        <input id="disabletext" style="background-color:#f1f1f1;cursor:no-drop" type="text" name="Product_ID" class="form-control" value="{{$key}}" autocomplete="off">
+        <label for="">รหัสสินค้า</label><br>
+        <input style="background-color:#f1f1f1;cursor:no-drop" type="text" name="Product_ID1" maxlength="3"> -
+        <input style="background-color:#f1f1f1;cursor:no-drop" type="text" name="Product_ID2" maxlength="3"> - 
+        <input style="background-color:#f1f1f1;cursor:no-drop" type="text" name="Product_ID3" value="{{$key}}">
+        
         <label for="" class="invalid-feedback">
           กรอกชื่อรหัสสินค้า
         </label>
