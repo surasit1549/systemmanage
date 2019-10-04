@@ -135,7 +135,7 @@
             <td>
               <select class="custom-select select_store" name="keystore[]">
                 @foreach($row[3] as $r)
-                <option value="{{$r['name']}}:{{$r['Price']}}/{{$r['unit']}}:{{$r['Price']*$row[1]}}"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$r['name']}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$r['Price']}}/{{$r['unit']}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{$r['Price']*$row[1]}}&nbsp;บาท</option>
+                <option value="{{$r['name']}}:{{$r['Price']}}:{{$r['unit']}}:{{$r['Price']*$row[1]}}"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$r['name']}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$r['Price']}}/{{$r['unit']}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{$r['Price']*$row[1]}}&nbsp;บาท</option>
                 @endforeach
               </select>
             </td>
