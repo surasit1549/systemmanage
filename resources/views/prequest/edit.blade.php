@@ -135,7 +135,7 @@
             <td>
               <select class="custom-select select_store" name="keystore[]">
                 @foreach($row[3] as $r)
-                <option value="{{$r['name']}}:{{$r['Price']}}:{{$r['unit']}}:{{$r['Price']*$row[1]}}"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$r['name']}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$r['Price']}}/{{$r['unit']}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{$r['Price']*$row[1]}}&nbsp;บาท</option>
+                <option value="{{$r['name']}}:{{$r['Price']}}/{{$r['unit']}}:{{$r['Price']*$row[1]}}"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$r['name']}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$r['Price']}}/{{$r['unit']}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{$r['Price']*$row[1]}}&nbsp;บาท</option>
                 @endforeach
               </select>
             </td>
@@ -145,7 +145,7 @@
         <tfoot>
           <tr>
             <th class="text-right" colspan="4">รวมเป็นเงิน</th>
-            <th class="text-center"><input name="sumofprice" id="sumofprice" class="ax_sum text-danger border-0">บาท</th>
+            <th class="text-center"><input name="kenglnw" id="sumofprice" class="ax_sum text-danger border-0">บาท</th>
           </tr>
         </tfoot>
       </table>
