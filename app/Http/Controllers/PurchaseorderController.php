@@ -17,6 +17,7 @@ use vendor\autoload;
 use App\pr_create;
 use App\log;
 use App\role;
+use App\mycompany;
 use Illuminate\Support\Facades\Auth;
 
 class PurchaseorderController extends Controller
@@ -167,7 +168,7 @@ class PurchaseorderController extends Controller
         $tax = $this->tax($sum_price, $product_sum[0]);
         $letter_sumofprice = $this->bathformat($product_sum[0]);
         $store = Store::where('keystore', $store[0]['keystore'])->get()->toArray();
-        $store_mine = Store::where('keystore', 'master')->get();
+        $store_mine = mycompany::where('name', "บริษัท ธีร่า แอสเสท จำกัด")->get();
         $date_master1 = $this->time_master1($convert[0]['key']);
         $date_master2 = $this->time_master2($convert[0]['key']);
         $contractor = Auth::user()->where('role','2')->get();

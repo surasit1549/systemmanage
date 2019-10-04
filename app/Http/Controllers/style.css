@@ -16,7 +16,7 @@
 }
 #cover_detail2_table {
   top: 60px;
-  right: 200px;
+  right: 240px;
   font-size: 22px;
   position: absolute;
 }
@@ -99,20 +99,20 @@ tbody td {
 }
 
 #signature_contractor_po_img {
-  width: 232px;
-  height: 102px;
+  width: 200px;
+  height: 90px;
 }
 
 #signature_contractor_PO {
   text-align: center;
   position: absolute;
   left: 40px;
-  bottom: 20px;
+  bottom: 5px;
 }
 
 #signature_master1_po_img {
-  width: 232px;
-  height: 102px;
+  width: 200px;
+  height: 90px;
 }
 
 #signature_master1_PO {
@@ -123,8 +123,8 @@ tbody td {
 }
 
 #signature_master2_po_img {
-  width: 232px;
-  height: 102px;
+  width: 200px;
+  height: 90px;
 }
 
 #signature_master2_PO {

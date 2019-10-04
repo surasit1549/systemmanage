@@ -19,6 +19,7 @@ use App\Authorized_person2;
 use App\log;
 use Illuminate\Support\Facades\Auth;
 use App\role;
+use App\mycompany;
 use Barryvdh\DomPDF\PDF;
 
 use function GuzzleHttp\Psr7\str;
@@ -226,7 +227,7 @@ class PuchaserequestController extends Controller
     $sum_price = $this->sum_price($pr_store[0]['sumofprice']);
     $tax = $this->tax($sum_price, $pr_store[0]['sumofprice']);
     $letter_sumofprice = $this->bathformat($pr_store[0]['sumofprice']);
-    $store_mine = Store::where('keystore', 'master')->get();
+    $store_mine = mycompany::where('name', "บริษัท ธีร่า แอสเสท จำกัด")->get();
     $date_master1 = $this->time_master1($pr_create[0]['key']);
     $date_master2 = $this->time_master2($pr_create[0]['key']);
     $contractor = Auth::user()->where('username', $pr_create[0]['contractor'])->get();
