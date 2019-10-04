@@ -23,6 +23,14 @@
     changeprice();
 
     $('.select_store').change(function() {
+      var store = $(this).val().split(':')[0];
+      $.ajax({
+        url : '/prequest/',
+        type : 'post',
+        data : {
+          _token : '{{csrf_token()}}'
+        }
+      });
       changeprice();
     });
 
@@ -117,7 +125,9 @@
             <th style="width:20%;">รายการสินค้า</th>
             <th style="width:10%;">จำนวน</th>
             <th style="width:10%;">หน่วย</th>
-            <th style="width:100%;">ร้านค้า / ราคาต่อหน่วย / ราคา</th>
+            <th>ร้านค้า</th>
+            <th>ราคาต่อหน่วย</th>
+            <th>ราคา</th>
           </tr>
         </thead>
         <tbody>
@@ -135,10 +145,12 @@
             <td>
               <select class="custom-select select_store" name="keystore[]">
                 @foreach($row[3] as $r)
-                <option value="{{$r['name']}}:{{$r['Price']}}:{{$r['unit']}}:{{$r['Price']*$row[1]}}"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$r['name']}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$r['Price']}}/{{$r['unit']}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{$r['Price']*$row[1]}}&nbsp;บาท</option>
+                <option value="{{$r['Store']}}:{{$r['name']}}">{{$r['name']}}</option>
                 @endforeach
               </select>
             </td>
+            <td>{{$r['Price']}}</td>
+            <td>...</td>
           </tr>
           @endforeach
         </tbody>
