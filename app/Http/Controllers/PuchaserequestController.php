@@ -235,7 +235,6 @@ class PuchaserequestController extends Controller
     $role_purchasing = role::where('id_role',$Purchasing[0]['role'])->get();
     $role_master1 = role::where('id_role',$master1[0]['role'])->get();
     $role_contractor = role::where('id_role',$contractor[0]['role'])->get();
- //dd($role_contractor[0]['name_role']);
     return view('prequest.show', compact(
       'number',
       'id',
