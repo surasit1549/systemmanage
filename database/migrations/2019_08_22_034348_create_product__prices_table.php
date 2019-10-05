@@ -19,6 +19,7 @@ class CreateProductPricesTable extends Migration
             $table->string('Store');
             $table->string('Product');
             $table->integer('Price');
+            $table->timestamp('updated_product');
             $table->timestamps();
         });
     }

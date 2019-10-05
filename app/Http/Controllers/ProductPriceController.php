@@ -76,7 +76,7 @@ class ProductPriceController extends Controller
         foreach ($id as $row) {
             $id_cat = $row['Cat_ID'];
         }
-        $id_cats = explode('-',$id_cat)[4];
+        $id_cats = explode('-',$id_cat)[2];
         $num = $id_cats + 1;
         if ($num < 10) {
             $key_num = strval($num);

@@ -12,26 +12,49 @@
 <script>
   $(document).ready(function() {
 
-    function changeprice() {
-      var sum = 0;
-      $('.select_store').each(function() {
-        sum += parseInt($(this).val().split(':')[3]);
+    function sumofeachprice() {
+      var sum = 0.00;
+      $('#main_table tbody tr').each(function() {
+        sum += parseFloat($('td:last', this).text());
       });
-      $('.ax_sum').val(sum);
+      $('.sumprice').text(sum.toFixed(2));
     }
 
-    changeprice();
+
+    $('.price_item').blur(function() {
+      var num = $(this).parent().prevAll().eq(2).children('.productnumber').text();
+      var sum = parseInt(num) * parseFloat($(this).val());
+      $(this).val(parseFloat($(this).val()).toFixed(2));
+      $(this).parent().next('td').text(sum.toFixed(2));
+      sumofeachprice();
+    });
+
+    $('.select_store').chosen({
+      width: "95%"
+    });
 
     $('.select_store').change(function() {
-      var store = $(this).val().split(':')[0];
+      var price = $(this).parent().next('td').children('.price_item');
+      var subval = $(this).val().split(':');
+      var store_id = subval[0];
+      var product_id = subval[1];
+      var point = $(this).parent();
       $.ajax({
-        url : '/prequest/',
-        type : 'post',
-        data : {
-          _token : '{{csrf_token()}}'
+        url: '/prequest/getprice',
+        type: 'post',
+        data: {
+          _token: '{{csrf_token()}}',
+          store_id: store_id,
+          product_id: product_id
+        },
+        success: function(data) {
+          price.val((data.msg).toFixed(2));
+          var perprice = (parseInt(point.parent().find('.productnumber').text()) * parseFloat(price.val())).toFixed(2);
+          point.next().next().text(perprice);
+          sumofeachprice();
         }
       });
-      changeprice();
+
     });
 
 
@@ -114,7 +137,7 @@
       <!-- สินค้าที่ขอสั่งซื้อ -->
       <br>
 
-      <table class="table table-hover table-bordered border-dark table-border-dark">
+      <table id="main_table" class="table table-hover table-bordered border-dark table-border-dark">
         <thead>
           <tr>
             <th colspan="4" class="text-center">จัดการสินค้า</th>
@@ -125,9 +148,9 @@
             <th style="width:20%;">รายการสินค้า</th>
             <th style="width:10%;">จำนวน</th>
             <th style="width:10%;">หน่วย</th>
-            <th>ร้านค้า</th>
-            <th>ราคาต่อหน่วย</th>
-            <th>ราคา</th>
+            <th style="width:30%">ร้านค้า</th>
+            <th style="width:10%">ราคาต่อหน่วย</th>
+            <th style="width:10%">ราคา</th>
           </tr>
         </thead>
         <tbody>
@@ -145,19 +168,19 @@
             <td>
               <select class="custom-select select_store" name="keystore[]">
                 @foreach($row[3] as $r)
-                <option value="{{$r['Store']}}:{{$r['name']}}">{{$r['name']}}</option>
+                <option value="{{$r['Store']}}:{{$r['Product_ID']}}:{{$r['name']}}">{{$r['Store']}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$r['name']}}</option>
                 @endforeach
               </select>
             </td>
-            <td>{{$r['Price']}}</td>
-            <td>...</td>
+            <td><input class="price_item form-control" type="number" value="{{$row[4]}}"></td>
+            <td class="text-center">{{ $row[6] }}</td>
           </tr>
           @endforeach
         </tbody>
         <tfoot>
           <tr>
-            <th class="text-right" colspan="4">รวมเป็นเงิน</th>
-            <th class="text-center"><input name="sumofprice" id="sumofprice" class="ax_sum text-danger border-0">บาท</th>
+            <th class="text-right" colspan="6">รวมเป็นเงิน</th>
+            <td class="sumprice text-center text-danger">{{ $sumde }}</td>
           </tr>
         </tfoot>
       </table>
