@@ -144,6 +144,14 @@ class PuchaserequestController extends Controller
     //
   }
 
+
+  public function getprice(Request $request)
+  {
+    $price = product_Price::where('Store', $request->store_id)
+      ->where('Product', $request->product_id)->get()->first();
+    return response()->json(['msg' => $price->Price]);
+  }
+
   /**
    * Display the specified resource.
    *
@@ -275,23 +283,32 @@ class PuchaserequestController extends Controller
     for ($i = 0; $i < $lengtharray; $i++) {
       $product_id = product_main::where('product_name', $productdb[$i])->get()->toArray();
       $product_min_price[] = product_main::where('Product_name', $productdb[$i])
-      ->join('product__Prices', 'product_mains.Product_ID', 'product__Prices.Product')
-      ->join('stores', 'product__Prices.Store', 'stores.keystore')
-      ->get()->toArray();
+        ->join('product__Prices', 'product_mains.Product_ID', 'product__Prices.Product')
+        ->join('stores', 'product__Prices.Store', 'stores.keystore')
+        ->orderBy('product__Prices.Price', 'asc')
+        ->get()->toArray();
       $length = sizeof($product_min_price[0]);
+      $cal = Intval($product_number[$i]['productnumber']) *  floatval($product_min_price[$i][0]['Price']);
       $min[] = [
         $product_min_price[$i][0]['Product_name'],
         $product_number[$i]['productnumber'],
         $product_min_price[$i][0]['unit'],
         $product_min_price[$i],
-        $product_min_price[$i][0]['Price'],
+        number_format($product_min_price[$i][0]['Price'],2),
+        $product_min_price[$i][0]['Product_ID'],
+        number_format($cal,2)    
       ];
+      $sum += $cal;
     }
+
+    $sumde = number_format($sum,2);
+
     return view('prequest.edit', compact(
       'number',
       'pr_create',
       'min',
-      'id'
+      'id',
+      'sumde'
     ));
   }
 
@@ -307,14 +324,14 @@ class PuchaserequestController extends Controller
     $store = $request->keystore;
     $lengtharray = sizeof($request->get('Product_name'));
     for ($i = 0; $i < $lengtharray; $i++) {
-      $data = explode(":",$store[$i]);
+      $data = explode(":", $store[$i]);
       $Product_pr = new Product([
         'keyPR'             => $request->get('keyPR'),
         'Product_name'      => $request->get('Product_name')[$i],
         'Product_number'    => $request->get('Product_number')[$i],
-        'unit'              => $data[2],
         'Store'             => $data[0],
-        'Price'             => $data[1],
+        'Price'             => $data[3],
+        'unit'              => $data[4],
         'Product_sum'       => $data[3],
         'sumallprice'       => $request->sumofprice,
 
@@ -338,7 +355,8 @@ class PuchaserequestController extends Controller
     return redirect()->route('prequest.index')->with('success', 'เรียบร้อยแล้ว');
   }
 
-  public function info($id){
+  public function info($id)
+  {
     $number = 1;
     $sum = 0;
     $pr_create = PR_create::find($id)->toArray();
