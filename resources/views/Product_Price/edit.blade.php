@@ -31,7 +31,23 @@
                     }
                 })
             } else {
-                $('#forminput').submit();
+                if ($('#updated_product').val() == '') {
+                    Swal.fire({
+                        type: 'warning',
+                        title: 'กรอกข้อมูลให้ครบ',
+                        text: 'ไม่สามารถเว้นว่างในช่องวันที่ได้',
+                        confirmButtonText: 'ตกลง'
+                    });
+                } else if ($('#price').val() == '') {
+                    Swal.fire({
+                        type: 'warning',
+                        title: 'กรอกข้อมูลให้ครบ',
+                        text: 'ไม่สามารถเว้นว่างในช่องราคาได้',
+                        confirmButtonText: 'ตกลง'
+                    });
+                } else {
+                    $('#forminput').submit();
+                }
             }
         });
 
