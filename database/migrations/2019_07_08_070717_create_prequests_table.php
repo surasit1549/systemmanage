@@ -19,7 +19,7 @@ class CreatePrequestsTable extends Migration
             $table->string('date');
             $table->string('formwork');
             $table->string('prequestconvert');
-            $table->unsignedMediumInteger('sumofprice');
+            $table->unsignedDecimal('sumofprice',8,2);
             $table->timestamps();
         });
     }

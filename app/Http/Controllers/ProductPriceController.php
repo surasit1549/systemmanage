@@ -196,7 +196,8 @@ class ProductPriceController extends Controller
             'Store' => $request->get('store_id'),
             'Cat_ID'       => $request->get('Cat_ID'),
             'Product'      => $request->get('product_id'),
-            'Price'        => $request->get('Price')
+            'Price'        => $request->get('Price'),
+            'updated_product' => $request->updated_product
         ];
 
         product_Price::where('Cat_ID', $id)->update($input);

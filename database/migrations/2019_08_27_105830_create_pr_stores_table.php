@@ -21,9 +21,9 @@ class CreatePrStoresTable extends Migration
             $table->integer('Product_number');
             $table->string('unit');
             $table->string('keystore');
-            $table->integer('price');
-            $table->integer('product_sum');
-            $table->unsignedMediumInteger('sumofprice');
+            $table->unsignedDecimal('price',8,2);
+            $table->unsignedDecimal('product_sum',8,2);
+            $table->unsignedDecimal('sumofprice',8,2);
             $table->string('status');
             $table->timestamps();
         });

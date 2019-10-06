@@ -145,7 +145,9 @@
           </td>
           <td>
             <div class="row">
-              <a class="ml-3 btn btn-sm btn-success" href="/info/{{$row[0]}}">ข้อมูล</a>
+              @if( $row[6] != 'รอการตรวจสอบ' )
+              <a class="ml-3 btn btn-sm btn-success" href="/info/{{$row[1]}}">ข้อมูล</a>
+              @endif
               @if($row[8][0]['status'] != "Rejected")
               @if(empty($row[7]))
               <a href="{{action('PuchaserequestController@edit',$row[0])}}" class="btn btn-sm btn-info ml-2 text-white"><i class="fas fa-spell-check"></i>&nbsp;&nbsp;ตรวจสอบ</a>
@@ -162,8 +164,6 @@
                 <input type="hidden" name="pr" value="{{$row[1]}}">
               </form>
               @endif
-              @else
-              <a href="{{action('PuchaserequestController@edit',$row[0])}}" class="btn btn-sm btn-danger ml-2"><i style="font-size:20px" class="fas fa-file-pdf"></i>&nbsp;&nbsp;PDF</a>
               @endif
             </div>
           </td>

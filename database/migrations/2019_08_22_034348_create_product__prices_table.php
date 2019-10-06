@@ -18,7 +18,7 @@ class CreateProductPricesTable extends Migration
             $table->string('Cat_ID');
             $table->string('Store');
             $table->string('Product');
-            $table->integer('Price');
+            $table->unsignedDecimal('Price',8,2);
             $table->timestamp('updated_product');
             $table->timestamps();
         });

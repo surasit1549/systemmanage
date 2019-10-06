@@ -288,20 +288,20 @@ class PuchaserequestController extends Controller
         ->orderBy('product__Prices.Price', 'asc')
         ->get()->toArray();
       $length = sizeof($product_min_price[0]);
-      $cal = Intval($product_number[$i]['productnumber']) *  floatval($product_min_price[$i][0]['Price']);
+      $cal = number_format($product_number[$i]['productnumber'] *  $product_min_price[$i][0]['Price'], 2, '.', '');
       $min[] = [
         $product_min_price[$i][0]['Product_name'],
         $product_number[$i]['productnumber'],
         $product_min_price[$i][0]['unit'],
         $product_min_price[$i],
-        number_format($product_min_price[$i][0]['Price'],2),
+        $product_min_price[$i][0]['Price'],
         $product_min_price[$i][0]['Product_ID'],
-        number_format($cal,2)    
+        $cal
       ];
       $sum += $cal;
     }
 
-    $sumde = number_format($sum,2);
+    $sumde = number_format($sum, 2);
 
     return view('prequest.edit', compact(
       'number',
@@ -322,18 +322,31 @@ class PuchaserequestController extends Controller
   public function update(Request $request, $id)
   {
     $store = $request->keystore;
+    $sumprice = $request->sumofprice;
     $lengtharray = sizeof($request->get('Product_name'));
     for ($i = 0; $i < $lengtharray; $i++) {
       $data = explode(":", $store[$i]);
+
+      // In case change price for updating time ( products )
+      
+      $product_price = product_Price::where('Store', $data[0])
+        ->where('Product', $data[1]);
+      $check_price = $product_price->get()->first()->Price;
+      if( $check_price != $request->store_price[$i] ){
+        $product_price->update(['Price' => $request->store_price[$i],'updated_product' => date('Y-m-d 00:00:00') ]);
+      }
+
+      // End 
+        
       $Product_pr = new Product([
         'keyPR'             => $request->get('keyPR'),
         'Product_name'      => $request->get('Product_name')[$i],
         'Product_number'    => $request->get('Product_number')[$i],
-        'Store'             => $data[0],
-        'Price'             => $data[3],
-        'unit'              => $data[4],
-        'Product_sum'       => $data[3],
-        'sumallprice'       => $request->sumofprice,
+        'Store'             => $data[2],
+        'Price'             => $request->store_price[$i],
+        'unit'              => $request->unit[$i],
+        'Product_sum'       => $request->store_sumprice[$i],
+        'sumallprice'       => $sumprice,
 
       ]);
       $Product_pr->save();
@@ -357,42 +370,9 @@ class PuchaserequestController extends Controller
 
   public function info($id)
   {
-    $number = 1;
-    $sum = 0;
-    $pr_create = PR_create::find($id)->toArray();
-    //dd($pr_create['key']);
-    $productdb = Create_product::where('key', $pr_create['key'])->get('productname')->toArray();
-    $lengtharray = sizeof($productdb);
-    for ($i = 0; $i < $lengtharray; $i++) {
-      $product_id = product_main::where('product_name', $productdb[$i])->get()->toArray();
-      $product_price = product_Price::where('Product', $product_id[0]['Product_ID'])->min('Price');
-      //  ->where('Product',$product_id[0]['Product_ID'])->min('Price');
-      $product_min_price[] = product_main::where('Product_name', $productdb[$i])
-        ->join('product__Prices', 'product_mains.Product_ID', 'product__Prices.Product')
-        ->join('stores', 'product__Prices.Store', 'stores.keystore')
-        ->where('Price', $product_price)
-        ->get()->toArray();
-      //dd($product_min_price);
-      $store_price = product_Price::where('Price', $product_min_price[0][0]['Price'])->get('Store')->toArray();
-      $product_number = Create_product::where('key', $pr_create['key'])->get()->toArray();
-      $products_sum = [$product_price * $product_number[$i]['productnumber']];
-      $sum = [$sum[0] + $products_sum[0]];
-      $min[] = [
-        $product_min_price[$i][0]['Product_name'],
-        $product_number[$i]['productnumber'],
-        $product_min_price[$i][0]['unit'],
-        $product_min_price[$i],
-        $product_min_price[$i][0]['Price'],
-        $products_sum[0],
-      ];
-    }
-    return view('prequest.viewinfo', compact(
-      'number',
-      'pr_create',
-      'min',
-      'sum',
-      'id'
-    ));
+    $pr_create = PR_create::where('key', $id)->get()->first();
+    $product = product::where('keyPR', $id)->get();
+    return view('prequest.viewinfo', compact('product', 'pr_create'));
   }
 
   /**
