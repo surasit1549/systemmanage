@@ -49,7 +49,7 @@
                   </select>
                 </div>
               </td>
-              <td><input type="number" class="form-control price" name="Price[]" autocomplete="off" required></td>
+              <td><input type="number" class="form-control price" name="Price[]" autocomplete="off" step=".01" required></td>
               <td class="text-center"><a class="btn btn-outline-danger delete"><i style="font-size:18px" class="far fa-trash-alt"></i></a></td>
             </tr>
           </tbody>

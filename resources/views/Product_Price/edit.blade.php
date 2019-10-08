@@ -11,6 +11,46 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
+
+        $('#subform').click(function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var d = new Date();
+            var now = new Date(d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2));
+            var format = $('#updated_product').val().split('-');
+            var gettime = new Date(format[0] + '-' + format[1] + '-' + format[2]);
+
+            if (gettime > now) {
+                Swal.fire({
+                    type: 'error',
+                    title: 'กรุณาตั้งเวลาลงสินค้าให้ถูกต้อง',
+                    text: 'ไม่สามารถตั้งเวลาลงสินค้าล่วงหน้าได้',
+                    confirmButtonText: 'ตกลง',
+                    onAfterClose: () => {
+                        $('#updated_product').val('');
+                    }
+                })
+            } else {
+                if ($('#updated_product').val() == '') {
+                    Swal.fire({
+                        type: 'warning',
+                        title: 'กรอกข้อมูลให้ครบ',
+                        text: 'ไม่สามารถเว้นว่างในช่องวันที่ได้',
+                        confirmButtonText: 'ตกลง'
+                    });
+                } else if ($('#price').val() == '') {
+                    Swal.fire({
+                        type: 'warning',
+                        title: 'กรอกข้อมูลให้ครบ',
+                        text: 'ไม่สามารถเว้นว่างในช่องราคาได้',
+                        confirmButtonText: 'ตกลง'
+                    });
+                } else {
+                    $('#forminput').submit();
+                }
+            }
+        });
+
         $('#checkmenu').click();
 
         $('#passcode_confirm').on('shown.bs.modal', function() {
@@ -49,17 +89,20 @@
     })
 </script>
 
-
 <div class="container">
     <div class="card">
         <div class="card-body">
-            <form method="post" id="forminput" action="{{action('ProductPriceController@update', $id)}}" class="needs-validation" novalidate>
+            <form method="post" id="forminput" action="{{action('ProductPriceController@update', $id)}}" class="needs-validation">
                 @csrf
                 <div class="form-group">
                     <label for="">ร้านค้า</label>
-                    <input type="text" name="store_name" class="form-control" value="{{$data[0]->name}}" autocomplete="off" disabled required>
-                    <input type="hidden" name="Cat_ID" value="{{$data[0]->Cat_ID}}" required>
-                    <input type="hidden" name="store_id" value="{{$data[0]->Store}}" required>
+                    <input type="text" name="store_name" class="form-control" value="{{$data[0]->name}}" autocomplete="off" disabled>
+                    <input type="hidden" name="Cat_ID" value="{{$data[0]->Cat_ID}}">
+                    <input type="hidden" name="store_id" value="{{$data[0]->Store}}">
+                </div>
+                <div class="form-group">
+                    <label for="">เวลา</label>
+                    <input type="date" class="form-control" id="updated_product" name="updated_product">
                 </div>
                 <table class="table table-hover table-bordered border-dark table-border-dark" id="detailmenu">
                     <thead>
@@ -73,22 +116,22 @@
                     <tbody>
                         <tr>
                             <td>
-                                <input class="form-control" type="text" value="{{$data[0]->Product}}" disabled required>
+                                <input class="form-control" type="text" value="{{$data[0]->Product}}" disabled>
                                 <input type="hidden" name="product_id" value="{{$data[0]->Product}}">
                             </td>
                             <td>
-                                <input type="text" name="product" class="form-control productname" value="{{$data[0]->Product_name}}" disabled required>
+                                <input type="text" name="product" class="form-control productname" value="{{$data[0]->Product_name}}" disabled>
                             </td>
                             <td>
-                                <input type="text" class="form-control unit" name="unit" value="{{$data[0]->unit}}" disabled required>
+                                <input type="text" class="form-control unit" name="unit" value="{{$data[0]->unit}}" disabled>
                             </td>
-                            <td><input type="text" class="form-control price" name="Price" value="{{$data[0]->Price}}" required></td>
+                            <td><input id="price" type="number" class="form-control price" name="Price" value="{{$data[0]->Price}}"></td>
                         </tr>
                     </tbody>
                 </table>
                 <div class="form-group text-center">
                     <a class="btn btn-danger" href="#" onclick="window.history.back()"><i class="fas fa-undo"></i>&nbsp;&nbsp;ย้อนกลับ</a>
-                    <a href="#" id="subform" data-toggle="modal" data-target="#passcode_confirm" class="btn btn-success ml-2"><i style="font-size:18px" class="fas fa-save"></i>&nbsp;&nbsp;บันทึก</a>
+                    <button id="subform" class="btn btn-success ml-2"><i style="font-size:18px" class="fas fa-save"></i>&nbsp;&nbsp;บันทึก</button>
                 </div>
                 <input type="hidden" name="_method" value="PATCH" />
             </form>

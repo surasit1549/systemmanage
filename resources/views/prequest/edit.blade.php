@@ -12,18 +12,49 @@
 <script>
   $(document).ready(function() {
 
-    function changeprice() {
-      var sum = 0;
-      $('.select_store').each(function() {
-        sum += parseInt($(this).val().split(':')[3]);
+    function sumofeachprice() {
+      var sum = 0.00;
+      $('#main_table tbody tr').each(function() {
+        sum += parseFloat($('td:last input', this).val());
       });
-      $('.ax_sum').val(sum);
+      $('.sumprice').val(sum.toFixed(2));
     }
 
-    changeprice();
+
+    $('.price_item').blur(function() {
+      var num = $(this).parent().prevAll().eq(2).children('.productnumber').text();
+      var sum = parseInt(num) * parseFloat($(this).val());
+      $(this).val(parseFloat($(this).val()).toFixed(2));
+      $(this).parent().next('td').children('input').val(sum.toFixed(2));
+      sumofeachprice();
+    });
+
+    $('.select_store').chosen({
+      width: "95%"
+    });
 
     $('.select_store').change(function() {
-      changeprice();
+      var price = $(this).parent().next('td').children('.price_item');
+      var subval = $(this).val().split(':');
+      var store_id = subval[0];
+      var product_id = subval[1];
+      var point = $(this).parent();
+      $.ajax({
+        url: '/prequest/getprice',
+        type: 'post',
+        data: {
+          _token: '{{csrf_token()}}',
+          store_id: store_id,
+          product_id: product_id
+        },
+        success: function(data) {
+          price.val(data.msg);
+          var perprice = parseInt(point.parent().find('.productnumber').text()) * price.val();
+          point.next().next().children('input').val(perprice.toFixed(2));
+          sumofeachprice();
+        }
+      });
+
     });
 
 
@@ -74,7 +105,7 @@
       <div class="row">
         <div class="form-group col-md-12 text-right">
           <label>วันที่ขอสั่งชื้อ</label><br>
-          <input type="text" name="date" value="{{$pr_create['date']}}" class="border-0 bg-light" size="8">
+          <input type="text" name="date" value="{{$pr_create['date']}}" class="border-0 bg-light" size="8" readonly>
           <input type="hidden" name="id" value="{{$id}}" class="border-0">
         </div>
       </div>
@@ -106,7 +137,7 @@
       <!-- สินค้าที่ขอสั่งซื้อ -->
       <br>
 
-      <table class="table table-hover table-bordered border-dark table-border-dark">
+      <table id="main_table" class="table table-hover table-bordered border-dark table-border-dark">
         <thead>
           <tr>
             <th colspan="4" class="text-center">จัดการสินค้า</th>
@@ -117,7 +148,9 @@
             <th style="width:20%;">รายการสินค้า</th>
             <th style="width:10%;">จำนวน</th>
             <th style="width:10%;">หน่วย</th>
-            <th style="width:100%;">ร้านค้า / ราคาต่อหน่วย / ราคา</th>
+            <th style="width:30%">ร้านค้า</th>
+            <th style="width:10%">ราคาต่อหน่วย</th>
+            <th style="width:10%">ราคา</th>
           </tr>
         </thead>
         <tbody>
@@ -126,8 +159,6 @@
             <input type="hidden" name="Product_name[]" class="form-control productname border-0" value="{{$row[0]}}" name="" required>
             <input type="hidden" name="Product_number[]" min="1" class="form-control productnumber border-0" value="{{$row[1]}}" name="" required>
             <input type="hidden" name="unit[]" class="form-control unit border-0" value="{{$row[2]}}" name="" required>
-            <input type="hidden" name="price[]" min="1" class="form-control price border-0" value="{{$row[4]}}" required>
-            <input type="hidden" name="product_sum[]" min="1" class="sum col-form-label border-0" value="" required>
             <td class="text-center"><label class="col-form-label">{{$number++}}</label></td>
             <td class="text-center result"><label class="form-control productname border-0">{{$row[0]}}</label></td>
             <td class="text-center result"><label min="1" class="form-control productnumber border-0">{{$row[1]}}</label></td>
@@ -135,17 +166,21 @@
             <td>
               <select class="custom-select select_store" name="keystore[]">
                 @foreach($row[3] as $r)
-                <option value="{{$r['name']}}:{{$r['Price']}}:{{$r['unit']}}:{{$r['Price']*$row[1]}}"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$r['name']}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$r['Price']}}/{{$r['unit']}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{$r['Price']*$row[1]}}&nbsp;บาท</option>
+                <option value="{{$r['Store']}}:{{$r['Product_ID']}}:{{$r['name']}}">{{$r['Store']}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$r['name']}}</option>
                 @endforeach
               </select>
+            </td>
+            <td><input class="price_item form-control" name="store_price[]" type="number" value="{{$row[4]}}"></td>
+            <td class="text-center">
+              <input class="form-control text-center" type="number" name="store_sumprice[]" value="{{ $row[6] }}" readonly>
             </td>
           </tr>
           @endforeach
         </tbody>
         <tfoot>
           <tr>
-            <th class="text-right" colspan="4">รวมเป็นเงิน</th>
-            <th class="text-center"><input name="sumofprice" id="sumofprice" class="ax_sum text-danger border-0">บาท</th>
+            <th class="text-right" colspan="6">รวมเป็นเงิน</th>
+            <td><input type="text" name="sumofprice" class="form-control text-center text-danger sumprice" value="{{ $sumde }}" readonly></td>
           </tr>
         </tfoot>
       </table>

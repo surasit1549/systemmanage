@@ -25,107 +25,108 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
 </head>
 
+
+
 <body style="background-color:#f1f1f1;">
     <div class="wrapper">
         <!-- Sidebar  -->
         <nav id="sidebar">
             <img class="siderbar-header" style="width:250px" src="{{asset('pic/logo1.png')}}" alt="">
             <ul class="list-unstyled components">
-                @if( Auth::user()->role >= 3 && Auth::user()->role <= 5 )
-                <li>
+                @if( Auth::user()->role >= 3 && Auth::user()->role <= 5 ) <li>
                     <a href="{{route('mycompany.index')}}" id="teratab">
                         <i style="font-size:20px" class="fas fa-home"></i>&nbsp;&nbsp;
                         บริษัท ธีร่า แอสเสท
                     </a>
-                </li>
-                @endif
-                @if( Auth::user()->role != 1 )
-                <li>
-                    <a href="{{route('store.index')}}" id="storetab">
-                        <i style="font-size:20px" class="fas fa-store-alt"></i>&nbsp;&nbsp;
-                        ร้านค้า
-                    </a>
-                </li>
-                <li>
-                    <a href="#menu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" id="checkmenu"><i style="font-size:20px" class="far fa-file-alt"></i>
-                        &nbsp;&nbsp;การจัดการสินค้า</a>
-                    <ul class="collapse list-unstyled" id="menu">
-                        <li>
-                            <a id="store_menutab" href="{{route('Product.index')}}">รายการสินค้า</a>
-                        </li>
-                        <li>
-                            <a id="manage_store_manutab" href="{{route('Product_Price.index')}}">จัดการราคาสินค้า</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="{{route('transform.index')}}" id="transformtab">
-                        <i style="font-size:20px" class="fas fa-map"></i>
-                        &nbsp;&nbsp;แปลง</a>
-                </li>
-                @endif
-                @if( Auth::user()->role == 1 || Auth::user()->role == 5 )
-                <li>
-                    <a href="{{route('pr_create.index')}}" id="constructtab">
-                        <i style="font-size:20px" class="far fa-file-alt"></i>
-                        &nbsp;&nbsp;ใบขอสั่งซื้อ</a>
-                </li>
-                @endif
-                @if( Auth::user()->role != 1 )
-                <li>
-                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" id="prpo_form"><i style="font-size:20px" class="far fa-file-alt"></i>
-                        &nbsp;&nbsp;รายละเอียดการสั่งซื้อ</a>
-                    <ul class="collapse list-unstyled" id="pageSubmenu">
-                        <li>
-                            <a id="prtab" href="{{route('prequest.index')}}">ใบขอสั่งซื้อสินค้า ( PR )</a>
-                        </li>
-                        <li>
-                            <a id="potab" href="{{route('porder.index')}}">ใบสั่งซื้อสินค้า ( PO )</a>
-                        </li>
-                        <li>
-                            <a id="checktab" href="{{route('check.index')}}">ตรวจสอบรายการสินค้า </a>
-                        </li>
-                    </ul>
-                </li>
-                @endif
-                @if( Auth::user()->role == 5)
-                <li>
-                    <a href="{{route('Authorized_person1.index')}}" id="person1">
-                        <i style="font-size:20px" class="fas fa-list"></i>
-                        &nbsp;&nbsp;ตรวจสอบรายการขอสั่งซื้อ</a>
-                </li>
-                @endif
-                @if( Auth::user()->role == 3)
-                <li>
-                    <a href="{{route('Authorized_person1.index')}}" id="person1">
-                        <i style="font-size:20px" class="fas fa-list"></i>
-                        &nbsp;&nbsp;ตรวจสอบรายการขอสั่งซื้อ</a>
-                </li>
-                @endif
-                @if( Auth::user()->role == 4)
-                <li>
-                    <a href="{{route('Authorized_person2.index')}}" id="person2">
-                        <i style="font-size:20px" class="fas fa-list"></i>
-                        &nbsp;&nbsp;ตรวจสอบรายการขอสั่งซื้อ</a>
-                </li>
-                @endif
-                @if( Auth::user()->role == 5 )
-                <li>
-                    <a href="{{route('usermanage.index')}}" id="usertab"><i style="font-size:20px" class="far fa-user"></i>&nbsp;&nbsp;จัดการผู้ใช้งาน</a>
-                </li>
-                @endif
-                <li>
-                    <a href="{{route('profile.index')}}" id="user_profile">
-                        <i style="font-size:20px" class="far fa-address-card"></i>
-                        &nbsp;&nbsp;ข้อมูลผู้ใช้งาน
-                    </a>
-                </li>
-                <li>
-                    <a href="/logout" id="exit">
-                        <i style="font-size:20px" class="fas fa-sign-out-alt"></i>
-                        &nbsp;&nbsp;ออกจากระบบ
-                    </a>
-                </li>
+                    </li>
+                    @endif
+                    @if( Auth::user()->role != 1 )
+                    <li>
+                        <a href="{{route('store.index')}}" id="storetab">
+                            <i style="font-size:20px" class="fas fa-store-alt"></i>&nbsp;&nbsp;
+                            ร้านค้า
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#menu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" id="checkmenu"><i style="font-size:20px" class="far fa-file-alt"></i>
+                            &nbsp;&nbsp;การจัดการสินค้า</a>
+                        <ul class="collapse list-unstyled" id="menu">
+                            <li>
+                                <a id="store_menutab" href="{{route('Product.index')}}">รายการสินค้า</a>
+                            </li>
+                            <li>
+                                <a id="manage_store_manutab" href="{{route('Product_Price.index')}}">จัดการราคาสินค้า</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="{{route('transform.index')}}" id="transformtab">
+                            <i style="font-size:20px" class="fas fa-map"></i>
+                            &nbsp;&nbsp;แปลง</a>
+                    </li>
+                    @endif
+                    @if( Auth::user()->role == 1 || Auth::user()->role == 5 )
+                    <li>
+                        <a href="{{route('pr_create.index')}}" id="constructtab">
+                            <i style="font-size:20px" class="far fa-file-alt"></i>
+                            &nbsp;&nbsp;ใบขอสั่งซื้อ</a>
+                    </li>
+                    @endif
+                    @if( Auth::user()->role != 1 )
+                    <li>
+                        <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" id="prpo_form"><i style="font-size:20px" class="far fa-file-alt"></i>
+                            &nbsp;&nbsp;รายละเอียดการสั่งซื้อ</a>
+                        <ul class="collapse list-unstyled" id="pageSubmenu">
+                            <li>
+                                <a id="prtab" href="{{route('prequest.index')}}">ใบขอสั่งซื้อสินค้า ( PR )</a>
+                            </li>
+                            <li>
+                                <a id="potab" href="{{route('porder.index')}}">ใบสั่งซื้อสินค้า ( PO )</a>
+                            </li>
+                            <li>
+                                <a id="checktab" href="{{route('check.index')}}">ตรวจสอบรายการสินค้า </a>
+                            </li>
+                        </ul>
+                    </li>
+                    @endif
+                    @if( Auth::user()->role == 5)
+                    <li>
+                        <a href="{{route('Authorized_person1.index')}}" id="person1">
+                            <i style="font-size:20px" class="fas fa-list"></i>
+                            &nbsp;&nbsp;ตรวจสอบรายการขอสั่งซื้อ</a>
+                    </li>
+                    @endif
+                    @if( Auth::user()->role == 3)
+                    <li>
+                        <a href="{{route('Authorized_person1.index')}}" id="person1">
+                            <i style="font-size:20px" class="fas fa-list"></i>
+                            &nbsp;&nbsp;ตรวจสอบรายการขอสั่งซื้อ</a>
+                    </li>
+                    @endif
+                    @if( Auth::user()->role == 4)
+                    <li>
+                        <a href="{{route('Authorized_person2.index')}}" id="person2">
+                            <i style="font-size:20px" class="fas fa-list"></i>
+                            &nbsp;&nbsp;ตรวจสอบรายการขอสั่งซื้อ</a>
+                    </li>
+                    @endif
+                    @if( Auth::user()->role == 5 )
+                    <li>
+                        <a href="{{route('usermanage.index')}}" id="usertab"><i style="font-size:20px" class="far fa-user"></i>&nbsp;&nbsp;จัดการผู้ใช้งาน</a>
+                    </li>
+                    @endif
+                    <li>
+                        <a href="{{route('profile.index')}}" id="user_profile">
+                            <i style="font-size:20px" class="far fa-address-card"></i>
+                            &nbsp;&nbsp;ข้อมูลผู้ใช้งาน
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/logout" id="exit">
+                            <i style="font-size:20px" class="fas fa-sign-out-alt"></i>
+                            &nbsp;&nbsp;ออกจากระบบ
+                        </a>
+                    </li>
             </ul>
         </nav>
 
@@ -147,15 +148,6 @@
     </div>
 
 
-    <!-- jQuery CDN - Slim version (=without AJAX) -->
-    <!-- Popper.JS -->
-    <script src=" https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-    <!-- Bootstrap JS -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-    <!-- jQuery Custom Scroller CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
-
-    <script src="{{ asset('js/chosen.jquery.min.js') }}"></script>
 
     <script type="text/javascript">
         $(document).ready(function() {
@@ -182,6 +174,16 @@
             });
         });
     </script>
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <!-- Popper.JS -->
+    <script src=" https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <!-- jQuery Custom Scroller CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+
+    <script src="{{ asset('js/chosen.jquery.min.js') }}"></script>
+
 </body>
 
 </html>

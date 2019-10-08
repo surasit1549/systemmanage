@@ -76,7 +76,7 @@ class ProductPriceController extends Controller
         foreach ($id as $row) {
             $id_cat = $row['Cat_ID'];
         }
-        $id_cats = substr($id_cat, 9);
+        $id_cats = explode('-',$id_cat)[2];
         $num = $id_cats + 1;
         if ($num < 10) {
             $key_num = strval($num);
@@ -196,7 +196,8 @@ class ProductPriceController extends Controller
             'Store' => $request->get('store_id'),
             'Cat_ID'       => $request->get('Cat_ID'),
             'Product'      => $request->get('product_id'),
-            'Price'        => $request->get('Price')
+            'Price'        => $request->get('Price'),
+            'updated_product' => $request->updated_product
         ];
 
         product_Price::where('Cat_ID', $id)->update($input);

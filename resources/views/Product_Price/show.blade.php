@@ -59,20 +59,20 @@
     <table id="thisone" class="table table-hover table-bordered">
       <thead class="text-center">
         <tr>
-          <th>ลำดับที่</th>
-          <th>รหัสสินค้า</th>
-          <th>ชื่อสินค้า</th>
-          <th>ราคาสินค้า (บาท)</th>
-          <th>จัดการ</th>
+          <th style="width:20%">รหัสสินค้า</th>
+          <th style="width:45%">ชื่อสินค้า</th>
+          <th style="width:15%">ราคาสินค้า (บาท)</th>
+          <th style="width:10%">อัพเดทล่าสุด</th>
+          <th style="width:10%">จัดการ</th>
         </tr>
       </thead>
       <tbody>
         @foreach($data as $row)
         <tr>
-          <td>{{$number++}}</td>
           <td>{{$row['Product']}}</td>
           <td>{{$row['Product_name']}}</td>
           <td>{{$row['Price']}}</td>
+          <td>{{ substr($row['updated_product'],0,10)}}</td>
           <td>
             &nbsp;&nbsp;<a href="{{action('ProductPriceController@edit',$row['Cat_ID'])}}" data-toggle="tooltip" data-placement="top" title="อัพเดท"><i style="font-size:20px" class="text-info fas fa-file-signature"></i></a>
             &nbsp;&nbsp;

@@ -55,9 +55,9 @@
 
         <div class="container">
           <div style="text-align:center">
-            <h5>{{$store_master[0]['name']}}</h5> <br>
-            <h5>{{$store_master[0]['address']}}</h5> <br>
-            <h5>เบอร์โทรศัทพ์ {{$store_master[0]['phone']}}</h5>
+            <h5>{{$store_mine[0]['name']}}</h5> <br>
+            <h5>{{$store_mine[0]['address']}}</h5> <br>
+            <h5>เบอร์โทรศัทพ์ {{$store_mine[0]['phone']}}</h5>
           </div><br>
           <div style="text-align:right">
             <h6>
@@ -209,13 +209,13 @@
       <tbody>
         @foreach($pr_store as $num=>$row)
         <tr>
-          <td ><label>{{$num+1}}</label></td>
-          <td ><label value="{{$row['Product_name']}}" required>{{$row['Product_name']}}</label>
-          <td ><label value="{{$row['Product_number']}}" required>{{$row['Product_number']}}</label></td>
-          <td ><label value="{{$row['unit']}}" required>{{$row['unit']}}</label></td>
-          <td ><label value="{{$row['keystore']}}" required>{{$row['keystore']}}</label></td>
-          <td ><label value="{{$row['price']}}" required>{{$row['price']}}.00</label></td>
-          <td ><label value="{{$row['product_sum']}}" required>{{$row['product_sum']}}.00</label></td>
+          <td><label>{{$num+1}}</label></td>
+          <td><label value="{{$row['Product_name']}}" required>{{$row['Product_name']}}</label>
+          <td><label value="{{$row['Product_number']}}" required>{{$row['Product_number']}}</label></td>
+          <td><label value="{{$row['unit']}}" required>{{$row['unit']}}</label></td>
+          <td><label value="{{$row['keystore']}}" required>{{$row['keystore']}}</label></td>
+          <td><label value="{{$row['price']}}" required>{{$row['price']}}.00</label></td>
+          <td><label value="{{$row['product_sum']}}" required>{{$row['product_sum']}}.00</label></td>
         </tr>
         @endforeach
         @for($i = $number ; $i <= 10 ; $i++) <tr>

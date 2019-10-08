@@ -20,9 +20,9 @@ class CreateProductsTable extends Migration
             $table->integer('Product_number');
             $table->string('unit');
             $table->string('Store');
-            $table->integer('price');
-            $table->unsignedMediumInteger('product_sum');
-            $table->unsignedMediumInteger('sumallprice');
+            $table->unsignedDecimal('price',8,2);
+            $table->unsignedDecimal('product_sum',8,2);
+            $table->unsignedDecimal('sumallprice',8,2);
             $table->timestamps();
         });
     }
