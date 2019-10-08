@@ -287,6 +287,7 @@ class PuchaserequestController extends Controller
         $product_min_price[$i][0]['Price'],
       ];
     }
+    dd($min);
     return view('prequest.edit', compact(
       'number',
       'pr_create',
