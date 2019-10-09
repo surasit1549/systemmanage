@@ -47,12 +47,12 @@ class ProductController extends Controller
         $small_check = Small_group::select('Main_group')->distinct()->get();
         $small_group = Small_group::select('Small_group')->distinct()->get();
         //dd($small_group);
-        return view('Product.create', compact('small_check','small_group'));
+        return view('Product.create', compact('small_check', 'small_group'));
     }
 
     public function check(Request $request)
     {
-        $small_check = Small_group::where('Main_group',$request->Main_group)->select('Main_group')->distinct()->AddSelect('Small_group')->get();
+        $small_check = Small_group::where('Main_group', $request->Main_group)->select('Main_group')->distinct()->AddSelect('Small_group')->get();
         //return view('Product.create', compact('small_check'));
         return response()->json(['msg' => $small_check]);
     }
@@ -65,25 +65,32 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'Product_ID1'        => 'required',
-            'Product_ID2'        => 'required',
-            'Product_name'       => 'required',
-            'unit'               => 'required'
-        ]);
+        $check = product_main::where('Product_name', $request->Product_name)->get()->toArray();
+        if (empty($check)) {
+            $this->validate($request, [
+                'Product_ID1'        => 'required',
+                'Product_ID2'        => 'required',
+                'Product_name'       => 'required',
+                'unit'               => 'required'
+            ]);
+        } else {
+            //dd(123);
+            return redirect()->route('Product.create');
+        }
 
         //------ KEY ------------//
 
 
-        $product = product_main::all()->toArray();
-        $ID = product_main::select('Product_ID')->distinct()->get();
+        $product = Small_group::where('Main_group', $request->Product_ID1)->get()->toArray();
+        $ID = Small_group::where('Main_group', $request->Product_ID1)->select('key')->distinct()->get();
         foreach ($ID as $row) {
-            $product_id = $row['Product_ID'];
+            $product_id = $row['key'];
         }
+        //dd($product_id);
         if (empty($product)) {
             $key = "0001";
         } else {
-            $number = intval(explode('-', $product_id)[2]);
+            $number = intval($product_id);
             $number++;
             if ($number < 10) {
                 $key_num = strval($number);
@@ -99,28 +106,25 @@ class ProductController extends Controller
                 $key = "$key_num";
             }
         }
+        //dd($key);
 
         // ------------------- //
-        $main_check = Main_group::where('Main_group',$request->Product_ID1)->get()->toArray();
-        if(empty($main_check)){
-            $main_group = new Main_group(
-                [
-                    'Main_group'        => $request->Product_ID1
-                ]
-            );
-            $main_group->save();
-        }
-        $small_check = Small_group::where('Main_group',$request->Product_ID1)->where('Small_group',$request->Product_ID2)->get()->toArray();
-        
-        if(empty($small_check)){
-            $small_group = new Small_group(
-                [
-                    'Main_group'        => $request->Product_ID1,
-                    'Small_group'       => $request->Product_ID2
-                ]
-            );
-            $small_group->save();
-        }
+        $main_group = new Main_group(
+            [
+                'Main_group'        => $request->Product_ID1,
+                'Product_name'      => $request->Product_name
+            ]
+        );
+        $main_group->save();
+        $small_group = new Small_group(
+            [
+                'Main_group'        => $request->Product_ID1,
+                'Small_group'       => $request->Product_ID2,
+                'key'               => $key,
+                'Product_name'      => $request->Product_name
+            ]
+        );
+        $small_group->save();
         $product_id = $request->Product_ID1 . '-' . $request->Product_ID2 . '-' . $key;
         $product = new product_main(
             [

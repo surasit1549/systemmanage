@@ -17,6 +17,8 @@ class CreateSmallGroupsTable extends Migration
             $table->bigIncrements('id');
             $table->string('Main_group');
             $table->string('Small_group');
+            $table->string('key');
+            $table->string('Product_name');
             $table->timestamps();
         });
     }
