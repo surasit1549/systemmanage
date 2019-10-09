@@ -15,6 +15,8 @@ class CreateSmallGroupsTable extends Migration
     {
         Schema::create('small_groups', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('Main_group');
+            $table->string('Small_group');
             $table->timestamps();
         });
     }

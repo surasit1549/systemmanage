@@ -49,6 +49,7 @@
         },
         success: function(data) {
           price.val(data.msg);
+          console.log(data.msg);
           var perprice = parseInt(point.parent().find('.productnumber').text()) * price.val();
           point.next().next().children('input').val(perprice.toFixed(2));
           sumofeachprice();

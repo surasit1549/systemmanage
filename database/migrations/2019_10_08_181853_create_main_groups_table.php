@@ -15,6 +15,7 @@ class CreateMainGroupsTable extends Migration
     {
         Schema::create('main_groups', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('Main_group');
             $table->timestamps();
         });
     }

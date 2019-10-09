@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\product_main;
 use App\log;
+use App\Main_group;
+use App\Small_group;
 use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
@@ -34,6 +36,7 @@ class ProductController extends Controller
         return view('Product.index', compact('products', 'num'));
     }
 
+
     /**
      * Show the form for creating a new resource.
      *
@@ -41,8 +44,17 @@ class ProductController extends Controller
      */
     public function create()
     {
+        $small_check = Small_group::select('Main_group')->distinct()->get();
+        $small_group = Small_group::select('Small_group')->distinct()->get();
+        //dd($small_group);
+        return view('Product.create', compact('small_check','small_group'));
+    }
 
-        return view('Product.create');
+    public function check(Request $request)
+    {
+        $small_check = Small_group::where('Main_group',$request->Main_group)->select('Main_group')->distinct()->AddSelect('Small_group')->get();
+        //return view('Product.create', compact('small_check'));
+        return response()->json(['msg' => $small_check]);
     }
 
     /**
@@ -62,6 +74,7 @@ class ProductController extends Controller
 
         //------ KEY ------------//
 
+
         $product = product_main::all()->toArray();
         $ID = product_main::select('Product_ID')->distinct()->get();
         foreach ($ID as $row) {
@@ -70,7 +83,7 @@ class ProductController extends Controller
         if (empty($product)) {
             $key = "0001";
         } else {
-            $number = intval(explode('-',$product_id)[2]);
+            $number = intval(explode('-', $product_id)[2]);
             $number++;
             if ($number < 10) {
                 $key_num = strval($number);
@@ -88,6 +101,26 @@ class ProductController extends Controller
         }
 
         // ------------------- //
+        $main_check = Main_group::where('Main_group',$request->Product_ID1)->get()->toArray();
+        if(empty($main_check)){
+            $main_group = new Main_group(
+                [
+                    'Main_group'        => $request->Product_ID1
+                ]
+            );
+            $main_group->save();
+        }
+        $small_check = Small_group::where('Main_group',$request->Product_ID1)->where('Small_group',$request->Product_ID2)->get()->toArray();
+        
+        if(empty($small_check)){
+            $small_group = new Small_group(
+                [
+                    'Main_group'        => $request->Product_ID1,
+                    'Small_group'       => $request->Product_ID2
+                ]
+            );
+            $small_group->save();
+        }
         $product_id = $request->Product_ID1 . '-' . $request->Product_ID2 . '-' . $key;
         $product = new product_main(
             [
@@ -96,7 +129,6 @@ class ProductController extends Controller
                 'unit'              => $request->get('unit')
             ]
         );
-
         $product->save();
         $data = [
             'Product_ID' => $request->Product_ID,
@@ -157,8 +189,8 @@ class ProductController extends Controller
             'Product_name'    => $request->get('Product_name'),
             'unit'            => $request->get('unit')
         ];
-        $product->update($input);
-        $this->insertlog('UPDATE', 'product_mains', $input);
+        //$product->update($input);
+        //$this->insertlog('UPDATE', 'product_mains', $input);
         return redirect()->route('Product.index')->with('success', 'อัพเดทข้อมูลเรียบร้อยแล้ว');
     }
 
