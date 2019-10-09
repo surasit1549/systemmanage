@@ -45,9 +45,6 @@
           <input class="col-md-3 form-control small_list" list="list_small" id="product2" type="text" name="Product_ID2" maxlength="3" placeholder="หมู่ย่อย">
           <datalist id="list_small" class="check_small" >
             
-            @foreach($small_group as $row)
-            <option value="{{$row['Small_group']}}">
-              @endforeach
           </datalist>
         </div>
         <label for="" class="invalid-feedback">
@@ -119,11 +116,12 @@
           data = data.msg;
           var infor = [];
           for (i = 0; i < data['length']; i++) {
-            infor = data[i]['Main_group'];
+            infor = data[i]['Small_group'];
+          $('#list_small').append('<option value="'+ infor + '">');
           }
-          check(infor);
-          $('.small_list').val(infor);
-          //console.log(infor);
+          //check(infor);
+          //$('.small_list').val(infor);
+          console.log(infor);
         }
       });
     });
