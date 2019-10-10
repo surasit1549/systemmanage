@@ -16,15 +16,7 @@
 <script>
   $(document).ready(function() {
 
-    $('#checkmenu').click();
-
-    $('[data-toggle=tooltip]').tooltip();
-
-    $('.test').click(function() {
-      $(this).next('form').submit();
-    });
-
-    $('#thisone').DataTable({
+    var table = $('#thisone').DataTable({
       "oLanguage": {
         "sSearch": 'ค้นหา',
         'sLengthMenu': 'แสดง <select class="custom-select custom-select-sm">' +
@@ -44,6 +36,51 @@
       }
     });
 
+    $('.chosen_main').chosen({
+      width: "95%",
+      no_results_text: "ไม่พบหมวดหมู่หลัก",
+      placeholder_text_single: 'เลือกหมวดหมู่หลัก'
+    });
+
+    $('.chosen_main').change(function() {
+      var regx = $(this).val() + '-...-....';
+            console.log(regx);
+      table.column(0).search(regx, true, false).draw();
+      var pr = $(this).parent().next();
+      $.ajax({
+        type: 'post',
+        url: '/Product_Price/checkgroup',
+        data: {
+          _token: '{{csrf_token()}}',
+          group_main: $(this).val()
+        },
+        success: function(data) {
+          var html = '<option></option>';
+          data.msg.forEach(function(item, index, arr) {
+            html += '<option value="'+item.Small_group+'">' + item.Small_group + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NAME</option>';
+          });
+          pr.html('<select class="chosen_sub">' + html + '</select>');
+          $('.chosen_sub').chosen({
+            'width': '95%',
+            no_results_text: "ไม่พบหมวดหมู่ย่อย",
+            placeholder_text_single: 'เลือกหมวดหมู่ย่อย'
+          });
+          $('.chosen_sub').change(function() {
+            regx = $('.chosen_main').val() +'-' + $(this).val() + '-....';
+            table.column(0).search(regx, true, false).draw();
+          });
+        }
+      })
+    });
+
+    $('#checkmenu').click();
+
+    $('[data-toggle=tooltip]').tooltip();
+
+    $('.test').click(function() {
+      $(this).next('form').submit();
+    });
+
   });
 </script>
 <div class="row mb-2">
@@ -56,6 +93,18 @@
     <h3><i class="far fa-file-alt"></i>&nbsp;&nbsp;ข้อมูลใบขอสั่งซื้อ</h3>
   </div>
   <div class="card-body">
+    <div id="catalog" class="row">
+      <div class="form-group col-md-6">
+        <select class="chosen_main">
+          <option value=""></option>
+          @foreach( $group_main as $gm )
+          <option value="{{$gm->Main_group}}">{{$gm->Main_group}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NAME</option>
+          @endforeach
+        </select>
+      </div>
+      <div class="form-group col-md-6">
+      </div>
+    </div>
     <table id="thisone" class="table table-hover table-bordered">
       <thead class="text-center">
         <tr>
