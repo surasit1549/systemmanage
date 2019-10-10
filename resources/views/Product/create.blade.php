@@ -33,19 +33,22 @@
         </label>
       </div>
       @else
-      <div class="form-group">
+      <div class="form-group border p-2">
         <label for="">รหัสสินค้า</label><br>
         <div class="row col-md-12 text-center">
-          <input class="col-md-3 form-control select_small" list="list" id="product1" type="text" name="Product_ID1" maxlength="3" placeholder="หมู่หลัก">&nbsp;&nbsp;<span class="col-form-label">-</span>&nbsp;&nbsp;
-          <datalist id="list">
-            @foreach($small_check as $row)
-            <option value="{{$row['Main_group']}}">
-              @endforeach
-          </datalist>
-          <input class="col-md-3 form-control small_list" list="list_small" id="product2" type="text" name="Product_ID2" maxlength="3" placeholder="หมู่ย่อย">
-          <datalist id="list_small" class="check_small" >
-            
-          </datalist>
+          <div class="form-group col-md-6">
+            <input class="form-control select_small" list="list" id="product1" type="text" name="Product_ID1" maxlength="3" placeholder="หมู่หลัก" autocomplete="off">
+            <datalist id="list">
+              @foreach($small_check as $row)
+              <option value="{{$row['Main_group']}}">
+                @endforeach
+            </datalist>
+          </div>
+          <div class="form-group col-md-6">
+            <input class="form-control small_list" list="list_small" id="product2" type="text" name="Product_ID2" maxlength="3" placeholder="หมู่ย่อย" autocomplete="off">
+            <datalist id="list_small" class="check_small">
+            </datalist>
+          </div>
         </div>
         <label for="" class="invalid-feedback">
           กรอกชื่อรหัสสินค้า
@@ -97,7 +100,7 @@
 
 
 
-    function check(id){
+    function check(id) {
       console.log(id);
     }
 
@@ -117,7 +120,7 @@
           var infor = [];
           for (i = 0; i < data['length']; i++) {
             infor = data[i]['Small_group'];
-          $('#list_small').append('<option value="'+ infor + '">');
+            $('#list_small').append('<option value="' + infor + '">');
           }
           //check(infor);
           //$('.small_list').val(infor);

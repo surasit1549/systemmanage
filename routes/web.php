@@ -24,6 +24,7 @@ Route::group(['middleware' => ['123','checkAction','checkstatus']], function () 
     Route::post('upload_img','uploadController@store');
     Route::post('/prequest/getprice','PuchaserequestController@getprice');
     Route::post('/Product/check','ProductController@check');
+    Route::post('/Product_Price/checkgroup', 'ProductPriceController@check_subgroup');
     //Route ::resource('store','FillinformationController');
     //Route ::resource('fillinformation','StoreController');
     Route::post('/Product/checkpasscode', 'checkpasscodeController@checkcode');

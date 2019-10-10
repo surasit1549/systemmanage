@@ -8,6 +8,8 @@ use App\product_main;
 use App\product_Price;
 use Illuminate\Support\Facades\Auth;
 use App\log;
+use App\Small_group;
+use App\Main_group;
 
 class ProductPriceController extends Controller
 {
@@ -154,6 +156,13 @@ class ProductPriceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+     public function check_subgroup(Request $request){
+         $small = Small_group::where('Main_group',$request->group_main)->get();
+         return response()->json(['msg' => $small]);
+     }
+
+
     public function show($id)
     {
         $number = 1;
@@ -162,7 +171,8 @@ class ProductPriceController extends Controller
             ->join('product_mains', 'Product__Prices.Product', 'product_mains.Product_ID')
             ->get()->toArray();
         //dd($data);
-        return view('Product_Price.show', compact('number', 'data', 'id'));
+        $group_main = Main_group::all();
+        return view('Product_Price.show', compact('number', 'data', 'id','group_main'));
     }
 
 

@@ -20,7 +20,7 @@
           <select name="store_name" id="store">
             <option value=""></option>
             @foreach($store as $row)
-            <option value="{{$row['name']}}">{{$row['name']}}</option>
+            <option value="{{$row['name']}}">{{$row['keystore']}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$row['name']}}</option>
             @endforeach
           </select>
           <label for="" class="invalid-feedback">
@@ -106,7 +106,7 @@
         width: "95%"
       });
       $(".delete").click(function() {
-          $(this).parents("tr").remove();
+        $(this).parents("tr").remove();
       });
     });
   })

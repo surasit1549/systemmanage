@@ -15,14 +15,19 @@
 
     $('#main_table').DataTable({
 
-      'order' : [
-        [1,'desc']
+      'order': [
+        [1, 'desc']
       ],
 
       'columnDefs': [{
-        'orderable': false,
-        'targets': 6
-      }],
+          'orderable': false,
+          'targets': 6
+        },
+        {
+          'type': 'date-dd-MMM-yyyy',
+          'targets' : 1
+        }
+      ],
       "oLanguage": {
         "sSearch": 'ค้นหา',
         "sInfo": 'ใบสั่งซื้อทั้งหมด _TOTAL_ รายการ',
