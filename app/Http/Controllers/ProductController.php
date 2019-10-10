@@ -44,15 +44,16 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $small_check = Small_group::select('Main_group')->distinct()->get();
-        $small_group = Small_group::select('Small_group')->distinct()->get();
-        //dd($small_group);
-        return view('Product.create', compact('small_check', 'small_group'));
+        $small_check = Small_group::select('Main_group')->distinct()->addSelect('Small_name')->get();
+        $main_group = Main_group::get();
+        //dd($main_group);
+        return view('Product.create', compact('small_check', 'main_group'));
     }
 
     public function check(Request $request)
     {
-        $small_check = Small_group::where('Main_group', $request->Main_group)->select('Main_group')->distinct()->AddSelect('Small_group')->get();
+        $small_check = Small_group::where('Main_group', $request->Main_group)->get();
+        
         //return view('Product.create', compact('small_check'));
         return response()->json(['msg' => $small_check]);
     }
@@ -81,8 +82,8 @@ class ProductController extends Controller
         //------ KEY ------------//
 
 
-        $product = Small_group::where('Main_group', $request->Product_ID1)->get()->toArray();
-        $ID = Small_group::where('Main_group', $request->Product_ID1)->select('key')->distinct()->get();
+        $product = product_main::where('Main_group', $request->Product_ID1)->get()->toArray();
+        $ID = product_main::where('Main_group', $request->Product_ID1)->select('key')->distinct()->get();
         foreach ($ID as $row) {
             $product_id = $row['key'];
         }
@@ -109,35 +110,24 @@ class ProductController extends Controller
         //dd($key);
 
         // ------------------- //
-        $main_group = new Main_group(
-            [
-                'Main_group'        => $request->Product_ID1,
-                'Product_name'      => $request->Product_name
-            ]
-        );
-        $main_group->save();
-        $small_group = new Small_group(
-            [
-                'Main_group'        => $request->Product_ID1,
-                'Small_group'       => $request->Product_ID2,
-                'key'               => $key,
-                'Product_name'      => $request->Product_name
-            ]
-        );
-        $small_group->save();
         $product_id = $request->Product_ID1 . '-' . $request->Product_ID2 . '-' . $key;
         $product = new product_main(
             [
                 'Product_ID'        => $product_id,
                 'Product_name'      => $request->get('Product_name'),
-                'unit'              => $request->get('unit')
+                'unit'              => $request->get('unit'),
+                'Main_group'        => $request->Product_ID1,
+                'key'               => $key
+
             ]
         );
         $product->save();
         $data = [
-            'Product_ID' => $request->Product_ID,
-            'Product_name' => $request->Product_name,
-            'unit' => $request->unit
+            'Product_ID'        => $request->Product_ID,
+            'Product_name'      => $request->Product_name,
+            'unit'              => $request->unit,
+            'Main_group'        => $request->Product_ID1,
+            'key'               => $key
         ];
         $this->insertlog('CREATE', 'product_mains', $data);
         return redirect()->route('Product.index')->with('success', 'เพิ่มข้อมูลเรียบร้อยแล้ว');

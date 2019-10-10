@@ -9,6 +9,8 @@ class product_main extends Model
     protected $fillable=[
         'Product_ID',
         'Product_name',
-        'unit'
+        'unit',
+        'Main_group',
+        'key'
     ];
 }

@@ -18,6 +18,8 @@ class CreateProductMainsTable extends Migration
             $table->string('Product_ID');
             $table->string('Product_name');
             $table->string('unit');
+            $table->string('Main_group');
+            $table->string('key');
             $table->timestamps();
         });
     }

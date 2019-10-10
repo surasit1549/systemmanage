@@ -9,7 +9,7 @@ class Small_group extends Model
     protected $fillable = [
         'Main_group',
         'Small_group',
-        'key',
-        'Product_name'
+        'Small_name',
+        'Main_name'
     ];
 }
