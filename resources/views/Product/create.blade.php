@@ -25,6 +25,7 @@
         <label for="">รหัสสินค้า</label><br>
         <div class="row col-md-12 text-center">
           <select class="custom-select select_small" name="Product_ID1">
+            <option >เลือก... </option>
             @foreach($main_group as $row)
             <option value="{{$row['Main_group']}}">{{$row['Main_group']}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$row['Main_name']}}</option>
             @endforeach
@@ -63,26 +64,9 @@
 <script>
   $(document).ready(function() {
 
-    $('#product1').focus();
-
-    $('#product1').keyup(function() {
-      if ($(this).val().length == 3) {
-        $('#product2').focus();
-      }
-    });
-
-    $('#product2').keyup(function() {
-      if ($(this).val().length == 3) {
-        $('.p_name').focus();
-      }
-    });
-
-    $('#checkmenu').click();
-
     $('.select_small').chosen({
-      width: "95%"
-    });
-    $('.list_small').chosen({
+      no_results_text: 'ไม่พบรายการ',
+      placeholder_text_single: 'เลือกหมู่ย่อย',
       width: "95%"
     });
 
@@ -105,12 +89,15 @@
           for (i = 0; i < data['length']; i++) {
             infor1 = data[i]['Small_group'];
             infor2 = data[i]['Small_name'];
-            $('#list_small').append('<option value="' + infor1 + '">' + infor1 + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + infor2 + '</option>');
+            var newoption = '<option value="' + infor1 + '">' + infor1 + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + infor2 + '</option>';
+            $('.small').append(newoption);
+            console.log(infor2);
           }
-
-          //check(infor);
-          //$('.small_list').val(infor);
-          console.log(infor2);
+            $('.small').chosen({
+              no_results_text: 'ไม่พบรายการ',
+              placeholder_text_single: 'เลือกหมู่ย่อย',
+              width: "95%"
+            });
         }
       });
     });
