@@ -57,7 +57,7 @@
         success: function(data) {
           var html = '<option></option>';
           data.msg.forEach(function(item, index, arr) {
-            html += '<option value="'+item.Small_group+'">' + item.Small_group + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NAME</option>';
+            html += '<option value="'+item.Small_group+'">' + item.Small_group + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+item.Small_name+'</option>';
           });
           pr.html('<select class="chosen_sub">' + html + '</select>');
           $('.chosen_sub').chosen({
@@ -98,7 +98,7 @@
         <select class="chosen_main">
           <option value=""></option>
           @foreach( $group_main as $gm )
-          <option value="{{$gm->Main_group}}">{{$gm->Main_group}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NAME</option>
+          <option value="{{$gm->Main_group}}">{{$gm->Main_group}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$gm->Main_name}}</option>
           @endforeach
         </select>
       </div>
